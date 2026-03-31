@@ -47,3 +47,21 @@ body {
   white-space: nowrap;
   border-width: 0;
 }
+
+#cy {
+  min-height: 70vh;
+  width: 100%;
+}
+
+#graph-tooltip {
+  position: fixed;
+  background-color: var(--color-bg-card);
+  color: var(--color-text);
+  border: 1px solid var(--color-text-muted);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  pointer-events: none;
+  z-index: 50;
+  max-width: 200px;
+}

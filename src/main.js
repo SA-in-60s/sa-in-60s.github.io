@@ -159,10 +159,12 @@ function updateProgressDisplays() {
     const total = parseInt(el.dataset.progressTotal, 10)
     const seen = conceptIds.filter((id) => progress.includes(id)).length
     el.textContent = `${seen}/${total}`
+    el.setAttribute('aria-valuenow', seen.toString())
   })
   const totalEl = document.getElementById('total-progress')
   if (totalEl) {
     totalEl.textContent = `${progress.length}/${parseInt(totalEl.dataset.progressTotal, 10)}`
+    totalEl.setAttribute('aria-valuenow', progress.length.toString())
   }
   document.querySelectorAll('[data-concept-seen]').forEach((el) => {
     el.textContent = progress.includes(el.dataset.conceptSeen) ? '✓' : '○'
@@ -173,4 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initI18n()
   initProgress()
   initVideoSwitch()
+  if (document.getElementById('cy')) {
+    import('./graph.js').then((m) => m.initGraph())
+  }
 })

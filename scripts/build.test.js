@@ -4,6 +4,8 @@ import {
   generateConceptPage,
   generatePathPage,
   generateIndexPage,
+  generateGraphPage,
+  buildGraphData,
   youtubeEmbed,
   escapeHtml,
   validateYoutubeUrl,
@@ -59,6 +61,9 @@ const translations = {
     concept_requires: 'Voraussetzungen',
     concept_leads_to: 'Führt zu',
     seen_button: 'Als gesehen markieren',
+    graph_title: 'Abhängigkeitsgraph',
+    graph_noscript: 'Für den interaktiven Graph bitte JavaScript aktivieren',
+    graph_filter_all: 'Alle',
   },
   en: {
     site_title: 'Software Architecture in 60 Seconds',
@@ -73,6 +78,9 @@ const translations = {
     concept_requires: 'Prerequisites',
     concept_leads_to: 'Leads to',
     seen_button: 'Mark as seen',
+    graph_title: 'Dependency Graph',
+    graph_noscript: 'Please enable JavaScript for the interactive graph',
+    graph_filter_all: 'All',
   },
 }
 
@@ -405,6 +413,97 @@ describe('UC-7: Build script — HTML generation', () => {
       const html = generateIndexPage(concepts, [samplePath], translations)
       expect(html).toContain('id="total-progress"')
       expect(html).toContain('data-progress-total=')
+    })
+  })
+
+  describe('generateGraphPage()', () => {
+    it('includes graph container', () => {
+      const html = generateGraphPage([], [samplePath], translations)
+      expect(html).toContain('id="cy"')
+    })
+
+    it('includes noscript fallback', () => {
+      const html = generateGraphPage([], [samplePath], translations)
+      expect(html).toContain('<noscript>')
+    })
+
+    it('includes path filter with all paths', () => {
+      const html = generateGraphPage([], [samplePath], translations)
+      expect(html).toContain('<select')
+      expect(html).toContain('data-de="Microservices"')
+    })
+
+    it('includes bilingual title', () => {
+      const html = generateGraphPage([], [samplePath], translations)
+      expect(html).toContain('data-de="Abhängigkeitsgraph"')
+      expect(html).toContain('data-en="Dependency Graph"')
+    })
+
+    it('includes canonical URL for /graph', () => {
+      const html = generateGraphPage([], [samplePath], translations)
+      expect(html).toContain('rel="canonical"')
+      expect(html).toContain('/graph')
+    })
+
+    it('includes tooltip container', () => {
+      const html = generateGraphPage([], [samplePath], translations)
+      expect(html).toContain('id="graph-tooltip"')
+    })
+
+    it('has valid HTML structure', () => {
+      const html = generateGraphPage([], [samplePath], translations)
+      expect(html).toContain('<!doctype html>')
+      expect(html).toContain('</html>')
+      expect(html).not.toContain('undefined')
+    })
+  })
+
+  describe('buildGraphData()', () => {
+    const concepts = [
+      {
+        id: 'monolith',
+        title_de: 'Monolith',
+        title_en: 'Monolith',
+        path: 'microservices',
+        path_position: 1,
+        requires: [],
+      },
+      {
+        id: 'microservices',
+        title_de: 'Microservices',
+        title_en: 'Microservices',
+        path: 'microservices',
+        path_position: 3,
+        requires: ['monolith', 'kopplung'],
+      },
+    ]
+
+    it('produces nodes with required fields', () => {
+      const data = buildGraphData(concepts, [samplePath])
+      expect(data.nodes).toHaveLength(2)
+      expect(data.nodes[0]).toEqual({
+        id: 'monolith',
+        title_de: 'Monolith',
+        title_en: 'Monolith',
+        path: 'microservices',
+      })
+    })
+
+    it('produces edges from requires arrays', () => {
+      const data = buildGraphData(concepts, [samplePath])
+      expect(data.edges).toHaveLength(2)
+      expect(data.edges).toContainEqual({ source: 'monolith', target: 'microservices' })
+      expect(data.edges).toContainEqual({ source: 'kopplung', target: 'microservices' })
+    })
+
+    it('includes path colors', () => {
+      const data = buildGraphData(concepts, [samplePath])
+      expect(data.paths).toContainEqual({
+        id: 'microservices',
+        name_de: 'Microservices',
+        name_en: 'Microservices',
+        color: '#6495ED',
+      })
     })
   })
 })
