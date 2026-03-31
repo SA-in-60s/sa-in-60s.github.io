@@ -243,7 +243,7 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
   })
 }
 
-export function generatePathPage(path, allConcepts, translations) {
+export function generatePathPage(path, allConcepts, translations, stemConceptIds = []) {
   const t = translations.de
   const pathConcepts = path.concepts
     .map((id) => allConcepts.find((c) => c.id === id))
@@ -270,7 +270,7 @@ export function generatePathPage(path, allConcepts, translations) {
       <p class="text-text-muted" data-de="${escapeHtml(path.description_de)}" data-en="${escapeHtml(path.description_en)}">${escapeHtml(path.description_de)}</p>
       <p class="text-sm text-text-muted mt-1"><span data-progress-path="${escapeHtml(path.id)}" data-progress-concepts='${JSON.stringify(path.concepts)}' data-progress-total="${path.concepts.length}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${path.concepts.length}">0/${path.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
     </div>
-    <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm"></div>
+    <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm" data-stem-ids='${JSON.stringify(stemConceptIds)}' data-stem-total="${stemConceptIds.length}" data-de="${escapeHtml(t.stem_incomplete_hint)}" data-en="${escapeHtml(translations.en.stem_incomplete_hint)}"></div>
     <ol class="grid md:grid-cols-2 gap-2">
       ${conceptListHtml}
     </ol>`
@@ -366,7 +366,12 @@ export function buildGraphData(allConcepts, allPaths) {
   }
 }
 
-export function generateGraphPage(allConcepts, allPaths, translations, graphDataUrl = '/data/graph-data.json') {
+export function generateGraphPage(
+  allConcepts,
+  allPaths,
+  translations,
+  graphDataUrl = '/data/graph-data.json'
+) {
   const t = translations.de
   const tEn = translations.en
 
@@ -439,8 +444,9 @@ if (process.argv[1] === __filename) {
     // Generate path pages
     const pathDir = resolve(publicDir, 'path')
     mkdirSync(pathDir, { recursive: true })
+    const stemIds = concepts.filter((c) => c.path === 'stem').map((c) => c.id)
     for (const path of paths) {
-      const html = generatePathPage(path, concepts, translations)
+      const html = generatePathPage(path, concepts, translations, stemIds)
       writeFileSync(resolve(pathDir, `${path.id}.html`), html)
     }
     console.warn(`Generated ${paths.length} path pages`)

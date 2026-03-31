@@ -199,6 +199,22 @@ function updateProgressDisplays() {
   document.querySelectorAll('[data-concept-seen]').forEach((el) => {
     el.textContent = progress.includes(el.dataset.conceptSeen) ? '✓' : '○'
   })
+
+  // Stem hint on path pages
+  const stemHint = document.getElementById('stem-hint')
+  if (stemHint) {
+    const stemIds = JSON.parse(stemHint.dataset.stemIds || '[]')
+    const stemTotal = parseInt(stemHint.dataset.stemTotal, 10) || 0
+    const stemSeen = stemIds.filter((id) => progress.includes(id)).length
+    if (stemTotal > 0 && stemSeen < stemTotal) {
+      const lang = document.documentElement.lang || 'de'
+      const template = stemHint.dataset[lang] || stemHint.dataset.de || ''
+      stemHint.textContent = template.replace('{seen}', stemSeen).replace('{total}', stemTotal)
+      stemHint.classList.remove('hidden')
+    } else {
+      stemHint.classList.add('hidden')
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
