@@ -13,7 +13,9 @@
     "lint": "eslint src/ scripts/",
     "lint:fix": "eslint src/ scripts/ --fix",
     "format:check": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "import:scripts": "node scripts/import-scripts.js",
+    "import:youtube": "node scripts/import-youtube-urls.js"
   },
   "repository": {
     "type": "git",
