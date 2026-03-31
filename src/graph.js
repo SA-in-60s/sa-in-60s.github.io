@@ -95,23 +95,13 @@ export async function initGraph() {
         style: { opacity: 0.8 },
       },
     ],
-    layout: { name: 'preset' },
+    layout: { name: 'random', padding: 30 },
     minZoom: 0.3,
     maxZoom: 3,
     wheelSensitivity: 0.3,
   })
 
-  // Run initial layout
-  cy.layout({
-    name: 'cose',
-    animate: false,
-    nodeRepulsion: () => 12000,
-    gravity: 0.4,
-    idealEdgeLength: () => 60,
-    padding: 30,
-  }).run()
-
-  // Dynamic force simulation: spring physics on all edges while dragging
+  // Dynamic force simulation: spring physics on all edges
   const SPRING_LENGTH = 80
   const SPRING_STRENGTH = 0.04
   const REPULSION = 2000
@@ -215,6 +205,9 @@ export async function initGraph() {
       stopSimulation()
     }
   }
+
+  // Start simulation immediately — graph assembles itself on load
+  startSimulation()
 
   cy.on('grab', 'node', () => {
     startSimulation()
