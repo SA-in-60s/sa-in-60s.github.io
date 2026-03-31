@@ -111,37 +111,117 @@ export async function initGraph() {
     padding: 30,
   }).run()
 
-  // Dynamic force: when dragging a node, pull connected neighbors along
-  let dragTarget = null
+  // Dynamic force simulation: spring physics on all edges while dragging
+  const SPRING_LENGTH = 80
+  const SPRING_STRENGTH = 0.04
+  const REPULSION = 2000
+  const DAMPING = 0.85
+  const CENTER_GRAVITY = 0.002
 
-  cy.on('grab', 'node', (evt) => {
-    dragTarget = evt.target
-  })
+  let simulating = false
+  const velocities = new Map()
 
-  cy.on('drag', 'node', (evt) => {
-    if (!dragTarget) return
-    const node = evt.target
-    const pos = node.position()
-    const neighbors = node.neighborhood('node')
+  function startSimulation() {
+    if (simulating) return
+    simulating = true
+    cy.nodes().forEach((n) => velocities.set(n.id(), { vx: 0, vy: 0 }))
+    simulationLoop()
+  }
 
-    neighbors.forEach((neighbor) => {
-      if (neighbor.grabbed()) return
-      const npos = neighbor.position()
-      const dx = pos.x - npos.x
-      const dy = pos.y - npos.y
-      const dist = Math.sqrt(dx * dx + dy * dy)
-      if (dist < 1) return
-      // Pull factor: closer neighbors follow more strongly
-      const pull = 0.08
-      neighbor.position({
-        x: npos.x + dx * pull,
-        y: npos.y + dy * pull,
-      })
+  function stopSimulation() {
+    simulating = false
+    velocities.clear()
+  }
+
+  function simulationLoop() {
+    if (!simulating) return
+
+    const nodes = cy.nodes()
+    const edges = cy.edges()
+    const forces = new Map()
+    nodes.forEach((n) => forces.set(n.id(), { fx: 0, fy: 0 }))
+
+    // Center of graph for gravity
+    const bb = cy.extent()
+    const cx = (bb.x1 + bb.x2) / 2
+    const cy2 = (bb.y1 + bb.y2) / 2
+
+    // Spring forces along edges
+    edges.forEach((e) => {
+      const src = e.source()
+      const tgt = e.target()
+      const sp = src.position()
+      const tp = tgt.position()
+      const dx = tp.x - sp.x
+      const dy = tp.y - sp.y
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1
+      const force = (dist - SPRING_LENGTH) * SPRING_STRENGTH
+      const fx = (dx / dist) * force
+      const fy = (dy / dist) * force
+      const sf = forces.get(src.id())
+      const tf = forces.get(tgt.id())
+      sf.fx += fx
+      sf.fy += fy
+      tf.fx -= fx
+      tf.fy -= fy
     })
+
+    // Node repulsion (only nearby nodes for performance)
+    const nodeArr = nodes.toArray()
+    for (let i = 0; i < nodeArr.length; i++) {
+      for (let j = i + 1; j < nodeArr.length; j++) {
+        const a = nodeArr[i]
+        const b = nodeArr[j]
+        const ap = a.position()
+        const bp = b.position()
+        const dx = bp.x - ap.x
+        const dy = bp.y - ap.y
+        const distSq = dx * dx + dy * dy || 1
+        if (distSq > 40000) continue // skip if far apart
+        const dist = Math.sqrt(distSq)
+        const force = REPULSION / distSq
+        const fx = (dx / dist) * force
+        const fy = (dy / dist) * force
+        const af = forces.get(a.id())
+        const bf = forces.get(b.id())
+        af.fx -= fx
+        af.fy -= fy
+        bf.fx += fx
+        bf.fy += fy
+      }
+    }
+
+    // Apply forces + gravity + damping
+    let totalMovement = 0
+    nodes.forEach((n) => {
+      if (n.grabbed()) return
+      const f = forces.get(n.id())
+      const v = velocities.get(n.id()) || { vx: 0, vy: 0 }
+      const pos = n.position()
+      // Gravity toward center
+      f.fx += (cx - pos.x) * CENTER_GRAVITY
+      f.fy += (cy2 - pos.y) * CENTER_GRAVITY
+      v.vx = (v.vx + f.fx) * DAMPING
+      v.vy = (v.vy + f.fy) * DAMPING
+      totalMovement += Math.abs(v.vx) + Math.abs(v.vy)
+      n.position({ x: pos.x + v.vx, y: pos.y + v.vy })
+      velocities.set(n.id(), v)
+    })
+
+    // Stop when settled (low movement) or keep going while dragging
+    if (totalMovement > 0.5 || cy.nodes(':grabbed').length > 0) {
+      requestAnimationFrame(simulationLoop)
+    } else {
+      stopSimulation()
+    }
+  }
+
+  cy.on('grab', 'node', () => {
+    startSimulation()
   })
 
   cy.on('free', 'node', () => {
-    dragTarget = null
+    // Let simulation settle after release
   })
 
   // Prevent tap-to-navigate when dragging
