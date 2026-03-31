@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontend-Architektur — Software Architektur in 60 Sekunden</title>
+  <meta name="description" content="Frontend-Entwickler die skalierbare UIs bauen wollen" />
+  <meta property="og:title" content="Frontend-Architektur — Software Architektur in 60 Sekunden" />
+  <meta property="og:description" content="Frontend-Entwickler die skalierbare UIs bauen wollen" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/assets/main.css" />
+</head>
+<body class="min-h-screen bg-bg text-text">
+  <nav class="p-4 flex justify-between items-center max-w-5xl mx-auto">
+    <a href="/" class="text-accent-cyan font-bold" data-de="Start" data-en="Home">Start</a>
+    <div class="flex gap-4 items-center">
+      <a href="/graph" class="text-text-muted hover:text-text" data-de="Graph" data-en="Graph">Graph</a>
+      <button id="lang-toggle" class="px-2 py-1 border border-text-muted rounded text-sm" data-de="EN" data-en="DE">EN</button>
+    </div>
+  </nav>
+  <main class="max-w-5xl mx-auto px-4 pb-16">
+    
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-2" style="border-left: 4px solid #6495ED; padding-left: 0.75rem;" data-de="Frontend-Architektur" data-en="Frontend Architecture">Frontend-Architektur</h1>
+      <p class="text-text-muted" data-de="Frontend-Entwickler die skalierbare UIs bauen wollen" data-en="Frontend developers building scalable UIs">Frontend-Entwickler die skalierbare UIs bauen wollen</p>
+      <p class="text-sm text-text-muted mt-1">10 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+    </div>
+    <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm"></div>
+    <ol class="space-y-2">
+      
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/component-architecture" class="text-accent-blue hover:underline font-medium" data-de="Component Architecture" data-en="Component Architecture">Component Architecture</a>
+        <span class="text-xs text-text-muted ml-2">← komponente</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/state-management" class="text-accent-blue hover:underline font-medium" data-de="State Management" data-en="State Management">State Management</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/module-federation" class="text-accent-blue hover:underline font-medium" data-de="Module Federation" data-en="Module Federation">Module Federation</a>
+        <span class="text-xs text-text-muted ml-2">← modul</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/micro-frontends" class="text-accent-blue hover:underline font-medium" data-de="Micro Frontends" data-en="Micro Frontends">Micro Frontends</a>
+        <span class="text-xs text-text-muted ml-2">← microservices</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/island-architecture" class="text-accent-blue hover:underline font-medium" data-de="Island Architecture" data-en="Island Architecture">Island Architecture</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/ssr-ssg-csr" class="text-accent-blue hover:underline font-medium" data-de="SSR / SSG / CSR" data-en="SSR / SSG / CSR">SSR / SSG / CSR</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/design-system" class="text-accent-blue hover:underline font-medium" data-de="Design System" data-en="Design System">Design System</a>
+        <span class="text-xs text-text-muted ml-2">← komponente</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/monorepo" class="text-accent-blue hover:underline font-medium" data-de="Monorepo" data-en="Monorepo">Monorepo</a>
+        <span class="text-xs text-text-muted ml-2">← modul</span>
+      </li>
+    </ol>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

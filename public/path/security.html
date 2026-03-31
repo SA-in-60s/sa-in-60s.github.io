@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Architecture — Software Architektur in 60 Sekunden</title>
+  <meta name="description" content="Alle — Security wird immer verlangt, selten verstanden" />
+  <meta property="og:title" content="Security Architecture — Software Architektur in 60 Sekunden" />
+  <meta property="og:description" content="Alle — Security wird immer verlangt, selten verstanden" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/assets/main.css" />
+</head>
+<body class="min-h-screen bg-bg text-text">
+  <nav class="p-4 flex justify-between items-center max-w-5xl mx-auto">
+    <a href="/" class="text-accent-cyan font-bold" data-de="Start" data-en="Home">Start</a>
+    <div class="flex gap-4 items-center">
+      <a href="/graph" class="text-text-muted hover:text-text" data-de="Graph" data-en="Graph">Graph</a>
+      <button id="lang-toggle" class="px-2 py-1 border border-text-muted rounded text-sm" data-de="EN" data-en="DE">EN</button>
+    </div>
+  </nav>
+  <main class="max-w-5xl mx-auto px-4 pb-16">
+    
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-2" style="border-left: 4px solid #A9A9A9; padding-left: 0.75rem;" data-de="Security Architecture" data-en="Security Architecture">Security Architecture</h1>
+      <p class="text-text-muted" data-de="Alle — Security wird immer verlangt, selten verstanden" data-en="Everyone — security is always required, rarely understood">Alle — Security wird immer verlangt, selten verstanden</p>
+      <p class="text-sm text-text-muted mt-1">11 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+    </div>
+    <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm"></div>
+    <ol class="space-y-2">
+      
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/security-architecture-pfad" class="text-accent-blue hover:underline font-medium" data-de="Security-Architecture-Pfad" data-en="Security Architecture Path">Security-Architecture-Pfad</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/threat-modeling" class="text-accent-blue hover:underline font-medium" data-de="Threat Modeling" data-en="Threat Modeling">Threat Modeling</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/defense-in-depth" class="text-accent-blue hover:underline font-medium" data-de="Defense in Depth" data-en="Defense in Depth">Defense in Depth</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/oauth-oidc" class="text-accent-blue hover:underline font-medium" data-de="OAuth 2.0 / OIDC" data-en="OAuth 2.0 / OIDC">OAuth 2.0 / OIDC</a>
+        <span class="text-xs text-text-muted ml-2">← authentifizierung-vs-autorisierung</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/zero-trust" class="text-accent-blue hover:underline font-medium" data-de="Zero Trust" data-en="Zero Trust">Zero Trust</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/secrets-management" class="text-accent-blue hover:underline font-medium" data-de="Secrets Management" data-en="Secrets Management">Secrets Management</a>
+        <span class="text-xs text-text-muted ml-2">← zero-trust</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/security-by-design" class="text-accent-blue hover:underline font-medium" data-de="Security by Design" data-en="Security by Design">Security by Design</a>
+        <span class="text-xs text-text-muted ml-2">← threat-modeling</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/owasp-top-10" class="text-accent-blue hover:underline font-medium" data-de="OWASP Top 10" data-en="OWASP Top 10">OWASP Top 10</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/supply-chain-security" class="text-accent-blue hover:underline font-medium" data-de="Supply Chain Security" data-en="Supply Chain Security">Supply Chain Security</a>
+        
+      </li>
+    </ol>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "sa-in-60s",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build.js && vite build",
+    "preview": "vite preview",
+    "validate": "node scripts/validate.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src/ scripts/",
+    "lint:fix": "eslint src/ scripts/ --fix",
+    "format:check": "prettier --check .",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SA-in-60s/sa-in-60s.github.io.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SA-in-60s/sa-in-60s.github.io/issues"
+  },
+  "homepage": "https://sa-in-60s.github.io",
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "eslint": "^10.1.0",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^4.2.2",
+    "vite": "^8.0.3",
+    "vitest": "^4.1.2"
+  }
+}

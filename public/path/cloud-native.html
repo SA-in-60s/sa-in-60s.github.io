@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud-Native — Software Architektur in 60 Sekunden</title>
+  <meta name="description" content="Entwickler die in die Cloud wollen" />
+  <meta property="og:title" content="Cloud-Native — Software Architektur in 60 Sekunden" />
+  <meta property="og:description" content="Entwickler die in die Cloud wollen" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/assets/main.css" />
+</head>
+<body class="min-h-screen bg-bg text-text">
+  <nav class="p-4 flex justify-between items-center max-w-5xl mx-auto">
+    <a href="/" class="text-accent-cyan font-bold" data-de="Start" data-en="Home">Start</a>
+    <div class="flex gap-4 items-center">
+      <a href="/graph" class="text-text-muted hover:text-text" data-de="Graph" data-en="Graph">Graph</a>
+      <button id="lang-toggle" class="px-2 py-1 border border-text-muted rounded text-sm" data-de="EN" data-en="DE">EN</button>
+    </div>
+  </nav>
+  <main class="max-w-5xl mx-auto px-4 pb-16">
+    
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-2" style="border-left: 4px solid #F4A460; padding-left: 0.75rem;" data-de="Cloud-Native" data-en="Cloud-Native">Cloud-Native</h1>
+      <p class="text-text-muted" data-de="Entwickler die in die Cloud wollen" data-en="Developers moving to the cloud">Entwickler die in die Cloud wollen</p>
+      <p class="text-sm text-text-muted mt-1">13 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+    </div>
+    <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm"></div>
+    <ol class="space-y-2">
+      
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/cloud-native-pfad" class="text-accent-blue hover:underline font-medium" data-de="Cloud-Native-Pfad" data-en="Cloud-Native Path">Cloud-Native-Pfad</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/cloud-native" class="text-accent-blue hover:underline font-medium" data-de="Cloud-Native" data-en="Cloud-Native">Cloud-Native</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/container" class="text-accent-blue hover:underline font-medium" data-de="Container" data-en="Container">Container</a>
+        <span class="text-xs text-text-muted ml-2">← dienst-service</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/immutable-infrastructure" class="text-accent-blue hover:underline font-medium" data-de="Immutable Infrastructure" data-en="Immutable Infrastructure">Immutable Infrastructure</a>
+        <span class="text-xs text-text-muted ml-2">← container</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/orchestrierung" class="text-accent-blue hover:underline font-medium" data-de="Orchestrierung" data-en="Orchestration">Orchestrierung</a>
+        <span class="text-xs text-text-muted ml-2">← container</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/infrastructure-as-code" class="text-accent-blue hover:underline font-medium" data-de="Infrastructure as Code" data-en="IaC">Infrastructure as Code</a>
+        <span class="text-xs text-text-muted ml-2">← container</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/ci-cd" class="text-accent-blue hover:underline font-medium" data-de="CI/CD" data-en="CI/CD">CI/CD</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/blue-green-deployment" class="text-accent-blue hover:underline font-medium" data-de="Blue-Green Deployment" data-en="Blue-Green Deployment">Blue-Green Deployment</a>
+        <span class="text-xs text-text-muted ml-2">← ci-cd</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/observability" class="text-accent-blue hover:underline font-medium" data-de="Observability" data-en="Observability">Observability</a>
+        <span class="text-xs text-text-muted ml-2">← cloud-native</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/slo-sli-sla" class="text-accent-blue hover:underline font-medium" data-de="Service Level Objectives" data-en="SLO/SLI/SLA">Service Level Objectives</a>
+        <span class="text-xs text-text-muted ml-2">← observability</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/gitops" class="text-accent-blue hover:underline font-medium" data-de="GitOps" data-en="GitOps">GitOps</a>
+        <span class="text-xs text-text-muted ml-2">← infrastructure-as-code, ci-cd</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/finops" class="text-accent-blue hover:underline font-medium" data-de="FinOps" data-en="FinOps">FinOps</a>
+        <span class="text-xs text-text-muted ml-2">← cloud-native</span>
+      </li>
+    </ol>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

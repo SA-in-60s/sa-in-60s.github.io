@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microservices — Software Architektur in 60 Sekunden</title>
+  <meta name="description" content="Entwickler die weg vom Monolith wollen" />
+  <meta property="og:title" content="Microservices — Software Architektur in 60 Sekunden" />
+  <meta property="og:description" content="Entwickler die weg vom Monolith wollen" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/assets/main.css" />
+</head>
+<body class="min-h-screen bg-bg text-text">
+  <nav class="p-4 flex justify-between items-center max-w-5xl mx-auto">
+    <a href="/" class="text-accent-cyan font-bold" data-de="Start" data-en="Home">Start</a>
+    <div class="flex gap-4 items-center">
+      <a href="/graph" class="text-text-muted hover:text-text" data-de="Graph" data-en="Graph">Graph</a>
+      <button id="lang-toggle" class="px-2 py-1 border border-text-muted rounded text-sm" data-de="EN" data-en="DE">EN</button>
+    </div>
+  </nav>
+  <main class="max-w-5xl mx-auto px-4 pb-16">
+    
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-2" style="border-left: 4px solid #6495ED; padding-left: 0.75rem;" data-de="Microservices" data-en="Microservices">Microservices</h1>
+      <p class="text-text-muted" data-de="Entwickler die weg vom Monolith wollen" data-en="Developers moving away from monoliths">Entwickler die weg vom Monolith wollen</p>
+      <p class="text-sm text-text-muted mt-1">18 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+    </div>
+    <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm"></div>
+    <ol class="space-y-2">
+      
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/microservices-pfad" class="text-accent-blue hover:underline font-medium" data-de="Microservices-Pfad" data-en="Microservices Path">Microservices-Pfad</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/monolith" class="text-accent-blue hover:underline font-medium" data-de="Monolith" data-en="Monolith">Monolith</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/dienst-service" class="text-accent-blue hover:underline font-medium" data-de="Dienst / Service" data-en="Service">Dienst / Service</a>
+        <span class="text-xs text-text-muted ml-2">← schnittstelle</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/api" class="text-accent-blue hover:underline font-medium" data-de="API" data-en="API">API</a>
+        <span class="text-xs text-text-muted ml-2">← schnittstelle, dienst-service</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/microservices" class="text-accent-blue hover:underline font-medium" data-de="Microservices" data-en="Microservices">Microservices</a>
+        <span class="text-xs text-text-muted ml-2">← dienst-service, kopplung</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/api-gateway" class="text-accent-blue hover:underline font-medium" data-de="API Gateway" data-en="API Gateway">API Gateway</a>
+        <span class="text-xs text-text-muted ml-2">← api, microservices</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/service-discovery" class="text-accent-blue hover:underline font-medium" data-de="Service Discovery" data-en="Service Discovery">Service Discovery</a>
+        <span class="text-xs text-text-muted ml-2">← microservices</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/message-broker" class="text-accent-blue hover:underline font-medium" data-de="Message Broker" data-en="Message Broker">Message Broker</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/event-driven-architecture" class="text-accent-blue hover:underline font-medium" data-de="Event-Driven Architecture" data-en="EDA">Event-Driven Architecture</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/service-mesh" class="text-accent-blue hover:underline font-medium" data-de="Service Mesh" data-en="Service Mesh">Service Mesh</a>
+        <span class="text-xs text-text-muted ml-2">← microservices</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/circuit-breaker" class="text-accent-blue hover:underline font-medium" data-de="Circuit Breaker" data-en="Circuit Breaker">Circuit Breaker</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/bulkhead" class="text-accent-blue hover:underline font-medium" data-de="Bulkhead" data-en="Bulkhead">Bulkhead</a>
+        
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/rate-limiting" class="text-accent-blue hover:underline font-medium" data-de="Rate Limiting" data-en="Rate Limiting">Rate Limiting</a>
+        <span class="text-xs text-text-muted ml-2">← api</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/saga" class="text-accent-blue hover:underline font-medium" data-de="Saga" data-en="Saga">Saga</a>
+        <span class="text-xs text-text-muted ml-2">← microservices</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/bff" class="text-accent-blue hover:underline font-medium" data-de="BFF" data-en="Backend for Frontend">BFF</a>
+        <span class="text-xs text-text-muted ml-2">← api</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/strangler-fig" class="text-accent-blue hover:underline font-medium" data-de="Strangler Fig" data-en="Strangler Fig">Strangler Fig</a>
+        <span class="text-xs text-text-muted ml-2">← monolith</span>
+      </li>
+
+      <li class="p-3 bg-bg-card rounded-lg">
+        <a href="/concept/distributed-tracing" class="text-accent-blue hover:underline font-medium" data-de="Distributed Tracing" data-en="Distributed Tracing">Distributed Tracing</a>
+        <span class="text-xs text-text-muted ml-2">← microservices</span>
+      </li>
+    </ol>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

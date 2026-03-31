@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software Architektur in 60 Sekunden</title>
+  <meta name="description" content="10 Lernpfade · 132 Episoden · 2 Sprachen" />
+  <meta property="og:title" content="Software Architektur in 60 Sekunden" />
+  <meta property="og:description" content="10 Lernpfade · 132 Episoden · 2 Sprachen" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="/assets/main.css" />
+</head>
+<body class="min-h-screen bg-bg text-text">
+  <nav class="p-4 flex justify-between items-center max-w-5xl mx-auto">
+    <a href="/" class="text-accent-cyan font-bold" data-de="Start" data-en="Home">Start</a>
+    <div class="flex gap-4 items-center">
+      <a href="/graph" class="text-text-muted hover:text-text" data-de="Graph" data-en="Graph">Graph</a>
+      <button id="lang-toggle" class="px-2 py-1 border border-text-muted rounded text-sm" data-de="EN" data-en="DE">EN</button>
+    </div>
+  </nav>
+  <main class="max-w-5xl mx-auto px-4 pb-16">
+    
+    <section class="text-center py-12">
+      <h1 class="text-4xl font-bold mb-2" data-de="Software Architektur in 60 Sekunden" data-en="Software Architecture in 60 Seconds">Software Architektur in 60 Sekunden</h1>
+      <p class="text-text-muted text-lg" data-de="10 Lernpfade · 132 Episoden · 2 Sprachen" data-en="10 Learning Paths · 132 Episodes · 2 Languages">10 Lernpfade · 132 Episoden · 2 Sprachen</p>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-2" data-de="Gemeinsamer Stamm" data-en="Common Stem">Gemeinsamer Stamm</h2>
+      <p class="text-text-muted mb-4" data-de="Bevor du einen Pfad startest, solltest du den Stamm kennen" data-en="Before starting a path, you should know the stem concepts">Bevor du einen Pfad startest, solltest du den Stamm kennen</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <a href="/concept/abstraktion" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="Abstraktion" data-en="Abstraction">Abstraktion</a>
+<a href="/concept/modul" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="Modul" data-en="Module">Modul</a>
+<a href="/concept/komponente" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="Komponente" data-en="Component">Komponente</a>
+<a href="/concept/schnittstelle" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="Schnittstelle" data-en="Interface">Schnittstelle</a>
+<a href="/concept/abhaengigkeit" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="Abhängigkeit" data-en="Dependency">Abhängigkeit</a>
+<a href="/concept/kopplung" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="Kopplung" data-en="Coupling">Kopplung</a>
+<a href="/concept/kohaesion" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="Kohäsion" data-en="Cohesion">Kohäsion</a>
+<a href="/concept/separation-of-concerns" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="Separation of Concerns" data-en="Separation of Concerns">Separation of Concerns</a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4" data-de="Lernpfade" data-en="Learning Paths">Lernpfade</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        
+      <a href="/path/microservices" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #6495ED;">
+        <h3 class="font-bold" data-de="Microservices" data-en="Microservices">Microservices</h3>
+        <p class="text-sm text-text-muted" data-de="Entwickler die weg vom Monolith wollen" data-en="Developers moving away from monoliths">Entwickler die weg vom Monolith wollen</p>
+        <p class="text-xs text-text-muted mt-2">18 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/ddd" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #90EE90;">
+        <h3 class="font-bold" data-de="Domain-Driven Design" data-en="Domain-Driven Design">Domain-Driven Design</h3>
+        <p class="text-sm text-text-muted" data-de="Entwickler deren Code die Fachlichkeit nicht widerspiegelt" data-en="Developers whose code doesn't reflect the domain">Entwickler deren Code die Fachlichkeit nicht widerspiegelt</p>
+        <p class="text-xs text-text-muted mt-2">15 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/arc42" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #F0E68C;">
+        <h3 class="font-bold" data-de="arc42 & Architekturdokumentation" data-en="arc42 & Architecture Documentation">arc42 & Architekturdokumentation</h3>
+        <p class="text-sm text-text-muted" data-de="Architekt:innen die dokumentieren müssen" data-en="Architects who need to document">Architekt:innen die dokumentieren müssen</p>
+        <p class="text-xs text-text-muted mt-2">11 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/clean-architecture" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #FA8072;">
+        <h3 class="font-bold" data-de="Clean Architecture" data-en="Clean Architecture">Clean Architecture</h3>
+        <p class="text-sm text-text-muted" data-de="Entwickler mit Spaghetti-Code" data-en="Developers with spaghetti code">Entwickler mit Spaghetti-Code</p>
+        <p class="text-xs text-text-muted mt-2">11 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/cloud-native" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #F4A460;">
+        <h3 class="font-bold" data-de="Cloud-Native" data-en="Cloud-Native">Cloud-Native</h3>
+        <p class="text-sm text-text-muted" data-de="Entwickler die in die Cloud wollen" data-en="Developers moving to the cloud">Entwickler die in die Cloud wollen</p>
+        <p class="text-xs text-text-muted mt-2">13 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/security" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #A9A9A9;">
+        <h3 class="font-bold" data-de="Security Architecture" data-en="Security Architecture">Security Architecture</h3>
+        <p class="text-sm text-text-muted" data-de="Alle — Security wird immer verlangt, selten verstanden" data-en="Everyone — security is always required, rarely understood">Alle — Security wird immer verlangt, selten verstanden</p>
+        <p class="text-xs text-text-muted mt-2">11 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/data-architecture" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #DDA0DD;">
+        <h3 class="font-bold" data-de="Daten-Architektur" data-en="Data Architecture">Daten-Architektur</h3>
+        <p class="text-sm text-text-muted" data-de="Entwickler die mit großen Datenmengen arbeiten" data-en="Developers working with large data sets">Entwickler die mit großen Datenmengen arbeiten</p>
+        <p class="text-xs text-text-muted mt-2">13 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/frontend" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #6495ED;">
+        <h3 class="font-bold" data-de="Frontend-Architektur" data-en="Frontend Architecture">Frontend-Architektur</h3>
+        <p class="text-sm text-text-muted" data-de="Frontend-Entwickler die skalierbare UIs bauen wollen" data-en="Frontend developers building scalable UIs">Frontend-Entwickler die skalierbare UIs bauen wollen</p>
+        <p class="text-xs text-text-muted mt-2">10 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/team-org" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #D2B48C;">
+        <h3 class="font-bold" data-de="Team & Organisation" data-en="Team & Organization">Team & Organisation</h3>
+        <p class="text-sm text-text-muted" data-de="Tech Leads, Engineering Manager, CTOs" data-en="Tech Leads, Engineering Managers, CTOs">Tech Leads, Engineering Manager, CTOs</p>
+        <p class="text-xs text-text-muted mt-2">10 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+
+      <a href="/path/legacy" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid #F5F5F5;">
+        <h3 class="font-bold" data-de="Legacy-Modernisierung" data-en="Legacy Modernization">Legacy-Modernisierung</h3>
+        <p class="text-sm text-text-muted" data-de="Das größte reale Problem der meisten Entwickler" data-en="The biggest real-world problem for most developers">Das größte reale Problem der meisten Entwickler</p>
+        <p class="text-xs text-text-muted mt-2">11 <span data-de="Begriffe" data-en="Concepts">Begriffe</span></p>
+      </a>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
