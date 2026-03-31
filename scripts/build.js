@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'fs'
+import { createHash } from 'crypto'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -365,7 +366,7 @@ export function buildGraphData(allConcepts, allPaths) {
   }
 }
 
-export function generateGraphPage(allConcepts, allPaths, translations) {
+export function generateGraphPage(allConcepts, allPaths, translations, graphDataUrl = '/data/graph-data.json') {
   const t = translations.de
   const tEn = translations.en
 
@@ -384,7 +385,7 @@ export function generateGraphPage(allConcepts, allPaths, translations) {
         ${filterOptions}
       </select>
     </div>
-    <div id="cy" class="rounded-lg border border-text-muted"></div>
+    <div id="cy" class="rounded-lg border border-text-muted" data-graph-url="${escapeHtml(graphDataUrl)}"></div>
     <div id="graph-tooltip" class="hidden"></div>
     <noscript>
       <p class="text-center text-text-muted py-12" data-de="${escapeHtml(t.graph_noscript)}" data-en="${escapeHtml(tEn.graph_noscript)}">${escapeHtml(t.graph_noscript)}</p>
@@ -452,18 +453,21 @@ if (process.argv[1] === __filename) {
     // Generate graph page
     const graphDir = resolve(publicDir, 'graph')
     mkdirSync(graphDir, { recursive: true })
-    const graphHtml = generateGraphPage(concepts, paths, translations)
-    writeFileSync(resolve(graphDir, 'index.html'), graphHtml)
-    console.warn('Generated graph/index.html')
-
-    // Generate graph data
+    // Generate graph data with content hash
     const dataOutDir = resolve(publicDir, 'data')
     mkdirSync(dataOutDir, { recursive: true })
     const graphData = buildGraphData(concepts, paths)
-    writeFileSync(resolve(dataOutDir, 'graph-data.json'), JSON.stringify(graphData))
+    const graphJson = JSON.stringify(graphData)
+    const graphHash = createHash('md5').update(graphJson).digest('hex').slice(0, 8)
+    const graphDataFile = `graph-data-${graphHash}.json`
+    writeFileSync(resolve(dataOutDir, graphDataFile), graphJson)
     console.warn(
-      `Generated graph-data.json (${graphData.nodes.length} nodes, ${graphData.edges.length} edges)`
+      `Generated ${graphDataFile} (${graphData.nodes.length} nodes, ${graphData.edges.length} edges)`
     )
+
+    const graphHtml = generateGraphPage(concepts, paths, translations, `/data/${graphDataFile}`)
+    writeFileSync(resolve(graphDir, 'index.html'), graphHtml)
+    console.warn('Generated graph/index.html')
 
     // Generate sitemap
     const urls = [

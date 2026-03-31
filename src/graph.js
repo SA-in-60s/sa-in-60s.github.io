@@ -4,7 +4,8 @@ export async function initGraph() {
   const container = document.getElementById('cy')
   if (!container) return
 
-  const res = await fetch('/data/graph-data.json')
+  const graphUrl = container.dataset.graphUrl || '/data/graph-data.json'
+  const res = await fetch(graphUrl)
   const data = await res.json()
 
   const pathColors = Object.fromEntries(data.paths.map((p) => [p.id, p.color]))
