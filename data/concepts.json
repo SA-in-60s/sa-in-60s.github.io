@@ -10,7 +10,8 @@
     "script_de": "Dein System läuft. Die Features werden geliefert. Aber wenn tausend Nutzer gleichzeitig kommen, bricht alles zusammen. Oder ein Entwickler kündigt — und niemand versteht mehr den Code.\n\nDas sind keine Bugs. Das sind Architektur-Entscheidungen, die nie bewusst getroffen wurden.\n\nSoftware-Architektur ist die Summe der Entscheidungen, die schwer zu ändern sind — und die bestimmen, welche Qualitäten dein System hat. Skalierbarkeit, Wartbarkeit, Sicherheit.\n\nStell dir ein Haus vor: Die Wandfarbe änderst du in einem Tag. Aber die tragenden Wände? Das Fundament? Das ist Architektur.\n\nDer entscheidende Punkt: Gute Architektur beginnt nicht mit Technologie. Sie beginnt mit der Frage: Was muss dieses System leisten — und was passiert, wenn es das nicht tut?\n\nArchitektur ist kein Talent. Architektur ist lernbar. Und genau das machen wir hier — einen Begriff nach dem anderen, in jeweils 60 Sekunden.",
     "merksatz_de": "",
     "script_en": "Your system works. Features ship on time. But when a thousand users hit it at once, everything falls apart. Or a developer quits — and nobody understands the code anymore.\n\nThese are not bugs. These are architecture decisions that were never consciously made.\n\nSoftware architecture is the set of decisions that are hard to change — and that determine the qualities of your system. Scalability, maintainability, security.\n\nThink of a house: you can repaint the walls in a day. But the load-bearing walls? The foundation? That is architecture.\n\nHere is the key point: good architecture does not start with technology. It starts with the question: what must this system deliver — and what happens if it does not?\n\nArchitecture is not a talent. Architecture is learnable. And that is exactly what we do here — one concept at a time, each in 60 seconds.",
-    "merksatz_en": ""
+    "merksatz_en": "",
+    "youtube_en": "https://youtube.com/shorts/ZTwjqu9FNoo"
   },
   {
     "id": "abstraktion",

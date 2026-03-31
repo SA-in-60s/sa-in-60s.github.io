@@ -40,7 +40,7 @@ let updated = 0
 let errors = 0
 
 for (const line of lines) {
-  const parts = line.split(/[,\t]+/).map((s) => s.trim())
+  const parts = line.split(/[,\t]/).map((s) => s.trim())
   const [episode, urlDe, urlEn] = parts
 
   if (!episode) continue
