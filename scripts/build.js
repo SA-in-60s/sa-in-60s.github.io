@@ -177,7 +177,10 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
   const body = `
     ${jsonLd}
     <article>
-      <h1 class="text-3xl font-bold mb-2" data-de="${escapeHtml(concept.title_de)}" data-en="${escapeHtml(concept.title_en)}">${escapeHtml(concept.title_de)}</h1>
+      <div class="flex items-center gap-3 mb-2">
+        <button class="seen-button w-9 h-9 rounded-full border-2 border-accent-cyan text-accent-cyan hover:bg-accent-cyan hover:text-bg transition flex-shrink-0 text-lg" data-concept-id="${escapeHtml(concept.id)}" aria-pressed="false" aria-label="${escapeHtml(t.seen_button)}: ${escapeHtml(concept.title_de)}">○</button>
+        <h1 class="text-3xl font-bold" data-de="${escapeHtml(concept.title_de)}" data-en="${escapeHtml(concept.title_en)}">${escapeHtml(concept.title_de)}</h1>
+      </div>
       <p class="text-text-muted mb-6">${escapeHtml(t.concept_path)}: ${pathLink}</p>
 
       <div class="md:flex md:gap-8 mb-8">
@@ -229,7 +232,6 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
         }
       </div>
 
-      <button class="seen-button px-4 py-2 rounded border border-accent-cyan text-accent-cyan hover:bg-accent-cyan hover:text-bg transition" data-concept-id="${escapeHtml(concept.id)}" aria-pressed="false" aria-label="${escapeHtml(t.seen_button)}: ${escapeHtml(concept.title_de)}" data-de="${escapeHtml(t.seen_button)}" data-en="${escapeHtml(translations.en.seen_button)}">${escapeHtml(t.seen_button)}</button>
     </article>`
 
   return htmlTemplate({
