@@ -105,9 +105,11 @@ export async function initGraph() {
       },
     ],
     layout: { name: 'preset' },
-    minZoom: 0.3,
-    maxZoom: 3,
-    wheelSensitivity: 0.3,
+    userZoomingEnabled: true,
+    userPanningEnabled: true,
+    minZoom: 0.2,
+    maxZoom: 5,
+    wheelSensitivity: 0.5,
   })
 
   // Run initial COSE layout for good starting positions
