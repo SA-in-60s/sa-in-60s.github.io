@@ -211,11 +211,10 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
           </blockquote>`
               : ''
           }
+          <div class="hidden mt-4">
+            <button class="seen-button max-w-[50%] py-2 px-4 rounded-lg border-2 border-accent-cyan text-accent-cyan hover:bg-accent-cyan hover:text-bg transition text-center text-sm font-medium" data-concept-id="${escapeHtml(concept.id)}" aria-pressed="false" data-de="${escapeHtml(t.seen_button)}?" data-en="${escapeHtml(translations.en.seen_button)}?">${escapeHtml(t.seen_button)}?</button>
+          </div>
         </div>
-      </div>
-
-      <div class="hidden mb-8">
-        <button class="seen-button w-full py-3 rounded-lg border-2 border-accent-cyan text-accent-cyan hover:bg-accent-cyan hover:text-bg transition text-center font-medium" data-concept-id="${escapeHtml(concept.id)}" aria-pressed="false" data-de="${escapeHtml(t.seen_button)}?" data-en="${escapeHtml(translations.en.seen_button)}?">${escapeHtml(t.seen_button)}?</button>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6 mb-8">
