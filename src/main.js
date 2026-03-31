@@ -188,9 +188,88 @@ function updateProgressDisplays() {
   }
 }
 
+const AI_CHATS = [
+  { id: 'claude', name: 'Claude', url: 'https://claude.ai/new?q=' },
+  { id: 'chatgpt', name: 'ChatGPT', url: 'https://chatgpt.com/?q=' },
+  { id: 'gemini', name: 'Gemini', url: 'https://gemini.google.com/app?q=' },
+  { id: 'copilot', name: 'Copilot', url: 'https://copilot.microsoft.com/?q=' },
+  { id: 'perplexity', name: 'Perplexity', url: 'https://www.perplexity.ai/?q=' },
+]
+
+function initAiDeepDive() {
+  const btn = document.getElementById('ai-deep-dive')
+  if (!btn) return
+
+  let saved = null
+  try {
+    saved = localStorage.getItem('sa60s-ai-chat')
+  } catch {
+    // private mode
+  }
+
+  const chat = AI_CHATS.find((c) => c.id === saved)
+  if (chat) {
+    btn.textContent = `🤖 ${chat.name}`
+  }
+
+  btn.addEventListener('click', () => {
+    const lang = document.documentElement.lang || 'de'
+    const prompt = btn.dataset[`prompt${lang === 'de' ? 'De' : 'En'}`] || ''
+
+    let selected = null
+    try {
+      selected = localStorage.getItem('sa60s-ai-chat')
+    } catch {
+      // private mode
+    }
+
+    if (selected) {
+      const c = AI_CHATS.find((x) => x.id === selected)
+      if (c) {
+        window.open(c.url + encodeURIComponent(prompt), '_blank')
+        return
+      }
+    }
+
+    // Show picker
+    const picker = document.createElement('div')
+    picker.className = 'fixed inset-0 bg-black/60 flex items-center justify-center z-50'
+    picker.innerHTML = `
+      <div class="bg-bg-card rounded-lg p-6 max-w-sm w-full mx-4">
+        <p class="text-text font-medium mb-4" data-de="Chat wählen" data-en="Choose your AI">${lang === 'de' ? 'Chat wählen' : 'Choose your AI'}</p>
+        <div class="flex flex-col gap-2">
+          ${AI_CHATS.map(
+            (c) =>
+              `<button data-chat="${c.id}" class="py-3 px-4 rounded-lg border border-text-muted text-text hover:border-accent-cyan hover:text-accent-cyan transition text-left">${c.name}</button>`
+          ).join('')}
+        </div>
+      </div>`
+    document.body.appendChild(picker)
+
+    picker.addEventListener('click', (e) => {
+      const chatBtn = e.target.closest('[data-chat]')
+      if (chatBtn) {
+        const id = chatBtn.dataset.chat
+        try {
+          localStorage.setItem('sa60s-ai-chat', id)
+        } catch {
+          // private mode
+        }
+        const c = AI_CHATS.find((x) => x.id === id)
+        btn.textContent = `🤖 ${c.name}`
+        window.open(c.url + encodeURIComponent(prompt), '_blank')
+        picker.remove()
+      } else if (!e.target.closest('.bg-bg-card')) {
+        picker.remove()
+      }
+    })
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initI18n()
   initProgress()
+  initAiDeepDive()
   if (document.getElementById('cy')) {
     import('./graph.js').then((m) => m.initGraph())
   }
