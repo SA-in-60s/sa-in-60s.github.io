@@ -313,9 +313,7 @@ if (process.argv[1] === __filename) {
 
     const concepts = JSON.parse(readFileSync(resolve(dataDir, 'concepts.json'), 'utf-8'))
     const paths = JSON.parse(readFileSync(resolve(dataDir, 'paths.json'), 'utf-8'))
-    const translations = JSON.parse(
-      readFileSync(resolve(dataDir, 'translations.json'), 'utf-8')
-    )
+    const translations = JSON.parse(readFileSync(resolve(dataDir, 'translations.json'), 'utf-8'))
 
     // Generate concept pages
     const conceptDir = resolve(publicDir, 'concept')

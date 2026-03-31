@@ -155,9 +155,7 @@ if (process.argv[1] === __filename) {
     }
 
     if (cr.valid && pr.valid && xr.valid) {
-      console.error(
-        `\u2713 ${concepts.length} concepts, ${paths.length} paths \u2014 all valid`
-      )
+      console.error(`\u2713 ${concepts.length} concepts, ${paths.length} paths \u2014 all valid`)
       process.exit(0)
     } else {
       process.exit(1)

@@ -107,9 +107,7 @@ describe('validateYoutubeUrl()', () => {
   })
 
   it('rejects malicious URL', () => {
-    expect(validateYoutubeUrl('https://youtube.com/shorts/x" onload="alert(1)')).toBe(
-      false
-    )
+    expect(validateYoutubeUrl('https://youtube.com/shorts/x" onload="alert(1)')).toBe(false)
   })
 
   it('rejects non-YouTube URL', () => {
@@ -228,7 +226,7 @@ describe('UC-7: Build script — HTML generation', () => {
     it('includes CSP meta tag', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
       expect(html).toContain('Content-Security-Policy')
-      expect(html).toContain("frame-src https://www.youtube.com")
+      expect(html).toContain('frame-src https://www.youtube.com')
     })
 
     it('includes canonical URL', () => {
