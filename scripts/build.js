@@ -265,7 +265,7 @@ export function generatePathPage(path, allConcepts, translations) {
     <div class="mb-8">
       <h1 class="text-3xl font-bold mb-2" style="border-left: 4px solid ${escapeHtml(path.color)}; padding-left: 0.75rem;" data-de="${escapeHtml(path.name_de)}" data-en="${escapeHtml(path.name_en)}">${escapeHtml(path.name_de)}</h1>
       <p class="text-text-muted" data-de="${escapeHtml(path.description_de)}" data-en="${escapeHtml(path.description_en)}">${escapeHtml(path.description_de)}</p>
-      <p class="text-sm text-text-muted mt-1"><span data-progress-path="${escapeHtml(path.id)}" data-progress-concepts='${JSON.stringify(path.concepts)}' data-progress-total="${path.concepts.length}">0/${path.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
+      <p class="text-sm text-text-muted mt-1"><span data-progress-path="${escapeHtml(path.id)}" data-progress-concepts='${JSON.stringify(path.concepts)}' data-progress-total="${path.concepts.length}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${path.concepts.length}">0/${path.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
     </div>
     <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm"></div>
     <ol class="space-y-2">
@@ -298,7 +298,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
       <a href="/path/${escapeHtml(p.id)}" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid ${escapeHtml(p.color)};">
         <h3 class="font-bold" data-de="${escapeHtml(p.name_de)}" data-en="${escapeHtml(p.name_en)}">${escapeHtml(p.name_de)}</h3>
         <p class="text-sm text-text-muted" data-de="${escapeHtml(p.description_de)}" data-en="${escapeHtml(p.description_en)}">${escapeHtml(p.description_de)}</p>
-        <p class="text-xs text-text-muted mt-2"><span data-progress-path="${escapeHtml(p.id)}" data-progress-concepts='${JSON.stringify(p.concepts)}' data-progress-total="${p.concepts.length}">0/${p.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
+        <p class="text-xs text-text-muted mt-2"><span data-progress-path="${escapeHtml(p.id)}" data-progress-concepts='${JSON.stringify(p.concepts)}' data-progress-total="${p.concepts.length}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${p.concepts.length}">0/${p.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
       </a>`
     )
     .join('\n')
@@ -307,7 +307,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
     <section class="text-center py-12">
       <h1 class="text-4xl font-bold mb-2" data-de="${escapeHtml(t.site_title)}" data-en="${escapeHtml(translations.en.site_title)}">${escapeHtml(t.site_title)}</h1>
       <p class="text-text-muted text-lg" data-de="${escapeHtml(t.site_subtitle)}" data-en="${escapeHtml(translations.en.site_subtitle)}">${escapeHtml(t.site_subtitle)}</p>
-      <p class="text-text-muted text-sm mt-2"><span id="total-progress" data-progress-total="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
+      <p class="text-text-muted text-sm mt-2"><span id="total-progress" data-progress-total="${totalConcepts}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
     </section>
 
     <section class="mb-12">
@@ -330,6 +330,57 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
     description: `${t.site_subtitle}`,
     body,
     canonicalPath: '/',
+  })
+}
+
+export function buildGraphData(allConcepts, allPaths) {
+  return {
+    nodes: allConcepts.map((c) => ({
+      id: c.id,
+      title_de: c.title_de,
+      title_en: c.title_en,
+      path: c.path,
+    })),
+    edges: allConcepts.flatMap((c) => (c.requires || []).map((r) => ({ source: r, target: c.id }))),
+    paths: allPaths.map((p) => ({
+      id: p.id,
+      name_de: p.name_de,
+      name_en: p.name_en,
+      color: p.color,
+    })),
+  }
+}
+
+export function generateGraphPage(allConcepts, allPaths, translations) {
+  const t = translations.de
+  const tEn = translations.en
+
+  const filterOptions = allPaths
+    .map(
+      (p) =>
+        `<option value="${escapeHtml(p.id)}" data-de="${escapeHtml(p.name_de)}" data-en="${escapeHtml(p.name_en)}">${escapeHtml(p.name_de)}</option>`
+    )
+    .join('\n')
+
+  const body = `
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+      <h1 class="text-3xl font-bold" data-de="${escapeHtml(t.graph_title)}" data-en="${escapeHtml(tEn.graph_title)}">${escapeHtml(t.graph_title)}</h1>
+      <select id="graph-filter" class="px-3 py-2 bg-bg-card border border-text-muted rounded text-sm text-text" aria-label="Filter by path">
+        <option value="" data-de="${escapeHtml(t.graph_filter_all)}" data-en="${escapeHtml(tEn.graph_filter_all)}">${escapeHtml(t.graph_filter_all)}</option>
+        ${filterOptions}
+      </select>
+    </div>
+    <div id="cy" class="rounded-lg border border-text-muted"></div>
+    <div id="graph-tooltip" class="hidden"></div>
+    <noscript>
+      <p class="text-center text-text-muted py-12" data-de="${escapeHtml(t.graph_noscript)}" data-en="${escapeHtml(tEn.graph_noscript)}">${escapeHtml(t.graph_noscript)}</p>
+    </noscript>`
+
+  return htmlTemplate({
+    title: `${t.graph_title} — ${t.site_title}`,
+    description: t.graph_title,
+    body,
+    canonicalPath: '/graph',
   })
 }
 
@@ -383,6 +434,22 @@ if (process.argv[1] === __filename) {
     const indexHtml = generateIndexPage(concepts, paths, translations)
     writeFileSync(resolve(publicDir, 'index.html'), indexHtml)
     console.warn('Generated index.html')
+
+    // Generate graph page
+    const graphDir = resolve(publicDir, 'graph')
+    mkdirSync(graphDir, { recursive: true })
+    const graphHtml = generateGraphPage(concepts, paths, translations)
+    writeFileSync(resolve(graphDir, 'index.html'), graphHtml)
+    console.warn('Generated graph/index.html')
+
+    // Generate graph data
+    const dataOutDir = resolve(publicDir, 'data')
+    mkdirSync(dataOutDir, { recursive: true })
+    const graphData = buildGraphData(concepts, paths)
+    writeFileSync(resolve(dataOutDir, 'graph-data.json'), JSON.stringify(graphData))
+    console.warn(
+      `Generated graph-data.json (${graphData.nodes.length} nodes, ${graphData.edges.length} edges)`
+    )
 
     // Generate sitemap
     const urls = [
