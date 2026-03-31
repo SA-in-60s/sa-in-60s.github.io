@@ -49,8 +49,9 @@ body {
 }
 
 #cy {
-  min-height: 70vh;
+  height: calc(100vh - 120px);
   width: 100%;
+  touch-action: none;
 }
 
 #graph-tooltip {
