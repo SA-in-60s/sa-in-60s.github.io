@@ -140,7 +140,7 @@ function updateSeenButton(btn, seen) {
   const lang = document.documentElement.lang || 'de'
   btn.setAttribute('aria-pressed', seen.toString())
   if (seen) {
-    const label = lang === 'de' ? '✓ Gesehen' : '✓ Seen'
+    const label = lang === 'de' ? 'Verstanden ✓' : 'Got it ✓'
     btn.textContent = label
     btn.classList.add('bg-accent-cyan', 'text-bg', 'border-accent-cyan')
     btn.classList.remove('text-accent-cyan')
