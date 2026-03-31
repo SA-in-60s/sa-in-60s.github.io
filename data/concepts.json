@@ -4,7 +4,7 @@
     "title_de": "Was ist Software-Architektur?",
     "title_en": "What is Software Architecture?",
     "episode": "ep001",
-    "path": "stem",
+    "path": "intro",
     "path_position": 0,
     "requires": [],
     "script_de": "Dein System läuft. Die Features werden geliefert. Aber wenn tausend Nutzer gleichzeitig kommen, bricht alles zusammen. Oder ein Entwickler kündigt — und niemand versteht mehr den Code.\n\nDas sind keine Bugs. Das sind Architektur-Entscheidungen, die nie bewusst getroffen wurden.\n\nSoftware-Architektur ist die Summe der Entscheidungen, die schwer zu ändern sind — und die bestimmen, welche Qualitäten dein System hat. Skalierbarkeit, Wartbarkeit, Sicherheit.\n\nStell dir ein Haus vor: Die Wandfarbe änderst du in einem Tag. Aber die tragenden Wände? Das Fundament? Das ist Architektur.\n\nDer entscheidende Punkt: Gute Architektur beginnt nicht mit Technologie. Sie beginnt mit der Frage: Was muss dieses System leisten — und was passiert, wenn es das nicht tut?\n\nArchitektur ist kein Talent. Architektur ist lernbar. Und genau das machen wir hier — einen Begriff nach dem anderen, in jeweils 60 Sekunden.",

@@ -285,6 +285,7 @@ export function generatePathPage(path, allConcepts, translations) {
 export function generateIndexPage(allConcepts, allPaths, translations) {
   const t = translations.de
   const totalConcepts = allConcepts.length
+  const introConcept = allConcepts.find((c) => c.path === 'intro')
   const stemConcepts = allConcepts.filter((c) => c.path === 'stem')
 
   const stemHtml = stemConcepts
@@ -311,7 +312,18 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
       <p class="text-text-muted text-lg" data-de="${escapeHtml(t.site_subtitle)}" data-en="${escapeHtml(translations.en.site_subtitle)}">${escapeHtml(t.site_subtitle)}</p>
       <p class="text-text-muted text-sm mt-2"><span id="total-progress" data-progress-total="${totalConcepts}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
     </section>
-
+${
+  introConcept
+    ? `
+    <section class="mb-12">
+      <a href="/concept/${escapeHtml(introConcept.id)}" class="block p-6 bg-bg-card rounded-lg border border-accent-cyan hover:bg-accent-cyan/10 transition text-center">
+        <span class="text-accent-cyan text-sm mr-2" data-concept-seen="${escapeHtml(introConcept.id)}">○</span>
+        <span class="text-xl font-bold" data-de="${escapeHtml(introConcept.title_de)}" data-en="${escapeHtml(introConcept.title_en)}">${escapeHtml(introConcept.title_de)}</span>
+        <p class="text-text-muted text-sm mt-1" data-de="Starte hier" data-en="Start here">Starte hier</p>
+      </a>
+    </section>`
+    : ''
+}
     <section class="mb-12">
       <h2 class="text-2xl font-bold mb-2" data-de="${escapeHtml(t.stem_title)}" data-en="${escapeHtml(translations.en.stem_title)}">${escapeHtml(t.stem_title)}</h2>
       <p class="text-text-muted mb-4" data-de="${escapeHtml(t.stem_hint)}" data-en="${escapeHtml(translations.en.stem_hint)}">${escapeHtml(t.stem_hint)}</p>
