@@ -107,7 +107,19 @@ function initProgress() {
 
   document.querySelectorAll('.seen-button').forEach((btn) => {
     const id = btn.dataset.conceptId
-    updateSeenButton(btn, progress.includes(id))
+    const container = btn.parentElement
+    const isSeen = progress.includes(id)
+    updateSeenButton(btn, isSeen)
+
+    // Show immediately if already seen, otherwise after 50s
+    if (isSeen) {
+      container.classList.remove('hidden')
+    } else {
+      setTimeout(() => {
+        container.classList.remove('hidden')
+      }, 50000)
+    }
+
     btn.addEventListener('click', () => {
       const p = getProgress()
       if (p.includes(id)) {
@@ -125,15 +137,18 @@ function initProgress() {
 }
 
 function updateSeenButton(btn, seen) {
+  const lang = document.documentElement.lang || 'de'
   btn.setAttribute('aria-pressed', seen.toString())
   if (seen) {
-    btn.textContent = '\u2713'
-    btn.classList.add('bg-accent-cyan', 'text-bg')
+    const label = lang === 'de' ? '✓ Gesehen' : '✓ Seen'
+    btn.textContent = label
+    btn.classList.add('bg-accent-cyan', 'text-bg', 'border-accent-cyan')
     btn.classList.remove('text-accent-cyan')
   } else {
-    btn.textContent = '\u25CB'
+    const label = btn.dataset[lang] || btn.dataset.de || 'Mark as seen?'
+    btn.textContent = label
     btn.classList.remove('bg-accent-cyan', 'text-bg')
-    btn.classList.add('text-accent-cyan')
+    btn.classList.add('text-accent-cyan', 'border-accent-cyan')
   }
 }
 
