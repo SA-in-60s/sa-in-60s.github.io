@@ -1,0 +1,621 @@
+= SA-in-60s — Use Cases & Activity Diagrams
+:toc: left
+:toc-title: Inhalt
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+
+== Überblick
+
+Die Website sa-in-60s.github.io ist eine **statische Website** (HTML/CSS/JS),
+die zur Build-Zeit aus JSON-Daten generiert wird.
+JavaScript reichert die statischen Seiten an (Fortschritt, Sprachumschaltung, Graph-Interaktion).
+
+=== Akteure
+
+[cols="1,3"]
+|===
+| Akteur | Beschreibung
+
+| **Besucher** | YouTube-Zuschauer der die Website aufruft. Kein Login, kein Account.
+| **Build-System** | Vite + Build-Skripte. Generiert statische HTML-Seiten aus JSON-Daten.
+| **GitHub Actions** | CI/CD-Pipeline. Baut die Site und deployed auf GitHub Pages.
+| **Browser (localStorage)** | Speichert Fortschritt und Spracheinstellung lokal.
+|===
+
+=== Use-Case-Diagramm
+
+[plantuml]
+----
+@startuml
+left to right direction
+
+actor Besucher as V
+actor "Build-System" as B
+actor "GitHub Actions" as CI
+
+rectangle "SA-in-60s Website" {
+    usecase "UC-1: Startseite\nansehen" as UC1
+    usecase "UC-2: Lernpfad\nerkunden" as UC2
+    usecase "UC-3: Episode\nansehen" as UC3
+    usecase "UC-4: Fortschritt\nverwalten" as UC4
+    usecase "UC-5: Sprache\nwechseln" as UC5
+    usecase "UC-6: Abhängigkeits-\ngraph nutzen" as UC6
+    usecase "UC-7: Site\ngenerieren" as UC7
+    usecase "UC-8: Site\ndeployen" as UC8
+}
+
+V --> UC1
+V --> UC2
+V --> UC3
+V --> UC4
+V --> UC5
+V --> UC6
+B --> UC7
+CI --> UC8
+
+UC2 ..> UC3 : <<include>>
+UC3 ..> UC4 : <<extend>>
+@enduml
+----
+
+---
+
+== UC-1: Startseite ansehen
+
+=== Beschreibung
+Der Besucher öffnet die Website und erhält einen Überblick über den Kanal,
+den gemeinsamen Stamm und die 10 Lernpfade.
+
+=== Activity Diagram
+
+[plantuml]
+----
+@startuml
+title UC-1: Startseite ansehen
+
+start
+:Browser lädt statische index.html;
+
+fork
+    :HTML rendert Hero-Bereich\n(Logo, Titel, Zahlen);
+fork again
+    :HTML rendert Stamm-Bereich\n(8 Grundbegriffe);
+fork again
+    :HTML rendert 10 Pfad-Karten;
+end fork
+
+:JavaScript initialisiert;
+
+if (localStorage vorhanden?) then (ja)
+    :Fortschritt aus localStorage lesen;
+    :Fortschrittsanzeige in Pfad-Karten aktualisieren;
+    :Gesamtfortschritt im Header anzeigen;
+else (nein)
+    :Kein Fortschritt — alle Zähler auf 0;
+endif
+
+if (Spracheinstellung in localStorage?) then (ja)
+    :Gespeicherte Sprache anwenden;
+else (nein)
+    :Browser-Sprache erkennen\n(navigator.language);
+    if (Deutsch?) then (ja)
+        :DE anwenden;
+    else (nein)
+        :EN anwenden;
+    endif
+endif
+
+:Seite vollständig angezeigt;
+stop
+@enduml
+----
+
+=== Vorbedingungen
+* Website ist deployed und erreichbar
+
+=== Nachbedingungen
+* Besucher sieht Startseite mit Pfad-Karten und aktuellem Fortschritt
+
+---
+
+== UC-2: Lernpfad erkunden
+
+=== Beschreibung
+Der Besucher wählt einen der 10 Lernpfade und sieht die geordnete Liste
+aller Begriffe mit Abhängigkeiten und Fortschritt.
+
+=== Activity Diagram
+
+[plantuml]
+----
+@startuml
+title UC-2: Lernpfad erkunden
+
+start
+:Besucher klickt auf Pfad-Karte\n(z.B. "Microservices");
+
+:Browser navigiert zu /path/microservices\n(statische HTML-Seite);
+
+:HTML rendert Pfad-Header\n(Name, Beschreibung, Zielgruppe);
+
+:HTML rendert Begriffsliste\n(geordnet nach Pfad-Position);
+
+:JavaScript initialisiert;
+
+:Fortschritt aus localStorage lesen;
+
+:Begriffe als "gesehen" / "nicht gesehen" markieren;
+
+:Fortschrittsbalken aktualisieren\n(x/17 Begriffe gesehen);
+
+if (Stamm vollständig?) then (nein)
+    :Hinweis anzeigen:\n"Empfehlung: Zuerst den\ngemeinsamen Stamm abschließen";
+else (ja)
+    :Kein Hinweis;
+endif
+
+:Abhängigkeiten pro Begriff anzeigen\n(welche Vorgänger nötig);
+
+if (Vorgänger nicht gesehen?) then (ja)
+    :Visueller Hinweis:\nVorgänger noch offen;
+else (nein)
+    :Begriff bereit;
+endif
+
+:Besucher klickt auf Begriff;
+
+:Weiterleitung zu Episoden-Seite\n(UC-3);
+stop
+@enduml
+----
+
+=== Vorbedingungen
+* Pfad existiert als statische Seite
+
+=== Nachbedingungen
+* Besucher sieht geordnete Begriffsliste mit Fortschritt
+
+---
+
+== UC-3: Episode ansehen
+
+=== Beschreibung
+Der Besucher öffnet die Seite eines Begriffs und sieht die eingebetteten
+YouTube-Videos (DE + EN) mit Kontext-Informationen.
+
+=== Activity Diagram
+
+[plantuml]
+----
+@startuml
+title UC-3: Episode ansehen
+
+start
+:Besucher öffnet Episoden-Seite\n(z.B. /concept/microservices);
+
+:HTML rendert statischen Inhalt:\n- Titel (DE + EN)\n- Pfad-Zugehörigkeit\n- Voraussetzungen\n- Nachfolger;
+
+:JavaScript initialisiert;
+
+:Aktuelle Sprache ermitteln;
+
+if (Sprache = DE?) then (ja)
+    :DE-Video prominent anzeigen;
+    :EN-Video als Alternative darunter;
+else (nein)
+    :EN-Video prominent anzeigen;
+    :DE-Video als Alternative darunter;
+endif
+
+if (YouTube-URL vorhanden?) then (ja)
+    :YouTube IFrame einbetten\n(lazy loading);
+else (nein)
+    :Platzhalter anzeigen:\n"Video in Produktion";
+endif
+
+:Fortschritt aus localStorage laden;
+
+if (Begriff bereits als gesehen markiert?) then (ja)
+    :"Gesehen"-Button zeigt Häkchen;
+else (nein)
+    :"Gesehen"-Button zeigt leeren Kreis;
+endif
+
+:Voraussetzungen als Links rendern;
+
+if (Voraussetzung nicht gesehen?) then (ja)
+    :Visueller Hinweis:\n"Empfohlen: Zuerst X ansehen";
+else (alle gesehen)
+    :Kein Hinweis;
+endif
+
+:Nachfolger-Begriffe als Links rendern;
+
+:Seite vollständig angezeigt;
+stop
+@enduml
+----
+
+=== Vorbedingungen
+* Episoden-Seite existiert als statische HTML-Seite
+* Begriff ist in der JSON-Datenstruktur definiert
+
+=== Nachbedingungen
+* Besucher sieht Video(s) und Kontext-Informationen
+
+---
+
+== UC-4: Fortschritt verwalten
+
+=== Beschreibung
+Der Besucher markiert Begriffe als "gesehen" oder setzt die Markierung zurück.
+Der Fortschritt wird in localStorage gespeichert.
+
+=== Activity Diagram
+
+[plantuml]
+----
+@startuml
+title UC-4: Fortschritt verwalten
+
+start
+
+split
+    :Besucher klickt\n"Gesehen"-Button;
+
+    if (Begriff bereits gesehen?) then (ja)
+        :Markierung entfernen;
+        :Button-Icon auf leeren Kreis setzen;
+    else (nein)
+        :Als gesehen markieren;
+        :Button-Icon auf Häkchen setzen;
+    endif
+
+    :localStorage aktualisieren;
+
+    :Fortschrittsanzeige auf\naktueller Seite aktualisieren;
+
+split again
+    :Besucher klickt\n"Fortschritt exportieren";
+
+    :JSON aus localStorage lesen;
+    :Download als .json-Datei anbieten;
+
+split again
+    :Besucher klickt\n"Fortschritt importieren";
+
+    :Datei-Upload-Dialog öffnen;
+
+    if (Gültige JSON-Datei?) then (ja)
+        :localStorage überschreiben;
+        :Seite neu rendern;
+    else (nein)
+        :Fehlermeldung:\n"Ungültiges Format";
+    endif
+
+split again
+    :Besucher klickt\n"Fortschritt zurücksetzen";
+
+    :Bestätigungsdialog anzeigen:\n"Wirklich alles zurücksetzen?";
+
+    if (Bestätigt?) then (ja)
+        :localStorage leeren;
+        :Alle Fortschrittsanzeigen auf 0;
+    else (nein)
+        :Abbruch;
+    endif
+end split
+
+stop
+@enduml
+----
+
+=== Vorbedingungen
+* JavaScript ist aktiviert
+* localStorage ist verfügbar
+
+=== Nachbedingungen
+* Fortschritt ist in localStorage gespeichert/aktualisiert
+* UI spiegelt den aktuellen Fortschritt wider
+
+=== Fehlerfall: localStorage nicht verfügbar
+
+[plantuml]
+----
+@startuml
+title UC-4: Fehlerfall — localStorage nicht verfügbar
+
+start
+:Besucher klickt "Gesehen"-Button;
+
+:JavaScript prüft localStorage;
+
+if (localStorage verfügbar?) then (ja)
+    :Normal fortfahren;
+else (nein)
+    :Hinweis anzeigen:\n"Fortschritt kann nicht gespeichert werden.\nPrivater Modus oder Cookies deaktiviert.";
+    :Button deaktivieren;
+endif
+
+stop
+@enduml
+----
+
+---
+
+== UC-5: Sprache wechseln
+
+=== Beschreibung
+Der Besucher wechselt zwischen Deutsch und Englisch.
+Die Einstellung wird in localStorage gespeichert.
+
+=== Activity Diagram
+
+[plantuml]
+----
+@startuml
+title UC-5: Sprache wechseln
+
+start
+:Besucher klickt Sprach-Toggle\n(DE/EN);
+
+:Aktuelle Sprache ermitteln;
+
+if (Aktuell DE?) then (ja)
+    :Auf EN wechseln;
+else (nein)
+    :Auf DE wechseln;
+endif
+
+:Spracheinstellung in\nlocalStorage speichern;
+
+:Alle UI-Texte aktualisieren\n(Titel, Beschreibungen, Buttons,\nNavigation, Pfad-Namen);
+
+:Video-Reihenfolge auf\nEpisoden-Seiten anpassen\n(gewählte Sprache prominent);
+
+:Seite aktualisiert;
+stop
+@enduml
+----
+
+=== Hinweis
+Die Sprachumschaltung erfolgt **clientseitig per JavaScript**.
+Die statische HTML enthält beide Sprachen (z.B. als `data-de` / `data-en` Attribute
+oder als ausgeblendete Elemente). JavaScript blendet die aktive Sprache ein.
+
+=== Vorbedingungen
+* Beide Sprachversionen sind im HTML vorhanden
+
+=== Nachbedingungen
+* UI zeigt Texte in der gewählten Sprache
+* Einstellung in localStorage gespeichert
+
+---
+
+== UC-6: Abhängigkeitsgraph nutzen
+
+=== Beschreibung
+Der Besucher interagiert mit einer visuellen Darstellung der Begriffsabhängigkeiten.
+
+=== Activity Diagram
+
+[plantuml]
+----
+@startuml
+title UC-6: Abhängigkeitsgraph nutzen
+
+start
+:Besucher öffnet Graph-Ansicht;
+
+:JavaScript lädt Graphdaten\naus statischer JSON-Datei;
+
+:Graph rendern:\n- Knoten = Begriffe\n- Kanten = Abhängigkeiten\n- Farbe = Pfadzugehörigkeit;
+
+:Fortschritt aus localStorage laden;
+
+:Gesehene Knoten hervorheben\n(ausgefüllt vs. Umriss);
+
+:Graph interaktiv machen\n(Zoom, Pan);
+
+:Besucher interagiert;
+
+split
+    :Hover über Knoten;
+    :Tooltip: Begriffsname,\nPfad, Status;
+
+split again
+    :Klick auf Knoten;
+    :Navigation zu Episoden-Seite;
+
+split again
+    :Pfad-Filter aktivieren;
+    :Nur Knoten des gewählten\nPfads + Stamm anzeigen;
+
+split again
+    :Zoom/Pan;
+    :Graph-Viewport anpassen;
+end split
+
+stop
+@enduml
+----
+
+=== Fehlerfall: JavaScript deaktiviert
+
+[plantuml]
+----
+@startuml
+title UC-6: Fehlerfall — JavaScript deaktiviert
+
+start
+:Besucher öffnet Graph-Seite;
+
+if (JavaScript aktiv?) then (ja)
+    :Graph rendern;
+else (nein)
+    :Statisches Fallback-Bild\ndes Graphen anzeigen\n(zur Build-Zeit generiert);
+    :Hinweis:\n"Für interaktiven Graph\nbitte JavaScript aktivieren";
+endif
+
+stop
+@enduml
+----
+
+=== Vorbedingungen
+* Graph-Daten als JSON verfügbar
+* Graph-Bibliothek geladen
+
+=== Nachbedingungen
+* Graph zeigt alle Begriffe mit Abhängigkeiten und Fortschritt
+
+---
+
+== UC-7: Site generieren (Build)
+
+=== Beschreibung
+Das Build-System generiert aus JSON-Daten statische HTML-Seiten.
+
+=== Activity Diagram
+
+[plantuml]
+----
+@startuml
+title UC-7: Site generieren (Build)
+
+start
+:Build-Skript startet\n(npm run build);
+
+:JSON-Dateien laden:\n- concepts.json\n- paths.json;
+
+:JSON validieren;
+
+if (JSON valide?) then (ja)
+    :Weiter;
+else (nein)
+    :Build-Fehler:\n"Ungültige Datenstruktur";
+    stop
+endif
+
+:Für jeden Begriff eine\nstatische HTML-Seite generieren\n(/concept/{id}.html);
+
+:Für jeden Pfad eine\nstatische HTML-Seite generieren\n(/path/{id}.html);
+
+:Startseite generieren\n(index.html);
+
+:Graph-Seite generieren\n(/graph.html);
+
+:Sitemap.xml generieren;
+
+:Vite bündelt JavaScript + CSS;
+
+:Output nach dist/;
+
+if (Lighthouse-Check?) then (CI)
+    :Lighthouse ausführen;
+    if (Performance > 90 UND\nAccessibility = 100?) then (ja)
+        :Build erfolgreich;
+    else (nein)
+        :Warnung ausgeben;
+    endif
+endif
+
+:Build abgeschlossen;
+stop
+@enduml
+----
+
+=== Fehlerfall: Fehlende YouTube-URLs
+
+[plantuml]
+----
+@startuml
+title UC-7: Fehlerfall — Fehlende YouTube-URLs
+
+start
+:Build-Skript verarbeitet Begriff;
+
+if (youtube_de UND youtube_en vorhanden?) then (ja)
+    :YouTube-IFrames generieren;
+else (nur eine Sprache)
+    :Vorhandenes Video einbetten;
+    :Für fehlende Sprache\nPlatzhalter generieren;
+else (keine URLs)
+    :Platzhalter für beide\nSprachen generieren:\n"Video in Produktion";
+endif
+
+stop
+@enduml
+----
+
+=== Vorbedingungen
+* Node.js und Vite installiert
+* JSON-Dateien mit Pfaden und Begriffen vorhanden
+
+=== Nachbedingungen
+* Statische Website in `dist/` generiert
+* Jeder Begriff hat eine eigene HTML-Seite
+
+---
+
+== UC-8: Site deployen
+
+=== Beschreibung
+GitHub Actions baut die Site und deployed sie auf GitHub Pages.
+
+=== Activity Diagram
+
+[plantuml]
+----
+@startuml
+title UC-8: Site deployen
+
+start
+:Push auf main-Branch;
+
+:GitHub Actions Workflow startet;
+
+fork
+    :Lint (ESLint);
+fork again
+    :Format-Check (Prettier);
+end fork
+
+if (Lint/Format OK?) then (ja)
+    :Weiter;
+else (nein)
+    :Build abbrechen;
+    :Fehler melden;
+    stop
+endif
+
+:npm run build;
+
+if (Build erfolgreich?) then (ja)
+    :Weiter;
+else (nein)
+    :Build-Fehler melden;
+    stop
+endif
+
+:Lighthouse CI ausführen;
+
+if (Scores akzeptabel?) then (ja)
+    :Weiter;
+else (nein)
+    :Warnung, aber Deployment\nwird fortgesetzt;
+endif
+
+:Artefakt auf GitHub Pages uploaden;
+
+:Deployment abgeschlossen\nSite live unter\nsa-in-60s.github.io;
+stop
+@enduml
+----
+
+=== Vorbedingungen
+* GitHub Actions konfiguriert
+* GitHub Pages aktiviert
+
+=== Nachbedingungen
+* Neue Version der Website ist live

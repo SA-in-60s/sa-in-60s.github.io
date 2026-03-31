@@ -1,0 +1,575 @@
+= SA-in-60s — Akzeptanzkriterien
+:toc: left
+:toc-title: Inhalt
+:toclevels: 3
+:icons: font
+
+Akzeptanzkriterien im Gherkin-Format für die SA-in-60s Website.
+Sprache: Deutsch (Akzeptanzkriterien), Englisch (Code/Technik).
+
+== Feature: Startseite
+
+=== Szenario: Startseite zeigt Hero-Bereich
+
+[source,gherkin]
+----
+Gegeben der Besucher öffnet die Startseite
+Dann sieht er das Archi-Logo
+Und den Titel "Software Architektur in 60 Sekunden"
+Und die Zahlen "10 Lernpfade · 132 Episoden · 2 Sprachen"
+Und einen Link zum YouTube-Kanal
+----
+
+=== Szenario: Startseite zeigt gemeinsamen Stamm
+
+[source,gherkin]
+----
+Gegeben der Besucher öffnet die Startseite
+Dann sieht er einen Bereich "Gemeinsamer Stamm"
+Und darin die 8 Grundbegriffe als Karten
+Und den Hinweis "Bevor du einen Pfad startest, solltest du den Stamm kennen"
+----
+
+=== Szenario: Startseite zeigt 10 Pfad-Karten
+
+[source,gherkin]
+----
+Gegeben der Besucher öffnet die Startseite
+Dann sieht er 10 Pfad-Karten
+Und jede Karte zeigt Name, Anzahl Begriffe und Zielgruppe
+Und jede Karte hat die Pfad-Farbe als Akzent
+Und jede Karte verlinkt auf die Pfad-Detailseite
+----
+
+=== Szenario: Startseite zeigt Fortschritt bei vorhandenem localStorage
+
+[source,gherkin]
+----
+Gegeben der Besucher hat 5 von 8 Stamm-Begriffen als gesehen markiert
+Und 3 von 17 Microservices-Begriffen als gesehen markiert
+Wenn er die Startseite öffnet
+Dann zeigt der Stamm-Bereich "5 von 8 gesehen"
+Und die Microservices-Karte zeigt "3/17"
+Und der Gesamtfortschritt zeigt "8/132"
+----
+
+=== Szenario: Startseite ohne vorherigen Fortschritt
+
+[source,gherkin]
+----
+Gegeben der Besucher hat keinen Fortschritt in localStorage
+Wenn er die Startseite öffnet
+Dann zeigen alle Pfad-Karten "0/n"
+Und der Gesamtfortschritt zeigt "0/132"
+----
+
+== Feature: Lernpfad-Navigation
+
+=== Szenario: Pfad-Detailseite zeigt geordnete Begriffsliste
+
+[source,gherkin]
+----
+Gegeben der Besucher öffnet die Pfad-Seite "Microservices"
+Dann sieht er den Pfad-Header mit Name und Beschreibung
+Und eine geordnete Liste von 17 Begriffen
+Und die Reihenfolge entspricht der path_position
+Und jeder Begriff zeigt seinen DE- und EN-Titel
+----
+
+=== Szenario: Pfad zeigt Fortschrittsbalken
+
+[source,gherkin]
+----
+Gegeben der Besucher hat 5 von 17 Microservices-Begriffen gesehen
+Wenn er die Pfad-Seite "Microservices" öffnet
+Dann zeigt der Fortschrittsbalken "5/17"
+Und die 5 gesehenen Begriffe sind visuell markiert (Häkchen)
+Und die 12 nicht gesehenen Begriffe zeigen einen leeren Kreis
+----
+
+=== Szenario: Stamm-Empfehlung bei unvollständigem Stamm
+
+[source,gherkin]
+----
+Gegeben der Besucher hat nur 3 von 8 Stamm-Begriffen gesehen
+Wenn er die Pfad-Seite "Microservices" öffnet
+Dann sieht er einen Hinweis:
+  "Empfehlung: Schließe zuerst den gemeinsamen Stamm ab (3/8 gesehen)"
+Und der Hinweis verlinkt auf die Startseite
+----
+
+=== Szenario: Kein Stamm-Hinweis bei vollständigem Stamm
+
+[source,gherkin]
+----
+Gegeben der Besucher hat alle 8 Stamm-Begriffe gesehen
+Wenn er die Pfad-Seite "Microservices" öffnet
+Dann sieht er keinen Stamm-Hinweis
+----
+
+=== Szenario: Abhängigkeiten pro Begriff sichtbar
+
+[source,gherkin]
+----
+Gegeben der Besucher öffnet die Pfad-Seite "Microservices"
+Dann zeigt der Begriff "API Gateway" die Voraussetzung "API, Microservices"
+Und die Voraussetzungen sind als Links dargestellt
+----
+
+=== Szenario: Hinweis bei fehlenden Voraussetzungen
+
+[source,gherkin]
+----
+Gegeben der Besucher hat "API" gesehen aber nicht "Microservices"
+Wenn er die Pfad-Seite öffnet
+Dann zeigt "API Gateway" einen visuellen Hinweis bei "Microservices":
+  "Noch nicht gesehen"
+----
+
+== Feature: Episoden-Seite
+
+=== Szenario: Episoden-Seite mit vorhandenen Videos
+
+[source,gherkin]
+----
+Gegeben der Begriff "Microservices" hat YouTube-URLs für DE und EN
+Wenn der Besucher die Episoden-Seite /concept/microservices öffnet
+Dann sieht er den Titel "Microservices" (DE + EN)
+Und ein eingebettetes YouTube-Video für DE
+Und ein eingebettetes YouTube-Video für EN
+Und die Pfad-Zugehörigkeit "Pfad: Microservices"
+Und Links zu den Voraussetzungen
+Und Links zu den Nachfolgern
+----
+
+=== Szenario: Episoden-Seite ohne Videos (noch nicht produziert)
+
+[source,gherkin]
+----
+Gegeben der Begriff "Saga" hat keine YouTube-URLs
+Wenn der Besucher die Episoden-Seite /concept/saga öffnet
+Dann sieht er den Titel und die Kontext-Informationen
+Und anstelle der Videos einen Platzhalter: "Video in Produktion"
+Und den "Gesehen"-Button ist trotzdem verfügbar
+----
+
+=== Szenario: Video-Reihenfolge nach Spracheinstellung
+
+[source,gherkin]
+----
+Gegeben der Besucher hat Englisch als Sprache eingestellt
+Wenn er die Episoden-Seite öffnet
+Dann ist das EN-Video oben (prominent)
+Und das DE-Video darunter (Alternative)
+----
+
+=== Szenario: Lazy Loading der YouTube-IFrames
+
+[source,gherkin]
+----
+Gegeben die Episoden-Seite hat zwei YouTube-IFrames
+Dann haben beide IFrames das Attribut loading="lazy"
+Und die IFrames laden erst wenn sie in den Viewport scrollen
+----
+
+=== Szenario: Voraussetzungen als Links
+
+[source,gherkin]
+----
+Gegeben der Begriff "API Gateway" hat Voraussetzungen "API" und "Microservices"
+Wenn der Besucher die Episoden-Seite öffnet
+Dann sind "API" und "Microservices" als klickbare Links dargestellt
+Und die Links führen zu /concept/api bzw. /concept/microservices
+----
+
+=== Szenario: Empfehlung bei nicht gesehener Voraussetzung
+
+[source,gherkin]
+----
+Gegeben der Besucher hat "Microservices" nicht als gesehen markiert
+Wenn er /concept/api-gateway öffnet
+Dann sieht er den Hinweis:
+  "Empfohlen: Zuerst 'Microservices' ansehen"
+Und "Microservices" ist als Link dargestellt
+----
+
+== Feature: Fortschritts-Tracking
+
+=== Szenario: Begriff als gesehen markieren
+
+[source,gherkin]
+----
+Gegeben der Besucher ist auf der Episoden-Seite /concept/abstraktion
+Und "Abstraktion" ist noch nicht als gesehen markiert
+Wenn er auf den "Gesehen"-Button klickt
+Dann ändert sich das Button-Icon zu einem Häkchen
+Und in localStorage ist "abstraktion" als gesehen gespeichert
+----
+
+=== Szenario: Gesehen-Markierung zurücknehmen
+
+[source,gherkin]
+----
+Gegeben "Abstraktion" ist als gesehen markiert
+Wenn der Besucher auf den "Gesehen"-Button klickt
+Dann ändert sich das Button-Icon zu einem leeren Kreis
+Und in localStorage ist "abstraktion" nicht mehr als gesehen gespeichert
+----
+
+=== Szenario: Fortschritt überlebt Seitennavigation
+
+[source,gherkin]
+----
+Gegeben der Besucher markiert "Abstraktion" als gesehen
+Wenn er zur Startseite navigiert
+Dann zeigt der Stamm-Fortschritt "1 von 8 gesehen"
+Wenn er zurück zu /concept/abstraktion navigiert
+Dann zeigt der Button weiterhin ein Häkchen
+----
+
+=== Szenario: Fortschritt überlebt Browser-Neustart
+
+[source,gherkin]
+----
+Gegeben der Besucher hat 5 Begriffe als gesehen markiert
+Wenn er den Browser schließt und die Website erneut öffnet
+Dann zeigt die Startseite weiterhin "5/132"
+Und die 5 Begriffe sind weiterhin als gesehen markiert
+----
+
+=== Szenario: Fortschritt exportieren
+
+[source,gherkin]
+----
+Gegeben der Besucher hat Fortschritt in localStorage
+Wenn er auf "Fortschritt exportieren" klickt
+Dann wird eine JSON-Datei zum Download angeboten
+Und die Datei enthält alle gesehen-Markierungen
+----
+
+=== Szenario: Fortschritt importieren (gültige Datei)
+
+[source,gherkin]
+----
+Gegeben der Besucher hat eine exportierte JSON-Datei
+Wenn er auf "Fortschritt importieren" klickt
+Und eine gültige JSON-Datei auswählt
+Dann wird der Fortschritt aus der Datei übernommen
+Und die Anzeige aktualisiert sich
+----
+
+=== Szenario: Fortschritt importieren (ungültige Datei)
+
+[source,gherkin]
+----
+Gegeben der Besucher klickt auf "Fortschritt importieren"
+Wenn er eine ungültige Datei auswählt (kein JSON oder falsches Format)
+Dann sieht er eine Fehlermeldung: "Ungültiges Format"
+Und der bestehende Fortschritt bleibt unverändert
+----
+
+=== Szenario: Fortschritt zurücksetzen
+
+[source,gherkin]
+----
+Gegeben der Besucher hat 20 Begriffe als gesehen markiert
+Wenn er auf "Fortschritt zurücksetzen" klickt
+Dann sieht er einen Bestätigungsdialog:
+  "Wirklich allen Fortschritt zurücksetzen?"
+Wenn er bestätigt
+Dann sind alle Begriffe als nicht gesehen markiert
+Und alle Fortschrittsanzeigen zeigen 0
+----
+
+=== Szenario: Fortschritt zurücksetzen — Abbruch
+
+[source,gherkin]
+----
+Gegeben der Besucher klickt auf "Fortschritt zurücksetzen"
+Wenn er den Bestätigungsdialog abbricht
+Dann bleibt der Fortschritt unverändert
+----
+
+=== Szenario: localStorage nicht verfügbar
+
+[source,gherkin]
+----
+Gegeben der Besucher nutzt den privaten Modus (kein localStorage)
+Wenn er die Website öffnet
+Dann sieht er die Website ohne Fortschrittsanzeige
+Und der "Gesehen"-Button zeigt einen Hinweis:
+  "Fortschritt kann im privaten Modus nicht gespeichert werden"
+----
+
+== Feature: Sprachumschaltung
+
+=== Szenario: Sprache wechseln von DE auf EN
+
+[source,gherkin]
+----
+Gegeben die aktuelle Sprache ist DE
+Wenn der Besucher auf den Sprach-Toggle klickt
+Dann wechseln alle UI-Texte auf Englisch
+Und der Toggle zeigt "DE" als Alternative
+Und die Einstellung wird in localStorage gespeichert
+----
+
+=== Szenario: Sprache wird beim nächsten Besuch beibehalten
+
+[source,gherkin]
+----
+Gegeben der Besucher hat EN als Sprache gewählt
+Wenn er die Website später erneut öffnet
+Dann ist die Sprache weiterhin EN
+----
+
+=== Szenario: Standard-Sprache aus Browser-Einstellung
+
+[source,gherkin]
+----
+Gegeben der Besucher hat keine Spracheinstellung in localStorage
+Und seine Browser-Sprache ist "de-DE"
+Wenn er die Website öffnet
+Dann ist die Sprache DE
+----
+
+=== Szenario: Fallback auf Englisch bei unbekannter Browser-Sprache
+
+[source,gherkin]
+----
+Gegeben der Besucher hat keine Spracheinstellung in localStorage
+Und seine Browser-Sprache ist "fr-FR"
+Wenn er die Website öffnet
+Dann ist die Sprache EN (Fallback)
+----
+
+=== Szenario: Episoden-Seite passt Video-Reihenfolge an
+
+[source,gherkin]
+----
+Gegeben die Sprache ist EN
+Wenn der Besucher eine Episoden-Seite öffnet
+Dann ist das EN-Video oben
+Und das DE-Video darunter mit Label "Deutsche Version"
+----
+
+== Feature: Abhängigkeitsgraph
+
+=== Szenario: Graph zeigt alle Begriffe als Knoten
+
+[source,gherkin]
+----
+Gegeben der Besucher öffnet die Graph-Ansicht
+Dann sieht er einen interaktiven Graphen
+Und der Graph enthält 132 Knoten (einen pro Begriff)
+Und die Knoten sind nach Pfad-Farbe eingefärbt
+Und Stamm-Begriffe sind zentral positioniert
+----
+
+=== Szenario: Graph zeigt Abhängigkeiten als Kanten
+
+[source,gherkin]
+----
+Gegeben der Begriff "API Gateway" hat Voraussetzungen "API" und "Microservices"
+Wenn der Besucher den Graphen betrachtet
+Dann gibt es Kanten von "API" nach "API Gateway"
+Und von "Microservices" nach "API Gateway"
+----
+
+=== Szenario: Graph zeigt Fortschritt
+
+[source,gherkin]
+----
+Gegeben der Besucher hat 10 Begriffe als gesehen markiert
+Wenn er den Graphen öffnet
+Dann sind die 10 gesehenen Knoten ausgefüllt
+Und die 122 nicht gesehenen Knoten zeigen nur einen Umriss
+----
+
+=== Szenario: Klick auf Graph-Knoten navigiert
+
+[source,gherkin]
+----
+Gegeben der Besucher sieht den Graphen
+Wenn er auf den Knoten "Microservices" klickt
+Dann navigiert der Browser zu /concept/microservices
+----
+
+=== Szenario: Hover zeigt Tooltip
+
+[source,gherkin]
+----
+Gegeben der Besucher sieht den Graphen
+Wenn er über den Knoten "Microservices" hovert
+Dann sieht er einen Tooltip mit:
+  Titel, Pfad-Name und Status (gesehen/nicht gesehen)
+----
+
+=== Szenario: Pfad-Filter im Graph
+
+[source,gherkin]
+----
+Gegeben der Besucher sieht den vollständigen Graphen
+Wenn er den Pfad-Filter "DDD" aktiviert
+Dann werden nur DDD-Begriffe und Stamm-Begriffe angezeigt
+Und alle anderen Knoten werden ausgeblendet
+----
+
+=== Szenario: Fallback ohne JavaScript
+
+[source,gherkin]
+----
+Gegeben der Besucher hat JavaScript deaktiviert
+Wenn er die Graph-Seite öffnet
+Dann sieht er ein statisches Bild des Graphen
+Und den Hinweis: "Für den interaktiven Graph bitte JavaScript aktivieren"
+----
+
+== Feature: Responsiveness
+
+=== Szenario: Mobile Darstellung der Startseite
+
+[source,gherkin]
+----
+Gegeben der Besucher nutzt ein Smartphone (Viewport 375px)
+Wenn er die Startseite öffnet
+Dann sind die Pfad-Karten untereinander angeordnet (eine Spalte)
+Und alle Texte sind lesbar ohne horizontales Scrollen
+Und der Sprach-Toggle ist erreichbar
+----
+
+=== Szenario: Desktop Darstellung der Startseite
+
+[source,gherkin]
+----
+Gegeben der Besucher nutzt einen Desktop (Viewport 1440px)
+Wenn er die Startseite öffnet
+Dann sind die Pfad-Karten in einem Grid angeordnet (2-3 Spalten)
+----
+
+=== Szenario: YouTube-Videos sind responsiv
+
+[source,gherkin]
+----
+Gegeben der Besucher öffnet eine Episoden-Seite auf einem Smartphone
+Dann passen sich die YouTube-IFrames an die Bildschirmbreite an
+Und behalten das 9:16 Seitenverhältnis bei
+----
+
+== Feature: SEO
+
+=== Szenario: Jeder Begriff hat eine eigene URL
+
+[source,gherkin]
+----
+Gegeben die Website ist gebaut
+Dann existiert für jeden der 132 Begriffe eine HTML-Datei
+Und jede ist unter /concept/{id} erreichbar
+----
+
+=== Szenario: Meta-Tags für Social Sharing
+
+[source,gherkin]
+----
+Gegeben die Episoden-Seite für "Microservices" existiert
+Dann enthält der HTML-Head:
+  - <title> mit "Microservices — Software Architektur in 60 Sekunden"
+  - <meta name="description"> mit Kurzbeschreibung
+  - <meta property="og:title"> für Social Sharing
+  - <meta property="og:description"> für Social Sharing
+  - <meta property="og:type" content="video.other">
+----
+
+=== Szenario: Sitemap enthält alle Seiten
+
+[source,gherkin]
+----
+Gegeben die Website ist gebaut
+Dann existiert /sitemap.xml
+Und die Sitemap enthält die Startseite
+Und alle 10 Pfad-Seiten
+Und alle 132 Episoden-Seiten
+Und die Graph-Seite
+----
+
+== Feature: Build & Deployment
+
+=== Szenario: Erfolgreicher Build
+
+[source,gherkin]
+----
+Gegeben die JSON-Dateien concepts.json und paths.json sind valide
+Wenn "npm run build" ausgeführt wird
+Dann werden statische HTML-Seiten nach dist/ generiert
+Und dist/ enthält index.html (Startseite)
+Und dist/path/ enthält 10 HTML-Dateien
+Und dist/concept/ enthält 132 HTML-Dateien
+Und dist/graph.html existiert
+Und dist/sitemap.xml existiert
+----
+
+=== Szenario: Build mit fehlerhafter JSON-Datei
+
+[source,gherkin]
+----
+Gegeben concepts.json enthält einen Begriff ohne "id"-Feld
+Wenn "npm run build" ausgeführt wird
+Dann bricht der Build mit einer Fehlermeldung ab:
+  "Validierungsfehler: Begriff ohne id in concepts.json"
+----
+
+=== Szenario: Build mit fehlenden YouTube-URLs
+
+[source,gherkin]
+----
+Gegeben der Begriff "saga" hat keine youtube_de und youtube_en URLs
+Wenn "npm run build" ausgeführt wird
+Dann wird die Seite trotzdem generiert
+Und die Video-Bereiche zeigen "Video in Produktion"
+Und der Build gibt eine Warnung aus:
+  "Warnung: saga hat keine YouTube-URLs"
+----
+
+=== Szenario: GitHub Actions Deployment
+
+[source,gherkin]
+----
+Gegeben ein Push auf den main-Branch
+Dann startet der GitHub Actions Workflow
+Und führt Lint und Format-Check durch
+Und baut die Website mit "npm run build"
+Und deployed dist/ auf GitHub Pages
+Und die Website ist unter sa-in-60s.github.io erreichbar
+----
+
+== Feature: Accessibility
+
+=== Szenario: Tastaturnavigation
+
+[source,gherkin]
+----
+Gegeben der Besucher nutzt nur die Tastatur
+Dann kann er mit Tab durch alle interaktiven Elemente navigieren
+Und mit Enter Links und Buttons aktivieren
+Und der Fokus ist immer sichtbar (Outline)
+----
+
+=== Szenario: Screen-Reader Unterstützung
+
+[source,gherkin]
+----
+Gegeben der Besucher nutzt einen Screen-Reader
+Dann haben alle Bilder alt-Texte
+Und der Sprach-Toggle hat ein aria-label
+Und der "Gesehen"-Button hat ein aria-label mit aktuellem Status
+Und der Fortschrittsbalken hat role="progressbar" mit aria-valuenow
+----
+
+=== Szenario: Kontrast im Dark Mode
+
+[source,gherkin]
+----
+Gegeben die Website nutzt das dunkle Farbschema
+Dann erfüllen alle Text-Hintergrund-Kombinationen
+  WCAG 2.1 AA Kontrastverhältnis (mindestens 4.5:1)
+----
