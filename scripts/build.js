@@ -216,7 +216,6 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
             <select id="ai-chat-select" class="py-2 px-3 bg-bg-card border border-text-muted rounded-lg text-sm text-text" aria-label="AI Chat">
               <option value="claude">Claude</option>
               <option value="chatgpt">ChatGPT</option>
-              <option value="gemini">Gemini</option>
               <option value="perplexity">Perplexity</option>
             </select>
             <button id="ai-deep-dive" class="py-2 px-4 rounded-lg border border-text-muted text-text-muted hover:text-accent-cyan hover:border-accent-cyan transition text-sm cursor-pointer" data-prompt-de="${escapeHtml(`Ich habe gerade ein 60-Sekunden-Video über "${concept.title_de}" auf sa-in-60s.github.io gesehen.\n\nErkläre mir das Konzept tiefer:\n- Was sind typische Praxisbeispiele?\n- Welche Vor- und Nachteile gibt es?\n- Wie hängt es mit verwandten Konzepten zusammen?\n- Wann sollte man es einsetzen — und wann nicht?`)}" data-prompt-en="${escapeHtml(`I just watched a 60-second video about "${concept.title_en}" on sa-in-60s.github.io.\n\nExplain this concept in more depth:\n- What are typical real-world examples?\n- What are the pros and cons?\n- How does it relate to other concepts?\n- When should you use it — and when not?`)}" data-de="🤖 Tiefer einsteigen" data-en="🤖 Explore deeper">🤖 Tiefer einsteigen</button>

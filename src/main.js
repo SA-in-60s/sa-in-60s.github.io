@@ -191,8 +191,6 @@ function updateProgressDisplays() {
 const AI_CHATS = {
   claude: (p) => `https://claude.ai/new?q=${encodeURIComponent(p)}`,
   chatgpt: (p) => `https://chatgpt.com/?q=${encodeURIComponent(p)}`,
-  gemini: (p) =>
-    `https://gemini.google.com?prompt_text=${encodeURIComponent(p)}&prompt_action=prefill`,
   perplexity: (p) => `https://www.perplexity.ai/?q=${encodeURIComponent(p)}`,
 }
 
