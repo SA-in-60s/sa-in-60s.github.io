@@ -154,20 +154,63 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
     jsonLd = `<script type="application/ld+json">${JSON.stringify(ldData)}</script>`
   }
 
+  // Script text as paragraphs
+  const scriptDe = concept.script_de || ''
+  const scriptEn = concept.script_en || ''
+  const scriptDeHtml = scriptDe
+    ? scriptDe
+        .split(/\n\n+/)
+        .map((p) => `<p class="mb-3">${escapeHtml(p)}</p>`)
+        .join('\n')
+    : ''
+  const scriptEnHtml = scriptEn
+    ? scriptEn
+        .split(/\n\n+/)
+        .map((p) => `<p class="mb-3">${escapeHtml(p)}</p>`)
+        .join('\n')
+    : ''
+
+  // Merksatz
+  const merksatzDe = concept.merksatz_de || ''
+  const merksatzEn = concept.merksatz_en || ''
+
   const body = `
     ${jsonLd}
     <article>
       <h1 class="text-3xl font-bold mb-2" data-de="${escapeHtml(concept.title_de)}" data-en="${escapeHtml(concept.title_en)}">${escapeHtml(concept.title_de)}</h1>
-      <p class="text-text-muted mb-6" data-de="${escapeHtml(t.concept_path)}" data-en="${escapeHtml(translations.en.concept_path)}">${escapeHtml(t.concept_path)}: ${pathLink}</p>
+      <p class="text-text-muted mb-6">${escapeHtml(t.concept_path)}: ${pathLink}</p>
 
-      <div class="grid md:grid-cols-2 gap-6 mb-8">
-        <div>
-          <h2 class="text-sm text-text-muted mb-2" data-de="Deutsch" data-en="German">Deutsch</h2>
-          ${youtubeEmbed(concept.youtube_de, t.concept_video_placeholder, youtubeDeTitle)}
+      <div class="md:flex md:gap-8 mb-8">
+        <div class="md:w-1/3 mb-6 md:mb-0">
+          <div id="video-de" data-lang="de">
+            ${youtubeEmbed(concept.youtube_de, t.concept_video_placeholder, youtubeDeTitle)}
+          </div>
+          <div id="video-en" data-lang="en" class="hidden">
+            ${youtubeEmbed(concept.youtube_en, translations.en.concept_video_placeholder, youtubeEnTitle)}
+          </div>
+          <p class="text-center mt-2 text-sm">
+            <a href="#" id="switch-video-lang" class="text-accent-cyan hover:underline" data-de="Watch in English" data-en="Auf Deutsch ansehen">Watch in English</a>
+          </p>
         </div>
-        <div>
-          <h2 class="text-sm text-text-muted mb-2" data-de="${escapeHtml(t.concept_video_alt_lang)}" data-en="${escapeHtml(translations.en.concept_video_alt_lang)}">${escapeHtml(t.concept_video_alt_lang)}</h2>
-          ${youtubeEmbed(concept.youtube_en, translations.en.concept_video_placeholder, youtubeEnTitle)}
+        <div class="md:w-2/3">
+          ${
+            scriptDeHtml
+              ? `<div data-lang="de" class="text-text leading-relaxed">${scriptDeHtml}</div>`
+              : ''
+          }
+          ${
+            scriptEnHtml
+              ? `<div data-lang="en" class="text-text leading-relaxed hidden">${scriptEnHtml}</div>`
+              : ''
+          }
+          ${
+            merksatzDe || merksatzEn
+              ? `<blockquote class="mt-4 pl-4 border-l-4 border-accent-orange text-accent-orange italic">
+            <span data-lang="de">${escapeHtml(merksatzDe)}</span>
+            <span data-lang="en" class="hidden">${escapeHtml(merksatzEn)}</span>
+          </blockquote>`
+              : ''
+          }
         </div>
       </div>
 
