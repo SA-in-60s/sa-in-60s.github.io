@@ -218,6 +218,11 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
         </div>
       </div>
 
+      <div class="mb-8">
+        <a href="https://claude.ai/new?q=${encodeURIComponent(`Ich habe gerade ein 60-Sekunden-Video über "${concept.title_de}" gesehen. Erkläre mir das Konzept tiefer: Was sind typische Praxisbeispiele? Welche Vor- und Nachteile gibt es? Wie hängt es mit verwandten Konzepten zusammen? Wann sollte man es einsetzen — und wann nicht?`)}" target="_blank" rel="noopener" data-lang="de" class="inline-flex items-center gap-2 py-2 px-4 rounded-lg border border-text-muted text-text-muted hover:text-accent-cyan hover:border-accent-cyan transition text-sm">🤖 Mit Claude tiefer einsteigen</a>
+        <a href="https://claude.ai/new?q=${encodeURIComponent(`I just watched a 60-second video about "${concept.title_en}". Explain this concept in more depth: What are typical real-world examples? What are the pros and cons? How does it relate to other concepts? When should you use it — and when not?`)}" target="_blank" rel="noopener" data-lang="en" class="hidden inline-flex items-center gap-2 py-2 px-4 rounded-lg border border-text-muted text-text-muted hover:text-accent-cyan hover:border-accent-cyan transition text-sm">🤖 Explore deeper with Claude</a>
+      </div>
+
       <div class="grid md:grid-cols-2 gap-6 mb-8">
         <div>
           <h3 class="text-sm font-semibold text-text-muted mb-1" data-de="${escapeHtml(t.concept_requires)}" data-en="${escapeHtml(translations.en.concept_requires)}">${escapeHtml(t.concept_requires)}</h3>
