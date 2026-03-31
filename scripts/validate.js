@@ -3,7 +3,15 @@ import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
 const REQUIRED_CONCEPT_FIELDS = ['id', 'title_de', 'title_en', 'episode', 'path', 'path_position']
-const REQUIRED_PATH_FIELDS = ['id', 'name_de', 'name_en', 'description_de', 'description_en', 'color', 'concepts']
+const REQUIRED_PATH_FIELDS = [
+  'id',
+  'name_de',
+  'name_en',
+  'description_de',
+  'description_en',
+  'color',
+  'concepts',
+]
 
 export function validateConcepts(concepts) {
   const errors = []
@@ -26,6 +34,20 @@ export function validateConcepts(concepts) {
 
     if (!concept.youtube_de && !concept.youtube_en) {
       warnings.push(`${concept.id || '(unknown)'} has no YouTube URLs`)
+    }
+
+    // Validate YouTube URL format
+    if (
+      concept.youtube_de &&
+      !/^https:\/\/(www\.)?youtube\.com\/shorts\/[a-zA-Z0-9_-]+$/.test(concept.youtube_de)
+    ) {
+      errors.push(`Concept "${concept.id}" has invalid youtube_de URL: ${concept.youtube_de}`)
+    }
+    if (
+      concept.youtube_en &&
+      !/^https:\/\/(www\.)?youtube\.com\/shorts\/[a-zA-Z0-9_-]+$/.test(concept.youtube_en)
+    ) {
+      errors.push(`Concept "${concept.id}" has invalid youtube_en URL: ${concept.youtube_en}`)
     }
   }
 
@@ -61,9 +83,41 @@ export function validatePaths(paths) {
       }
       ids.add(path.id)
     }
+
+    // Validate color format
+    if (path.color && !/^#[0-9a-fA-F]{6}$/.test(path.color)) {
+      errors.push(`Path "${path.id}" has invalid color: ${path.color}`)
+    }
   }
 
   return { valid: errors.length === 0, errors, warnings }
+}
+
+export function validateCrossReferences(concepts, paths) {
+  const errors = []
+  const conceptIds = new Set(concepts.map((c) => c.id))
+  const pathIds = new Set(paths.map((p) => p.id))
+
+  // Every concept referenced by a path must exist
+  for (const path of paths) {
+    if (Array.isArray(path.concepts)) {
+      for (const cid of path.concepts) {
+        if (!conceptIds.has(cid)) {
+          errors.push(`Path "${path.id}" references non-existent concept: ${cid}`)
+        }
+      }
+    }
+  }
+
+  // Every concept's path field must reference an existing path (or 'stem'/'intro')
+  const validPaths = new Set([...pathIds, 'stem', 'intro'])
+  for (const concept of concepts) {
+    if (!validPaths.has(concept.path)) {
+      errors.push(`Concept "${concept.id}" has unknown path: ${concept.path}`)
+    }
+  }
+
+  return { valid: errors.length === 0, errors }
 }
 
 // CLI entry point
@@ -78,24 +132,32 @@ if (process.argv[1] === __filename) {
 
     const cr = validateConcepts(concepts)
     const pr = validatePaths(paths)
+    const xr = validateCrossReferences(concepts, paths)
 
     if (cr.warnings.length) {
       console.warn(`\nWarnings (concepts): ${cr.warnings.length}`)
-      cr.warnings.forEach((w) => console.warn(`  ⚠ ${w}`))
+      cr.warnings.forEach((w) => console.warn(`  \u26A0 ${w}`))
     }
 
     if (!cr.valid) {
       console.error(`\nErrors (concepts): ${cr.errors.length}`)
-      cr.errors.forEach((e) => console.error(`  ✗ ${e}`))
+      cr.errors.forEach((e) => console.error(`  \u2717 ${e}`))
     }
 
     if (!pr.valid) {
       console.error(`\nErrors (paths): ${pr.errors.length}`)
-      pr.errors.forEach((e) => console.error(`  ✗ ${e}`))
+      pr.errors.forEach((e) => console.error(`  \u2717 ${e}`))
     }
 
-    if (cr.valid && pr.valid) {
-      console.log(`✓ ${concepts.length} concepts, ${paths.length} paths — all valid`)
+    if (!xr.valid) {
+      console.error(`\nErrors (cross-references): ${xr.errors.length}`)
+      xr.errors.forEach((e) => console.error(`  \u2717 ${e}`))
+    }
+
+    if (cr.valid && pr.valid && xr.valid) {
+      console.error(
+        `\u2713 ${concepts.length} concepts, ${paths.length} paths \u2014 all valid`
+      )
       process.exit(0)
     } else {
       process.exit(1)

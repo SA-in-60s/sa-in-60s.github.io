@@ -5,6 +5,8 @@ import {
   generatePathPage,
   generateIndexPage,
   youtubeEmbed,
+  escapeHtml,
+  validateYoutubeUrl,
 } from './build.js'
 
 const sampleConcept = {
@@ -42,6 +44,11 @@ const samplePath = {
 const translations = {
   de: {
     site_title: 'Software Architektur in 60 Sekunden',
+    site_subtitle: '10 Lernpfade',
+    stem_title: 'Gemeinsamer Stamm',
+    stem_hint: 'Bevor du einen Pfad startest',
+    paths_title: 'Lernpfade',
+    path_concepts: 'Begriffe',
     concept_video_placeholder: 'Video in Produktion',
     concept_video_alt_lang: 'Englische Version',
     concept_path: 'Pfad',
@@ -51,8 +58,13 @@ const translations = {
   },
   en: {
     site_title: 'Software Architecture in 60 Seconds',
+    site_subtitle: '10 Learning Paths',
+    stem_title: 'Common Stem',
+    stem_hint: 'Before starting a path',
+    paths_title: 'Learning Paths',
+    path_concepts: 'Concepts',
     concept_video_placeholder: 'Video in production',
-    concept_video_alt_lang: 'German version',
+    concept_video_alt_lang: 'English version',
     concept_path: 'Path',
     concept_requires: 'Prerequisites',
     concept_leads_to: 'Leads to',
@@ -60,12 +72,57 @@ const translations = {
   },
 }
 
+describe('escapeHtml()', () => {
+  it('escapes HTML special characters', () => {
+    expect(escapeHtml('<script>"alert"</script>')).toBe(
+      '&lt;script&gt;&quot;alert&quot;&lt;/script&gt;'
+    )
+  })
+
+  it('escapes ampersands', () => {
+    expect(escapeHtml('A & B')).toBe('A &amp; B')
+  })
+
+  it('escapes single quotes', () => {
+    expect(escapeHtml("it's")).toBe('it&#x27;s')
+  })
+
+  it('handles non-string input', () => {
+    expect(escapeHtml(42)).toBe('42')
+  })
+})
+
+describe('validateYoutubeUrl()', () => {
+  it('accepts valid YouTube Shorts URL', () => {
+    expect(validateYoutubeUrl('https://youtube.com/shorts/abc123')).toBe(true)
+  })
+
+  it('accepts valid YouTube Shorts URL with www', () => {
+    expect(validateYoutubeUrl('https://www.youtube.com/shorts/abc123def')).toBe(true)
+  })
+
+  it('accepts empty/falsy URL', () => {
+    expect(validateYoutubeUrl('')).toBe(true)
+    expect(validateYoutubeUrl(undefined)).toBe(true)
+  })
+
+  it('rejects malicious URL', () => {
+    expect(validateYoutubeUrl('https://youtube.com/shorts/x" onload="alert(1)')).toBe(
+      false
+    )
+  })
+
+  it('rejects non-YouTube URL', () => {
+    expect(validateYoutubeUrl('https://evil.com/shorts/abc123')).toBe(false)
+  })
+})
+
 describe('UC-7: Build script — HTML generation', () => {
   describe('youtubeEmbed()', () => {
     it('generates an iframe for a valid YouTube URL', () => {
       const html = youtubeEmbed('https://youtube.com/shorts/abc123')
       expect(html).toContain('<iframe')
-      expect(html).toContain('youtube.com/embed/abc123')
+      expect(html).toContain('youtube-nocookie.com/embed/abc123')
       expect(html).toContain('loading="lazy"')
     })
 
@@ -79,6 +136,23 @@ describe('UC-7: Build script — HTML generation', () => {
       const html = youtubeEmbed(undefined, 'Video in production')
       expect(html).toContain('Video in production')
     })
+
+    it('includes title attribute', () => {
+      const html = youtubeEmbed('https://youtube.com/shorts/abc123', '', 'Test Video')
+      expect(html).toContain('title="Test Video"')
+    })
+
+    it('includes sandbox and referrerpolicy', () => {
+      const html = youtubeEmbed('https://youtube.com/shorts/abc123')
+      expect(html).toContain('sandbox="allow-scripts allow-same-origin allow-presentation"')
+      expect(html).toContain('referrerpolicy="no-referrer"')
+    })
+
+    it('rejects invalid video ID', () => {
+      const html = youtubeEmbed('https://youtube.com/shorts/x"onload="alert(1)')
+      expect(html).not.toContain('<iframe')
+      expect(html).toContain('Invalid video')
+    })
   })
 
   describe('generateConceptPage()', () => {
@@ -90,14 +164,14 @@ describe('UC-7: Build script — HTML generation', () => {
 
     it('embeds YouTube videos when URLs exist', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
-      expect(html).toContain('youtube.com/embed/abc123')
-      expect(html).toContain('youtube.com/embed/def456')
+      expect(html).toContain('youtube-nocookie.com/embed/abc123')
+      expect(html).toContain('youtube-nocookie.com/embed/def456')
     })
 
     it('shows placeholder when video URLs are missing', () => {
       const html = generateConceptPage(sampleConceptNoVideo, [], [], translations)
       expect(html).toContain('Video in Produktion')
-      expect(html).not.toContain('youtube.com/embed')
+      expect(html).not.toContain('youtube-nocookie.com/embed')
     })
 
     it('includes requires links', () => {
@@ -130,16 +204,61 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('href="/path/microservices"')
     })
 
-    it('includes seen button', () => {
+    it('includes seen button with aria-pressed', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
       expect(html).toContain('data-concept-id="microservices"')
       expect(html).toContain('seen-button')
+      expect(html).toContain('aria-pressed="false"')
     })
 
     it('includes meta tags', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
       expect(html).toContain('<title>')
       expect(html).toContain('og:title')
+    })
+
+    it('generates valid HTML structure', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('<!doctype html>')
+      expect(html).toContain('</html>')
+      expect(html).not.toContain('undefined')
+      expect(html).not.toMatch(/="null"/)
+    })
+
+    it('includes CSP meta tag', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('Content-Security-Policy')
+      expect(html).toContain("frame-src https://www.youtube.com")
+    })
+
+    it('includes canonical URL', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('rel="canonical"')
+      expect(html).toContain('/concept/microservices')
+    })
+
+    it('includes skip-to-content link', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('href="#main"')
+      expect(html).toContain('Skip to main content')
+    })
+
+    it('includes JSON-LD for concepts with videos', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('application/ld+json')
+      expect(html).toContain('VideoObject')
+    })
+
+    it('does not include JSON-LD for concepts without videos', () => {
+      const html = generateConceptPage(sampleConceptNoVideo, [], [], translations)
+      expect(html).not.toContain('application/ld+json')
+    })
+
+    it('includes Open Graph locale tags', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('og:locale')
+      expect(html).toContain('og:url')
+      expect(html).toContain('og:site_name')
     })
   })
 

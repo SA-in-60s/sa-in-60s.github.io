@@ -1,0 +1,629 @@
+= SA-in-60s Best Practices Review
+:author: Claude Code Review
+:date: 2026-03-31
+:toc: left
+:toc-title: Contents
+:toclevels: 3
+:icons: font
+:sectnums:
+
+== Executive Summary
+
+This review evaluates the SA-in-60s website (https://sa-in-60s.github.io) against modern web best practices across eight categories.
+The project is a statically generated bilingual (DE/EN) learning platform for software architecture concepts, built with Vite 8, Tailwind CSS 4, and a custom Node.js build script.
+
+*Overall Rating: Good -- a solid foundation with clear areas for improvement.*
+
+The architecture is clean and well-suited for the use case: JSON data drives a build-time HTML generator, with minimal client-side JS for language switching and progress tracking.
+The main gaps are in accessibility, SEO completeness, progressive enhancement, and missing operational basics (robots.txt, favicon in public/, structured data).
+
+---
+
+== 1. Web Performance Best Practices
+
+=== 1.1 Asset Loading Strategy
+
+*Rating: Good*
+
+Strengths::
+* Vite 8 produces hashed, cache-bustable asset filenames (`index-DY6Bzrp7.js`, `index-2IabvKiQ.css`).
+* CSS is loaded via `<link rel="stylesheet">` in `<head>` -- render-blocking but appropriate for a small stylesheet (~10 KB).
+* JS is loaded with `type="module"` and `crossorigin`, enabling modern browser optimizations.
+* YouTube iframes use `loading="lazy"`, preventing video embeds from blocking initial paint.
+
+Issues::
+* The font stack references `'Inter'` first in `main.css` (line 28), but no `@font-face` declaration or font file is included. The browser will attempt to resolve `Inter` and fall back to system fonts, causing a brief delay on systems without Inter installed. Either:
+  ** Remove `'Inter'` from the stack (system fonts are sufficient), or
+  ** Add a self-hosted Inter font with `font-display: swap` and a `<link rel="preload">`.
+* Generated HTML pages in `public/` reference `/assets/main.css` and `/src/main.js`. However, the Vite-built `dist/index.html` references hashed assets. This means the generated concept/path pages bypass Vite's build pipeline entirely -- they serve unprocessed CSS/JS references that may 404 in production unless a separate asset pipeline exists.
+
+Recommendations::
+. Verify that generated pages in `public/` actually resolve their CSS/JS references after `vite build`. If they rely on a separate non-hashed `/assets/main.css`, ensure it exists in `dist/`.
+. Remove `'Inter'` from the font-family or properly bundle the font.
+. Add `<link rel="preconnect" href="https://www.youtube.com">` to concept pages that embed YouTube iframes.
+
+=== 1.2 Image Optimization
+
+*Rating: Good (N/A)*
+
+The site contains no images -- all visual content is YouTube video embeds or SVG favicon.
+This is an excellent architectural decision for performance.
+
+=== 1.3 Caching Headers
+
+*Rating: Good*
+
+GitHub Pages provides reasonable defaults: hashed Vite assets get long-lived caches.
+HTML files get short caches via GitHub's CDN.
+
+Recommendation::
+No action needed. If custom headers are ever required, a `_headers` file (Netlify) or `staticwebapp.config.json` would be needed, but GitHub Pages does not support custom headers.
+
+=== 1.4 Bundle Size
+
+*Rating: Excellent*
+
+[cols="1,1"]
+|===
+| Asset | Size
+
+| `index-DY6Bzrp7.js` | 2.8 KB
+| `index-2IabvKiQ.css` | 9.9 KB
+|===
+
+Total bundle: ~13 KB (before gzip, likely ~4 KB gzipped). This is outstanding for a modern web project.
+No third-party runtime dependencies. Zero npm production dependencies.
+
+=== 1.5 Core Web Vitals
+
+*Rating: Good*
+
+* *LCP (Largest Contentful Paint)*: Should be fast. The largest element is likely the `<h1>` text, which renders immediately from static HTML. No blocking external resources.
+* *FID / INP (First Input Delay / Interaction to Next Paint)*: Minimal JS (2.8 KB). Event listeners are simple DOM manipulations. Should score well.
+* *CLS (Cumulative Layout Shift)*: Low risk. No dynamic image loading, no late-loading fonts (assuming Inter is removed). YouTube placeholders have fixed aspect ratios (`aspect-9/16`), preventing layout shift when iframes load.
+
+Issue::
+Video placeholder divs and YouTube iframes both use `aspect-9/16 max-w-xs`, which is good for CLS. However, the concept pages show two video columns side by side on desktop (`grid md:grid-cols-2`) -- when `applyLanguage()` reorders them via `insertBefore()`, this could cause a brief visual shift on language toggle.
+
+---
+
+== 2. Accessibility (WCAG 2.1 AA)
+
+=== 2.1 Semantic HTML
+
+*Rating: Needs Improvement*
+
+Strengths::
+* Uses `<article>`, `<nav>`, `<main>`, `<section>`, `<h1>`-`<h3>` appropriately.
+* Heading hierarchy is correct (h1 > h2 > h3).
+
+Issues::
+* The `<nav>` element has no accessible label. With only one nav, this is acceptable, but adding `aria-label="Main navigation"` is best practice.
+* The `<body>` in `index.html` (Vite entry point) contains only `<div id="app"></div>` -- no semantic structure for the main app shell. This div renders nothing without JS.
+* Lists of concepts on path pages use `<ol>` (correct for ordered learning paths), but stem concepts on the index page use a `<div>` grid instead of `<ul>`. Stem concepts are a collection and should be a `<ul>`.
+* Path cards on the index page are `<a>` tags inside a `<div>` -- semantically these should be a `<ul><li>` list.
+* The generated HTML lacks a `<footer>` element entirely, despite `translations.json` defining `footer_text`.
+
+=== 2.2 ARIA Attributes
+
+*Rating: Needs Improvement*
+
+Issues::
+* The language toggle button has no `aria-label`. Screen readers will announce "EN" or "DE" with no context. Add `aria-label="Switch language"` or `aria-label="Sprache wechseln"`.
+* The "seen" button (`class="seen-button"`) uses visual-only indicators: the checkmark character and color changes. It lacks:
+  ** `aria-pressed="true/false"` to indicate toggle state.
+  ** `aria-label` to explain purpose (e.g., `aria-label="Mark Microservices as seen"`).
+* Video placeholder divs lack `role="img"` and `aria-label` -- screen readers cannot interpret them.
+* YouTube iframes lack a `title` attribute. Each iframe should have `title="Microservices - German version"` or similar.
+
+=== 2.3 Keyboard Navigation
+
+*Rating: Good*
+
+* All interactive elements (`<a>`, `<button>`) are natively focusable.
+* No custom keyboard traps.
+* Tab order follows DOM order, which matches visual order.
+
+Issue::
+* No visible focus styles are defined. Tailwind 4 resets may remove default focus outlines. Add explicit focus styles: `focus:outline-2 focus:outline-accent-cyan focus:outline-offset-2` or a global CSS rule.
+
+=== 2.4 Color Contrast (Dark Theme)
+
+*Rating: Needs Improvement*
+
+[cols="2,1,1,1"]
+|===
+| Combination | Foreground | Background | Ratio (approx.)
+
+| Primary text on background | `#e2e8f0` | `#0f172a` | ~13.5:1 (Pass)
+| Muted text on background | `#94a3b8` | `#0f172a` | ~6.5:1 (Pass AA)
+| Cyan accent on background | `#22d3ee` | `#0f172a` | ~8.5:1 (Pass)
+| Orange accent on background | `#fb923c` | `#0f172a` | ~6.8:1 (Pass AA)
+| Muted text on card background | `#94a3b8` | `#1e293b` | ~4.7:1 (Pass AA)
+| Path color: legacy (#F5F5F5) on bg | `#F5F5F5` | `#0f172a` | ~16:1 (Pass)
+| Path color: security (#A9A9A9) on bg | `#A9A9A9` | `#0f172a` | ~8:1 (Pass)
+|===
+
+The primary color combinations pass WCAG AA. However:
+
+* The `text-text-muted` on `bg-bg-card` combination (~4.7:1) barely passes AA for normal text (4.5:1 minimum). It fails AAA (7:1). Consider lightening `text-muted` slightly for card contexts.
+* Path colors used in `style="border-left: 3px solid ..."` are decorative and do not need contrast compliance, which is correct.
+
+=== 2.5 Screen Reader Compatibility
+
+*Rating: Needs Improvement*
+
+Issues::
+* The bilingual `data-de` / `data-en` approach replaces `textContent` via JS. Screen readers may announce the wrong language if JS runs after the screen reader caches the DOM. The `lang` attribute on `<html>` is updated correctly, which helps, but individual elements with mixed-language content should use `lang` attributes on the element itself.
+* Progress displays like "5/10" are not screen-reader-friendly. Use `aria-label="5 of 10 concepts seen"` or a `<span class="sr-only">` to provide context.
+* The checkmark/circle characters (U+2713, U+25CB) used for seen state may not be announced meaningfully. Use `aria-label` instead of relying on character semantics.
+
+=== 2.6 Focus Management
+
+*Rating: Needs Improvement*
+
+* No skip-to-content link exists. Add `<a href="#main" class="sr-only focus:not-sr-only">Skip to main content</a>` as the first element in `<body>`.
+* When language is toggled, focus is not managed -- the page content changes but focus stays on the toggle button, which is acceptable.
+
+---
+
+== 3. SEO Best Practices
+
+=== 3.1 Meta Tags Completeness
+
+*Rating: Good*
+
+Present::
+* `<title>` -- unique per page, follows "Concept -- Site Name" pattern.
+* `<meta name="description">` -- present on all pages.
+* `<meta charset="UTF-8">` -- present.
+* `<meta name="viewport">` -- present with correct values.
+
+Missing::
+* `<meta name="robots">` -- not present (defaults to index,follow, which is fine).
+* `<link rel="canonical">` -- not present on any page. This is important for SEO to avoid duplicate content issues (especially with/without trailing slashes).
+* `<meta name="theme-color">` -- not present. Add `<meta name="theme-color" content="#0f172a">` for mobile browser chrome.
+
+=== 3.2 Open Graph Tags
+
+*Rating: Needs Improvement*
+
+Present::
+* `og:title` -- yes.
+* `og:description` -- yes.
+* `og:type` -- yes (`website` on all pages; concept pages should use `article`).
+
+Missing::
+* `og:url` -- not present. Essential for canonical sharing.
+* `og:image` -- not present. Social media shares will have no preview image. Consider generating an OG image or using a static default.
+* `og:locale` -- not present. Should be `de_DE` with `og:locale:alternate` for `en_US`.
+* `og:site_name` -- not present.
+* Twitter Card tags (`twitter:card`, `twitter:title`, etc.) -- not present.
+
+=== 3.3 Structured Data (JSON-LD)
+
+*Rating: Missing*
+
+No structured data is present. For an educational site, the following schemas would be highly beneficial:
+
+* `WebSite` with `SearchAction` on the homepage.
+* `Course` or `LearningResource` on path pages.
+* `Article` or `LearningResource` on concept pages.
+* `BreadcrumbList` for navigation (Home > Path > Concept).
+
+This is a significant SEO opportunity given the educational nature of the content.
+
+=== 3.4 Canonical URLs
+
+*Rating: Missing*
+
+No `<link rel="canonical">` on any page. This should be added to every generated page.
+
+Example: `<link rel="canonical" href="https://sa-in-60s.github.io/concept/microservices" />`
+
+=== 3.5 Sitemap Quality
+
+*Rating: Good*
+
+Strengths::
+* Auto-generated from data, ensuring completeness.
+* Includes all 132+ concept pages, 10 path pages, index, and graph.
+* Valid XML structure.
+
+Issues::
+* No `<lastmod>` dates. While optional, they help crawlers prioritize.
+* No `<changefreq>` or `<priority>` hints.
+* Sitemap URLs lack `.html` extensions (e.g., `/concept/microservices`), which is correct for clean URLs but requires proper server-side routing or 404 fallback. GitHub Pages will serve `.html` files at paths without extensions via its built-in routing.
+
+=== 3.6 robots.txt
+
+*Rating: Missing*
+
+No `robots.txt` file exists in the project. Create `public/robots.txt`:
+
+[source]
+----
+User-agent: *
+Allow: /
+
+Sitemap: https://sa-in-60s.github.io/sitemap.xml
+----
+
+---
+
+== 4. Progressive Enhancement
+
+=== 4.1 Works Without JavaScript
+
+*Rating: Needs Improvement*
+
+The generated pages in `public/` (concept, path, index) are *fully static HTML*. All content, links, and navigation work without JavaScript. This is a significant strength.
+
+However::
+* The Vite entry point (`index.html` with `<div id="app"></div>`) renders nothing without JS. This page should probably redirect to or include the static `public/index.html` content.
+* Language switching requires JS -- without it, the site is German-only. This is acceptable since the default language matches the primary audience.
+* Progress tracking requires JS + localStorage -- appropriate graceful degradation is already implemented (buttons are disabled in private mode).
+
+=== 4.2 Noscript Fallbacks
+
+*Rating: Needs Improvement*
+
+* `translations.json` defines `graph_noscript: "Please enable JavaScript for the interactive graph"`, suggesting a graph page exists that needs JS. Good that this was planned.
+* No `<noscript>` tag exists in any generated HTML. Add:
+  ** On concept pages: a `<noscript>` note that progress tracking requires JavaScript.
+  ** On the graph page: the noscript message.
+* The language toggle button is visible but non-functional without JS. Consider hiding it with CSS and showing with JS: `<button id="lang-toggle" class="hidden">` then `toggle.classList.remove('hidden')` in `initI18n()`.
+
+---
+
+== 5. Responsive Design
+
+=== 5.1 Mobile-First Approach
+
+*Rating: Good*
+
+* Tailwind CSS 4 is mobile-first by default. The `md:` prefix is used correctly for desktop enhancements.
+* Grid layouts: `grid-cols-2 md:grid-cols-4` (stem), `md:grid-cols-2` (paths, videos).
+* `max-w-5xl mx-auto` constrains content width on large screens.
+* `px-4` provides consistent horizontal padding.
+
+=== 5.2 Breakpoint Usage
+
+*Rating: Good*
+
+Only one breakpoint is used (`md:` = 768px). For this content type, a single breakpoint is sufficient.
+The layout goes from 1-2 columns (mobile) to 2-4 columns (desktop).
+
+=== 5.3 Touch Targets
+
+*Rating: Needs Improvement*
+
+* The language toggle button (`px-2 py-1`) is quite small. Minimum recommended touch target is 44x44px (WCAG) or 48x48px (Material Design). Current size is approximately 36x28px. Increase to `px-3 py-2` minimum.
+* Stem concept cards (`p-3`) are borderline at approximately 44px height -- acceptable.
+* The "seen" button (`px-4 py-2`) is approximately 44px height -- acceptable.
+* Path cards (`p-4`) are large enough.
+
+=== 5.4 Viewport Configuration
+
+*Rating: Excellent*
+
+`<meta name="viewport" content="width=device-width, initial-scale=1.0" />` is correct.
+No `maximum-scale=1` or `user-scalable=no` -- users can zoom freely. This is correct for accessibility.
+
+---
+
+== 6. Developer Experience
+
+=== 6.1 README / Documentation
+
+*Rating: Missing*
+
+No `README.md` file exists in the repository. This is critical for any open-source project. A README should include:
+
+* Project description and purpose.
+* Screenshot or demo link.
+* Local development setup instructions.
+* Build and deploy instructions.
+* Data format documentation (concepts.json, paths.json).
+* Contributing guidelines.
+
+=== 6.2 Contributing Guide
+
+*Rating: Missing*
+
+No `CONTRIBUTING.md` exists. For a public GitHub Pages site, even a minimal guide helps.
+
+=== 6.3 Local Development Setup
+
+*Rating: Good*
+
+The `package.json` scripts are well-organized:
+
+* `npm run dev` -- Vite dev server.
+* `npm run build` -- build script + Vite build.
+* `npm run validate` -- data validation.
+* `npm test` -- unit tests.
+* `npm run lint` / `npm run format` -- code quality.
+
+Issue::
+The build pipeline (`node scripts/build.js && vite build`) generates static pages into `public/`, then Vite copies them to `dist/`. This is a reasonable approach but is not documented anywhere.
+
+=== 6.4 Code Comments
+
+*Rating: Good*
+
+* Use-case references in test files (`// UC-5`, `// UC-7`) link code to specifications.
+* Functions are self-documenting with clear names (`initI18n`, `updateSeenButton`, `generateConceptPage`).
+* Error handling has brief comments explaining edge cases (`// localStorage not available`, `// private mode`).
+
+=== 6.5 Consistent Coding Style
+
+*Rating: Excellent*
+
+* Prettier config enforced: no semicolons, single quotes, 2-space indent, trailing comma es5.
+* ESLint with ES2024, unused vars warning, no-console restriction.
+* Both lint and format are checked in CI (`test.yml`).
+* Code consistently follows the configured style.
+
+---
+
+== 7. Deployment & Operations
+
+=== 7.1 CI/CD Completeness
+
+*Rating: Good*
+
+Two workflows exist:
+
+[cols="1,2"]
+|===
+| Workflow | Triggers & Steps
+
+| `deploy.yml` (push to main)
+| checkout > setup-node > npm ci > lint > test > build > upload-pages-artifact > deploy-pages
+
+| `test.yml` (PR to main)
+| checkout > setup-node > npm ci > lint > format:check > test > validate > build
+|===
+
+Strengths::
+* Deploy workflow runs lint and test before building -- prevents broken deploys.
+* PR workflow additionally runs `format:check` and `validate` -- catches data issues early.
+* Node 22 with npm cache -- fast CI runs.
+* `concurrency` group on deploy prevents overlapping deploys.
+* Proper GitHub Pages permissions (`contents: read`, `pages: write`, `id-token: write`).
+
+Issues::
+* Deploy workflow does NOT run `validate` -- a data error could slip through if someone pushes directly to main.
+* Deploy workflow does NOT run `format:check` -- inconsistency with PR workflow.
+* No Lighthouse CI step. Given the site's educational nature, automated Lighthouse audits would catch accessibility and performance regressions.
+* No dependency caching beyond `cache: npm` (already good).
+
+Recommendation::
+Add `npm run validate` and `npm run format:check` to the deploy workflow's build job, or better yet, require PR-only merges to main.
+
+=== 7.2 Environment Configuration
+
+*Rating: Good*
+
+* No environment variables needed -- the site is fully static.
+* Base URL is hardcoded in `build.js` (`https://sa-in-60s.github.io`) -- acceptable for a single-environment project.
+* No secrets needed.
+
+=== 7.3 Error Tracking
+
+*Rating: Missing*
+
+No error tracking or monitoring is in place. For a static site with minimal JS, this is low priority. However, consider:
+
+* A lightweight error boundary in `main.js` that catches and logs unhandled errors.
+* GitHub Pages provides basic analytics via repository traffic if enabled.
+
+=== 7.4 Analytics Consideration
+
+*Rating: Missing*
+
+No analytics solution is integrated. If analytics are desired:
+
+* Use a privacy-friendly solution like Plausible or Fathom (no cookies, GDPR-compliant).
+* Avoid Google Analytics for a site that has no cookie banner infrastructure.
+
+---
+
+== 8. Content Strategy
+
+=== 8.1 URL Structure
+
+*Rating: Excellent*
+
+[source]
+----
+/                           -- Homepage
+/concept/{concept-id}       -- Concept detail page
+/path/{path-id}             -- Learning path page
+/graph                      -- Dependency graph (interactive)
+----
+
+* Clean, semantic URLs using kebab-case IDs.
+* Logical hierarchy: type/id pattern.
+* German concept IDs (e.g., `kopplung`, `abhaengigkeit`) are consistent and SEO-friendly for the primary German audience.
+* No unnecessary nesting or query parameters.
+
+=== 8.2 Navigation Patterns
+
+*Rating: Good*
+
+* Simple top nav: Home | Graph | Language Toggle.
+* Concept pages link to: parent path, prerequisite concepts, downstream concepts.
+* Path pages list all concepts in learning order.
+* Index page shows stem concepts and all paths.
+
+Issues::
+* No breadcrumb navigation (e.g., Home > Microservices Path > API Gateway). This would help orientation and SEO.
+* No "back to path" link on concept pages beyond the path badge.
+* No footer with links to sitemap, YouTube channel, or about page.
+* No search functionality. With 132 concepts, finding a specific one requires browsing. Consider a simple client-side search or alphabetical index.
+
+=== 8.3 Information Architecture
+
+*Rating: Good*
+
+The stem-then-paths model is pedagogically sound:
+
+. Common stem (8 fundamental concepts).
+. 10 specialized paths (10-18 concepts each).
+. Prerequisite chains within paths.
+
+Issues::
+* The `intro` path has a single concept (`was-ist-software-architektur`) that does not appear in the stem or any path listing on the index page -- it is orphaned.
+* Each path starts with a "pfad" intro concept (e.g., `microservices-pfad`, `ddd-pfad`) which increases concept count but may confuse users expecting only topic concepts.
+
+---
+
+== Scorecard
+
+[cols="3,1,4"]
+|===
+| Category | Rating | Key Action Needed
+
+| 1. Web Performance
+| *Good*
+| Fix font-family reference; verify generated page asset paths
+
+| 2. Accessibility
+| *Needs Improvement*
+| Add ARIA labels, skip-link, focus styles, iframe titles
+
+| 3. SEO
+| *Needs Improvement*
+| Add canonical URLs, robots.txt, structured data, OG image
+
+| 4. Progressive Enhancement
+| *Good*
+| Add noscript fallbacks; hide JS-only controls without JS
+
+| 5. Responsive Design
+| *Good*
+| Increase touch target sizes for lang toggle
+
+| 6. Developer Experience
+| *Needs Improvement*
+| Add README.md with setup instructions
+
+| 7. Deployment & Operations
+| *Good*
+| Add validate step to deploy workflow
+
+| 8. Content Strategy
+| *Good*
+| Add breadcrumbs and search
+
+|===
+
+---
+
+== Prioritized Action Items
+
+=== P1 -- Quick Wins (< 1 hour each)
+
+[cols="1,3,1"]
+|===
+| # | Action | Category
+
+| 1
+| Add `robots.txt` to `public/` with sitemap reference
+| SEO
+
+| 2
+| Add `<link rel="canonical">` to `htmlTemplate()` in `build.js`
+| SEO
+
+| 3
+| Add `aria-label` to language toggle button and seen buttons
+| A11y
+
+| 4
+| Add `title` attribute to YouTube iframes in `youtubeEmbed()`
+| A11y
+
+| 5
+| Add `<meta name="theme-color" content="#0f172a">` to `htmlTemplate()`
+| SEO
+
+| 6
+| Remove `'Inter'` from font-family stack or add the font
+| Perf
+
+| 7
+| Add skip-to-content link in `htmlTemplate()`
+| A11y
+
+| 8
+| Add `npm run validate` to `deploy.yml` build job
+| Ops
+
+|===
+
+=== P2 -- Medium Effort (1-4 hours each)
+
+[cols="1,3,1"]
+|===
+| # | Action | Category
+
+| 9
+| Add `aria-pressed` state management to seen buttons in `main.js`
+| A11y
+
+| 10
+| Add visible focus styles globally via Tailwind CSS `@layer`
+| A11y
+
+| 11
+| Expand OG tags: add `og:url`, `og:image`, `og:locale`, `og:site_name`, Twitter Card tags
+| SEO
+
+| 12
+| Add `<noscript>` blocks to generated pages
+| Prog. Enh.
+
+| 13
+| Add breadcrumb navigation to concept and path pages
+| Content
+
+| 14
+| Create a `README.md` with project overview, setup, and data format docs
+| DX
+
+| 15
+| Increase touch target size for language toggle (`px-3 py-2` minimum)
+| Responsive
+
+|===
+
+=== P3 -- Larger Initiatives (> 4 hours each)
+
+[cols="1,3,1"]
+|===
+| # | Action | Category
+
+| 16
+| Add JSON-LD structured data (`LearningResource`, `BreadcrumbList`) to generated pages
+| SEO
+
+| 17
+| Add a client-side search feature for 132 concepts
+| Content
+
+| 18
+| Add Lighthouse CI to the test workflow with performance > 90, accessibility = 100 targets
+| Ops
+
+| 19
+| Generate a default OG image (e.g., via `@vercel/og` or a static SVG template)
+| SEO
+
+| 20
+| Add footer with YouTube channel link, attribution, and sitemap link
+| Content
+
+|===

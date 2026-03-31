@@ -50,7 +50,7 @@
     "concept_leads_to": "Leads to",
     "concept_not_seen_hint": "Recommended: Watch '{name}' first",
     "concept_video_placeholder": "Video in production",
-    "concept_video_alt_lang": "German version",
+    "concept_video_alt_lang": "English version",
     "seen_button": "Mark as seen",
     "seen_button_done": "Seen",
     "stem_incomplete_hint": "Recommendation: Complete the common stem first ({seen}/{total} seen)",

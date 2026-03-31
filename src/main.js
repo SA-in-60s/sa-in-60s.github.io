@@ -87,12 +87,13 @@ function initProgress() {
 }
 
 function updateSeenButton(btn, seen) {
+  btn.setAttribute('aria-pressed', seen.toString())
   if (seen) {
-    btn.textContent = '✓'
+    btn.textContent = '\u2713'
     btn.classList.add('bg-accent-cyan', 'text-bg')
     btn.classList.remove('text-accent-cyan')
   } else {
-    btn.textContent = '○'
+    btn.textContent = '\u25CB'
     btn.classList.remove('bg-accent-cyan', 'text-bg')
     btn.classList.add('text-accent-cyan')
   }
@@ -100,8 +101,22 @@ function updateSeenButton(btn, seen) {
 
 function getProgress() {
   try {
-    return JSON.parse(localStorage.getItem('sa60s-progress') || '[]')
+    const raw = localStorage.getItem('sa60s-progress')
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed) || !parsed.every((item) => typeof item === 'string')) {
+      console.warn('Progress data is corrupted, resetting.')
+      localStorage.removeItem('sa60s-progress')
+      return []
+    }
+    return parsed
   } catch (_) {
+    console.warn('Progress data is corrupted, resetting.')
+    try {
+      localStorage.removeItem('sa60s-progress')
+    } catch (_e) {
+      // private mode
+    }
     return []
   }
 }
