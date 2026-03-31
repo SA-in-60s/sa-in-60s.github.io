@@ -68,6 +68,15 @@ export async function initGraph() {
           opacity: 1,
           'border-width': 3,
           'border-color': '#22d3ee',
+          'background-image':
+            'data:image/svg+xml,' +
+            encodeURIComponent(
+              '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="5" cy="5" r="4" fill="#0f172a"/></svg>'
+            ),
+          'background-width': '40%',
+          'background-height': '40%',
+          'background-position-x': '50%',
+          'background-position-y': '50%',
         },
       },
       {
