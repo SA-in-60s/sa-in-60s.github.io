@@ -268,7 +268,7 @@ export function generatePathPage(path, allConcepts, translations) {
       <p class="text-sm text-text-muted mt-1"><span data-progress-path="${escapeHtml(path.id)}" data-progress-concepts='${JSON.stringify(path.concepts)}' data-progress-total="${path.concepts.length}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${path.concepts.length}">0/${path.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
     </div>
     <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm"></div>
-    <ol class="space-y-2">
+    <ol class="grid md:grid-cols-2 gap-2">
       ${conceptListHtml}
     </ol>`
 
@@ -288,7 +288,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
   const stemHtml = stemConcepts
     .map(
       (c) =>
-        `<a href="/concept/${escapeHtml(c.id)}" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</a>`
+        `<a href="/concept/${escapeHtml(c.id)}" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition flex items-center justify-center gap-2"><span class="text-accent-cyan text-xs" data-concept-seen="${escapeHtml(c.id)}">○</span> <span data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span></a>`
     )
     .join('\n')
 
