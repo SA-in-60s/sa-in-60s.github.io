@@ -111,6 +111,9 @@ export async function initGraph() {
     padding: 30,
   }).run()
 
+  // Fit to content with minimal padding
+  cy.fit(cy.elements(), 10)
+
   // Dynamic force simulation: spring physics on all edges
   const SPRING_LENGTH = 80
   const SPRING_STRENGTH = 0.04
