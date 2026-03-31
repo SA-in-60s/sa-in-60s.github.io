@@ -331,6 +331,46 @@ describe('UC-7: Build script — HTML generation', () => {
       const html = generatePathPage(samplePath, [], translations)
       expect(html).toContain('#6495ED')
     })
+
+    it('includes data-concept-seen on each concept item', () => {
+      const concepts = [
+        {
+          id: 'monolith',
+          title_de: 'Monolith',
+          title_en: 'Monolith',
+          path: 'microservices',
+          path_position: 1,
+          requires: [],
+        },
+        {
+          id: 'dienst-service',
+          title_de: 'Dienst',
+          title_en: 'Service',
+          path: 'microservices',
+          path_position: 2,
+          requires: [],
+        },
+      ]
+      const html = generatePathPage(samplePath, concepts, translations)
+      expect(html).toContain('data-concept-seen="monolith"')
+      expect(html).toContain('data-concept-seen="dienst-service"')
+    })
+
+    it('includes path progress counter', () => {
+      const concepts = [
+        {
+          id: 'monolith',
+          title_de: 'Monolith',
+          title_en: 'Monolith',
+          path: 'microservices',
+          path_position: 1,
+          requires: [],
+        },
+      ]
+      const html = generatePathPage(samplePath, concepts, translations)
+      expect(html).toContain('data-progress-path="microservices"')
+      expect(html).toContain('data-progress-total="3"')
+    })
   })
 
   describe('generateIndexPage()', () => {
@@ -342,6 +382,29 @@ describe('UC-7: Build script — HTML generation', () => {
     it('includes all path cards', () => {
       const html = generateIndexPage([], [samplePath], translations)
       expect(html).toContain('href="/path/microservices"')
+    })
+
+    it('includes progress data on path cards', () => {
+      const html = generateIndexPage([], [samplePath], translations)
+      expect(html).toContain('data-progress-path="microservices"')
+      expect(html).toContain('data-progress-total="3"')
+      expect(html).toContain('data-progress-concepts=')
+    })
+
+    it('includes total progress element', () => {
+      const concepts = [
+        {
+          id: 'monolith',
+          title_de: 'Monolith',
+          title_en: 'Monolith',
+          path: 'stem',
+          path_position: 1,
+          requires: [],
+        },
+      ]
+      const html = generateIndexPage(concepts, [samplePath], translations)
+      expect(html).toContain('id="total-progress"')
+      expect(html).toContain('data-progress-total=')
     })
   })
 })

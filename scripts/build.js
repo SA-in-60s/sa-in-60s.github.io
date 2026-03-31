@@ -249,7 +249,8 @@ export function generatePathPage(path, allConcepts, translations) {
   const conceptListHtml = pathConcepts
     .map(
       (c) => `
-      <li class="p-3 bg-bg-card rounded-lg">
+      <li class="p-3 bg-bg-card rounded-lg flex items-center gap-2">
+        <span class="text-accent-cyan text-sm" data-concept-seen="${escapeHtml(c.id)}">○</span>
         <a href="/concept/${escapeHtml(c.id)}" class="text-accent-blue hover:underline font-medium" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</a>
         ${
           c.requires && c.requires.length > 0
@@ -264,7 +265,7 @@ export function generatePathPage(path, allConcepts, translations) {
     <div class="mb-8">
       <h1 class="text-3xl font-bold mb-2" style="border-left: 4px solid ${escapeHtml(path.color)}; padding-left: 0.75rem;" data-de="${escapeHtml(path.name_de)}" data-en="${escapeHtml(path.name_en)}">${escapeHtml(path.name_de)}</h1>
       <p class="text-text-muted" data-de="${escapeHtml(path.description_de)}" data-en="${escapeHtml(path.description_en)}">${escapeHtml(path.description_de)}</p>
-      <p class="text-sm text-text-muted mt-1">${path.concepts.length} <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
+      <p class="text-sm text-text-muted mt-1"><span data-progress-path="${escapeHtml(path.id)}" data-progress-concepts='${JSON.stringify(path.concepts)}' data-progress-total="${path.concepts.length}">0/${path.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
     </div>
     <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm"></div>
     <ol class="space-y-2">
@@ -281,6 +282,7 @@ export function generatePathPage(path, allConcepts, translations) {
 
 export function generateIndexPage(allConcepts, allPaths, translations) {
   const t = translations.de
+  const totalConcepts = allConcepts.length
   const stemConcepts = allConcepts.filter((c) => c.path === 'stem')
 
   const stemHtml = stemConcepts
@@ -296,7 +298,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
       <a href="/path/${escapeHtml(p.id)}" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid ${escapeHtml(p.color)};">
         <h3 class="font-bold" data-de="${escapeHtml(p.name_de)}" data-en="${escapeHtml(p.name_en)}">${escapeHtml(p.name_de)}</h3>
         <p class="text-sm text-text-muted" data-de="${escapeHtml(p.description_de)}" data-en="${escapeHtml(p.description_en)}">${escapeHtml(p.description_de)}</p>
-        <p class="text-xs text-text-muted mt-2">${p.concepts.length} <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
+        <p class="text-xs text-text-muted mt-2"><span data-progress-path="${escapeHtml(p.id)}" data-progress-concepts='${JSON.stringify(p.concepts)}' data-progress-total="${p.concepts.length}">0/${p.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
       </a>`
     )
     .join('\n')
@@ -305,6 +307,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
     <section class="text-center py-12">
       <h1 class="text-4xl font-bold mb-2" data-de="${escapeHtml(t.site_title)}" data-en="${escapeHtml(translations.en.site_title)}">${escapeHtml(t.site_title)}</h1>
       <p class="text-text-muted text-lg" data-de="${escapeHtml(t.site_subtitle)}" data-en="${escapeHtml(translations.en.site_subtitle)}">${escapeHtml(t.site_subtitle)}</p>
+      <p class="text-text-muted text-sm mt-2"><span id="total-progress" data-progress-total="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
     </section>
 
     <section class="mb-12">
