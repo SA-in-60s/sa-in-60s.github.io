@@ -243,7 +243,7 @@
     "title_en": "API Gateway",
     "episode": "ep015",
     "path": "microservices",
-    "path_position": 5,
+    "path_position": 6,
     "requires": [
       "api",
       "microservices"
@@ -261,7 +261,7 @@
     "title_en": "Service Discovery",
     "episode": "ep016",
     "path": "microservices",
-    "path_position": 6,
+    "path_position": 7,
     "requires": [
       "microservices"
     ],
@@ -278,7 +278,7 @@
     "title_en": "Message Broker",
     "episode": "ep017",
     "path": "microservices",
-    "path_position": 7,
+    "path_position": 8,
     "requires": [
       "microservices-pfad"
     ],
@@ -295,7 +295,7 @@
     "title_en": "EDA",
     "episode": "ep018",
     "path": "microservices",
-    "path_position": 8,
+    "path_position": 9,
     "requires": [
       "microservices-pfad"
     ],
@@ -312,7 +312,7 @@
     "title_en": "Service Mesh",
     "episode": "ep019",
     "path": "microservices",
-    "path_position": 9,
+    "path_position": 10,
     "requires": [
       "microservices"
     ],
@@ -329,7 +329,7 @@
     "title_en": "Circuit Breaker",
     "episode": "ep020",
     "path": "microservices",
-    "path_position": 10,
+    "path_position": 11,
     "requires": [
       "microservices-pfad"
     ],
@@ -346,7 +346,7 @@
     "title_en": "Bulkhead",
     "episode": "ep021",
     "path": "microservices",
-    "path_position": 11,
+    "path_position": 12,
     "requires": [
       "microservices-pfad"
     ],
@@ -363,7 +363,7 @@
     "title_en": "Retry / Timeout",
     "episode": "ep022",
     "path": "microservices",
-    "path_position": 12,
+    "path_position": 13,
     "requires": [
       "microservices-pfad"
     ],
@@ -380,7 +380,7 @@
     "title_en": "Rate Limiting",
     "episode": "ep023",
     "path": "microservices",
-    "path_position": 13,
+    "path_position": 14,
     "requires": [
       "api"
     ],
@@ -397,7 +397,7 @@
     "title_en": "Saga",
     "episode": "ep024",
     "path": "microservices",
-    "path_position": 14,
+    "path_position": 15,
     "requires": [
       "microservices"
     ],
@@ -414,7 +414,7 @@
     "title_en": "Backend for Frontend",
     "episode": "ep025",
     "path": "microservices",
-    "path_position": 15,
+    "path_position": 16,
     "requires": [
       "api-gateway"
     ],
@@ -431,7 +431,7 @@
     "title_en": "Strangler Fig",
     "episode": "ep026",
     "path": "microservices",
-    "path_position": 16,
+    "path_position": 17,
     "requires": [
       "monolith"
     ],
@@ -448,7 +448,7 @@
     "title_en": "Distributed Tracing",
     "episode": "ep027",
     "path": "microservices",
-    "path_position": 17,
+    "path_position": 18,
     "requires": [
       "microservices"
     ],
@@ -2250,5 +2250,20 @@
     "merksatz_de": "Evolutionary Architecture heißt: Plane nicht für die Ewigkeit — plane für den Wandel.",
     "script_en": "You designed the perfect architecture — three years ago. Since then, everything has changed: new requirements, new technologies, ten times more users.\n\nAn architecture that cannot evolve becomes a shackle. But how do you build in adaptability?\n\nEvolutionary Architecture — coined by Neal Ford, Rebecca Parsons, and Patrick Kua — describes an architecture that supports guided, incremental change across multiple dimensions. The key is fitness functions: automated tests that verify architectural properties. Think of a garden: you do not plan every plant for eternity, but you tend, prune, and replant — with clear rules for what should thrive.\n\nA team defines fitness functions: \"No cyclic dependencies,\" \"Response time under 200ms,\" \"No service accesses another service's database.\" These run in the CI/CD pipeline and raise alarms before the architecture erodes.\n\nRemember: Evolutionary Architecture means do not plan for eternity — plan for change.",
     "merksatz_en": "Evolutionary Architecture means do not plan for eternity — plan for change."
+  },
+  {
+    "id": "self-contained-systems",
+    "title_de": "Self-Contained Systems",
+    "title_en": "Self-Contained Systems",
+    "episode": "ep133",
+    "path": "microservices",
+    "path_position": 5,
+    "requires": [
+      "microservices"
+    ],
+    "script_de": "Dein Team hat Microservices eingeführt. Jetzt habt ihr 40 winzige Services, die alle voneinander abhängen. Jedes Feature braucht Änderungen in fünf Repositories. War das wirklich die Lösung?\n\nSelf-Contained Systems sind ein Gegenentwurf zu feinkörnigen Microservices. Statt vieler kleiner Dienste baust du wenige, größere Systeme — jedes mit eigener UI, eigener Datenbank und eigener Geschäftslogik. Denk an Abteilungen in einer Firma statt an einzelne Sachbearbeiter.\n\nEin Self-Contained System deckt einen kompletten Geschäftsbereich ab. Der Warenkorb ist ein System, die Produktsuche ein anderes, das Kundenkonto ein drittes. Jedes kann unabhängig deployed werden, jedes hat alles was es braucht — von der Oberfläche bis zur Datenbank.\n\nDie Integration passiert im Frontend: Jedes SCS liefert seine eigenen Seiten oder Fragmente. Links statt API-Calls. Das reduziert die Laufzeitkopplung drastisch — wenn ein System ausfällt, funktionieren die anderen weiter.\n\nMerke: Self-Contained Systems sind Microservices für Teams, die unabhängig liefern wollen — ohne sich im Netz aus API-Abhängigkeiten zu verfangen.",
+    "merksatz_de": "Self-Contained Systems sind Microservices für Teams, die unabhängig liefern wollen — ohne sich im Netz aus API-Abhängigkeiten zu verfangen.",
+    "script_en": "Your team adopted microservices. Now you have 40 tiny services that all depend on each other. Every feature requires changes in five repositories. Was that really the solution?\n\nSelf-Contained Systems are a counterpoint to fine-grained microservices. Instead of many small services, you build fewer, larger systems — each with its own UI, its own database, and its own business logic. Think of departments in a company rather than individual clerks.\n\nA Self-Contained System covers an entire business area. The shopping cart is one system, product search is another, the customer account a third. Each can be deployed independently, each has everything it needs — from the user interface to the database.\n\nIntegration happens in the frontend: each SCS delivers its own pages or fragments. Links instead of API calls. This drastically reduces runtime coupling — if one system goes down, the others keep working.\n\nRemember: Self-Contained Systems are microservices for teams that want to ship independently — without getting tangled in a web of API dependencies.",
+    "merksatz_en": "Self-Contained Systems are microservices for teams that want to ship independently — without getting tangled in a web of API dependencies."
   }
 ]

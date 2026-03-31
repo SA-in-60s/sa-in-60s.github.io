@@ -12,6 +12,7 @@
       "dienst-service",
       "api",
       "microservices",
+      "self-contained-systems",
       "api-gateway",
       "service-discovery",
       "message-broker",
