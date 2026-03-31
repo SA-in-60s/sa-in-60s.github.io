@@ -30,7 +30,7 @@ export function youtubeEmbed(url, placeholder = 'Video in Produktion', title = '
     return `<div class="video-placeholder bg-bg-card rounded-lg flex items-center justify-center aspect-9/16 max-w-xs mx-auto text-text-muted" role="img" aria-label="Invalid video">Invalid video</div>`
   }
   const iframeTitle = escapeHtml(title || 'YouTube Video')
-  return `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}" loading="lazy" title="${iframeTitle}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="aspect-9/16 max-w-xs mx-auto rounded-lg w-full"></iframe>`
+  return `<iframe src="https://www.youtube.com/embed/${videoId}" loading="lazy" title="${iframeTitle}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="aspect-9/16 max-w-xs mx-auto rounded-lg w-full"></iframe>`
 }
 
 // Asset paths — set by CLI after Vite build, defaults for tests/dev
@@ -52,7 +52,7 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#0f172a">
   <title>${escapeHtml(title)}</title>

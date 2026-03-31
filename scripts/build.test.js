@@ -132,7 +132,7 @@ describe('UC-7: Build script — HTML generation', () => {
     it('generates an iframe for a valid YouTube URL', () => {
       const html = youtubeEmbed('https://youtube.com/shorts/abc123')
       expect(html).toContain('<iframe')
-      expect(html).toContain('youtube-nocookie.com/embed/abc123')
+      expect(html).toContain('youtube.com/embed/abc123')
       expect(html).toContain('loading="lazy"')
     })
 
@@ -152,9 +152,9 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('title="Test Video"')
     })
 
-    it('includes referrerpolicy', () => {
+    it('uses youtube.com embed domain', () => {
       const html = youtubeEmbed('https://youtube.com/shorts/abc123')
-      expect(html).toContain('referrerpolicy="no-referrer"')
+      expect(html).toContain('src="https://www.youtube.com/embed/abc123"')
     })
 
     it('rejects invalid video ID', () => {
@@ -173,14 +173,14 @@ describe('UC-7: Build script — HTML generation', () => {
 
     it('embeds YouTube videos when URLs exist', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
-      expect(html).toContain('youtube-nocookie.com/embed/abc123')
-      expect(html).toContain('youtube-nocookie.com/embed/def456')
+      expect(html).toContain('youtube.com/embed/abc123')
+      expect(html).toContain('youtube.com/embed/def456')
     })
 
     it('shows placeholder when video URLs are missing', () => {
       const html = generateConceptPage(sampleConceptNoVideo, [], [], translations)
       expect(html).toContain('Video in Produktion')
-      expect(html).not.toContain('youtube-nocookie.com/embed')
+      expect(html).not.toContain('youtube.com/embed')
     })
 
     it('includes requires links', () => {
@@ -261,7 +261,7 @@ describe('UC-7: Build script — HTML generation', () => {
     it('includes CSP meta tag', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
       expect(html).toContain('Content-Security-Policy')
-      expect(html).toContain('frame-src https://www.youtube.com')
+      expect(html).toContain('frame-src https://www.youtube.com;')
     })
 
     it('includes canonical URL', () => {
