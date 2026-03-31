@@ -179,7 +179,7 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
     ${jsonLd}
     <article>
       <h1 class="text-3xl font-bold mb-2" data-de="${escapeHtml(concept.title_de)}" data-en="${escapeHtml(concept.title_en)}">${escapeHtml(concept.title_de)}</h1>
-      <p class="text-text-muted mb-6">${escapeHtml(t.concept_path)}: ${pathLink}</p>
+      ${pathLink ? `<p class="text-text-muted mb-6">${escapeHtml(t.concept_path)}: ${pathLink}</p>` : ''}
 
       <div class="md:flex md:gap-8 mb-8">
         <div class="md:w-1/3 mb-6 md:mb-0">
