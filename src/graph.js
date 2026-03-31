@@ -240,13 +240,16 @@ export async function initGraph() {
   // Start simulation immediately — graph assembles itself on load
   startSimulation()
 
+  // Delay user-interaction listeners so initial fit() doesn't disable autoFit
+  setTimeout(() => {
+    cy.on('zoom pan', () => {
+      autoFit = false
+    })
+  }, 500)
+
   cy.on('grab', 'node', () => {
     autoFit = false
     startSimulation()
-  })
-
-  cy.on('zoom pan', () => {
-    autoFit = false
   })
 
   cy.on('free', 'node', () => {
