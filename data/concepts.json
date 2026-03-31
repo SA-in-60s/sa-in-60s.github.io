@@ -279,7 +279,9 @@
     "episode": "ep017",
     "path": "microservices",
     "path_position": 7,
-    "requires": [],
+    "requires": [
+      "microservices-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein Bestell-Service soll nach jeder Bestellung den Versand informieren, eine E-Mail auslösen und das Lager aktualisieren. Drei synchrone Calls — und wenn einer hängt, hängt alles.\n\nDas Problem: Direkte Kommunikation zwischen Services erzeugt enge Kopplung. Wenn der E-Mail-Service down ist, kann keine Bestellung abgeschlossen werden. Das ist fragil.\n\nEin Message Broker ist die Infrastruktur, die Nachrichten zuverlässig von A nach B bringt. Er verwaltet Queues und Topics, speichert Nachrichten persistent und garantiert die Zustellung — auch wenn der Empfänger gerade nicht erreichbar ist.\n\nIn der Praxis entscheidest du: RabbitMQ mit klassischen Queues und Acknowledgements oder Kafka mit persistentem Log und Consumer Groups. Du konfigurierst Retry-Policies, Dead-Letter-Queues für fehlgeschlagene Nachrichten und legst fest, ob Nachrichten at-least-once oder at-most-once zugestellt werden.\n\nMerke: Ein Message Broker ist Infrastruktur — er garantiert Zustellung, Persistenz und Lastverteilung zwischen Services.",
@@ -294,7 +296,9 @@
     "episode": "ep018",
     "path": "microservices",
     "path_position": 8,
-    "requires": [],
+    "requires": [
+      "microservices-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Ein Kunde storniert eine Bestellung. Sofort muss die Zahlung erstattet, der Versand gestoppt und das Lager aktualisiert werden. Wer koordiniert das alles?\n\nBei klassischer Kommunikation müsste der Bestell-Service jeden einzelnen Service direkt aufrufen. Er müsste wissen, wer alles betroffen ist. Und bei jedem neuen Beteiligten ändert sich sein Code.\n\nEvent-Driven Architecture ist ein Architekturparadigma, das die Steuerung umdreht. Statt Befehle zu senden, veröffentlichen Services Fakten — Dinge, die passiert sind. Wer darauf reagiert, entscheidet jeder Service selbst. Das ist Inversion of Control auf Systemebene.\n\nDer Bestell-Service publiziert nur ein Fakt: Bestellung storniert. Der Zahlungs-Service reagiert mit Erstattung. Der Versand-Service stoppt die Lieferung. Kommt ein Bonus-Service dazu? Er abonniert dasselbe Event. Der Bestell-Service weiß nichts davon und ändert sich nicht.\n\nMerke: Event-Driven Architecture ist ein Paradigma — Services reagieren auf Fakten statt Befehle, und das verändert die gesamte Systemstruktur.",
@@ -326,7 +330,9 @@
     "episode": "ep020",
     "path": "microservices",
     "path_position": 10,
-    "requires": [],
+    "requires": [
+      "microservices-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Der Zahlungs-Service antwortet nicht. Dein Bestell-Service wartet. Und wartet. Hunderte Threads blockieren. Bald antwortet auch der Bestell-Service nicht mehr. Ein Dominoeffekt.\n\nKaskadierende Fehler sind eines der größten Risiken in verteilten Systemen. Ein langsamer Service kann das gesamte System lahmlegen, wenn niemand eingreift.\n\nEin Circuit Breaker funktioniert wie ein Sicherungsautomat im Stromkasten. Fließt zu viel Strom, schaltet die Sicherung ab — bevor Schaden entsteht. Nach einer Weile testet sie vorsichtig, ob es wieder geht.\n\nKonkret: Nach fünf fehlgeschlagenen Calls zum Zahlungs-Service öffnet der Circuit Breaker. Weitere Anfragen werden sofort mit einem Fallback beantwortet — zum Beispiel Zahlung wird später verarbeitet. Nach dreißig Sekunden lässt er einen Testaufruf durch. Funktioniert er, schließt der Breaker wieder.\n\nMerke: Ein Circuit Breaker schützt dein System, indem er Fehler isoliert statt sie weiterzureichen.",
@@ -341,7 +347,9 @@
     "episode": "ep021",
     "path": "microservices",
     "path_position": 11,
-    "requires": [],
+    "requires": [
+      "microservices-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein Service verarbeitet zwei Arten von Requests: kritische Bestellungen und unwichtige Statistik-Abfragen. Die Statistik-Abfragen explodieren und plötzlich können auch keine Bestellungen mehr verarbeitet werden.\n\nDas Problem: Wenn alle Anfragen denselben Thread-Pool teilen, kann ein Anstieg bei unkritischen Anfragen die kritischen Funktionen komplett blockieren. Und dann geht gar nichts mehr.\n\nBulkhead kommt aus dem Schiffbau. Ein Schiff hat wasserdichte Schotten — wenn ein Bereich volläuft, bleiben die anderen trocken. Das Schiff sinkt nicht wegen eines einzelnen Lecks.\n\nIn deinem Service bedeutet das: Du trennst die Ressourcen. Bestellungen bekommen ihren eigenen Thread-Pool mit zwanzig Threads. Statistiken bekommen zehn. Wenn die Statistik-Threads voll sind, werden Statistik-Anfragen abgelehnt — aber Bestellungen laufen ungestört weiter.\n\nMerke: Bulkhead trennt Ressourcen, damit ein Teilproblem nicht zum Totalproblem wird.",
@@ -356,7 +364,9 @@
     "episode": "ep022",
     "path": "microservices",
     "path_position": 12,
-    "requires": [],
+    "requires": [
+      "microservices-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du rufst einen Service auf und bekommst keine Antwort. Was tust du? Einfach nochmal versuchen? Wie lange wartest du überhaupt?\n\nOhne Timeouts wartet dein Service ewig. Ohne Retries gibt er beim ersten Netzwerk-Hickser auf. Aber falsch konfiguriert machen beide mehr kaputt als sie helfen.\n\nTimeout ist ein Wecker — wenn der Service nicht in zwei Sekunden antwortet, brichst du ab. Retry ist ein zweiter Versuch, wenn der erste fehlschlägt. Zusammen sind sie wie ein geduldiger aber nicht endlos wartender Mensch: Du klopfst an, wartest kurz, klopfst nochmal — aber irgendwann gehst du weiter.\n\nWichtig: Retries brauchen exponentielles Backoff. Erster Versuch nach hundert Millisekunden, zweiter nach zweihundert, dritter nach vierhundert. Ohne Backoff bombardierst du einen ohnehin überlasteten Service mit noch mehr Anfragen und machst alles schlimmer.\n\nMerke: Timeout begrenzt das Warten, Retry gibt eine zweite Chance — aber nur mit Backoff, sonst wird es ein Angriff.",
@@ -763,7 +773,9 @@
     "episode": "ep046",
     "path": "arc42",
     "path_position": 3,
-    "requires": [],
+    "requires": [
+      "arc42-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Der Kunde sagt: Das System soll schnell sein. Aber was heißt schnell? Antwortzeit unter einer Sekunde? Oder unter hundert Millisekunden? Und bei wie vielen gleichzeitigen Nutzern?\n\nVage Qualitätsanforderungen führen zu falschen Architekturentscheidungen. Wenn du nicht weißt, was Performance konkret bedeutet, kannst du nicht dafür bauen.\n\nQualitätsmerkmale sind die nicht-funktionalen Eigenschaften deines Systems. Denk an ein Auto: Es fährt — das ist die Funktion. Aber wie schnell, wie sicher, wie sparsam — das sind die Qualitätsmerkmale. Und die bestimmen, welches Auto du kaufst.\n\nTypische Qualitätsmerkmale sind Performance, Sicherheit, Wartbarkeit, Zuverlässigkeit und Benutzbarkeit. Für dein System identifizierst du die drei bis fünf wichtigsten und machst sie konkret und messbar.\n\nMerke: Qualitätsmerkmale treiben deine Architektur — nicht die Features, sondern die Qualitätsanforderungen bestimmen die Struktur.",
@@ -795,7 +807,9 @@
     "episode": "ep048",
     "path": "arc42",
     "path_position": 5,
-    "requires": [],
+    "requires": [
+      "arc42-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Warum nutzen wir PostgreSQL statt MongoDB? Keiner weiß es mehr. Der Slack-Thread von 2019 ist gelöscht. Also diskutiert ihr die gleiche Entscheidung nochmal — zum dritten Mal.\n\nArchitekturentscheidungen ohne Dokumentation werden vergessen, hinterfragt und wiederholt. Teams drehen sich im Kreis, weil der Kontext verloren geht.\n\nEin Architecture Decision Record ist ein kurzes Dokument, das eine Entscheidung festhält: Problem, Kontext, Optionen, Entscheidung und Konsequenzen. Denk an ein Gerichtsurteil: Es enthält den Sachverhalt, die Abwägung und das Urteil. Jeder kann nachvollziehen, warum so entschieden wurde.\n\nKonkret: ADR-007 — Datenbank für Bestellungen. Status: Akzeptiert. Kontext: Hohe Schreiblast, relationale Daten. Optionen: PostgreSQL, MongoDB. Entscheidung: PostgreSQL wegen ACID und bewährtem Betrieb. Konsequenz: Höherer Aufwand bei horizontaler Skalierung. Eine Seite, und die Diskussion ist beendet.\n\nMerke: Ein ADR hält fest warum du dich entschieden hast — damit du morgen nicht rätst, was du heute wusstest.",
@@ -827,7 +841,9 @@
     "episode": "ep050",
     "path": "arc42",
     "path_position": 7,
-    "requires": [],
+    "requires": [
+      "arc42-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Der Workaround von vor zwei Jahren ist immer noch in Produktion. Jede Änderung dauert doppelt so lange, weil jeder um diesen Code herumarbeiten muss. Das sind technische Schulden — und sie haben Zinsen.\n\nTechnische Schulden entstehen, wenn du bewusst oder unbewusst Abkürzungen nimmst. Kurzfristig sparst du Zeit, langfristig zahlst du drauf — mit jeder Änderung, die länger dauert als nötig.\n\nTechnische Schulden sind wie ein Kredit: Du bekommst jetzt etwas schneller, aber du zahlst Zinsen. Ein Kredit ist nicht schlecht — solange du weißt, dass du einen hast und ihn zurückzahlen kannst.\n\nBewusste Schulden sind vertretbar: Wir nutzen einen einfachen Algorithmus und optimieren später. Unbewusste Schulden sind gefährlich: niemand hat gemerkt, dass die Architektur schleichend erodiert. Der Schlüssel ist Transparenz — macht eure Schulden sichtbar, bewertet die Zinsen und plant die Rückzahlung.\n\nMerke: Technische Schulden sind unvermeidbar — aber du musst sie kennen, messen und bewusst tilgen.",
@@ -1064,7 +1080,9 @@
     "episode": "ep064",
     "path": "clean-architecture",
     "path_position": 10,
-    "requires": [],
+    "requires": [
+      "clean-architecture-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du änderst eine Klasse und plötzlich brechen drei andere Features. Du fügst ein neues Feature hinzu und musst bestehenden Code umschreiben. Dein System wird mit jedem Sprint schwerer zu ändern.\n\nSOLID ist ein Satz von fünf Prinzipien, die das verhindern. Robert C. Martin hat sie zusammengestellt — nicht als Dogma, sondern als Leitplanken für wartbaren Code.\n\nDenk an Lego-Steine. Jeder Stein hat eine klare Form und klare Verbindungspunkte. Du kannst sie frei kombinieren, ohne sie umzubauen. SOLID macht deinen Code zu Lego.\n\nS — Single Responsibility: Eine Klasse, ein Grund sich zu ändern. O — Open/Closed: Offen für Erweiterung, geschlossen für Änderung. L — Liskov Substitution: Unterklassen verhalten sich wie die Basisklasse. I — Interface Segregation: Kleine, spezifische Interfaces statt großer. D — Dependency Inversion: Abhängigkeiten zeigen zu Abstraktionen.\n\nMerke: SOLID macht Code flexibel — und flexibler Code lässt sich besser architekturieren.",
@@ -1198,7 +1216,9 @@
     "episode": "ep072",
     "path": "cloud-native",
     "path_position": 7,
-    "requires": [],
+    "requires": [
+      "cloud-native-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Freitagnachmittag, Deployment-Tag. Drei Entwickler mergen gleichzeitig. Die Tests laufen manuell — wenn überhaupt. Das Deployment ist ein Skript, das nur eine Person kennt. Alle halten die Luft an.\n\nCI/CD eliminiert dieses Chaos. Continuous Integration heißt: Jeder Commit wird automatisch gebaut und getestet. Continuous Delivery heißt: Jeder erfolgreiche Build ist jederzeit deploybar. Continuous Deployment geht noch weiter — jeder Build geht automatisch in Produktion.\n\nKennst du ein Fließband? Statt einmal pro Woche ein großes Paket zu liefern, lieferst du ständig kleine Pakete. Jedes wird automatisch geprüft. Fehler fallen sofort auf — nicht erst am Freitag.\n\nEine typische Pipeline: Push auf main löst den Build aus. Unit-Tests laufen. Integration-Tests laufen. Security-Scan läuft. Bei Erfolg wird automatisch deployed. Das Ganze dauert Minuten, nicht Stunden.\n\nMerke: CI/CD bedeutet — kleine Schritte, schnelles Feedback, weniger Angst vor dem Deployment.",
@@ -1333,7 +1353,9 @@
     "episode": "ep080",
     "path": "security",
     "path_position": 2,
-    "requires": [],
+    "requires": [
+      "security-architecture-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein Deployment-Skript hat Admin-Rechte auf der Datenbank. Warum? „Weil es so einfacher war.\" Eines Tages wird das Skript kompromittiert — und der Angreifer hat Zugriff auf alles. Nicht weil er schlau war, sondern weil du großzügig warst.\n\nDas Principle of Least Privilege sagt: Gib jedem Nutzer, jedem Service, jedem Prozess nur die Rechte, die er für seine Aufgabe braucht. Nicht mehr. Niemals mehr.\n\nDenk an Hotelschlüssel. Du bekommst eine Karte für dein Zimmer — nicht den Generalschlüssel. Der Reinigungsdienst hat Zugang zu allen Zimmern, aber nicht zum Tresor. Jeder bekommt genau das, was er braucht.\n\nKonkret: Dein API-Service bekommt nur Leserechte auf die Tabellen, die er braucht. Nicht Schreibrechte. Nicht auf alle Tabellen. Nicht Admin. Wird der Service kompromittiert, kann der Angreifer wenig Schaden anrichten.\n\nMerke: Least Privilege heißt — gib niemals mehr Rechte als nötig, auch wenn es bequemer wäre.",
@@ -1348,7 +1370,9 @@
     "episode": "ep081",
     "path": "security",
     "path_position": 3,
-    "requires": [],
+    "requires": [
+      "security-architecture-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Deine Firewall schützt das System. Dann findet jemand einen Weg daran vorbei — und dahinter gibt es nichts mehr. Kein zweites Schloss, keine Überwachung, keinen Alarm. Eine einzige Schwachstelle und alles ist offen.\n\nDefense in Depth bedeutet: Mehrere Sicherheitsschichten hintereinander. Wenn eine versagt, fängt die nächste. Kein einzelner Mechanismus ist perfekt — aber zusammen sind sie stark.\n\nEs ist wie bei einem Militär-Checkpoint. Erst die Straßensperre. Dann die Ausweiskontrolle. Dann die Fahrzeugdurchsuchung. Dann der gesicherte Bereich. Ein Eindringling muss jede Schicht überwinden — jede einzelne verlangsamt ihn und gibt dir Zeit zu reagieren.\n\nIn Software heißt das: Firewall am Rand. Authentifizierung am API-Gateway. Autorisierung im Service. Verschlüsselung der Daten. Überwachung aller Zugriffe. Input-Validierung in jeder Schicht. Fällt eine Maßnahme aus, greift die nächste.\n\nMerke: Defense in Depth heißt — vertraue nie einer einzigen Verteidigungslinie.",
@@ -1397,7 +1421,9 @@
     "episode": "ep084",
     "path": "security",
     "path_position": 6,
-    "requires": [],
+    "requires": [
+      "security-architecture-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein Service läuft im internen Netzwerk. Also braucht er keine Authentifizierung — er ist ja „hinter der Firewall.\" Dann kommt ein Angreifer ins Netzwerk und bewegt sich frei von Service zu Service. Willkommen im Albtraum.\n\nZero Trust sagt: Vertraue niemandem. Nicht dem Netzwerk, nicht dem Gerät, nicht dem Nutzer — auch nicht wenn sie intern sind. Jeder Zugriff wird geprüft. Jedes Mal. Ohne Ausnahme.\n\nKennst du Schach? Kein Feld ist sicher, nur weil es hinter deinen Figuren liegt. Jede Position muss verteidigt werden — egal wo sie steht. Zero Trust denkt genauso.\n\nIn der Praxis: Jeder Service authentifiziert eingehende Requests — auch interne. Mutual TLS verschlüsselt die Kommunikation zwischen Services. Zugriffsrechte werden für jeden Request geprüft, nicht einmal pro Session. Netzwerk-Segmentierung begrenzt die Reichweite eines Angriffs.\n\nMerke: Zero Trust heißt — „intern\" ist kein Sicherheitskonzept.",
@@ -1446,7 +1472,9 @@
     "episode": "ep087",
     "path": "security",
     "path_position": 9,
-    "requires": [],
+    "requires": [
+      "security-architecture-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Deine Webanwendung ist live. Ein Angreifer tippt ein einfaches SQL-Statement in das Suchfeld — und bekommt alle Kundendaten. Injection-Angriffe wie dieser sind seit über zwanzig Jahren bekannt. Seit 2021 auf Platz drei der OWASP Top 10 — hinter Broken Access Control auf Platz eins.\n\nDie OWASP Top 10 ist eine Liste der zehn kritischsten Sicherheitsrisiken für Webanwendungen. Zusammengestellt von der Open Web Application Security Project Community — basierend auf echten Daten von echten Angriffen.\n\nDenk an eine Hitliste der häufigsten Einbruchsmethoden. Wenn du weißt, wie die meisten Einbrecher reinkommen, kannst du genau dort dein Schloss verstärken.\n\nDie aktuelle Liste umfasst unter anderem: Broken Access Control — fehlende Zugriffskontrollen. Injection — eingeschleuster Code. Insecure Design — grundlegende Designfehler. Security Misconfiguration — falsch konfigurierte Systeme. Jeder Punkt hat konkrete Gegenmaßnahmen, die du heute umsetzen kannst.\n\nMerke: Die OWASP Top 10 sind die Mindestanforderung — wer sie ignoriert, lädt Angreifer ein.",
@@ -1461,7 +1489,9 @@
     "episode": "ep088",
     "path": "security",
     "path_position": 10,
-    "requires": [],
+    "requires": [
+      "security-architecture-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du installierst eine npm-Bibliothek mit 500 Sternen auf GitHub. Drei Wochen später stellt sich heraus: Ein Maintainer wurde kompromittiert und hat Schadcode in ein Update geschmuggelt. Dein Build hat es automatisch gezogen. Dein System ist infiziert.\n\nSupply Chain Security schützt die gesamte Lieferkette deiner Software: Abhängigkeiten, Build-Prozesse, Container-Images, Deployment-Pipelines. Nicht nur dein Code muss sicher sein — alles was du verwendest auch.\n\nDenk an Lebensmittel. Du kontrollierst nicht nur dein Restaurant, sondern auch den Lieferanten, den Transport und die Lagerung. Wenn der Lieferant schummelt, hilft dir die sauberste Küche nicht.\n\nKonkret: Nutze Lock-Dateien und prüfe Hashes von Abhängigkeiten. Scanne Container-Images auf Schwachstellen. Signiere deine Build-Artefakte. Tools wie Dependabot, Snyk oder Sigstore automatisieren das. Und eine SBOM — eine Software-Stückliste — zeigt dir auf einen Blick, welche Komponenten in deinem System stecken.\n\nMerke: Supply Chain Security heißt — vertraue keiner Abhängigkeit blind, auch nicht der beliebtesten.",
@@ -1510,7 +1540,9 @@
     "episode": "ep091",
     "path": "data-architecture",
     "path_position": 2,
-    "requires": [],
+    "requires": [
+      "daten-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein Social-Media-Feed zeigt dir einen Post, den dein Kollege noch nicht sieht. Ist das ein Bug?\n\nNein — das ist ein bewusster Kompromiss. Nicht jede Anwendung braucht sofortige, perfekte Konsistenz. Manchmal ist Verfügbarkeit wichtiger.\n\nBASE steht für Basically Available, Soft State, Eventually Consistent. Das System ist grundsätzlich erreichbar, der Zustand kann sich im Hintergrund noch ändern, und irgendwann sind alle Knoten synchron. Kennst du ein schwarzes Brett? Nicht jeder liest gleichzeitig die neueste Nachricht, aber nach einer Weile weiß jeder Bescheid.\n\nEin Fitness-Tracker muss nicht in Echtzeit weltweit synchron sein. Wichtig ist, dass du jetzt dein Training tracken kannst — und beim nächsten Sync alle Daten korrekt zusammenfließen.\n\nMerke: BASE ist das Gegenstück zu ACID: Verfügbarkeit zuerst, Konsistenz kommt nach.",
@@ -1543,7 +1575,9 @@
     "episode": "ep093",
     "path": "data-architecture",
     "path_position": 4,
-    "requires": [],
+    "requires": [
+      "daten-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Ein Kunde beschwert sich: „Meine Bestellung wurde geändert!\" Du schaust in die Datenbank — aber da steht nur der aktuelle Stand. Was vorher war, weiß niemand.\n\nKlassische Datenbanken speichern nur den letzten Zustand. Die Geschichte, wie es dazu kam, geht verloren.\n\nEvent Sourcing speichert nicht den Zustand, sondern jedes Ereignis, das den Zustand verändert hat. Statt den Kontostand zu überschreiben, speicherst du jede Einzahlung und Abbuchung. Wie ein Kontoauszug: Du kannst jederzeit nachvollziehen, was passiert ist — und den Zustand zu jedem Zeitpunkt rekonstruieren.\n\nIn einem Bestellsystem werden Events wie „Bestellung angelegt\", „Artikel hinzugefügt\" und „Bezahlung bestätigt\" gespeichert. Für Audits, Debugging oder neue Auswertungen kannst du die gesamte Historie durchspielen.\n\nMerke: Event Sourcing gibt dir nicht nur den aktuellen Stand, sondern die ganze Geschichte.",
@@ -1575,7 +1609,9 @@
     "episode": "ep095",
     "path": "data-architecture",
     "path_position": 6,
-    "requires": [],
+    "requires": [
+      "daten-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein Unternehmen hat Daten in zwanzig verschiedenen Systemen. Für eine Analyse brauchst du Daten aus fünf davon — und jedes hat ein anderes Format.\n\nDatensilos machen übergreifende Auswertungen zum Albtraum. Du brauchst Wochen, nur um die Daten zusammenzuführen.\n\nEin Data Lake ist ein zentraler Speicher, in den du alle Rohdaten in ihrem Originalformat ablegst — strukturiert, semi-strukturiert oder unstrukturiert. Stell dir einen echten See vor: Alle Zuflüsse bringen Wasser hinein, und je nach Bedarf zapfst du an verschiedenen Stellen an.\n\nEin Unternehmen lädt Server-Logs, Kundendaten aus dem CRM, Sensordaten aus der Produktion und Social-Media-Feeds in einen Data Lake. Data Scientists können dann frei darauf zugreifen und neue Zusammenhänge entdecken.\n\nMerke: Ein Data Lake gibt dir Flexibilität — aber ohne Ordnung wird er schnell zum Data Swamp.",
@@ -1590,7 +1626,9 @@
     "episode": "ep096",
     "path": "data-architecture",
     "path_position": 7,
-    "requires": [],
+    "requires": [
+      "daten-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du brauchst Echtzeit-Dashboards und gleichzeitig korrekte historische Auswertungen. Zwei völlig verschiedene Anforderungen — ein System.\n\nBatch-Verarbeitung ist genau, aber langsam. Stream-Processing ist schnell, aber fehleranfällig. Wie bekommst du beides?\n\nDie Lambda Architecture kombiniert drei Schichten: Der Batch Layer verarbeitet alle historischen Daten und liefert exakte Ergebnisse. Der Speed Layer verarbeitet neue Daten in Echtzeit, mit möglichen Ungenauigkeiten. Der Serving Layer kombiniert beide Ergebnisse. Wie eine Nachrichtenagentur: Eilmeldungen kommen sofort, der gründlich recherchierte Artikel folgt später.\n\nEin Analyse-Dashboard zeigt über den Speed Layer Live-Klickzahlen. Der Batch Layer berechnet nachts die bereinigten, exakten Statistiken. Nutzer sehen immer aktuelle Zahlen, die sich über die Zeit selbst korrigieren.\n\nMerke: Lambda Architecture heißt: Schnell plus genau — durch zwei Wege zum selben Ziel.",
@@ -1639,7 +1677,9 @@
     "episode": "ep099",
     "path": "data-architecture",
     "path_position": 10,
-    "requires": [],
+    "requires": [
+      "daten-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein zentrales Data Team ist der Flaschenhals. Zwanzig Fachabteilungen warten auf Auswertungen, aber das Team kommt nicht hinterher.\n\nZentralisierte Datenplattformen skalieren nicht mit der Organisation. Je mehr Teams Daten brauchen, desto länger die Warteschlange.\n\nData Mesh dreht das Prinzip um: Nicht ein zentrales Team verwaltet alle Daten, sondern jede Domäne ist für ihre eigenen Daten verantwortlich — als Produkt. Stell dir einen Marktplatz vor: Jeder Stand bietet seine Spezialitäten an, statt dass eine zentrale Küche alles für alle kocht.\n\nDas Bestell-Team stellt ein Datenprodukt „Bestellungen\" bereit, mit klarem Schema, SLAs und Dokumentation. Das Marketing-Team konsumiert es direkt, ohne Umweg über ein Data Team.\n\nMerke: Data Mesh heißt: Behandle Daten wie ein Produkt — dezentral, mit klarer Verantwortung.",
@@ -1671,7 +1711,9 @@
     "episode": "ep101",
     "path": "data-architecture",
     "path_position": 12,
-    "requires": [],
+    "requires": [
+      "daten-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du willst das alte Monolith-System ablösen. Aber darin stecken zehn Jahre Kundendaten, Bestellhistorie und Konfigurationen.\n\nDie neue Software ist fertig — aber die Daten umzuziehen, ist der eigentliche Alptraum. Schemata haben sich verändert, Formate sind inkompatibel, und Ausfallzeiten darfst du dir nicht leisten.\n\nDatenmigration ist der geplante Transfer von Daten zwischen Systemen, Formaten oder Speicherorten. Stell dir einen Umzug vor: Du packst alles ein, transportierst es und räumst es im neuen Zuhause richtig ein — ohne etwas zu verlieren.\n\nBei einer Migration von Oracle zu PostgreSQL erstellst du Mapping-Regeln für Datentypen, migrierst in Phasen, validierst nach jeder Phase und hältst einen Rollback-Plan bereit. Dual-Write-Strategien halten beide Systeme parallel synchron.\n\nMerke: Die beste Software nützt nichts, wenn die Daten auf dem Weg verloren gehen.",
@@ -1721,7 +1763,9 @@
     "episode": "ep104",
     "path": "frontend",
     "path_position": 2,
-    "requires": [],
+    "requires": [
+      "frontend-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Der Warenkorb zeigt drei Artikel, das Icon oben sagt fünf, und nach dem Refresh ist er leer. Drei Wahrheiten in einer App.\n\nWenn Zustand überall verteilt ist — in Komponenten, URLs, LocalStorage und API-Caches — verlierst du den Überblick.\n\nState Management organisiert, wo Anwendungszustand gespeichert wird, wie er sich ändert und wer darauf zugreifen darf. Stell dir ein Whiteboard im Büro vor: Alle schauen auf dieselbe Quelle, statt eigene Zettel zu pflegen. Änderungen sind für alle sofort sichtbar.\n\nIn einer React-App lagert ein zentraler Store den Warenkorb. Jede Komponente liest von dort. Änderungen laufen über definierte Actions. Der Store benachrichtigt alle Subscriber. So zeigen Header, Sidebar und Checkout-Seite immer den gleichen Stand.\n\nMerke: Gutes State Management heißt: Eine Wahrheit, ein Weg sie zu ändern — überall konsistent.",
@@ -1787,7 +1831,9 @@
     "episode": "ep108",
     "path": "frontend",
     "path_position": 6,
-    "requires": [],
+    "requires": [
+      "frontend-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Deine Marketing-Seite lädt zwei Megabyte JavaScript — für einen einzigen interaktiven Slider. Der Rest ist statischer Text.\n\nSingle Page Applications laden oft riesige Bundles, obwohl 90 Prozent der Seite gar kein JavaScript braucht.\n\nIsland Architecture rendert die Seite serverseitig als statisches HTML und hydriert nur die interaktiven Bereiche — die sogenannten Inseln. Stell dir ein Museum vor: Die Ausstellung besteht aus statischen Tafeln, aber an einzelnen Stationen gibt es interaktive Bildschirme — nur wo sie echten Mehrwert bieten.\n\nEine Produktseite besteht aus statischem HTML für Beschreibung, Bilder und Bewertungen. Nur der „In den Warenkorb\"-Button und der Bildkarussell sind interaktive Inseln, die JavaScript laden. Frameworks wie Astro machen dieses Muster zum Standard.\n\nMerke: Island Architecture heißt: Lade JavaScript nur dort, wo Interaktivität tatsächlich gebraucht wird.",
@@ -1802,7 +1848,9 @@
     "episode": "ep109",
     "path": "frontend",
     "path_position": 7,
-    "requires": [],
+    "requires": [
+      "frontend-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du öffnest eine Seite — drei Sekunden weißer Bildschirm. Google sieht nur ein leeres div-Tag. Dein SEO-Ranking sinkt.\n\nClient Side Rendering schickt ein leeres HTML-Gerüst an den Browser. Erst danach lädt JavaScript und baut die Seite zusammen. Schnell für Entwickler, langsam für Nutzer.\n\nEs gibt drei Rendering-Strategien. CSR rendert alles im Browser — schnelle Navigation, aber langsamer erster Seitenaufruf. SSR — Server Side Rendering — erzeugt HTML auf dem Server bei jedem Request, ideal für dynamische, SEO-relevante Inhalte. SSG — Static Site Generation — erzeugt HTML beim Build, perfekt für Inhalte, die sich selten ändern. Stell dir vor: CSR ist ein leeres Malbuch, SSR ein frisch gemaltes Bild, SSG ein gedrucktes Poster.\n\nEin Blog nutzt SSG, ein Dashboard CSR, eine Produktseite SSR. Die richtige Wahl hängt vom Anwendungsfall ab.\n\nMerke: Rendering-Strategie heißt: Wähle nicht nach Trend, sondern nach dem, was deine Nutzer brauchen.",
@@ -1970,7 +2018,9 @@
     "episode": "ep119",
     "path": "team-org",
     "path_position": 7,
-    "requires": [],
+    "requires": [
+      "team-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du willst einen kleinen Bugfix deployen. Erst Ticket erstellen, dann Branch, dann Pipeline warten, dann manueller Review, dann Staging, dann nochmal warten. Zwei Tage für eine Zeile Code.\n\nWenn Entwickler mehr Zeit mit Prozessen verbringen als mit Entwickeln, stimmt etwas nicht.\n\nDeveloper Experience — kurz DevEx — beschreibt, wie einfach, schnell und angenehm es für Entwickler ist, ihre Arbeit zu erledigen. Die drei Dimensionen: Feedback-Geschwindigkeit, kognitive Belastung und Flow State. Stell dir einen Handwerker vor: Gutes Werkzeug liegt griffbereit, das Material ist da, und niemand unterbricht ihn alle fünf Minuten.\n\nEin Unternehmen misst: Wie lange dauert es vom git push bis zur Produktion? Wie schnell laufen Tests? Wie oft werden Entwickler durch Kontextwechsel unterbrochen? Dann optimiert es Build-Zeiten, automatisiert Reviews und vereinfacht das Onboarding.\n\nMerke: Zufriedene Entwickler bauen bessere Software — mach es ihnen leicht.",
@@ -1985,7 +2035,9 @@
     "episode": "ep120",
     "path": "team-org",
     "path_position": 8,
-    "requires": [],
+    "requires": [
+      "team-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du brauchst eine Änderung in einer internen Library eines anderen Teams. Ticket geschrieben, drei Wochen gewartet, Priorität: niedrig.\n\nWenn Code nur vom „besitzenden\" Team geändert werden darf, entstehen Warteschlangen und Frust.\n\nInner Source wendet Open-Source-Praktiken innerhalb eines Unternehmens an. Jeder kann Code anderer Teams lesen, Änderungen vorschlagen und Pull Requests einreichen. Stell dir eine Firmenbibliothek vor: Jeder darf lesen, und wer einen Fehler im Buch findet, darf eine Korrektur vorschlagen — der Autor entscheidet, ob sie übernommen wird.\n\nTeam A braucht ein Feature in der Authentifizierungs-Library von Team B. Statt zu warten, forkt Team A das Repository, implementiert das Feature und stellt einen Pull Request. Team B reviewt und mergt. Beide profitieren.\n\nMerke: Inner Source heißt: Öffne deinen Code intern — und verwandle Warteschlangen in Zusammenarbeit.",
@@ -2000,7 +2052,9 @@
     "episode": "ep121",
     "path": "team-org",
     "path_position": 9,
-    "requires": [],
+    "requires": [
+      "team-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Deine beste Entwicklerin fragt: „Was muss ich tun, um Senior zu werden?\" Du zuckst mit den Schultern.\n\nOhne klare Karrierepfade verlierst du Talente. Menschen wollen wissen, wo sie stehen und wohin sie wachsen können.\n\nEngineering Levels definieren Stufen der fachlichen Entwicklung — von Junior bis Staff oder Principal Engineer. Jede Stufe beschreibt erwartete Fähigkeiten, Verantwortung und Wirkungsgrad. Stell dir Gürtelfarben im Kampfsport vor: Jeder weiß, was für den nächsten Gürtel nötig ist — und kann gezielt daran arbeiten.\n\nEine typische Leiter: Junior löst klar definierte Aufgaben. Mid-Level arbeitet eigenständig an Features. Senior gestaltet technische Richtung eines Teams. Staff Engineer wirkt teamübergreifend auf die Architektur. Principal Engineer prägt die technische Strategie des Unternehmens.\n\nMerke: Engineering Levels machen Wachstum messbar — damit Karriere kein Zufall ist, sondern ein Weg.",
@@ -2050,7 +2104,9 @@
     "episode": "ep124",
     "path": "legacy",
     "path_position": 2,
-    "requires": [],
+    "requires": [
+      "legacy-modernisierung"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du nimmst eine Abkürzung: Hardcodierte Werte, Copy-Paste statt Refactoring, keine Tests. „Machen wir später richtig.\" Später kommt nie.\n\nJede Abkürzung ist ein Kredit auf die Zukunft. Und wie bei echten Schulden zahlst du Zinsen — in Form von langsamerer Entwicklung.\n\nTechnische Schulden sind der Mehraufwand, der entsteht, wenn du bewusst oder unbewusst suboptimale technische Entscheidungen triffst. Ward Cunningham prägte die Metapher: Wie ein Bankkredit ermöglichen sie kurzfristig Geschwindigkeit, kosten aber langfristig durch Zinsen. Stell dir einen Schreibtisch vor: Je mehr Zettel sich stapeln, desto länger suchst du — bis du nur noch suchst.\n\nEin Team shipped schneller, indem es auf Tests verzichtet. Sechs Monate später dauert jedes Feature doppelt so lang, weil Bugs nur durch manuelles Testen gefunden werden.\n\nMerke: Technische Schulden sind nicht böse — aber du musst sie bewusst aufnehmen und aktiv zurückzahlen.",
@@ -2082,7 +2138,9 @@
     "episode": "ep126",
     "path": "legacy",
     "path_position": 4,
-    "requires": [],
+    "requires": [
+      "legacy-modernisierung"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du integrierst ein Legacy-System. Plötzlich tauchen überall kryptische Feldnamen auf: KUNNR, BELNR, VKORG. Dein neuer Code wird vom alten Modell infiziert.\n\nWenn du ein fremdes Datenmodell direkt übernimmst, verbreitet sich dessen Komplexität in deinem gesamten System.\n\nDer Anti-Corruption Layer — kurz ACL — ist eine Übersetzungsschicht zwischen deinem System und einem externen oder Legacy-System. Er schützt dein sauberes Domänenmodell vor der Verschmutzung durch fremde Konzepte. Stell dir einen Dolmetscher vor: Er übersetzt zwischen zwei Sprachen, sodass keiner die Sprache des anderen lernen muss.\n\nDein neuer Bestellservice spricht mit einem SAP-System. Der ACL übersetzt SAP-Feldnamen in dein Domänenmodell: KUNNR wird zu customerId, BELNR zu orderId. Dein Code bleibt sauber, egal wie chaotisch das Fremdsystem ist.\n\nMerke: Ein Anti-Corruption Layer heißt: Lass fremden Code niemals dein Modell diktieren.",
@@ -2131,7 +2189,9 @@
     "episode": "ep129",
     "path": "legacy",
     "path_position": 7,
-    "requires": [],
+    "requires": [
+      "legacy-modernisierung"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du willst einen Test für eine Klasse schreiben, aber sie erzeugt intern eine Datenbankverbindung. Ohne Datenbank kein Test. Ohne Test kein Refactoring.\n\nLegacy-Code ist oft so eng verwoben, dass du ihn nicht testen kannst, ohne ihn zu ändern — und du kannst ihn nicht ändern, ohne Tests. Ein Teufelskreis.\n\nEin Seam — der Begriff stammt von Michael Feathers — ist eine Stelle im Code, an der du das Verhalten ändern kannst, ohne den Code selbst zu editieren. Stell dir eine Naht in einem Kleidungsstück vor: Dort kannst du es auftrennen und umändern, ohne den ganzen Stoff zu zerschneiden.\n\nEine Methode ruft direkt new DatabaseConnection() auf. Du extrahierst den Aufruf in eine geschützte Methode. Im Test überschreibst du diese Methode mit einem Mock. Das ist ein Object Seam — du hast eine Stelle geschaffen, an der du eingreifen kannst.\n\nMerke: Ein Seam ist dein erster Hebel, um Legacy-Code testbar zu machen — ohne alles umzuschreiben.",
