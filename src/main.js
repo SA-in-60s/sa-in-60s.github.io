@@ -57,14 +57,29 @@ function initVideoSwitch() {
     if (!deVideo || !enVideo) return
 
     const deVisible = !deVideo.classList.contains('hidden')
+    const hideVideo = (container) => {
+      container.classList.add('hidden')
+      const iframe = container.querySelector('iframe')
+      if (iframe) {
+        iframe.dataset.src = iframe.dataset.src || iframe.src
+        iframe.src = ''
+      }
+    }
+    const showVideo = (container) => {
+      container.classList.remove('hidden')
+      const iframe = container.querySelector('iframe')
+      if (iframe && iframe.dataset.src) {
+        iframe.src = iframe.dataset.src
+      }
+    }
     if (deVisible) {
-      deVideo.classList.add('hidden')
-      enVideo.classList.remove('hidden')
+      hideVideo(deVideo)
+      showVideo(enVideo)
       switchLink.textContent =
         document.documentElement.lang === 'de' ? 'Auf Deutsch ansehen' : 'Watch in German'
     } else {
-      enVideo.classList.add('hidden')
-      deVideo.classList.remove('hidden')
+      hideVideo(enVideo)
+      showVideo(deVideo)
       switchLink.textContent =
         document.documentElement.lang === 'de' ? 'Watch in English' : 'Auf Deutsch ansehen'
     }
