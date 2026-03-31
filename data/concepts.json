@@ -21,7 +21,9 @@
     "episode": "ep002",
     "path": "stem",
     "path_position": 1,
-    "requires": [],
+    "requires": [
+      "was-ist-software-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du öffnest den Code und siehst: eine Funktion mit 500 Zeilen, die alles macht. Datenbank, Validierung, E-Mail-Versand, Logging — alles in einem Block. Wo fängst du an?\n\nDas Problem: Es fehlt Abstraktion.\n\nAbstraktion bedeutet, unwichtige Details zu verstecken und nur das Wesentliche sichtbar zu machen. Denk an ein Auto: Du drehst am Lenkrad — du musst nicht wissen, wie die Servopumpe funktioniert. Das Lenkrad ist die Abstraktion.\n\nIn Software heißt das: Statt die Datenbank-Logik in jeder Funktion zu wiederholen, versteckst du sie hinter einer Schnittstelle. Der Rest deines Codes sagt nur noch: Speichere diesen Kunden. Wie das passiert? Nicht sein Problem.\n\nGute Abstraktion hat eine Regel: Sie soll vereinfachen, nicht verschleiern. Wenn du drei Schichten durchklicken musst um zu verstehen was passiert, hast du zu viel abstrahiert.\n\nMerke: Abstraktion ist das Weglassen des Unwichtigen — nicht das Verstecken des Wichtigen.",
@@ -155,7 +157,9 @@
     "episode": "ep010",
     "path": "microservices",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du hast einen Online-Shop gebaut. Alles läuft — bis das Team wächst und jede kleine Änderung am Warenkorb plötzlich die Zahlungsabwicklung zerschießt. Kommt dir bekannt vor?\n\nDas Problem: Monolithische Systeme werden mit der Zeit schwer änderbar. Und irgendwann stellt sich die Frage — gibt es einen besseren Weg?\n\nMicroservices sind einer der meistdiskutierten Architekturansätze der letzten Jahre. Die Idee klingt einfach: Statt einer großen Anwendung baust du viele kleine, unabhängige Dienste. Aber dahinter steckt ein ganzes Ökosystem aus Konzepten.\n\nDeshalb gibt es diesen Pfad. In den nächsten Episoden gehen wir Schritt für Schritt durch: Vom Monolith über APIs und Service-Kommunikation bis hin zu Patterns wie Circuit Breaker, Saga und Strangler Fig.\n\nMerke: Microservices lösen Organisationsprobleme — aber sie schaffen Betriebsprobleme. Kenn beides.",
@@ -170,7 +174,9 @@
     "episode": "ep011",
     "path": "microservices",
     "path_position": 1,
-    "requires": [],
+    "requires": [
+      "microservices-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du deployst deine Anwendung. Ein einziges Artefakt — eine JAR-Datei, ein Docker-Image. Alles drin, alles zusammen. Das ist ein Monolith.\n\nAber warum reden alle so negativ darüber? Das Problem ist nicht der Monolith selbst — sondern was passiert, wenn er unkontrolliert wächst. Plötzlich dauert jeder Build ewig, und jede Änderung betrifft gefühlt alles.\n\nEin Monolith ist wie ein Einfamilienhaus. Alles unter einem Dach — Küche, Bad, Schlafzimmer. Für eine kleine Familie perfekt. Aber versuch mal, drei Familien reinzuquetschen.\n\nIn der Praxis heißt das: Dein Banking-System hat Kontoführung, Kreditvergabe und Zahlungsverkehr in einer Codebasis. Am Anfang ist das einfach und schnell. Aber wenn drei Teams gleichzeitig an derselben Codebasis arbeiten, entstehen Konflikte und lange Release-Zyklen.\n\nMerke: Ein Monolith ist kein Anti-Pattern — er ist der richtige Startpunkt, den du bewusst weiterentwickelst.",
@@ -450,7 +456,9 @@
     "episode": "ep028",
     "path": "ddd",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein Code hat Klassen wie UserManager, DataHelper und ServiceUtils. Kein Mensch weiß, was sie tun, und kein Fachexperte erkennt seine Begriffe wieder. Die Software spricht eine andere Sprache als das Business.\n\nGenau hier setzt Domain-Driven Design an. DDD sagt: Die größte Komplexität liegt nicht in der Technik, sondern in der Fachdomäne. Und dein Code sollte diese Domäne widerspiegeln.\n\nDomain-Driven Design ist ein Ansatz von Eric Evans, der die Fachlichkeit ins Zentrum der Softwareentwicklung stellt. Statt Technik-zentriertem Design denkst du in Domänen, Kontexten und einer gemeinsamen Sprache.\n\nIn diesem Pfad gehen wir alles durch — von der Domäne über Ubiquitous Language und Bounded Contexts bis zu taktischen Patterns wie Entities, Aggregates und Domain Events. Schritt für Schritt.\n\nMerke: DDD stellt die Fachlichkeit ins Zentrum — von der gemeinsamen Sprache bis zur Systemgrenze.",
@@ -465,7 +473,9 @@
     "episode": "ep029",
     "path": "ddd",
     "path_position": 1,
-    "requires": [],
+    "requires": [
+      "ddd-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du baust Software für eine Versicherung. Verträge, Schadensmeldungen, Risikobewertung — das ist die Welt, in der sich deine Nutzer bewegen. Aber verstehst du diese Welt wirklich?\n\nViele Entwickler stürzen sich sofort auf die Technik. Welches Framework? Welche Datenbank? Dabei ist das eigentliche Problem nicht technisch — es ist fachlich. Und wenn du die Fachlichkeit nicht verstehst, baust du das Falsche.\n\nDie Domäne ist das Fachgebiet, für das du Software baust. Denk an einen Arzt: Bevor er behandelt, muss er die Krankheit verstehen. Die Domäne ist der Patient — du musst ihn verstehen, bevor du helfen kannst.\n\nBei einem Online-Shop ist die Domäne der Handel: Produkte, Preise, Bestellungen, Retouren. Bei einer Bank: Konten, Überweisungen, Zinsen. Die Domäne bestimmt, welche Konzepte in deinem Code existieren müssen — nicht das Framework.\n\nMerke: Die Domäne ist das Warum deiner Software — versteh sie, bevor du eine Zeile Code schreibst.",
@@ -702,7 +712,9 @@
     "episode": "ep043",
     "path": "arc42",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Jemand fragt: Warum habt ihr euch für Kafka entschieden? Und niemand kann es beantworten. Der Architekt von damals ist weg, die Doku veraltet, die Wiki-Seite ein Friedhof.\n\nArchitekturentscheidungen ohne Dokumentation sind wie mündliche Verträge — sie gelten nur, solange sich jemand erinnert. Und irgendwann erinnert sich niemand mehr.\n\nDie gute Nachricht: Du musst nicht bei null anfangen. Es gibt bewährte Werkzeuge und Methoden, die dir helfen, Architektur sichtbar, nachvollziehbar und messbar zu machen.\n\nIn diesem Pfad lernst du Schritt für Schritt: Wie du Qualitätsmerkmale konkret beschreibst. Wie du Entscheidungen mit ADRs festhältst. Wie du Trade-offs transparent machst. Wie C4-Modelle die richtige Sicht für die richtige Zielgruppe liefern. Und wie Fitness Functions deine Architektur automatisiert überwachen.\n\nMerke: Gute Architekturdokumentation beantwortet die Fragen, die morgen jemand haben wird — nicht die, die heute niemand stellt.",
@@ -717,7 +729,9 @@
     "episode": "ep044",
     "path": "arc42",
     "path_position": 1,
-    "requires": [],
+    "requires": [
+      "arc42-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Ein neuer Entwickler startet im Team. Er fragt: Wie ist das System aufgebaut? Die Antwort: Schau in den Code. Drei Wochen später versteht er immer noch nicht, warum es drei Datenbanken gibt.\n\nCode zeigt dir das Was, aber nicht das Warum. Ohne Dokumentation geht das Wissen über Entscheidungen, Zusammenhänge und Randbedingungen verloren — spätestens wenn Leute das Team verlassen.\n\nArchitekturdokumentation beschreibt die wesentlichen Strukturen, Entscheidungen und Qualitätsanforderungen eines Systems. Denk an den Bauplan eines Hauses: Der Architekt dokumentiert nicht jeden Nagel, aber die tragenden Wände, die Statik und die Haustechnik.\n\nWichtig: Du dokumentierst nicht alles — nur das, was man aus dem Code nicht ablesen kann. Warum diese Datenbank? Warum diese Aufteilung? Welche Qualitätsziele? Welche Risiken? Gute Architekturdoku ist schlank, aktuell und beantwortet die richtigen Fragen.\n\nMerke: Architekturdokumentation ist kein Bürokratie-Overhead — sie ist das Gedächtnis deines Systems.",
@@ -879,7 +893,9 @@
     "episode": "ep054",
     "path": "clean-architecture",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du hast ein System gebaut. Es funktioniert. Aber jetzt sollst du die Datenbank austauschen — und plötzlich musst du den halben Code umschreiben. Das ist kein Zufall. Das ist fehlende Architektur.\n\nClean Architecture löst genau dieses Problem. Die Idee von Robert C. Martin: Dein Geschäftskern darf von nichts abhängen. Nicht von der Datenbank. Nicht vom Framework. Nicht von der UI.\n\nStell dir Zwiebelringe vor. Innen liegt das Wichtigste — deine Geschäftsregeln. Außen liegen die Details: Datenbanken, APIs, Frameworks. Die äußeren Ringe dürfen die inneren kennen. Aber niemals umgekehrt.\n\nIn diesem Pfad schauen wir uns jeden Ring einzeln an: Entities, Use Cases, Adapter, Presenter. Dazu die Prinzipien dahinter — Dependency Inversion, Ports und Adapters, Hexagonale Architektur und SOLID.\n\nMerke: Clean Architecture schützt das Wichtigste — deine Geschäftslogik — vor allem, was sich ändert.",
@@ -895,6 +911,7 @@
     "path": "clean-architecture",
     "path_position": 1,
     "requires": [
+      "clean-architecture-pfad",
       "abhaengigkeit"
     ],
     "youtube_de": "",
@@ -1062,7 +1079,9 @@
     "episode": "ep065",
     "path": "cloud-native",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein Server stürzt ab. Nachts um drei. Du fährst den Laptop hoch, verbindest dich per SSH, startest Dienste neu. Am Morgen passiert es wieder. Willkommen in der Welt vor Cloud-Native.\n\nCloud-Native ist nicht einfach „wir packen alles in die Cloud\". Es ist eine grundlegend andere Art, Software zu bauen und zu betreiben. Software, die von Anfang an für eine dynamische, verteilte Infrastruktur entworfen ist.\n\nStell dir den Unterschied zwischen einem Haustier und einer Rinderherde vor. Dein alter Server war ein Haustier — du hast ihn gepflegt und repariert. Cloud-Native behandelt Server wie Rinder — fällt einer aus, kommt ein neuer.\n\nIn diesem Pfad schauen wir uns die Bausteine an: Container, Orchestrierung, Infrastructure as Code, CI/CD, Deployment-Strategien, Observability, SLOs, GitOps und FinOps. Von der 12-Factor App bis zum Kostenmanagement.\n\nMerke: Cloud-Native heißt nicht „in der Cloud\" — es heißt „für Veränderung gebaut\".",
@@ -1077,7 +1096,9 @@
     "episode": "ep066",
     "path": "cloud-native",
     "path_position": 1,
-    "requires": [],
+    "requires": [
+      "cloud-native-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du deployst deine Anwendung in die Cloud. Aber sie läuft dort genauso wie auf deinem alten Server. Wenn der Container abstürzt, ist der Dienst weg. Skalierung machst du manuell. Das ist Cloud — aber nicht Cloud-Native.\n\nCloud-Native bedeutet: Deine Anwendung ist so gebaut, dass sie die Vorteile der Cloud wirklich nutzt. Automatische Skalierung, Selbstheilung, Rolling Updates. Nicht nachträglich draufgeschraubt — von Anfang an eingeplant.\n\nDenk an ein Segelboot versus ein Motorboot mit Segel. Beides hat Segel. Aber nur das Segelboot ist für Wind gebaut. Das Motorboot hat Segel als Deko.\n\nKonkret heißt Cloud-Native: Deine App startet schnell, ist zustandslos, speichert nichts lokal, kommuniziert über APIs, läuft in Containern, wird automatisch skaliert und übersteht den Ausfall einzelner Instanzen ohne Datenverlust.\n\nMerke: Cloud-Native ist kein Ort — es ist eine Bauweise.",
@@ -1278,7 +1299,9 @@
     "episode": "ep078",
     "path": "security",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Dein System wird gehackt. Kundendaten landen im Netz. Die Frage vom Management: „Wie konnte das passieren?\" Deine ehrliche Antwort: „Wir haben uns um Security gekümmert — am Ende, kurz vor dem Go-Live. Es hat nicht gereicht.\"\n\nSecurity Architecture bedeutet: Sicherheit ist kein Feature, das du nachträglich einbaust. Sie ist eine Architektur-Entscheidung, die von Anfang an Teil deines Designs ist. Jede Schicht, jede Schnittstelle, jeder Datenfluss wird unter dem Sicherheitsaspekt betrachtet.\n\nVergleich das mit einem Flughafen. Sicherheitskontrollen werden nicht nachträglich in die Terminals geklebt. Jeder Gang, jede Schleuse, jeder Bereich ist von Anfang an um Sicherheit herum geplant.\n\nIn diesem Pfad schauen wir uns die Bausteine an: Threat Modeling, Least Privilege, Defense in Depth, Authentifizierung, OAuth, Zero Trust, Secrets Management, Security by Design, OWASP und Supply Chain Security.\n\nMerke: Sicherheit, die nicht in der Architektur steckt, steckt nirgends.",
@@ -1293,7 +1316,9 @@
     "episode": "ep079",
     "path": "security",
     "path_position": 1,
-    "requires": [],
+    "requires": [
+      "security-architecture-pfad"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du hast eine Firewall, SSL-Zertifikate und regelmäßige Updates. Trotzdem wirst du angegriffen — über einen API-Endpunkt, an den niemand gedacht hat. Du hast dich geschützt — aber gegen die falschen Dinge.\n\nThreat Modeling ist der systematische Prozess, Bedrohungen zu finden, bevor Angreifer es tun. Du fragst: Was kann schiefgehen? Wer würde angreifen? Wo sind die Schwachstellen? Und du tust das bevor du Code schreibst.\n\nDenk an einen Einbrecher, der dein Haus besichtigt. Du gehst mit ihm durch jedes Zimmer und fragst: „Wie würdest du hier reinkommen?\" Unangenehm — aber effektiv.\n\nSTRIDE ist ein bewährtes Framework dafür: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege. Für jeden Datenfluss in deinem System prüfst du diese sechs Kategorien. Das Ergebnis ist eine priorisierte Liste von Risiken.\n\nMerke: Threat Modeling heißt — denke wie ein Angreifer, bevor einer kommt.",
@@ -1451,7 +1476,9 @@
     "episode": "ep089",
     "path": "data-architecture",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Drei Services, drei verschiedene Kundenadressen — und eine Beschwerde vom Kunden, der sein Paket an die falsche Adresse bekommt. Welche Datenbank hat die richtige Wahrheit?\n\nDaten sind das Fundament jeder Software. Aber ohne klare Architektur entstehen Silos, Inkonsistenzen und ein Wildwuchs, den niemand mehr überblickt.\n\nDaten-Architektur beschreibt, wie du Daten speicherst, bewegst, transformierst und schützt — über das gesamte System hinweg. Stell dir eine Stadt vor: Straßen, Wasserleitungen und Stromnetz müssen geplant werden, bevor die Häuser stehen.\n\nIn einem IoT-System für Gebäudeautomation brauchst du Entscheidungen: Werden Sensordaten relational oder als Zeitreihen gespeichert? Fließen Daten in Echtzeit oder per Batch? Wer darf welche Daten sehen und ändern?\n\nIn diesem Pfad lernst du die wichtigsten Konzepte — von ACID bis Data Mesh. Merke: Ohne Daten-Architektur baust du Häuser auf Sand.",
@@ -1466,7 +1493,9 @@
     "episode": "ep090",
     "path": "data-architecture",
     "path_position": 1,
-    "requires": [],
+    "requires": [
+      "daten-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du überweist Geld von Konto A nach Konto B. Mittendrin stürzt der Server ab. Ist das Geld jetzt weg?\n\nOhne Garantien für Datenbank-Transaktionen kann genau das passieren. Daten werden inkonsistent, und du merkst es vielleicht erst Wochen später.\n\nACID steht für Atomicity, Consistency, Isolation und Durability. Atomicity heißt: Alles oder nichts — eine Transaktion wird ganz ausgeführt oder gar nicht. Consistency stellt sicher, dass Regeln eingehalten werden. Isolation verhindert, dass sich parallele Transaktionen gegenseitig stören. Durability garantiert, dass bestätigte Daten auch nach einem Crash noch da sind. Wie ein Banktresor: Entweder die Tür ist komplett zu — oder komplett offen.\n\nBei einer Überweisung im Banking-System werden Abbuchung, Gutschrift und Protokollierung in einer Transaktion verarbeitet. Schlägt ein Schritt fehl, wird alles zurückgerollt.\n\nMerke: ACID ist das Versprechen deiner Datenbank: Was bestätigt ist, bleibt bestätigt.",
@@ -1657,7 +1686,9 @@
     "episode": "ep102",
     "path": "frontend",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du klickst auf einen Button — nichts passiert. Du klickst nochmal — plötzlich zwei Bestellungen. Das Frontend fühlt sich an wie ein Glücksspiel.\n\nFrontends sind heute eigenständige Anwendungen mit komplexer Logik. Aber oft fehlt eine durchdachte Architektur — es wird einfach drauflos gebaut.\n\nFrontend-Architektur beschreibt, wie du die Struktur, Kommunikation und Verantwortlichkeiten im Frontend organisierst. Vergleich das mit einer Küche: Ohne klare Ordnung findest du kein Gewürz, Töpfe stehen im Weg, und zwei Köche machen die gleiche Soße.\n\nEin großes E-Commerce-Frontend braucht Entscheidungen: Wie teile ich Komponenten auf? Wo liegt der State? Rendere ich auf dem Server oder im Browser? Wie arbeiten fünf Teams gleichzeitig am Frontend?\n\nIn diesem Pfad lernst du die Konzepte, die aus Frontend-Chaos eine wartbare Architektur machen.",
@@ -1673,6 +1704,7 @@
     "path": "frontend",
     "path_position": 1,
     "requires": [
+      "frontend-architektur",
       "komponente"
     ],
     "youtube_de": "",
@@ -1819,7 +1851,9 @@
     "episode": "ep112",
     "path": "team-org",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Drei Teams bauen an einem System — und keiner weiß, wo sein Bereich endet und der des anderen anfängt. Jedes Meeting wird zur Grenzverhandlung.\n\nSoftware-Architektur wird oft rein technisch gedacht. Aber die Teamstruktur bestimmt die Systemstruktur — ob du willst oder nicht.\n\nTeam-Architektur beschreibt, wie Teams geschnitten, organisiert und miteinander verbunden werden, damit sie effektiv Software liefern können. Stell dir eine Fußballmannschaft vor: Es reicht nicht, elf gute Spieler zu haben — Positionen, Laufwege und Zuständigkeiten müssen klar sein.\n\nWenn das Datenbank-Team, das API-Team und das Frontend-Team an einem Feature arbeiten, entstehen Abhängigkeiten und Wartezeiten. Ein cross-funktionales Team, das alle Schichten verantwortet, kann unabhängig liefern.\n\nIn diesem Pfad lernst du, wie Teamstrukturen Software-Architektur formen — von Conway's Law bis Developer Experience.",
@@ -1834,7 +1868,9 @@
     "episode": "ep113",
     "path": "team-org",
     "path_position": 1,
-    "requires": [],
+    "requires": [
+      "team-architektur"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Euer System hat drei Microservices, die über eine gemeinsame Datenbank kommunizieren. Überraschung: Im Unternehmen gibt es auch genau drei Teams — und alle teilen sich einen DBA.\n\nDie Systemstruktur spiegelt immer die Kommunikationsstruktur der Organisation wider. Immer.\n\nConway's Law besagt: Organisationen entwerfen Systeme, die ihre eigene Kommunikationsstruktur abbilden. Melvin Conway formulierte das 1967. Stell dir vor, vier Teams sollen einen Compiler bauen — du bekommst einen Vier-Pass-Compiler. Nicht weil es technisch sinnvoll ist, sondern weil jedes Team seinen Teil baut.\n\nEin Unternehmen mit getrennten Frontend- und Backend-Abteilungen produziert eine dicke API-Schicht dazwischen. Ein Unternehmen mit cross-funktionalen Teams baut integrierte, end-to-end-verantwortliche Services.\n\nMerke: Conway's Law ist kein Bug — es ist eine Naturgewalt. Nutze sie, statt gegen sie zu kämpfen.",
@@ -1979,7 +2015,9 @@
     "episode": "ep122",
     "path": "legacy",
     "path_position": 0,
-    "requires": [],
+    "requires": [
+      "separation-of-concerns"
+    ],
     "youtube_de": "",
     "youtube_en": "",
     "script_de": "Du sollst ein neues Feature bauen — aber der Code ist 15 Jahre alt, niemand versteht ihn vollständig, und der letzte Entwickler hat die Firma verlassen.\n\nLegacy-Systeme sind oft geschäftskritisch. Einfach abschalten geht nicht. Komplett neu bauen meistens auch nicht.\n\nLegacy-Modernisierung beschreibt Strategien, um bestehende Systeme schrittweise zu verbessern, zu ersetzen oder zu transformieren — ohne den laufenden Betrieb zu gefährden. Stell dir die Renovierung eines bewohnten Hauses vor: Du kannst nicht alles auf einmal einreißen, sondern arbeitest Raum für Raum.\n\nEin Unternehmen hat einen COBOL-Monolithen. Statt eines Big-Bang-Rewrites extrahiert es schrittweise Funktionalität in moderne Services. Die Strangler Fig Methode umschließt das alte System, bis nichts mehr davon übrig ist.\n\nIn diesem Pfad lernst du die Werkzeuge der Modernisierung — von Strangler Fig bis Evolutionary Architecture.",
@@ -1995,6 +2033,7 @@
     "path": "legacy",
     "path_position": 1,
     "requires": [
+      "legacy-modernisierung",
       "kopplung"
     ],
     "youtube_de": "",
