@@ -27,25 +27,48 @@ function initI18n() {
 
 function applyLanguage(lang) {
   document.documentElement.lang = lang
+  const other = lang === 'de' ? 'en' : 'de'
+
+  // Update text content from data attributes
   document.querySelectorAll(`[data-${lang}]`).forEach((el) => {
     el.textContent = el.getAttribute(`data-${lang}`)
   })
   const toggle = document.getElementById('lang-toggle')
   if (toggle) toggle.textContent = lang === 'de' ? 'EN' : 'DE'
 
-  // Reorder videos on concept pages
-  const videoGrid = document.getElementById('video-grid')
-  if (videoGrid) {
+  // Show/hide language-specific content (video, script text, merksatz)
+  document.querySelectorAll('[data-lang]').forEach((el) => {
+    if (el.dataset.lang === lang) {
+      el.classList.remove('hidden')
+    } else {
+      el.classList.add('hidden')
+    }
+  })
+}
+
+function initVideoSwitch() {
+  const switchLink = document.getElementById('switch-video-lang')
+  if (!switchLink) return
+
+  switchLink.addEventListener('click', (e) => {
+    e.preventDefault()
     const deVideo = document.getElementById('video-de')
     const enVideo = document.getElementById('video-en')
-    if (deVideo && enVideo) {
-      if (lang === 'en') {
-        videoGrid.insertBefore(enVideo, deVideo)
-      } else {
-        videoGrid.insertBefore(deVideo, enVideo)
-      }
+    if (!deVideo || !enVideo) return
+
+    const deVisible = !deVideo.classList.contains('hidden')
+    if (deVisible) {
+      deVideo.classList.add('hidden')
+      enVideo.classList.remove('hidden')
+      switchLink.textContent =
+        document.documentElement.lang === 'de' ? 'Auf Deutsch ansehen' : 'Watch in German'
+    } else {
+      enVideo.classList.add('hidden')
+      deVideo.classList.remove('hidden')
+      switchLink.textContent =
+        document.documentElement.lang === 'de' ? 'Watch in English' : 'Auf Deutsch ansehen'
     }
-  }
+  })
 }
 
 // UC-4: Progress tracking via localStorage
@@ -149,4 +172,5 @@ function updateProgressDisplays() {
 document.addEventListener('DOMContentLoaded', () => {
   initI18n()
   initProgress()
+  initVideoSwitch()
 })

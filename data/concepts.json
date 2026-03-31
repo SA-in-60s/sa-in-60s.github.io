@@ -8,7 +8,11 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein System läuft. Die Features werden geliefert. Aber wenn tausend Nutzer gleichzeitig kommen, bricht alles zusammen. Oder ein Entwickler kündigt — und niemand versteht mehr den Code.\n\nDas sind keine Bugs. Das sind Architektur-Entscheidungen, die nie bewusst getroffen wurden.\n\nSoftware-Architektur ist die Summe der Entscheidungen, die schwer zu ändern sind — und die bestimmen, welche Qualitäten dein System hat. Skalierbarkeit, Wartbarkeit, Sicherheit.\n\nStell dir ein Haus vor: Die Wandfarbe änderst du in einem Tag. Aber die tragenden Wände? Das Fundament? Das ist Architektur.\n\nDer entscheidende Punkt: Gute Architektur beginnt nicht mit Technologie. Sie beginnt mit der Frage: Was muss dieses System leisten — und was passiert, wenn es das nicht tut?\n\nArchitektur ist kein Talent. Architektur ist lernbar. Und genau das machen wir hier — einen Begriff nach dem anderen, in jeweils 60 Sekunden.",
+    "merksatz_de": "",
+    "script_en": "Your system works. Features ship on time. But when a thousand users hit it at once, everything falls apart. Or a developer quits — and nobody understands the code anymore.\n\nThese are not bugs. These are architecture decisions that were never consciously made.\n\nSoftware architecture is the set of decisions that are hard to change — and that determine the qualities of your system. Scalability, maintainability, security.\n\nThink of a house: you can repaint the walls in a day. But the load-bearing walls? The foundation? That is architecture.\n\nHere is the key point: good architecture does not start with technology. It starts with the question: what must this system deliver — and what happens if it does not?\n\nArchitecture is not a talent. Architecture is learnable. And that is exactly what we do here — one concept at a time, each in 60 seconds.",
+    "merksatz_en": ""
   },
   {
     "id": "abstraktion",
@@ -19,7 +23,11 @@
     "path_position": 1,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du öffnest den Code und siehst: eine Funktion mit 500 Zeilen, die alles macht. Datenbank, Validierung, E-Mail-Versand, Logging — alles in einem Block. Wo fängst du an?\n\nDas Problem: Es fehlt Abstraktion.\n\nAbstraktion bedeutet, unwichtige Details zu verstecken und nur das Wesentliche sichtbar zu machen. Denk an ein Auto: Du drehst am Lenkrad — du musst nicht wissen, wie die Servopumpe funktioniert. Das Lenkrad ist die Abstraktion.\n\nIn Software heißt das: Statt die Datenbank-Logik in jeder Funktion zu wiederholen, versteckst du sie hinter einer Schnittstelle. Der Rest deines Codes sagt nur noch: Speichere diesen Kunden. Wie das passiert? Nicht sein Problem.\n\nGute Abstraktion hat eine Regel: Sie soll vereinfachen, nicht verschleiern. Wenn du drei Schichten durchklicken musst um zu verstehen was passiert, hast du zu viel abstrahiert.\n\nMerke: Abstraktion ist das Weglassen des Unwichtigen — nicht das Verstecken des Wichtigen.",
+    "merksatz_de": "Abstraktion ist das Weglassen des Unwichtigen — nicht das Verstecken des Wichtigen.",
+    "script_en": "You open the code and see: one function, 500 lines, doing everything. Database, validation, email, logging — all in one block. Where do you even start?\n\nThe problem: there is no abstraction.\n\nAbstraction means hiding unnecessary details and showing only what matters. Think of a car: you turn the steering wheel — you do not need to know how the power steering pump works. The steering wheel is the abstraction.\n\nIn software, this means: instead of repeating database logic in every function, you hide it behind an interface. The rest of your code just says: save this customer. How it happens? Not its problem.\n\nGood abstraction has one rule: it should simplify, not obscure. If you have to click through three layers to understand what is happening, you have abstracted too much.\n\nRemember: abstraction is removing what does not matter — not hiding what does.",
+    "merksatz_en": "abstraction is removing what does not matter — not hiding what does."
   },
   {
     "id": "modul",
@@ -30,7 +38,11 @@
     "path_position": 2,
     "requires": ["abstraktion"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast hundert Dateien im Projekt. Jede kennt jede. Wenn du eine änderst, brechen drei andere. Das ist kein großes Projekt — das ist ein Projekt ohne Module.\n\nEin Modul ist eine Einheit, die zusammengehörige Funktionen bündelt — mit einer klaren Grenze nach außen. Denk an eine Schublade in der Küche: Besteck gehört zusammen. Gewürze gehören zusammen. Du suchst nicht das Salz zwischen den Gabeln.\n\nIn Software bedeutet das: Alles was zur Benutzer-Verwaltung gehört — Registrierung, Login, Passwort-Reset — lebt in einem Modul. Der Rest des Systems kennt nur die Schnittstelle, nicht die Details.\n\nEin gutes Modul hat zwei Eigenschaften: Es versteckt seine Interna. Und es hat einen klaren Grund zu existieren. Wenn du nicht in einem Satz sagen kannst, was ein Modul tut, ist es wahrscheinlich kein gutes Modul.\n\nMerke: Ein gutes Modul erkennst du daran, dass du es in einem Satz beschreiben kannst.",
+    "merksatz_de": "Ein gutes Modul erkennst du daran, dass du es in einem Satz beschreiben kannst.",
+    "script_en": "You have a hundred files in your project. Every file knows every other file. Change one, and three others break. This is not a large project — it is a project without modules.\n\nA module is a unit that bundles related functions — with a clear boundary to the outside. Think of a kitchen drawer: cutlery belongs together. Spices belong together. You do not search for salt between the forks.\n\nIn software, this means: everything related to user management — registration, login, password reset — lives in one module. The rest of the system knows only the interface, not the details.\n\nA good module has two properties: it hides its internals. And it has a clear reason to exist. If you cannot say in one sentence what a module does, it is probably not a good module.\n\nRemember: you know a module is good when you can describe it in one sentence.",
+    "merksatz_en": "you know a module is good when you can describe it in one sentence."
   },
   {
     "id": "komponente",
@@ -41,7 +53,11 @@
     "path_position": 3,
     "requires": ["modul"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast Module. Du hast Struktur. Aber wie wird aus Modulen ein System, das du deployen, ersetzen und unabhängig weiterentwickeln kannst?\n\nDie Antwort: Komponenten.\n\nEine Komponente ist ein Modul, das du eigenständig deployen und ersetzen kannst. Der Unterschied zum Modul? Ein Modul strukturiert deinen Code. Eine Komponente kannst du unabhängig bauen, testen und ausliefern — als JAR, als Container, als Service.\n\nStell dir einen Computer vor: Die Grafikkarte ist eine Komponente. Du kannst sie austauschen, ohne das Mainboard zu ändern. Sie hat eine klare Schnittstelle — den PCIe-Slot.\n\nIn Software gilt dasselbe: Eine Zahlungs-Komponente kannst du von Stripe auf PayPal umstellen, ohne den Rest deines Systems anzufassen — wenn die Schnittstelle stimmt.\n\nMerke: Jede Komponente ist ein Modul. Aber nicht jedes Modul ist eine Komponente. Der Unterschied ist die Unabhängigkeit.",
+    "merksatz_de": "Jede Komponente ist ein Modul. Aber nicht jedes Modul ist eine Komponente. Der Unterschied ist die Unabhängigkeit.",
+    "script_en": "You have modules. You have structure. But how do modules become a system you can deploy, replace, and evolve independently?\n\nThe answer: components.\n\nA component is a module that you can deploy and replace independently. The difference from a module? A module structures your code. A component can be built, tested, and delivered independently — as a JAR, a container, a service.\n\nThink of a computer: the graphics card is a component. You can swap it out without changing the motherboard. It has a clear interface — the PCIe slot.\n\nIn software, the same applies: you can switch a payment component from Stripe to PayPal without touching the rest of your system — if the interface is right.\n\nRemember: every component is a module. But not every module is a component. The difference is independence.",
+    "merksatz_en": "every component is a module. But not every module is a component. The difference is independence."
   },
   {
     "id": "schnittstelle",
@@ -52,7 +68,11 @@
     "path_position": 4,
     "requires": ["komponente"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Zwei Teams arbeiten am selben System. Team A ändert die Datenbank-Struktur — und Team B steht still, weil ihr Code nicht mehr funktioniert. Das passiert, wenn es keine klaren Schnittstellen gibt.\n\nEine Schnittstelle ist ein Vertrag zwischen zwei Seiten: Ich liefere dir das — du lieferst mir jenes. Nicht mehr, nicht weniger. Wie ein Steckdosen-Standard: 230 Volt, Typ F. Jedes Gerät das sich daran hält, funktioniert.\n\nIn Software gibt es Schnittstellen überall: APIs, Funktionssignaturen, Event-Formate. Sie definieren was rein und raus geht — aber nicht wie es intern funktioniert.\n\nEine gute Schnittstelle ist stabil. Sie ändert sich selten. Und sie ist so schmal wie möglich — je weniger sie preisgibt, desto weniger kann brechen.\n\nDas ist der Kern: Schnittstellen entkoppeln. Sie erlauben dir, eine Seite zu ändern, ohne die andere zu zerstören.\n\nMerke: Die beste Schnittstelle ist die, die du nie ändern musst.",
+    "merksatz_de": "Die beste Schnittstelle ist die, die du nie ändern musst.",
+    "script_en": "Two teams work on the same system. Team A changes the database structure — and Team B is blocked because their code no longer works. This happens when there are no clear interfaces.\n\nAn interface is a contract between two sides: I deliver this — you deliver that. Nothing more, nothing less. Like a power outlet standard: 230 volts, Type F. Every device that follows the standard works.\n\nIn software, interfaces are everywhere: APIs, function signatures, event formats. They define what goes in and what comes out — but not how it works internally.\n\nA good interface is stable. It rarely changes. And it is as narrow as possible — the less it exposes, the less can break.\n\nThis is the core idea: interfaces decouple. They allow you to change one side without breaking the other.\n\nRemember: the best interface is one you never have to change.",
+    "merksatz_en": "the best interface is one you never have to change."
   },
   {
     "id": "abhaengigkeit",
@@ -63,7 +83,11 @@
     "path_position": 5,
     "requires": ["komponente"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst eine Library updaten. Aber sie hängt von einer anderen ab, die von einer dritten abhängt — und plötzlich bricht dein halbes System. Willkommen in der Dependency-Hölle.\n\nEine Abhängigkeit entsteht, wenn eine Komponente eine andere braucht um zu funktionieren. Das ist nicht schlimm — kein System existiert ohne Abhängigkeiten. Die Frage ist: Welche Abhängigkeiten hast du, und zeigen sie in die richtige Richtung?\n\nDenk an einen Baum: Die Blätter hängen von den Ästen ab. Die Äste vom Stamm. Nie umgekehrt. Wenn ein Blatt fällt, steht der Baum noch.\n\nIn Software willst du dasselbe: Stabile Teile sollten nicht von instabilen abhängen. Dein Kern sollte stehen bleiben, auch wenn sich die Details drum herum ändern.\n\nZwei Regeln für gesunde Abhängigkeiten: Erstens — wenige. Zweitens — in eine Richtung. Zirkuläre Abhängigkeiten sind das sicherste Zeichen für ein Architektur-Problem.\n\nMerke: Abhängigkeiten sind unvermeidbar. Aber ihre Richtung ist eine Entscheidung.",
+    "merksatz_de": "Abhängigkeiten sind unvermeidbar. Aber ihre Richtung ist eine Entscheidung.",
+    "script_en": "You want to update a library. But it depends on another, which depends on a third — and suddenly half your system breaks. Welcome to dependency hell.\n\nA dependency exists when one component needs another to function. That is not bad — no system exists without dependencies. The question is: which dependencies do you have, and do they point in the right direction?\n\nThink of a tree: the leaves depend on the branches. The branches on the trunk. Never the other way around. When a leaf falls, the tree still stands.\n\nIn software, you want the same: stable parts should not depend on unstable ones. Your core should stand firm, even when the details around it change.\n\nTwo rules for healthy dependencies: first — few. Second — in one direction. Circular dependencies are the surest sign of an architecture problem.\n\nRemember: dependencies are inevitable. But their direction is a decision.",
+    "merksatz_en": "dependencies are inevitable. But their direction is a decision."
   },
   {
     "id": "kopplung",
@@ -74,7 +98,11 @@
     "path_position": 6,
     "requires": ["abhaengigkeit"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du änderst den Namen einer Datenbank-Spalte — und musst 47 Dateien anpassen. Das ist kein Bug. Das ist hohe Kopplung.\n\nKopplung beschreibt, wie stark zwei Teile deines Systems voneinander abhängen. Hohe Kopplung bedeutet: Änderst du eins, musst du das andere mitändern. Niedrige Kopplung bedeutet: Jeder Teil kann sich unabhängig weiterentwickeln.\n\nStell dir Legosteine vor: Die sind schwach gekoppelt. Du kannst jeden Stein entfernen und ersetzen, ohne den Rest zu zerstören. Jetzt stell dir vor, alle Steine wären zusammengeklebt — das ist hohe Kopplung.\n\nIn Software gibt es verschiedene Arten: Daten-Kopplung, Kontroll-Kopplung, temporale Kopplung. Die schlimmste? Content Coupling — wenn eine Komponente direkt in die Interna einer anderen greift.\n\nDas Ziel ist nie null Kopplung — das wäre ein System das nichts tut. Das Ziel ist bewusste, kontrollierte Kopplung über klar definierte Schnittstellen.\n\nMerke: Kopplung ist der Preis der Zusammenarbeit. Halte ihn niedrig.",
+    "merksatz_de": "Kopplung ist der Preis der Zusammenarbeit. Halte ihn niedrig.",
+    "script_en": "You rename a database column — and have to update 47 files. That is not a bug. That is high coupling.\n\nCoupling describes how strongly two parts of your system depend on each other. High coupling means: change one, and you must change the other. Low coupling means: each part can evolve independently.\n\nThink of Lego bricks: they are loosely coupled. You can remove and replace any brick without destroying the rest. Now imagine all bricks were glued together — that is high coupling.\n\nIn software, there are different types: data coupling, control coupling, temporal coupling. The worst? Content coupling — when one component reaches directly into the internals of another.\n\nThe goal is never zero coupling — that would be a system that does nothing. The goal is conscious, controlled coupling through well-defined interfaces.\n\nRemember: coupling is the price of collaboration. Keep it low.",
+    "merksatz_en": "coupling is the price of collaboration. Keep it low."
   },
   {
     "id": "kohaesion",
@@ -85,7 +113,11 @@
     "path_position": 7,
     "requires": ["modul"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du öffnest eine Klasse und findest: Benutzer-Validierung, PDF-Export und E-Mail-Versand. In einer Klasse. Warum? Weil sie mal jemand dort hingeschrieben hat. Das ist niedrige Kohäsion.\n\nKohäsion beschreibt, wie gut die Teile innerhalb eines Moduls zusammenpassen. Hohe Kohäsion bedeutet: Alles in diesem Modul gehört zusammen und arbeitet auf ein gemeinsames Ziel hin. Niedrige Kohäsion bedeutet: Ein Modul ist eine Mülltonne für alles was keinen Platz hat.\n\nStell dir eine Werkzeugkiste vor: Eine Kiste mit Elektrikerwerkzeug — Messgerät, Abisolierzange, Sicherungen — hohe Kohäsion. Eine Kiste mit Schraubenzieher, Kochrezepten und Socken — niedrige Kohäsion.\n\nKohäsion und Kopplung sind Zwillinge: Hohe Kohäsion innerhalb der Module führt automatisch zu niedriger Kopplung zwischen den Modulen. Wenn alles am richtigen Platz ist, brauchen die Module weniger voneinander.\n\nMerke: Hohe Kohäsion heißt — jedes Ding an seinem Platz. Und nur dort.",
+    "merksatz_de": "Hohe Kohäsion heißt — jedes Ding an seinem Platz. Und nur dort.",
+    "script_en": "You open a class and find: user validation, PDF export, and email sending. In one class. Why? Because someone put it there once. That is low cohesion.\n\nCohesion describes how well the parts within a module fit together. High cohesion means: everything in this module belongs together and works toward a common goal. Low cohesion means: a module is a dumping ground for everything that has no place.\n\nThink of a toolbox: one with electrician tools — multimeter, wire strippers, fuses — high cohesion. One with screwdrivers, recipes, and socks — low cohesion.\n\nCohesion and coupling are twins: high cohesion within modules automatically leads to low coupling between modules. When everything is in the right place, modules need less from each other.\n\nRemember: high cohesion means — everything in its place. And only there.",
+    "merksatz_en": "high cohesion means — everything in its place. And only there."
   },
   {
     "id": "separation-of-concerns",
@@ -96,7 +128,11 @@
     "path_position": 8,
     "requires": ["modul"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du liest eine Funktion die gleichzeitig Geschäftslogik berechnet, HTML rendert und Daten in die Datenbank schreibt. Jede Änderung ist ein Risiko — weil du nie weißt, was du mitänderst. Das passiert, wenn Verantwortlichkeiten vermischt werden.\n\nSeparation of Concerns bedeutet: Jeder Teil deines Systems hat genau eine Verantwortung. Und nur eine.\n\nDenk an ein Restaurant: Der Koch kocht. Der Kellner serviert. Der Kassierer kassiert. Keiner macht den Job des anderen — und genau deshalb funktioniert es.\n\nIn Software kennst du das Prinzip aus der Drei-Schichten-Architektur: Präsentation, Geschäftslogik, Datenhaltung. Jede Schicht kümmert sich um ihren Bereich. Aber Separation of Concerns geht tiefer — es gilt für jede Ebene, jede Klasse, jede Funktion.\n\nDer Test ist einfach: Wenn du einen Teil deines Systems ändern musst und dabei einen anderen Teil verstehen musst der nichts damit zu tun hat — dann sind die Concerns nicht getrennt.\n\nMerke: Trennung der Verantwortlichkeiten ist das Fundament jeder guten Architektur.",
+    "merksatz_de": "Trennung der Verantwortlichkeiten ist das Fundament jeder guten Architektur.",
+    "script_en": "You read a function that simultaneously calculates business logic, renders HTML, and writes data to the database. Every change is a risk — because you never know what else you are affecting. This happens when responsibilities are mixed.\n\nSeparation of concerns means: every part of your system has exactly one responsibility. And only one.\n\nThink of a restaurant: the chef cooks. The waiter serves. The cashier handles payments. Nobody does the other's job — and that is exactly why it works.\n\nIn software, you know this principle from three-tier architecture: presentation, business logic, data storage. Each layer handles its own area. But separation of concerns goes deeper — it applies at every level, every class, every function.\n\nThe test is simple: if you have to change one part of your system and need to understand another part that has nothing to do with it — then the concerns are not separated.\n\nRemember: separation of concerns is the foundation of every good architecture.",
+    "merksatz_en": "separation of concerns is the foundation of every good architecture."
   },
   {
     "id": "microservices-pfad",
@@ -107,7 +143,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast einen Online-Shop gebaut. Alles läuft — bis das Team wächst und jede kleine Änderung am Warenkorb plötzlich die Zahlungsabwicklung zerschießt. Kommt dir bekannt vor?\n\nDas Problem: Monolithische Systeme werden mit der Zeit schwer änderbar. Und irgendwann stellt sich die Frage — gibt es einen besseren Weg?\n\nMicroservices sind einer der meistdiskutierten Architekturansätze der letzten Jahre. Die Idee klingt einfach: Statt einer großen Anwendung baust du viele kleine, unabhängige Dienste. Aber dahinter steckt ein ganzes Ökosystem aus Konzepten.\n\nDeshalb gibt es diesen Pfad. In den nächsten Episoden gehen wir Schritt für Schritt durch: Vom Monolith über APIs und Service-Kommunikation bis hin zu Patterns wie Circuit Breaker, Saga und Strangler Fig.\n\nMerke: Microservices lösen Organisationsprobleme — aber sie schaffen Betriebsprobleme. Kenn beides.",
+    "merksatz_de": "Microservices lösen Organisationsprobleme — aber sie schaffen Betriebsprobleme. Kenn beides."
   },
   {
     "id": "monolith",
@@ -118,7 +156,9 @@
     "path_position": 1,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du deployst deine Anwendung. Ein einziges Artefakt — eine JAR-Datei, ein Docker-Image. Alles drin, alles zusammen. Das ist ein Monolith.\n\nAber warum reden alle so negativ darüber? Das Problem ist nicht der Monolith selbst — sondern was passiert, wenn er unkontrolliert wächst. Plötzlich dauert jeder Build ewig, und jede Änderung betrifft gefühlt alles.\n\nEin Monolith ist wie ein Einfamilienhaus. Alles unter einem Dach — Küche, Bad, Schlafzimmer. Für eine kleine Familie perfekt. Aber versuch mal, drei Familien reinzuquetschen.\n\nIn der Praxis heißt das: Dein Banking-System hat Kontoführung, Kreditvergabe und Zahlungsverkehr in einer Codebasis. Am Anfang ist das einfach und schnell. Aber wenn drei Teams gleichzeitig an derselben Codebasis arbeiten, entstehen Konflikte und lange Release-Zyklen.\n\nMerke: Ein Monolith ist kein Anti-Pattern — er ist der richtige Startpunkt, den du bewusst weiterentwickelst.",
+    "merksatz_de": "Ein Monolith ist kein Anti-Pattern — er ist der richtige Startpunkt, den du bewusst weiterentwickelst."
   },
   {
     "id": "dienst-service",
@@ -129,7 +169,9 @@
     "path_position": 2,
     "requires": ["schnittstelle"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du rufst eine URL auf und bekommst Daten zurück. Du schickst eine Nachricht an eine Queue und etwas passiert. Beides sind Dienste — aber was genau bedeutet das?\n\nIn der Softwarearchitektur wird der Begriff Service inflationär benutzt. Webservice, Microservice, Domain Service — alles heißt Service. Das sorgt für Verwirrung.\n\nEin Dienst ist ein eigenständiges Stück Software, das eine bestimmte Fähigkeit anbietet. Denk an einen Handwerker: Du rufst den Elektriker an, er erledigt seinen Job, du musst nicht wissen, wie er arbeitet. Du kennst nur das Ergebnis.\n\nIn der Praxis ist ein Dienst zum Beispiel ein Bezahldienst, der Kreditkartenzahlungen abwickelt. Er hat eine klare Schnittstelle, läuft eigenständig und kann von verschiedenen Anwendungen genutzt werden — vom Shop genauso wie von der mobilen App.\n\nMerke: Ein Dienst bietet eine Fähigkeit über eine definierte Schnittstelle an — nicht mehr und nicht weniger.",
+    "merksatz_de": "Ein Dienst bietet eine Fähigkeit über eine definierte Schnittstelle an — nicht mehr und nicht weniger."
   },
   {
     "id": "api",
@@ -140,7 +182,9 @@
     "path_position": 3,
     "requires": ["schnittstelle", "dienst-service"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst Wetterdaten in deiner App anzeigen. Du liest die Doku, schickst einen HTTP-Request und bekommst JSON zurück. Du hast gerade eine API benutzt.\n\nOhne APIs könnten Systeme nicht miteinander reden. Jede Anwendung wäre eine Insel. Aber eine schlechte API ist schlimmer als keine — weil sie Abhängigkeiten schafft, die du nicht mehr loswirst.\n\nAPI steht für Application Programming Interface — eine Programmierschnittstelle. Stell dir eine Speisekarte im Restaurant vor: Du siehst, was du bestellen kannst, aber du gehst nicht in die Küche. Die Karte ist der Vertrag zwischen dir und der Küche.\n\nIn der Softwarearchitektur definiert eine REST-API zum Beispiel: GET /users liefert alle Nutzer, POST /users legt einen neuen an. Der Client kennt nur diese Endpunkte — wie der Server sie umsetzt, ist egal.\n\nMerke: Eine API ist ein Vertrag — und gute Verträge sind stabil, klar und ändern sich nur mit Vorwarnung.",
+    "merksatz_de": "Eine API ist ein Vertrag — und gute Verträge sind stabil, klar und ändern sich nur mit Vorwarnung."
   },
   {
     "id": "microservices",
@@ -151,7 +195,9 @@
     "path_position": 4,
     "requires": ["dienst-service", "kopplung"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Team will ein Feature releasen, aber muss auf drei andere Teams warten, weil alles in einer Codebasis steckt. Genau dieses Problem wollen Microservices lösen.\n\nDas Versprechen: Kleine, unabhängige Services, die einzeln deployed werden können. Aber Unabhängigkeit in verteilten Systemen ist alles andere als einfach.\n\nMicroservices sind ein Architekturstil, bei dem eine Anwendung aus vielen kleinen Diensten besteht. Stell dir eine Stadt vor: Statt einem riesigen Kaufhaus gibt es viele spezialisierte Läden — Bäcker, Metzger, Apotheke. Jeder macht sein Ding, aber zusammen versorgen sie die Stadt.\n\nKonkret: Dein Logistik-System wird zu einzelnen Services — Sendungsverfolgung, Routenplanung, Lagerverwaltung, Zollabwicklung. Jeder hat seine eigene Datenbank, sein eigenes Deployment. Das Routing-Team kann unabhängig releasen, ohne die Lagerverwaltung zu beeinflussen.\n\nMerke: Microservices tauschen die Komplexität im Code gegen Komplexität im Betrieb — du musst beides beherrschen.",
+    "merksatz_de": "Microservices tauschen die Komplexität im Code gegen Komplexität im Betrieb — du musst beides beherrschen."
   },
   {
     "id": "api-gateway",
@@ -162,7 +208,9 @@
     "path_position": 5,
     "requires": ["api", "microservices"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine mobile App braucht Daten von fünf verschiedenen Microservices. Fünf verschiedene URLs, fünf verschiedene Authentifizierungen. Das wird schnell unübersichtlich.\n\nDas Problem: Clients sollten nicht wissen müssen, wie dein Backend intern aufgebaut ist. Jede Änderung an der Service-Landschaft würde sonst alle Clients betreffen.\n\nEin API Gateway ist ein zentraler Eingang für alle externen Anfragen. Denk an die Rezeption eines Hotels: Du sagst der Rezeption was du brauchst — Zimmerservice, Taxi, Restaurant. Die Rezeption kümmert sich darum, die richtige Abteilung zu kontaktieren.\n\nIn der Praxis empfängt das Gateway den Request vom Client, routet ihn an den richtigen Service, aggregiert vielleicht Antworten aus mehreren Services und kümmert sich um Authentifizierung und Rate Limiting. Tools wie Kong, NGINX oder AWS API Gateway machen genau das.\n\nMerke: Ein API Gateway gibt deinen Clients eine stabile Tür — egal wie oft du hinter der Tür umräumst.",
+    "merksatz_de": "Ein API Gateway gibt deinen Clients eine stabile Tür — egal wie oft du hinter der Tür umräumst."
   },
   {
     "id": "service-discovery",
@@ -173,7 +221,9 @@
     "path_position": 6,
     "requires": ["microservices"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Bestell-Service muss den Lager-Service aufrufen. Aber auf welchem Server läuft der gerade? Und auf welchem Port? Und was, wenn sich das jede Minute ändert?\n\nIn einer Microservice-Architektur starten und stoppen Services ständig. Feste IP-Adressen funktionieren nicht mehr. Du brauchst einen Mechanismus, der dir sagt, wo ein Service gerade erreichbar ist.\n\nService Discovery ist wie ein Telefonbuch, das sich selbst aktualisiert. Jeder Service meldet sich beim Start an und beim Stopp ab. Wer einen Service sucht, fragt einfach das Telefonbuch.\n\nKonkret: Dein Bestell-Service fragt bei Consul oder Eureka nach — wo läuft der Lager-Service? Er bekommt eine aktuelle Adresse zurück und kann den Call machen. Startet eine neue Instanz, registriert sie sich automatisch. Fällt eine weg, wird sie entfernt.\n\nMerke: Service Discovery macht aus festen Verdrahtungen dynamische Verbindungen — die Grundlage für elastische Systeme.",
+    "merksatz_de": "Service Discovery macht aus festen Verdrahtungen dynamische Verbindungen — die Grundlage für elastische Systeme."
   },
   {
     "id": "message-broker",
@@ -184,7 +234,9 @@
     "path_position": 7,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Bestell-Service soll nach jeder Bestellung den Versand informieren, eine E-Mail auslösen und das Lager aktualisieren. Drei synchrone Calls — und wenn einer hängt, hängt alles.\n\nDas Problem: Direkte Kommunikation zwischen Services erzeugt enge Kopplung. Wenn der E-Mail-Service down ist, kann keine Bestellung abgeschlossen werden. Das ist fragil.\n\nEin Message Broker ist die Infrastruktur, die Nachrichten zuverlässig von A nach B bringt. Er verwaltet Queues und Topics, speichert Nachrichten persistent und garantiert die Zustellung — auch wenn der Empfänger gerade nicht erreichbar ist.\n\nIn der Praxis entscheidest du: RabbitMQ mit klassischen Queues und Acknowledgements oder Kafka mit persistentem Log und Consumer Groups. Du konfigurierst Retry-Policies, Dead-Letter-Queues für fehlgeschlagene Nachrichten und legst fest, ob Nachrichten at-least-once oder at-most-once zugestellt werden.\n\nMerke: Ein Message Broker ist Infrastruktur — er garantiert Zustellung, Persistenz und Lastverteilung zwischen Services.",
+    "merksatz_de": "Ein Message Broker ist Infrastruktur — er garantiert Zustellung, Persistenz und Lastverteilung zwischen Services."
   },
   {
     "id": "event-driven-architecture",
@@ -195,7 +247,9 @@
     "path_position": 8,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Kunde storniert eine Bestellung. Sofort muss die Zahlung erstattet, der Versand gestoppt und das Lager aktualisiert werden. Wer koordiniert das alles?\n\nBei klassischer Kommunikation müsste der Bestell-Service jeden einzelnen Service direkt aufrufen. Er müsste wissen, wer alles betroffen ist. Und bei jedem neuen Beteiligten ändert sich sein Code.\n\nEvent-Driven Architecture ist ein Architekturparadigma, das die Steuerung umdreht. Statt Befehle zu senden, veröffentlichen Services Fakten — Dinge, die passiert sind. Wer darauf reagiert, entscheidet jeder Service selbst. Das ist Inversion of Control auf Systemebene.\n\nDer Bestell-Service publiziert nur ein Fakt: Bestellung storniert. Der Zahlungs-Service reagiert mit Erstattung. Der Versand-Service stoppt die Lieferung. Kommt ein Bonus-Service dazu? Er abonniert dasselbe Event. Der Bestell-Service weiß nichts davon und ändert sich nicht.\n\nMerke: Event-Driven Architecture ist ein Paradigma — Services reagieren auf Fakten statt Befehle, und das verändert die gesamte Systemstruktur.",
+    "merksatz_de": "Event-Driven Architecture ist ein Paradigma — Services reagieren auf Fakten statt Befehle, und das verändert die gesamte Systemstruktur."
   },
   {
     "id": "service-mesh",
@@ -206,7 +260,9 @@
     "path_position": 9,
     "requires": ["microservices"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast zwanzig Microservices. Jeder braucht Retry-Logik, TLS-Verschlüsselung, Tracing und Load Balancing. Baust du das in jeden Service einzeln ein?\n\nDas Problem: Querschnittsthemen wie Sicherheit und Observability in jedem Service zu implementieren ist redundant, fehleranfällig und schwer konsistent zu halten.\n\nEin Service Mesh ist wie eine Rohrpost-Infrastruktur in einem Gebäude. Du steckst deinen Brief rein und das Rohrsystem kümmert sich um den Transport — verschlüsselt, protokolliert und mit Garantie. Du musst dich nicht darum kümmern.\n\nTechnisch funktioniert das über Sidecar-Proxies. Neben jedem Service läuft ein kleiner Proxy — zum Beispiel Envoy bei Istio. Jeder ausgehende und eingehende Call läuft durch diesen Proxy. Er übernimmt mTLS, Retries, Circuit Breaking und sammelt Metriken. Dein Service-Code bleibt sauber.\n\nMerke: Ein Service Mesh verlagert Netzwerk-Komplexität aus deinem Code in die Infrastruktur — wo sie hingehört.",
+    "merksatz_de": "Ein Service Mesh verlagert Netzwerk-Komplexität aus deinem Code in die Infrastruktur — wo sie hingehört."
   },
   {
     "id": "circuit-breaker",
@@ -217,7 +273,9 @@
     "path_position": 10,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Der Zahlungs-Service antwortet nicht. Dein Bestell-Service wartet. Und wartet. Hunderte Threads blockieren. Bald antwortet auch der Bestell-Service nicht mehr. Ein Dominoeffekt.\n\nKaskadierende Fehler sind eines der größten Risiken in verteilten Systemen. Ein langsamer Service kann das gesamte System lahmlegen, wenn niemand eingreift.\n\nEin Circuit Breaker funktioniert wie ein Sicherungsautomat im Stromkasten. Fließt zu viel Strom, schaltet die Sicherung ab — bevor Schaden entsteht. Nach einer Weile testet sie vorsichtig, ob es wieder geht.\n\nKonkret: Nach fünf fehlgeschlagenen Calls zum Zahlungs-Service öffnet der Circuit Breaker. Weitere Anfragen werden sofort mit einem Fallback beantwortet — zum Beispiel Zahlung wird später verarbeitet. Nach dreißig Sekunden lässt er einen Testaufruf durch. Funktioniert er, schließt der Breaker wieder.\n\nMerke: Ein Circuit Breaker schützt dein System, indem er Fehler isoliert statt sie weiterzureichen.",
+    "merksatz_de": "Ein Circuit Breaker schützt dein System, indem er Fehler isoliert statt sie weiterzureichen."
   },
   {
     "id": "bulkhead",
@@ -228,7 +286,9 @@
     "path_position": 11,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Service verarbeitet zwei Arten von Requests: kritische Bestellungen und unwichtige Statistik-Abfragen. Die Statistik-Abfragen explodieren und plötzlich können auch keine Bestellungen mehr verarbeitet werden.\n\nDas Problem: Wenn alle Anfragen denselben Thread-Pool teilen, kann ein Anstieg bei unkritischen Anfragen die kritischen Funktionen komplett blockieren. Und dann geht gar nichts mehr.\n\nBulkhead kommt aus dem Schiffbau. Ein Schiff hat wasserdichte Schotten — wenn ein Bereich volläuft, bleiben die anderen trocken. Das Schiff sinkt nicht wegen eines einzelnen Lecks.\n\nIn deinem Service bedeutet das: Du trennst die Ressourcen. Bestellungen bekommen ihren eigenen Thread-Pool mit zwanzig Threads. Statistiken bekommen zehn. Wenn die Statistik-Threads voll sind, werden Statistik-Anfragen abgelehnt — aber Bestellungen laufen ungestört weiter.\n\nMerke: Bulkhead trennt Ressourcen, damit ein Teilproblem nicht zum Totalproblem wird.",
+    "merksatz_de": "Bulkhead trennt Ressourcen, damit ein Teilproblem nicht zum Totalproblem wird."
   },
   {
     "id": "retry-und-timeout",
@@ -239,7 +299,9 @@
     "path_position": 12,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du rufst einen Service auf und bekommst keine Antwort. Was tust du? Einfach nochmal versuchen? Wie lange wartest du überhaupt?\n\nOhne Timeouts wartet dein Service ewig. Ohne Retries gibt er beim ersten Netzwerk-Hickser auf. Aber falsch konfiguriert machen beide mehr kaputt als sie helfen.\n\nTimeout ist ein Wecker — wenn der Service nicht in zwei Sekunden antwortet, brichst du ab. Retry ist ein zweiter Versuch, wenn der erste fehlschlägt. Zusammen sind sie wie ein geduldiger aber nicht endlos wartender Mensch: Du klopfst an, wartest kurz, klopfst nochmal — aber irgendwann gehst du weiter.\n\nWichtig: Retries brauchen exponentielles Backoff. Erster Versuch nach hundert Millisekunden, zweiter nach zweihundert, dritter nach vierhundert. Ohne Backoff bombardierst du einen ohnehin überlasteten Service mit noch mehr Anfragen und machst alles schlimmer.\n\nMerke: Timeout begrenzt das Warten, Retry gibt eine zweite Chance — aber nur mit Backoff, sonst wird es ein Angriff.",
+    "merksatz_de": "Timeout begrenzt das Warten, Retry gibt eine zweite Chance — aber nur mit Backoff, sonst wird es ein Angriff."
   },
   {
     "id": "rate-limiting",
@@ -250,7 +312,9 @@
     "path_position": 13,
     "requires": ["api"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine API bekommt plötzlich tausend Anfragen pro Sekunde von einem einzelnen Client. Dein Server geht in die Knie — und alle anderen Nutzer schauen in die Röhre.\n\nOb absichtliche Attacke oder ein fehlerhafter Client-Loop — ohne Schutz kann ein einzelner Verursacher dein gesamtes System für alle unbenutzbar machen.\n\nRate Limiting ist ein Türsteher für deine API. Er zählt, wie viele Anfragen jeder Client pro Zeitfenster stellt. Überschreitet einer sein Limit, wird er abgewiesen — höflich, mit HTTP 429 Too Many Requests.\n\nEin typisches Setup: Jeder API-Key darf hundert Anfragen pro Minute senden. Anfrage hunderteins bekommt einen 429 mit einem Retry-After Header. Das schützt nicht nur vor Missbrauch, sondern auch vor versehentlichen Endlosschleifen im Client-Code. Tools wie Redis machen das Zählen schnell und verteilt.\n\nMerke: Rate Limiting schützt dein System vor Überlastung — egal ob sie böswillig oder versehentlich ist.",
+    "merksatz_de": "Rate Limiting schützt dein System vor Überlastung — egal ob sie böswillig oder versehentlich ist."
   },
   {
     "id": "saga",
@@ -261,7 +325,9 @@
     "path_position": 14,
     "requires": ["microservices"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Kunde bestellt. Die Zahlung wird belastet, der Versand ausgelöst — aber das Lager meldet: Artikel nicht auf Lager. Jetzt musst du die Zahlung rückabwickeln. Aber wie, über Service-Grenzen hinweg?\n\nIn Microservices gibt es keine gemeinsame Datenbank-Transaktion. Du kannst kein Rollback über mehrere Services machen. Trotzdem müssen verteilte Geschäftsprozesse konsistent bleiben.\n\nEine Saga ist eine Kette von lokalen Transaktionen. Denk an eine Reisebuchung: Du buchst Flug, Hotel und Mietwagen einzeln. Wird das Hotel abgelehnt, stornierst du den Flug. Jeder Schritt hat eine Kompensation.\n\nKonkret: Schritt eins — Zahlung belasten. Schritt zwei — Versand beauftragen. Schritt drei — Lager reservieren. Schlägt Schritt drei fehl, wird Schritt zwei mit Versand stornieren kompensiert, dann Schritt eins mit Zahlung erstatten. Entweder zentral gesteuert oder dezentral über Events.\n\nMerke: Eine Saga macht verteilte Konsistenz möglich — nicht durch ein großes Rollback, sondern durch geplante Kompensation.",
+    "merksatz_de": "Eine Saga macht verteilte Konsistenz möglich — nicht durch ein großes Rollback, sondern durch geplante Kompensation."
   },
   {
     "id": "bff-backend-for-frontend",
@@ -272,7 +338,9 @@
     "path_position": 15,
     "requires": ["api-gateway"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine mobile App braucht wenig Daten, dafür kompakt. Deine Web-App braucht viel Daten, dafür detailliert. Beide rufen dieselbe API auf — und keiner ist zufrieden.\n\nDas Problem: Eine generische API muss Kompromisse machen. Mobile Clients bekommen zu viel Daten, Web-Clients zu wenig. Und anpassen kann man sie nicht, ohne den jeweils anderen zu beeinflussen.\n\nBackend for Frontend heißt: Jeder Client-Typ bekommt sein eigenes Backend. Denk an einen Dolmetscher — statt dass jeder Gast die Speisekarte in einer Sprache liest, bekommt jeder seine eigene Übersetzung, angepasst an seine Bedürfnisse.\n\nIn der Praxis baust du ein BFF für die mobile App, das nur die nötigen Felder liefert und Daten aus mehreren Services zusammenfasst. Das Web-BFF liefert reichhaltigere Daten. Jedes BFF kennt die Bedürfnisse seines Clients genau.\n\nMerke: Ein BFF gibt jedem Client genau die API, die er braucht — nicht mehr und nicht weniger.",
+    "merksatz_de": "Ein BFF gibt jedem Client genau die API, die er braucht — nicht mehr und nicht weniger."
   },
   {
     "id": "strangler-fig",
@@ -283,7 +351,9 @@
     "path_position": 16,
     "requires": ["monolith"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Euer Monolith ist fünfzehn Jahre alt. Alles auf einmal neu schreiben? Unmöglich. Aber wie migriert man ein laufendes System, ohne es abzuschalten?\n\nDas Big-Bang-Rewrite ist eines der riskantesten Vorhaben in der Softwareentwicklung. Jahre an Arbeit, kein Zwischenergebnis, und am Ende passt nichts zusammen.\n\nStrangler Fig ist nach der Würgefeige benannt — ein Baum, der langsam um einen anderen herumwächst. Irgendwann trägt der neue Baum sich selbst und der alte stirbt ab. Schrittweise, ohne Unterbrechung.\n\nPraktisch setzt du einen Proxy vor deinen Monolith. Neue Features werden als Microservice gebaut. Der Proxy leitet Anfragen an den neuen Service um. Alte Funktionen werden Stück für Stück extrahiert und ersetzt. Der Monolith wird kleiner, die neue Architektur wächst — und das System läuft die ganze Zeit.\n\nMerke: Strangler Fig ersetzt ein System schrittweise — jede Migration braucht ein Ende, aber kein Big Bang.",
+    "merksatz_de": "Strangler Fig ersetzt ein System schrittweise — jede Migration braucht ein Ende, aber kein Big Bang."
   },
   {
     "id": "distributed-tracing",
@@ -294,7 +364,9 @@
     "path_position": 17,
     "requires": ["microservices"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Request ist langsam. Er durchläuft acht Microservices. Wo ist das Problem? Im API Gateway? Im Bestell-Service? In der Datenbank des Lager-Service? Du weißt es nicht.\n\nIn einem Monolith siehst du im Stacktrace genau, wo es hängt. In verteilten Systemen verteilt sich ein Request über viele Prozesse, viele Server, viele Logs. Der Zusammenhang geht verloren.\n\nDistributed Tracing ist wie eine Sendungsverfolgung für deine Requests. Jeder Request bekommt eine eindeutige Trace-ID, die durch alle Services mitgegeben wird. Am Ende siehst du den kompletten Weg — mit Zeiten für jeden Abschnitt.\n\nKonkret: Ein Request kommt rein, bekommt Trace-ID abc123. Der API-Gateway loggt sie, der Bestell-Service loggt sie, der Lager-Service loggt sie. In Jaeger oder Zipkin siehst du dann: Gateway zwei Millisekunden, Bestellung fünf Millisekunden, Lager dreihundert Millisekunden. Aha — das Lager ist das Problem.\n\nMerke: Distributed Tracing gibt jedem Request eine Spur — damit du in verteilten Systemen Probleme findest statt rätst.",
+    "merksatz_de": "Distributed Tracing gibt jedem Request eine Spur — damit du in verteilten Systemen Probleme findest statt rätst."
   },
   {
     "id": "ddd-pfad",
@@ -305,7 +377,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Code hat Klassen wie UserManager, DataHelper und ServiceUtils. Kein Mensch weiß, was sie tun, und kein Fachexperte erkennt seine Begriffe wieder. Die Software spricht eine andere Sprache als das Business.\n\nGenau hier setzt Domain-Driven Design an. DDD sagt: Die größte Komplexität liegt nicht in der Technik, sondern in der Fachdomäne. Und dein Code sollte diese Domäne widerspiegeln.\n\nDomain-Driven Design ist ein Ansatz von Eric Evans, der die Fachlichkeit ins Zentrum der Softwareentwicklung stellt. Statt Technik-zentriertem Design denkst du in Domänen, Kontexten und einer gemeinsamen Sprache.\n\nIn diesem Pfad gehen wir alles durch — von der Domäne über Ubiquitous Language und Bounded Contexts bis zu taktischen Patterns wie Entities, Aggregates und Domain Events. Schritt für Schritt.\n\nMerke: DDD stellt die Fachlichkeit ins Zentrum — von der gemeinsamen Sprache bis zur Systemgrenze.",
+    "merksatz_de": "DDD stellt die Fachlichkeit ins Zentrum — von der gemeinsamen Sprache bis zur Systemgrenze."
   },
   {
     "id": "domaene",
@@ -316,7 +390,9 @@
     "path_position": 1,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du baust Software für eine Versicherung. Verträge, Schadensmeldungen, Risikobewertung — das ist die Welt, in der sich deine Nutzer bewegen. Aber verstehst du diese Welt wirklich?\n\nViele Entwickler stürzen sich sofort auf die Technik. Welches Framework? Welche Datenbank? Dabei ist das eigentliche Problem nicht technisch — es ist fachlich. Und wenn du die Fachlichkeit nicht verstehst, baust du das Falsche.\n\nDie Domäne ist das Fachgebiet, für das du Software baust. Denk an einen Arzt: Bevor er behandelt, muss er die Krankheit verstehen. Die Domäne ist der Patient — du musst ihn verstehen, bevor du helfen kannst.\n\nBei einem Online-Shop ist die Domäne der Handel: Produkte, Preise, Bestellungen, Retouren. Bei einer Bank: Konten, Überweisungen, Zinsen. Die Domäne bestimmt, welche Konzepte in deinem Code existieren müssen — nicht das Framework.\n\nMerke: Die Domäne ist das Warum deiner Software — versteh sie, bevor du eine Zeile Code schreibst.",
+    "merksatz_de": "Die Domäne ist das Warum deiner Software — versteh sie, bevor du eine Zeile Code schreibst."
   },
   {
     "id": "ubiquitous-language",
@@ -327,7 +403,9 @@
     "path_position": 2,
     "requires": ["domaene"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Der Fachbereich sagt Vertrag. Die Entwickler sagen Contract-Entity. Im Code steht Agreement-Object. Drei Begriffe für dasselbe — und alle reden aneinander vorbei.\n\nMissverständnisse zwischen Fachbereich und Entwicklung sind die häufigste Ursache für falsche Features. Nicht weil jemand schlecht programmiert, sondern weil die Begriffe nicht stimmen.\n\nUbiquitous Language ist eine gemeinsame Sprache, die Fachleute und Entwickler gleichermaßen benutzen — im Gespräch, in der Doku und im Code. Denk an eine WG: Wenn einer Wohnzimmer sagt und der andere Aufenthaltsraum, gibt es Chaos. Also einigt ihr euch auf einen Begriff.\n\nKonkret: Wenn der Fachbereich Schadensfall sagt, heißt die Klasse Schadensfall. Nicht Claim, nicht DamageCase, nicht IncidentDTO. Der Begriff im Code ist derselbe wie im Gespräch mit dem Fachbereich. Keine Übersetzung nötig.\n\nMerke: Ubiquitous Language eliminiert Übersetzungsfehler — wenn alle dieselbe Sprache sprechen, baust du das Richtige.",
+    "merksatz_de": "Ubiquitous Language eliminiert Übersetzungsfehler — wenn alle dieselbe Sprache sprechen, baust du das Richtige."
   },
   {
     "id": "bounded-context",
@@ -338,7 +416,9 @@
     "path_position": 3,
     "requires": ["ubiquitous-language"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "In der Buchhaltung ist ein Kunde eine Rechnungsadresse mit Steuernummer. Im Vertrieb ist ein Kunde ein Lead mit Kaufhistorie. Selbes Wort, verschiedene Bedeutung. Was tust du?\n\nEin einziges globales Datenmodell für alles führt zu Klassen mit hundert Feldern, von denen jede Abteilung nur zehn braucht. Das Modell wird zum Kompromiss, der niemandem dient.\n\nEin Bounded Context ist ein klar abgegrenzter Bereich, in dem ein bestimmtes Modell gilt. Denk an Landesgrenzen: In Deutschland zahlst du mit Euro, in der Schweiz mit Franken. Beides ist Geld, aber die Regeln sind verschieden.\n\nIn deinem System hat der Vertrieb seinen eigenen Bounded Context mit seinem Kunden-Modell. Die Buchhaltung hat einen eigenen mit ihrem Modell. Beide haben eine Klasse Kunde — aber mit unterschiedlichen Feldern und Regeln. An den Grenzen wird übersetzt.\n\nMerke: Ein Bounded Context gibt Begriffen einen klaren Gültigkeitsbereich — weil dasselbe Wort in verschiedenen Kontexten Verschiedenes bedeutet.",
+    "merksatz_de": "Ein Bounded Context gibt Begriffen einen klaren Gültigkeitsbereich — weil dasselbe Wort in verschiedenen Kontexten Verschiedenes bedeutet."
   },
   {
     "id": "context-map",
@@ -349,7 +429,9 @@
     "path_position": 4,
     "requires": ["bounded-context"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast fünf Bounded Contexts identifiziert. Aber wie hängen sie zusammen? Wer liefert Daten an wen? Wer dominiert, wer passt sich an?\n\nBounded Contexts existieren nicht isoliert. Sie müssen kommunizieren. Und die Art, wie sie das tun, bestimmt Abhängigkeiten, Machtverhältnisse und Integrationsaufwand.\n\nEine Context Map ist die Landkarte deiner Bounded Contexts und ihrer Beziehungen. Denk an eine politische Weltkarte: Du siehst nicht nur die Länder, sondern auch Bündnisse, Handelsabkommen und Konfliktzonen.\n\nKonkret zeichnest du Beziehungstypen ein: Einer liefert, der andere konsumiert. Zwei Contexts teilen ein gemeinsames Modell. Ein Context schützt sich aktiv mit einer Übersetzungsschicht vor dem Modell des anderen. Diese Map macht implizite Abhängigkeiten sichtbar.\n\nMerke: Eine Context Map zeigt dir nicht nur was existiert, sondern wie es zusammenhängt — und wo es Konflikte gibt.",
+    "merksatz_de": "Eine Context Map zeigt dir nicht nur was existiert, sondern wie es zusammenhängt — und wo es Konflikte gibt."
   },
   {
     "id": "entity",
@@ -360,7 +442,9 @@
     "path_position": 5,
     "requires": ["bounded-context"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Zwei Kunden heißen beide Thomas Müller, wohnen in München und sind dreißig Jahre alt. Sind sie derselbe Kunde? Nein — weil jeder seine eigene Kundennummer hat.\n\nIn vielen Systemen werden Objekte nur über ihre Eigenschaften verglichen. Aber manche Objekte haben eine Identität, die unabhängig von ihren Attributen ist. Das musst du im Code abbilden.\n\nEine Entity ist ein Objekt mit einer eindeutigen Identität, die über seinen gesamten Lebenszyklus bestehen bleibt. Es ist wie bei einem Menschen: Du änderst deinen Namen, deine Adresse, dein Aussehen — aber du bleibst du. Deine Identität ändert sich nicht.\n\nIm Code hat eine Bestell-Entity eine Bestell-ID. Du kannst die Lieferadresse ändern, Artikel hinzufügen oder den Status aktualisieren — die Bestellung bleibt dieselbe. Zwei Bestellungen mit identischen Artikeln sind trotzdem verschiedene Bestellungen.\n\nMerke: Eine Entity wird durch ihre Identität definiert, nicht durch ihre Eigenschaften — und das muss dein Code widerspiegeln.",
+    "merksatz_de": "Eine Entity wird durch ihre Identität definiert, nicht durch ihre Eigenschaften — und das muss dein Code widerspiegeln."
   },
   {
     "id": "value-object",
@@ -371,7 +455,9 @@
     "path_position": 6,
     "requires": ["entity"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Betrag von zehn Euro ist zehn Euro. Egal ob es dein Zehner ist oder meiner — zehn Euro sind zehn Euro. Es gibt keine Identität, nur den Wert.\n\nNicht alles in deiner Domäne braucht eine Identität. Aber wenn du alles als Entity modellierst, wird dein Code unnötig komplex. Manche Dinge sind einfach Werte.\n\nEin Value Object ist ein Objekt, das vollständig durch seine Attribute definiert wird. Vergleich das mit einer Farbe: Rot ist Rot. Du fragst nicht welches Rot — wenn die RGB-Werte gleich sind, ist es dieselbe Farbe.\n\nIm Code modellierst du Geld als Value Object: Betrag plus Währung. Adresse als Value Object: Straße, PLZ, Stadt. Zwei Adressen mit gleichen Feldern sind gleich. Value Objects sind unveränderlich — statt eine Adresse zu ändern, erzeugst du eine neue.\n\nMerke: Value Objects haben keine Identität — sie sind gleich, wenn ihre Werte gleich sind, und das macht deinen Code einfacher.",
+    "merksatz_de": "Value Objects haben keine Identität — sie sind gleich, wenn ihre Werte gleich sind, und das macht deinen Code einfacher."
   },
   {
     "id": "aggregate",
@@ -382,7 +468,9 @@
     "path_position": 7,
     "requires": ["entity"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Eine Bestellung hat Positionen, einen Gesamtpreis und einen Status. Jemand löscht eine Position direkt aus der Datenbank — und der Gesamtpreis stimmt nicht mehr. Die Daten sind inkonsistent.\n\nWenn jeder jedes Objekt einzeln ändern kann, ist Konsistenz unmöglich. Du brauchst klare Regeln, wer was ändern darf und über welchen Weg.\n\nEin Aggregate ist eine Gruppe von zusammengehörigen Objekten mit einem klaren Chef — dem Aggregate Root. Denk an ein Team: Wenn die Geschäftsführung etwas will, schreibt sie nicht jedem Teammitglied einzeln. Sie schreibt dem Teamkapitän.\n\nDie Bestellung ist das Aggregate Root. Positionen änderst du nur über die Bestellung: bestellung.addPosition(). Die Bestellung prüft dabei, ob die Geschäftsregeln eingehalten werden — Mindestbestellwert, maximale Artikelzahl. Direkter Zugriff auf Positionen ist verboten.\n\nMerke: Ein Aggregate schützt Konsistenz, indem alle Änderungen über einen einzigen Eingang laufen — das Aggregate Root.",
+    "merksatz_de": "Ein Aggregate schützt Konsistenz, indem alle Änderungen über einen einzigen Eingang laufen — das Aggregate Root."
   },
   {
     "id": "repository",
@@ -393,7 +481,9 @@
     "path_position": 8,
     "requires": ["aggregate"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine Domänenlogik berechnet einen Rabatt. Mitten drin steht ein SQL-Query. Plötzlich ist deine Geschäftslogik an die Datenbank gekoppelt. Das will niemand.\n\nWenn Domänenlogik direkt auf die Datenbank zugreift, wird sie untestbar, unflexibel und schwer verständlich. Die Fachlichkeit ertrinkt in technischen Details.\n\nEin Repository ist eine Abstraktion, die so tut, als wäre die Datenbank eine einfache Sammlung. Denk an eine Bibliothek: Du sagst der Bibliothekarin, welches Buch du brauchst. Ob sie es aus dem Regal, dem Keller oder per Fernleihe holt, ist dir egal.\n\nIm Code hast du ein BestellRepository mit Methoden wie findById und save. Deine Domänenlogik ruft nur diese Methoden auf. Ob dahinter PostgreSQL, MongoDB oder eine Textdatei steckt, weiß die Domäne nicht und muss sie nicht wissen.\n\nMerke: Ein Repository versteckt den Datenzugriff hinter einer fachlichen Schnittstelle — damit deine Domäne sauber bleibt.",
+    "merksatz_de": "Ein Repository versteckt den Datenzugriff hinter einer fachlichen Schnittstelle — damit deine Domäne sauber bleibt."
   },
   {
     "id": "domain-service",
@@ -404,7 +494,9 @@
     "path_position": 9,
     "requires": ["entity", "aggregate"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du musst berechnen, ob ein Kunde einen Rabatt bekommt. Die Berechnung braucht Daten vom Kunden, von der Bestellung und von den aktuellen Aktionen. In welche Entity gehört diese Logik?\n\nManche Geschäftslogik gehört nicht in eine einzelne Entity. Wenn du sie trotzdem reinquetschst, wird die Entity aufgebläht und die Logik ist am falschen Ort.\n\nEin Domain Service enthält Domänenlogik, die keiner einzelnen Entity oder Value Object zugeordnet werden kann. Denk an einen Notar: Er gehört weder zum Käufer noch zum Verkäufer, aber er wird gebraucht, damit das Geschäft korrekt abläuft.\n\nKonkret: Ein Rabattberechnungs-Service nimmt Kunde, Bestellung und Aktionskatalog entgegen und berechnet den gültigen Rabatt. Er hat keinen eigenen Zustand, operiert nur auf den übergebenen Objekten und enthält reine Domänenlogik — keine Technik.\n\nMerke: Ein Domain Service ist für Domänenlogik, die zwischen Objekten lebt — zustandslos, fachlich und klar benannt.",
+    "merksatz_de": "Ein Domain Service ist für Domänenlogik, die zwischen Objekten lebt — zustandslos, fachlich und klar benannt."
   },
   {
     "id": "domain-event",
@@ -415,7 +507,9 @@
     "path_position": 10,
     "requires": ["aggregate"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Eine Bestellung wird bezahlt. Jetzt muss der Versand informiert werden, die Rechnung erstellt und das Treuepunkte-Konto aktualisiert. Baust du das alles in die Bezahl-Logik?\n\nWenn die Zahlungslogik alle Folgeaktionen kennen muss, wird sie zum Flaschenhals. Jeder neue Prozess erfordert eine Änderung an der Zahlung. Das skaliert nicht.\n\nEin Domain Event beschreibt etwas, das in der Domäne passiert ist. Denk an einen Kirchenglockenklang: Er verkündet, dass die Messe beginnt. Wer kommen will, kommt — die Glocke weiß nicht, wer zuhört.\n\nDer Zahlungs-Service publiziert ein Event: BestellungBezahlt mit Bestell-ID und Zeitstempel. Der Versand-Service reagiert mit Lieferung anlegen. Der Rechnungs-Service erstellt die Rechnung. Der Treuepunkte-Service bucht Punkte. Kein Service kennt die anderen — alle reagieren auf dasselbe Event.\n\nMerke: Domain Events beschreiben was passiert ist, nicht was passieren soll — und entkoppeln damit Ursache und Wirkung.",
+    "merksatz_de": "Domain Events beschreiben was passiert ist, nicht was passieren soll — und entkoppeln damit Ursache und Wirkung."
   },
   {
     "id": "application-service",
@@ -426,7 +520,9 @@
     "path_position": 11,
     "requires": ["domain-service"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein API-Request kommt rein: Kunde will bestellen. Du musst die Eingaben validieren, die Domänenlogik aufrufen, das Ergebnis speichern und ein Event publizieren. Wohin gehört dieser Ablauf?\n\nIn die Entity gehört er nicht — die kümmert sich um Geschäftsregeln. In den Controller auch nicht — der kümmert sich um HTTP. Du brauchst eine Schicht dazwischen.\n\nEin Application Service orchestriert den Anwendungsfall, ohne selbst Geschäftslogik zu enthalten. Denk an einen Regisseur: Er sagt den Schauspielern, wann sie auftreten. Aber er spielt nicht selbst mit.\n\nKonkret: Der BestellApplicationService nimmt den Request entgegen, lädt den Kunden aus dem Repository, ruft bestellung.anlegen() auf der Entity auf, speichert über das Repository und publiziert das BestellungAngelegt-Event. Der Service selbst enthält keine Fachlogik — nur den Ablauf.\n\nMerke: Ein Application Service koordiniert den Anwendungsfall — die Fachlogik bleibt in der Domäne.",
+    "merksatz_de": "Ein Application Service koordiniert den Anwendungsfall — die Fachlogik bleibt in der Domäne."
   },
   {
     "id": "strategic-design",
@@ -437,7 +533,9 @@
     "path_position": 12,
     "requires": ["bounded-context"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Team hat Entities und Value Objects perfekt modelliert. Aber drei Teams arbeiten mit unterschiedlichen Modellen für denselben Kunden — und keiner weiß das. Das ist kein Code-Problem, das ist ein Organisationsproblem.\n\nTaktische Patterns wie Entities und Aggregates lösen Probleme im Kleinen. Aber die großen Probleme entstehen an den Grenzen zwischen Teams, Abteilungen und Systemen.\n\nStrategic Design ist die Makro-Ebene von DDD. Denk an Stadtplanung: Du planst nicht nur einzelne Häuser, sondern wo welche Viertel liegen, wie sie verbunden sind und welche Regeln wo gelten.\n\nStrategisches Design umfasst die Identifikation von Bounded Contexts, die Erstellung der Context Map und Entscheidungen über Integrationsstrategien. Wer liefert an wen? Wo brauchen wir einen Anti-Corruption Layer? Welches Team besitzt welchen Context? Diese Entscheidungen bestimmen den Erfolg mehr als jede Entity.\n\nMerke: Strategic Design entscheidet, wo die Grenzen liegen — und gute Grenzen sind eine der wichtigsten Architekturentscheidungen.",
+    "merksatz_de": "Strategic Design entscheidet, wo die Grenzen liegen — und gute Grenzen sind eine der wichtigsten Architekturentscheidungen."
   },
   {
     "id": "anti-corruption-layer",
@@ -448,7 +546,9 @@
     "path_position": 13,
     "requires": ["bounded-context"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Euer neues System muss Daten vom Legacy-System übernehmen. Das Legacy-Modell ist chaotisch — kryptische Feldnamen, inkonsistente Strukturen. Und jetzt soll euer sauberes Modell das einfach so akzeptieren?\n\nWenn du fremde Datenmodelle direkt in dein System lässt, übernimmst du deren Chaos. Dein sauberes Domänenmodell wird mit der Zeit genauso unverständlich wie das Original.\n\nEin Anti-Corruption Layer ist ein Übersetzer zwischen zwei Welten. Denk an eine Botschaft: Wenn zwei Länder verhandeln, sprechen sie ihre eigene Sprache und die Dolmetscher übersetzen. Keiner muss die Sprache des anderen lernen.\n\nPraktisch baust du einen Adapter: Das Legacy-System liefert ein CustomerRecord mit Feldern wie CUST_NR und ADR1. Dein Anti-Corruption Layer übersetzt das in einen sauberen Kunden mit Kundennummer und Adresse. Ändert sich das Legacy-System, änderst du nur den Adapter — nicht dein Modell.\n\nMerke: Ein Anti-Corruption Layer schützt dein Modell vor fremdem Chaos — übersetzen statt übernehmen.",
+    "merksatz_de": "Ein Anti-Corruption Layer schützt dein Modell vor fremdem Chaos — übersetzen statt übernehmen."
   },
   {
     "id": "event-storming",
@@ -459,7 +559,9 @@
     "path_position": 14,
     "requires": ["domain-event"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du sitzt in einem Requirements-Workshop. Der Fachbereich zeigt PowerPoint-Folien, die Entwickler tippen auf dem Laptop. Nach zwei Stunden hat jeder was anderes verstanden.\n\nKlassische Workshops scheitern, weil sie passiv sind. Einer redet, der Rest hört zu. Das Ergebnis sind Dokumente, die niemand liest — und Missverständnisse, die erst beim Programmieren auffallen.\n\nEvent Storming ist ein Workshop-Format, bei dem alle zusammen an einer großen Wand arbeiten. Denk an ein Brainstorming mit Haftnotizen — aber strukturiert. Jeder klebt, jeder diskutiert, jeder versteht.\n\nDer Ablauf: Alle schreiben Domain Events auf orangene Zettel — Bestellung aufgegeben, Zahlung eingegangen. Dann sortiert ihr sie chronologisch. Danach kommen Commands, Aggregate und Bounded Contexts dazu. In wenigen Stunden habt ihr ein gemeinsames Bild der Domäne — verstanden von Fachbereich und Entwicklung.\n\nMerke: Event Storming bringt Domänenwissen an die Wand — gemeinsam erarbeitet statt einsam dokumentiert.",
+    "merksatz_de": "Event Storming bringt Domänenwissen an die Wand — gemeinsam erarbeitet statt einsam dokumentiert."
   },
   {
     "id": "arc42-pfad",
@@ -470,7 +572,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Jemand fragt: Warum habt ihr euch für Kafka entschieden? Und niemand kann es beantworten. Der Architekt von damals ist weg, die Doku veraltet, die Wiki-Seite ein Friedhof.\n\nArchitekturentscheidungen ohne Dokumentation sind wie mündliche Verträge — sie gelten nur, solange sich jemand erinnert. Und irgendwann erinnert sich niemand mehr.\n\nDie gute Nachricht: Du musst nicht bei null anfangen. Es gibt bewährte Werkzeuge und Methoden, die dir helfen, Architektur sichtbar, nachvollziehbar und messbar zu machen.\n\nIn diesem Pfad lernst du Schritt für Schritt: Wie du Qualitätsmerkmale konkret beschreibst. Wie du Entscheidungen mit ADRs festhältst. Wie du Trade-offs transparent machst. Wie C4-Modelle die richtige Sicht für die richtige Zielgruppe liefern. Und wie Fitness Functions deine Architektur automatisiert überwachen.\n\nMerke: Gute Architekturdokumentation beantwortet die Fragen, die morgen jemand haben wird — nicht die, die heute niemand stellt.",
+    "merksatz_de": "Gute Architekturdokumentation beantwortet die Fragen, die morgen jemand haben wird — nicht die, die heute niemand stellt."
   },
   {
     "id": "architekturdokumentation",
@@ -481,7 +585,9 @@
     "path_position": 1,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein neuer Entwickler startet im Team. Er fragt: Wie ist das System aufgebaut? Die Antwort: Schau in den Code. Drei Wochen später versteht er immer noch nicht, warum es drei Datenbanken gibt.\n\nCode zeigt dir das Was, aber nicht das Warum. Ohne Dokumentation geht das Wissen über Entscheidungen, Zusammenhänge und Randbedingungen verloren — spätestens wenn Leute das Team verlassen.\n\nArchitekturdokumentation beschreibt die wesentlichen Strukturen, Entscheidungen und Qualitätsanforderungen eines Systems. Denk an den Bauplan eines Hauses: Der Architekt dokumentiert nicht jeden Nagel, aber die tragenden Wände, die Statik und die Haustechnik.\n\nWichtig: Du dokumentierst nicht alles — nur das, was man aus dem Code nicht ablesen kann. Warum diese Datenbank? Warum diese Aufteilung? Welche Qualitätsziele? Welche Risiken? Gute Architekturdoku ist schlank, aktuell und beantwortet die richtigen Fragen.\n\nMerke: Architekturdokumentation ist kein Bürokratie-Overhead — sie ist das Gedächtnis deines Systems.",
+    "merksatz_de": "Architekturdokumentation ist kein Bürokratie-Overhead — sie ist das Gedächtnis deines Systems."
   },
   {
     "id": "arc42",
@@ -492,7 +598,9 @@
     "path_position": 2,
     "requires": ["architekturdokumentation"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst deine Architektur dokumentieren. Aber wo fängst du an? Was gehört rein? Wie viel ist zu viel? Du starrst auf ein leeres Dokument.\n\nOhne Struktur schreibt jeder was anderes. Einer beschreibt die Deployment-Infrastruktur, der andere die Klassendiagramme, der dritte gar nichts. Das Ergebnis ist ein Flickenteppich.\n\narc42 gibt dir ein bewährtes Template mit zwölf Kapiteln. Denk an ein Kochrezept: Du musst nicht alles kochen, aber die Struktur sagt dir, was es gibt — Vorspeise, Hauptgang, Dessert. Du wählst, was du brauchst.\n\nDie zwölf Kapitel: Einführung und Ziele, Randbedingungen, Kontextabgrenzung, Lösungsstrategie, Bausteinsicht, Laufzeitsicht, Verteilungssicht, Querschnittliche Konzepte, Architekturentscheidungen, Qualitätsanforderungen, Risiken und Glossar. Du füllst nur aus, was für dein System relevant ist.\n\nMerke: arc42 gibt dir die Struktur — du entscheidest den Inhalt. Lieber fünf gute Kapitel als zwölf leere.",
+    "merksatz_de": "arc42 gibt dir die Struktur — du entscheidest den Inhalt. Lieber fünf gute Kapitel als zwölf leere."
   },
   {
     "id": "qualitaetsmerkmale",
@@ -503,7 +611,9 @@
     "path_position": 3,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Der Kunde sagt: Das System soll schnell sein. Aber was heißt schnell? Antwortzeit unter einer Sekunde? Oder unter hundert Millisekunden? Und bei wie vielen gleichzeitigen Nutzern?\n\nVage Qualitätsanforderungen führen zu falschen Architekturentscheidungen. Wenn du nicht weißt, was Performance konkret bedeutet, kannst du nicht dafür bauen.\n\nQualitätsmerkmale sind die nicht-funktionalen Eigenschaften deines Systems. Denk an ein Auto: Es fährt — das ist die Funktion. Aber wie schnell, wie sicher, wie sparsam — das sind die Qualitätsmerkmale. Und die bestimmen, welches Auto du kaufst.\n\nTypische Qualitätsmerkmale sind Performance, Sicherheit, Wartbarkeit, Zuverlässigkeit und Benutzbarkeit. Für dein System identifizierst du die drei bis fünf wichtigsten und machst sie konkret und messbar.\n\nMerke: Qualitätsmerkmale treiben deine Architektur — nicht die Features, sondern die Qualitätsanforderungen bestimmen die Struktur.",
+    "merksatz_de": "Qualitätsmerkmale treiben deine Architektur — nicht die Features, sondern die Qualitätsanforderungen bestimmen die Struktur."
   },
   {
     "id": "qualitaetsszenario",
@@ -514,7 +624,9 @@
     "path_position": 4,
     "requires": ["qualitaetsmerkmale"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Das System soll performant sein. Gut — aber wie testest du das? Wann ist Performance gut genug? Und unter welchen Bedingungen?\n\nAbstrakte Qualitätsmerkmale wie Performance oder Sicherheit sind nutzlos, wenn du sie nicht konkret beschreibst. Ohne messbare Kriterien kann kein Entwickler darauf hin bauen und kein Tester sie prüfen.\n\nEin Qualitätsszenario beschreibt ein Qualitätsmerkmal als konkrete, testbare Situation. Denk an eine Führerscheinprüfung: Nicht Du musst gut fahren können, sondern Du musst in dreißig Sekunden einparken können in einer Lücke von fünf Metern.\n\nDas Format: Auslöser, Systemzustand, Reaktion, Metrik. Beispiel: Wenn tausend Nutzer gleichzeitig die Suche aufrufen und das System unter Normallast steht, dann antwortet die Suche in unter zweihundert Millisekunden bei 95 Prozent aller Anfragen. Jetzt kann jeder prüfen, ob das System liefert.\n\nMerke: Ein Qualitätsszenario macht aus gut genug eine messbare Aussage — und genau das braucht deine Architektur.",
+    "merksatz_de": "Ein Qualitätsszenario macht aus gut genug eine messbare Aussage — und genau das braucht deine Architektur."
   },
   {
     "id": "adr",
@@ -525,7 +637,9 @@
     "path_position": 5,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Warum nutzen wir PostgreSQL statt MongoDB? Keiner weiß es mehr. Der Slack-Thread von 2019 ist gelöscht. Also diskutiert ihr die gleiche Entscheidung nochmal — zum dritten Mal.\n\nArchitekturentscheidungen ohne Dokumentation werden vergessen, hinterfragt und wiederholt. Teams drehen sich im Kreis, weil der Kontext verloren geht.\n\nEin Architecture Decision Record ist ein kurzes Dokument, das eine Entscheidung festhält: Problem, Kontext, Optionen, Entscheidung und Konsequenzen. Denk an ein Gerichtsurteil: Es enthält den Sachverhalt, die Abwägung und das Urteil. Jeder kann nachvollziehen, warum so entschieden wurde.\n\nKonkret: ADR-007 — Datenbank für Bestellungen. Status: Akzeptiert. Kontext: Hohe Schreiblast, relationale Daten. Optionen: PostgreSQL, MongoDB. Entscheidung: PostgreSQL wegen ACID und bewährtem Betrieb. Konsequenz: Höherer Aufwand bei horizontaler Skalierung. Eine Seite, und die Diskussion ist beendet.\n\nMerke: Ein ADR hält fest warum du dich entschieden hast — damit du morgen nicht rätst, was du heute wusstest.",
+    "merksatz_de": "Ein ADR hält fest warum du dich entschieden hast — damit du morgen nicht rätst, was du heute wusstest."
   },
   {
     "id": "trade-off",
@@ -536,7 +650,9 @@
     "path_position": 6,
     "requires": ["adr"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du kannst das System superschnell machen — aber dann wird es teuer. Oder günstig — aber dann wird es langsam. Du kannst nicht beides haben. Willkommen in der Realität der Softwarearchitektur.\n\nEs gibt keine perfekte Architektur. Jede Entscheidung ist ein Kompromiss. Wer das ignoriert, wählt unbewusst — und bereut es später.\n\nEin Trade-off ist eine bewusste Abwägung zwischen konkurrierenden Zielen. Denk an ein Zelt: Leicht, stabil und günstig — wähle zwei. Du kannst nicht alle drei maximieren. Aber du kannst bewusst entscheiden, was dir am wichtigsten ist.\n\nMicroservices bringen Flexibilität, aber erhöhen die Betriebskomplexität. Caching verbessert Performance, aber riskiert veraltete Daten. Synchrone Kommunikation ist einfacher, aber fragiler. Gute Architekten machen Trade-offs explizit — sie dokumentieren sie in ADRs und kommunizieren sie ans Team.\n\nMerke: Architektur ist die Kunst der bewussten Kompromisse — nicht die Suche nach der perfekten Lösung.",
+    "merksatz_de": "Architektur ist die Kunst der bewussten Kompromisse — nicht die Suche nach der perfekten Lösung."
   },
   {
     "id": "technische-schulden",
@@ -547,7 +663,9 @@
     "path_position": 7,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Der Workaround von vor zwei Jahren ist immer noch in Produktion. Jede Änderung dauert doppelt so lange, weil jeder um diesen Code herumarbeiten muss. Das sind technische Schulden — und sie haben Zinsen.\n\nTechnische Schulden entstehen, wenn du bewusst oder unbewusst Abkürzungen nimmst. Kurzfristig sparst du Zeit, langfristig zahlst du drauf — mit jeder Änderung, die länger dauert als nötig.\n\nTechnische Schulden sind wie ein Kredit: Du bekommst jetzt etwas schneller, aber du zahlst Zinsen. Ein Kredit ist nicht schlecht — solange du weißt, dass du einen hast und ihn zurückzahlen kannst.\n\nBewusste Schulden sind vertretbar: Wir nutzen einen einfachen Algorithmus und optimieren später. Unbewusste Schulden sind gefährlich: niemand hat gemerkt, dass die Architektur schleichend erodiert. Der Schlüssel ist Transparenz — macht eure Schulden sichtbar, bewertet die Zinsen und plant die Rückzahlung.\n\nMerke: Technische Schulden sind unvermeidbar — aber du musst sie kennen, messen und bewusst tilgen.",
+    "merksatz_de": "Technische Schulden sind unvermeidbar — aber du musst sie kennen, messen und bewusst tilgen."
   },
   {
     "id": "architektur-reviews",
@@ -558,7 +676,9 @@
     "path_position": 8,
     "requires": ["arc42"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Das System läuft seit drei Jahren. Keiner hat je geprüft, ob die Architektur noch zu den heutigen Anforderungen passt. Neue Features dauern ewig und niemand weiß warum.\n\nArchitekturen veralten. Anforderungen ändern sich, Teams wachsen, Technologien entwickeln sich weiter. Was vor drei Jahren passte, kann heute das Problem sein.\n\nEin Architektur-Review ist eine systematische Bewertung deiner Architektur. Denk an eine Hauptuntersuchung beim Auto: Du prüfst nicht nur ob es fährt, sondern ob Bremsen, Licht und Abgase den Anforderungen entsprechen.\n\nBewährte Methoden: Szenario-basierte Bewertungen prüfen, ob die Architektur die Qualitätsziele erfüllt. Risiko-basierte Reviews fokussieren auf die gefährlichsten Stellen. Peer-Reviews durch externe Architekten bringen einen frischen Blick. Wichtig: Ein Review ist keine Schuldzuweisung. Es ist eine Chance, Risiken früh zu erkennen und die Architektur bewusst weiterzuentwickeln.\n\nMerke: Architektur-Reviews finden Probleme, bevor sie teuer werden — regelmäßig prüfen statt überrascht werden.",
+    "merksatz_de": "Architektur-Reviews finden Probleme, bevor sie teuer werden — regelmäßig prüfen statt überrascht werden."
   },
   {
     "id": "c4-modell",
@@ -569,7 +689,9 @@
     "path_position": 9,
     "requires": ["architekturdokumentation"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du zeigst dem Management ein UML-Klassendiagramm. Die verstehen nichts. Du zeigst Entwicklern eine bunte Powerpoint-Wolke. Die verstehen auch nichts. Jede Zielgruppe braucht eine andere Sicht.\n\nEin einziges Diagramm kann nicht gleichzeitig den Gesamtüberblick und technische Details zeigen. Aber genau das versuchen die meisten Architekturdiagramme.\n\nDas C4-Modell löst das mit vier Zoom-Stufen. Denk an eine Landkarte: Du startest mit der Weltkarte, zoomst auf ein Land, dann eine Stadt, dann eine Straße. Jede Stufe zeigt genau den richtigen Detailgrad.\n\nDie vier Ebenen: Context zeigt dein System in seiner Umgebung — welche Nutzer und Fremdsysteme gibt es. Container zeigt die großen Bausteine — Webserver, Datenbank, API. Component zeigt die Teile innerhalb eines Containers. Die vierte Ebene wird in der Praxis selten gezeichnet — der Code selbst reicht meist aus. Dem Management zeigst du Context, den Entwicklern Component.\n\nMerke: Das C4-Modell gibt jeder Zielgruppe den richtigen Zoom — vom Helikopter bis zum Quellcode.",
+    "merksatz_de": "Das C4-Modell gibt jeder Zielgruppe den richtigen Zoom — vom Helikopter bis zum Quellcode."
   },
   {
     "id": "fitness-functions",
@@ -580,7 +702,9 @@
     "path_position": 10,
     "requires": ["qualitaetsmerkmale"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ihr habt entschieden: Keine zyklischen Abhängigkeiten. Drei Monate später schaut jemand in den Code — fünf Zyklen. Keiner hat es gemerkt, weil niemand geprüft hat.\n\nArchitekturregeln, die nur in Dokumenten stehen, werden mit der Zeit ignoriert. Jede manuelle Prüfung wird irgendwann vergessen. Du brauchst automatische Wächter.\n\nFitness Functions sind automatisierte Tests für deine Architektur. Denk an einen Fitness-Tracker: Er misst kontinuierlich ob du deine Ziele erreichst — Schritte, Puls, Schlaf. Ohne ihn merkst du erst beim Arzt, dass etwas nicht stimmt.\n\nKonkret: Ein ArchUnit-Test prüft, dass keine zyklischen Abhängigkeiten existieren. Ein Performance-Test prüft, dass die Antwortzeit unter zweihundert Millisekunden bleibt. Ein Dependency-Check prüft, dass keine verbotenen Bibliotheken eingebunden werden. Alles läuft in der CI-Pipeline — bei jedem Commit.\n\nMerke: Fitness Functions machen Architekturregeln automatisch prüfbar — was nicht getestet wird, erodiert.",
+    "merksatz_de": "Fitness Functions machen Architekturregeln automatisch prüfbar — was nicht getestet wird, erodiert."
   },
   {
     "id": "clean-architecture-pfad",
@@ -591,7 +715,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast ein System gebaut. Es funktioniert. Aber jetzt sollst du die Datenbank austauschen — und plötzlich musst du den halben Code umschreiben. Das ist kein Zufall. Das ist fehlende Architektur.\n\nClean Architecture löst genau dieses Problem. Die Idee von Robert C. Martin: Dein Geschäftskern darf von nichts abhängen. Nicht von der Datenbank. Nicht vom Framework. Nicht von der UI.\n\nStell dir Zwiebelringe vor. Innen liegt das Wichtigste — deine Geschäftsregeln. Außen liegen die Details: Datenbanken, APIs, Frameworks. Die äußeren Ringe dürfen die inneren kennen. Aber niemals umgekehrt.\n\nIn diesem Pfad schauen wir uns jeden Ring einzeln an: Entities, Use Cases, Adapter, Presenter. Dazu die Prinzipien dahinter — Dependency Inversion, Ports und Adapters, Hexagonale Architektur und SOLID.\n\nMerke: Clean Architecture schützt das Wichtigste — deine Geschäftslogik — vor allem, was sich ändert.",
+    "merksatz_de": "Clean Architecture schützt das Wichtigste — deine Geschäftslogik — vor allem, was sich ändert."
   },
   {
     "id": "abhaengigkeitsregel",
@@ -602,7 +728,9 @@
     "path_position": 1,
     "requires": ["abhaengigkeit"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Controller importiert direkt den Datenbank-Client. Der Service kennt das HTTP-Framework. Alles hängt an allem. Eine Änderung am Framework — und deine Geschäftslogik bricht. Das ist das Grundproblem.\n\nDie Abhängigkeitsregel sagt: Abhängigkeiten zeigen immer nach innen. Äußere Schichten dürfen innere kennen — aber innere Schichten wissen nichts von der Außenwelt. Niemals.\n\nStell dir ein Restaurant vor: Du sagst, was du willst. Du weißt nicht, wer in der Küche steht. Du kennst nur die Karte — nicht den Koch, nicht den Lieferanten, nicht das Lager.\n\nIn Clean Architecture heißt das konkret: Dein Use Case definiert ein Interface. Die Datenbank-Schicht implementiert es. Der Use Case weiß nicht ob die Daten aus PostgreSQL, MongoDB oder einer Textdatei kommen. Er weiß nur, dass er Daten bekommt.\n\nMerke: Wenn dein Code nach außen zeigt, hast du die Richtung verloren.",
+    "merksatz_de": "Wenn dein Code nach außen zeigt, hast du die Richtung verloren."
   },
   {
     "id": "use-case",
@@ -613,7 +741,9 @@
     "path_position": 2,
     "requires": ["abhaengigkeitsregel"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Kunde will eine Bestellung aufgeben. Der Controller nimmt den Request entgegen, validiert, speichert, schickt eine E-Mail — alles in einer Methode. Wo ist die Geschäftslogik? Irgendwo dazwischen, unsichtbar.\n\nEin Use Case macht die Geschäftslogik sichtbar. Er beschreibt genau einen Anwendungsfall: Was passiert wenn ein Nutzer eine bestimmte Aktion auslöst — unabhängig davon ob das per API, UI oder Kommandozeile geschieht.\n\nDenk an ein Theaterstück. Der Use Case ist das Drehbuch. Es beschreibt was passiert. Aber es sagt nicht, ob das Stück auf einer großen Bühne oder in einem Hinterhof gespielt wird.\n\nKonkret: Ein Use Case „Bestellung aufgeben\" prüft den Warenbestand, berechnet den Preis, erstellt die Bestellung. Er nutzt Interfaces für Datenbankzugriff und E-Mail-Versand — aber kennt die konkreten Implementierungen nicht.\n\nMerke: Der Use Case ist das Herz deiner Anwendung — er sagt was dein System tut, nicht wie.",
+    "merksatz_de": "Der Use Case ist das Herz deiner Anwendung — er sagt was dein System tut, nicht wie."
   },
   {
     "id": "entity-clean-arch",
@@ -624,7 +754,9 @@
     "path_position": 3,
     "requires": ["use-case"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du modellierst einen Rabatt als einfaches Prozent-Feld in der Datenbank. Dann kommt die Regel: Ab drei Artikeln gibt es Staffelrabatt. Plötzlich steckt Geschäftslogik in einem SQL-Query. Das ist das Problem.\n\nEine Entity in Clean Architecture enthält die wichtigsten Geschäftsregeln. Nicht die Anwendungsregeln — die leben im Use Case. Sondern die Regeln, die auch ohne Software gelten würden.\n\nDenk an Schach. Die Regel „ein Turm zieht gerade\" gilt unabhängig davon, ob du auf einem Brett oder am Computer spielst. Das ist eine Entity-Regel.\n\nEine Entity „Bestellung\" weiß: Der Gesamtpreis ist die Summe aller Positionen minus Rabatt. Sie kennt keine Datenbank, kein Framework, keinen HTTP-Request. Sie ist reines Geschäftswissen — testbar ohne jede Infrastruktur.\n\nMerke: Entities sind die Geschäftsregeln, die überleben, selbst wenn du die gesamte Technik austauschst.",
+    "merksatz_de": "Entities sind die Geschäftsregeln, die überleben, selbst wenn du die gesamte Technik austauschst."
   },
   {
     "id": "adapter-gateway",
@@ -635,7 +767,9 @@
     "path_position": 4,
     "requires": ["schnittstelle"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Use Case braucht Kundendaten. Direkt den SQL-Query reinschreiben? Dann ist deine Geschäftslogik an PostgreSQL gekoppelt. Wechsel auf MongoDB — und du schreibst den Use Case um.\n\nEin Gateway löst das. Es definiert eine saubere Fassade für den Datenzugriff. Dein Use Case spricht mit dem Gateway-Interface. Die konkrete Implementierung dahinter übersetzt in die jeweilige Technologie.\n\nStell dir einen Reisestecker vor. Dein Gerät hat einen europäischen Stecker. Die Steckdose in England ist anders. Der Adapter übersetzt — ohne dass du das Gerät umbaust.\n\nEin Gateway „KundenGateway\" hat die Methode „finden\". Intern holt der Adapter die Daten aus einer externen REST-API mit einem völlig anderen Datenmodell. Er übersetzt die Antwort in dein Domänenobjekt. Der Use Case sieht nur „finden\" — das fremde Datenformat bleibt draußen.\n\nMerke: Adapter übersetzen zwischen deiner Geschäftswelt und der technischen Realität.",
+    "merksatz_de": "Adapter übersetzen zwischen deiner Geschäftswelt und der technischen Realität."
   },
   {
     "id": "presenter",
@@ -646,7 +780,9 @@
     "path_position": 5,
     "requires": ["adapter-gateway"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Use Case berechnet einen Preis. Jetzt muss er entscheiden: JSON oder HTML? Fehlermeldung auf Deutsch oder Englisch? Plötzlich kümmert sich Geschäftslogik um Darstellung. Das gehört nicht zusammen.\n\nDer Presenter trennt Berechnung von Darstellung. Er nimmt die Rohdaten vom Use Case und formt sie in das Format, das die Außenwelt braucht. Der Use Case liefert Daten — der Presenter macht sie hübsch.\n\nWie ein Nachrichtensprecher. Die Redaktion recherchiert die Fakten. Der Sprecher präsentiert sie verständlich. Verschiedene Sender, verschiedene Präsentationen — aber die Fakten bleiben gleich.\n\nIn der Praxis: Der Use Case gibt ein Ergebnis-Objekt zurück — Preis als Zahl, Status als Enum. Der Web-Presenter macht daraus JSON mit formatiertem Preis. Der CLI-Presenter macht daraus eine Textzeile. Gleiche Daten, andere Darstellung.\n\nMerke: Der Presenter ist die letzte Meile — er übersetzt Geschäftsdaten in das, was der Nutzer sieht.",
+    "merksatz_de": "Der Presenter ist die letzte Meile — er übersetzt Geschäftsdaten in das, was der Nutzer sieht."
   },
   {
     "id": "ports-und-adapters",
@@ -657,7 +793,9 @@
     "path_position": 6,
     "requires": ["adapter-gateway"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Service ruft direkt eine REST-API auf. Dann ändert der Anbieter sein Format. Dein gesamter Service muss umgebaut werden — obwohl sich an deiner Logik nichts geändert hat.\n\nPorts und Adapters löst das. Deine Geschäftslogik definiert Ports: Schnittstellen, die beschreiben was sie braucht und was sie anbietet. Adapter verbinden diese Ports mit der echten Welt.\n\nDenk an eine Stereoanlage. Der Kopfhörer-Port ist immer gleich. Ob du Kopfhörer, Lautsprecher oder Bluetooth-Adapter anschließt — der Anlage ist es egal. Der Port bleibt stabil.\n\nEs gibt zwei Arten von Ports: Driving Ports — die treiben deine Logik an, zum Beispiel ein HTTP-Request. Und Driven Ports — die deine Logik nutzt, zum Beispiel eine Datenbank. Für jeden Port gibt es einen austauschbaren Adapter.\n\nMerke: Der Port bleibt — der Adapter wechselt. Das ist die ganze Idee.",
+    "merksatz_de": "Der Port bleibt — der Adapter wechselt. Das ist die ganze Idee."
   },
   {
     "id": "hexagonale-architektur",
@@ -668,7 +806,9 @@
     "path_position": 7,
     "requires": ["ports-und-adapters"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du zeichnest deine Architektur als Schichten — oben die UI, unten die Datenbank. Und unbewusst denkst du: Die Datenbank ist das Fundament. Alles baut darauf auf. Genau das ist die Falle.\n\nDie Hexagonale Architektur von Alistair Cockburn dreht das um. In der Mitte steht deine Geschäftslogik. Drumherum liegen gleichwertig alle externen Systeme — UI, Datenbank, Messaging, APIs. Keines ist wichtiger als das andere.\n\nStell dir einen Marktplatz vor. In der Mitte steht dein Stand. Um dich herum kommen Kunden von allen Seiten — egal ob zu Fuß, mit dem Fahrrad oder dem Auto. Dein Stand ändert sich nicht.\n\nDas Hexagon hat keine Ober- und Unterseite. Jede Seite ist ein Port. Die UI ist genauso austauschbar wie die Datenbank. Du kannst dein System mit REST oder GraphQL ansprechen — die Logik in der Mitte bleibt identisch.\n\nMerke: Im Hexagon ist die Geschäftslogik das Zentrum — alles andere ist austauschbares Beiwerk.",
+    "merksatz_de": "Im Hexagon ist die Geschäftslogik das Zentrum — alles andere ist austauschbares Beiwerk."
   },
   {
     "id": "dependency-inversion",
@@ -679,7 +819,9 @@
     "path_position": 8,
     "requires": ["abhaengigkeitsregel"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Notification-Service importiert direkt die SMTP-Bibliothek. Jetzt willst du Unit-Tests schreiben — aber du kannst den Service nicht ohne laufenden Mailserver testen. Das ist direkte Abhängigkeit, und sie macht dich unflexibel.\n\nDependency Inversion dreht die Abhängigkeit um. Statt dass der High-Level-Code vom Low-Level-Code abhängt, definiert der High-Level-Code ein Interface — und der Low-Level-Code implementiert es.\n\nStell dir vor, du rufst einen Kurierdienst. Du sagst: „Liefer dieses Paket.\" Du sagst nicht: „Nimm den weißen Transporter, fahr über die A3...\" Du definierst was du brauchst. Wie es gemacht wird, entscheidet jemand anderes.\n\nVORHER: Dein AlertService ruft direkt SmtpClient.send() auf. Du bist an SMTP gebunden. NACHHER: Dein AlertService definiert ein Interface NotificationChannel mit der Methode „send\". Die SMTP-Klasse implementiert es. Die SMS-Klasse auch. Im Test schiebst du einfach eine Fake-Implementierung unter.\n\nMerke: Dependency Inversion bedeutet — der wichtige Code bestimmt die Spielregeln, nicht der technische.",
+    "merksatz_de": "Dependency Inversion bedeutet — der wichtige Code bestimmt die Spielregeln, nicht der technische."
   },
   {
     "id": "testbarkeit",
@@ -690,7 +832,9 @@
     "path_position": 9,
     "requires": ["ports-und-adapters"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst einen Test schreiben. Aber dein Code braucht eine Datenbank, einen Mail-Server und drei externe APIs. Allein das Setup dauert eine Stunde. Also testest du gar nicht. Kommt dir bekannt vor?\n\nTestbarkeit ist kein Zufall — sie ist ein Architektur-Merkmal. Wenn dein Code schwer zu testen ist, liegt das nicht am Test-Framework. Es liegt an der Struktur deines Codes.\n\nStell dir ein Auto vor. Wenn du zum Ölwechsel den Motor ausbauen musst, ist das Auto schlecht konstruiert. Guter Zugang zu Wartungspunkten ist Design — nicht Luxus.\n\nClean Architecture macht Testbarkeit zum Standard. Dein Use Case hängt nur von Interfaces ab. Im Test ersetzt du die echte Datenbank durch ein Fake. Kein Docker, kein Netzwerk, kein Setup. Ein Use-Case-Test läuft in Millisekunden — weil er nur Geschäftslogik prüft.\n\nMerke: Wenn dein Code schwer zu testen ist, hast du kein Test-Problem — du hast ein Architektur-Problem.",
+    "merksatz_de": "Wenn dein Code schwer zu testen ist, hast du kein Test-Problem — du hast ein Architektur-Problem."
   },
   {
     "id": "solid",
@@ -701,7 +845,9 @@
     "path_position": 10,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du änderst eine Klasse und plötzlich brechen drei andere Features. Du fügst ein neues Feature hinzu und musst bestehenden Code umschreiben. Dein System wird mit jedem Sprint schwerer zu ändern.\n\nSOLID ist ein Satz von fünf Prinzipien, die das verhindern. Robert C. Martin hat sie zusammengestellt — nicht als Dogma, sondern als Leitplanken für wartbaren Code.\n\nDenk an Lego-Steine. Jeder Stein hat eine klare Form und klare Verbindungspunkte. Du kannst sie frei kombinieren, ohne sie umzubauen. SOLID macht deinen Code zu Lego.\n\nS — Single Responsibility: Eine Klasse, ein Grund sich zu ändern. O — Open/Closed: Offen für Erweiterung, geschlossen für Änderung. L — Liskov Substitution: Unterklassen verhalten sich wie die Basisklasse. I — Interface Segregation: Kleine, spezifische Interfaces statt großer. D — Dependency Inversion: Abhängigkeiten zeigen zu Abstraktionen.\n\nMerke: SOLID macht Code flexibel — und flexibler Code lässt sich besser architekturieren.",
+    "merksatz_de": "SOLID macht Code flexibel — und flexibler Code lässt sich besser architekturieren."
   },
   {
     "id": "cloud-native-pfad",
@@ -712,7 +858,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Server stürzt ab. Nachts um drei. Du fährst den Laptop hoch, verbindest dich per SSH, startest Dienste neu. Am Morgen passiert es wieder. Willkommen in der Welt vor Cloud-Native.\n\nCloud-Native ist nicht einfach „wir packen alles in die Cloud\". Es ist eine grundlegend andere Art, Software zu bauen und zu betreiben. Software, die von Anfang an für eine dynamische, verteilte Infrastruktur entworfen ist.\n\nStell dir den Unterschied zwischen einem Haustier und einer Rinderherde vor. Dein alter Server war ein Haustier — du hast ihn gepflegt und repariert. Cloud-Native behandelt Server wie Rinder — fällt einer aus, kommt ein neuer.\n\nIn diesem Pfad schauen wir uns die Bausteine an: Container, Orchestrierung, Infrastructure as Code, CI/CD, Deployment-Strategien, Observability, SLOs, GitOps und FinOps. Von der 12-Factor App bis zum Kostenmanagement.\n\nMerke: Cloud-Native heißt nicht „in der Cloud\" — es heißt „für Veränderung gebaut\".",
+    "merksatz_de": "Cloud-Native heißt nicht „in der Cloud\" — es heißt „für Veränderung gebaut\"."
   },
   {
     "id": "cloud-native",
@@ -723,7 +871,9 @@
     "path_position": 1,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du deployst deine Anwendung in die Cloud. Aber sie läuft dort genauso wie auf deinem alten Server. Wenn der Container abstürzt, ist der Dienst weg. Skalierung machst du manuell. Das ist Cloud — aber nicht Cloud-Native.\n\nCloud-Native bedeutet: Deine Anwendung ist so gebaut, dass sie die Vorteile der Cloud wirklich nutzt. Automatische Skalierung, Selbstheilung, Rolling Updates. Nicht nachträglich draufgeschraubt — von Anfang an eingeplant.\n\nDenk an ein Segelboot versus ein Motorboot mit Segel. Beides hat Segel. Aber nur das Segelboot ist für Wind gebaut. Das Motorboot hat Segel als Deko.\n\nKonkret heißt Cloud-Native: Deine App startet schnell, ist zustandslos, speichert nichts lokal, kommuniziert über APIs, läuft in Containern, wird automatisch skaliert und übersteht den Ausfall einzelner Instanzen ohne Datenverlust.\n\nMerke: Cloud-Native ist kein Ort — es ist eine Bauweise.",
+    "merksatz_de": "Cloud-Native ist kein Ort — es ist eine Bauweise."
   },
   {
     "id": "12-factor-app",
@@ -734,7 +884,9 @@
     "path_position": 2,
     "requires": ["cloud-native"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine App liest die Datenbank-URL aus einer Config-Datei, die auf dem Server liegt. Beim Deployment kopierst du sie manuell. Auf dem Staging-System fehlt sie — und nichts funktioniert.\n\nDie 12-Factor App ist eine Sammlung von zwölf Regeln für moderne, cloud-fähige Anwendungen. Entwickelt bei Heroku aus der Erfahrung tausender Deployments. Kein Framework — sondern Prinzipien.\n\nKennst du die Checkliste vor dem Flug? Piloten gehen sie jedes Mal durch — nicht weil sie es nicht wissen, sondern weil Systematik Fehler verhindert. Die zwölf Faktoren sind diese Checkliste für Software.\n\nZum Beispiel: Faktor drei — Konfiguration gehört in Umgebungsvariablen, nicht in den Code. Faktor sechs — deine App läuft als zustandsloser Prozess. Faktor elf — Logs sind Event-Streams, keine Dateien. Jeder Faktor macht deine App portabler und robuster.\n\nMerke: Die 12-Factor App ist die Grundlage für jede Anwendung, die in der Cloud bestehen will.",
+    "merksatz_de": "Die 12-Factor App ist die Grundlage für jede Anwendung, die in der Cloud bestehen will."
   },
   {
     "id": "container",
@@ -745,7 +897,9 @@
     "path_position": 3,
     "requires": ["dienst-service"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "„Bei mir läuft's.\" Der Klassiker. Auf deinem Rechner funktioniert alles. Auf dem Server fehlt eine Bibliothek in der richtigen Version. Das Deployment scheitert — mal wieder.\n\nContainer lösen das. Ein Container verpackt deine Anwendung mit allem was sie braucht: Code, Laufzeit, Bibliotheken, Konfiguration. Was im Container läuft, läuft überall gleich.\n\nVergleich das mit einem Schiffscontainer. Vor der Containerisierung wurde jede Fracht einzeln verladen — unterschiedliche Größen, unterschiedliche Handhabung. Der Standard-Container hat den Welthandel revolutioniert. Alles passt, egal welches Schiff.\n\nDocker ist das bekannteste Werkzeug. Du beschreibst in einem Dockerfile, was in den Container kommt. Das Image wird einmal gebaut und überall identisch ausgeführt — auf deinem Laptop, im CI-System, in der Produktion. Container starten in Sekunden, sind isoliert und brauchen weniger Ressourcen als virtuelle Maschinen.\n\nMerke: Container sind der Standardumschlag der Software-Welt — pack einmal, lauf überall.",
+    "merksatz_de": "Container sind der Standardumschlag der Software-Welt — pack einmal, lauf überall."
   },
   {
     "id": "immutable-infrastructure",
@@ -756,7 +910,9 @@
     "path_position": 4,
     "requires": ["container"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Server läuft seit zwei Jahren. Du hast Updates eingespielt, Pakete nachinstalliert, Config-Dateien angepasst. Niemand weiß mehr genau, was drauf ist. Das nennt man Configuration Drift — und es ist ein Albtraum.\n\nImmutable Infrastructure bedeutet: Du änderst Server nicht. Du ersetzt sie. Jede Änderung erzeugt ein neues Image, das von Grund auf frisch gebaut wird. Das alte wird weggeworfen.\n\nStell dir eine Druckplatte vor: Statt einen Druckfehler zu übermalen, druckst du eine neue Auflage. Jeder Druck ist sauber. Keine Korrekturspuren, keine Überraschungen.\n\nIn der Praxis heißt das: Du baust ein neues Container-Image oder eine neue VM. Testest es. Rollst es aus. Wenn etwas schiefgeht, rollst du auf das vorherige Image zurück — nicht auf einen „hoffentlich funktionierenden\" Zustand.\n\nMerke: Immutable Infrastructure heißt — repariere nichts, ersetze es.",
+    "merksatz_de": "Immutable Infrastructure heißt — repariere nichts, ersetze es."
   },
   {
     "id": "orchestrierung",
@@ -767,7 +923,9 @@
     "path_position": 5,
     "requires": ["container"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast zwanzig Container. Einer stürzt ab — wer startet ihn neu? Du brauchst mehr Kapazität — wer fährt neue Instanzen hoch? Du deployst ein Update — wer sorgt dafür, dass kein Request verloren geht? Das manuell zu machen, skaliert nicht.\n\nOrchestrierung automatisiert das alles. Ein Orchestrator verwaltet deine Container: Er startet sie, verteilt sie auf Server, überwacht sie und ersetzt sie bei Ausfall.\n\nDenk an einen Dirigenten. Die Musiker können ihre Instrumente spielen. Aber ohne Dirigent weiß keiner, wann er anfängt, wie laut er spielt und wann er aufhört. Der Dirigent koordiniert das Zusammenspiel.\n\nKubernetes ist der bekannteste Orchestrator. Du sagst: „Ich brauche drei Instanzen meines Services.\" Kubernetes sorgt dafür, dass immer drei laufen — egal was passiert. Fällt ein Server aus, verschiebt Kubernetes die Container auf einen anderen.\n\nMerke: Orchestrierung ist der Dirigent deiner Container — sie sorgt dafür, dass alles zusammenspielt.",
+    "merksatz_de": "Orchestrierung ist der Dirigent deiner Container — sie sorgt dafür, dass alles zusammenspielt."
   },
   {
     "id": "infrastructure-as-code",
@@ -778,7 +936,9 @@
     "path_position": 6,
     "requires": ["container"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du klickst in der AWS-Konsole einen Server zusammen. Drei Monate später brauchst du einen zweiten — aber niemand weiß mehr, welche Einstellungen du damals gewählt hast. Die Konsole hat kein Gedächtnis.\n\nInfrastructure as Code bedeutet: Deine gesamte Infrastruktur ist in Dateien beschrieben. Server, Netzwerke, Datenbanken — alles als Code. Versioniert in Git, reviewbar, wiederholbar.\n\nDenk an einen Bauplan. Ohne Plan baust du jedes Haus ein bisschen anders. Mit Plan kannst du identische Häuser bauen — so oft du willst, immer gleich.\n\nTools wie Terraform oder Pulumi beschreiben deinen Zielzustand deklarativ: „Ich brauche zwei Server, ein Netzwerk, eine Datenbank.\" Das Tool vergleicht Soll und Ist und macht nur die nötigen Änderungen. Alles liegt im Git-Repository — jede Änderung ist nachvollziehbar, jede Umgebung reproduzierbar.\n\nMerke: Wenn deine Infrastruktur nicht im Code steht, existiert sie nur in den Köpfen — und die vergessen.",
+    "merksatz_de": "Wenn deine Infrastruktur nicht im Code steht, existiert sie nur in den Köpfen — und die vergessen."
   },
   {
     "id": "ci-cd",
@@ -789,7 +949,9 @@
     "path_position": 7,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Freitagnachmittag, Deployment-Tag. Drei Entwickler mergen gleichzeitig. Die Tests laufen manuell — wenn überhaupt. Das Deployment ist ein Skript, das nur eine Person kennt. Alle halten die Luft an.\n\nCI/CD eliminiert dieses Chaos. Continuous Integration heißt: Jeder Commit wird automatisch gebaut und getestet. Continuous Delivery heißt: Jeder erfolgreiche Build ist jederzeit deploybar. Continuous Deployment geht noch weiter — jeder Build geht automatisch in Produktion.\n\nKennst du ein Fließband? Statt einmal pro Woche ein großes Paket zu liefern, lieferst du ständig kleine Pakete. Jedes wird automatisch geprüft. Fehler fallen sofort auf — nicht erst am Freitag.\n\nEine typische Pipeline: Push auf main löst den Build aus. Unit-Tests laufen. Integration-Tests laufen. Security-Scan läuft. Bei Erfolg wird automatisch deployed. Das Ganze dauert Minuten, nicht Stunden.\n\nMerke: CI/CD bedeutet — kleine Schritte, schnelles Feedback, weniger Angst vor dem Deployment.",
+    "merksatz_de": "CI/CD bedeutet — kleine Schritte, schnelles Feedback, weniger Angst vor dem Deployment."
   },
   {
     "id": "blue-green-deployment",
@@ -800,7 +962,9 @@
     "path_position": 8,
     "requires": ["ci-cd"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du deployst die neue Version. Irgendwas geht schief. Nutzer sehen Fehler. Du rollst zurück — aber das dauert zwanzig Minuten. Zwanzig Minuten Ausfall. Für jedes Deployment.\n\nBlue-Green Deployment eliminiert Downtime. Du hast zwei identische Umgebungen: Blue und Green. Eine läuft in Produktion, die andere steht bereit. Du deployst die neue Version auf die inaktive Umgebung, testest sie — und schaltest den Traffic um.\n\nDenk an eine Bühne mit zwei Kulissen. Während die eine Szene läuft, wird hinter dem Vorhang die nächste aufgebaut. Wenn alles bereit ist, dreht sich die Bühne — nahtlos, ohne Pause.\n\nKonkret: Blue läuft mit Version 1. Du deployst Version 2 auf Green. Smoke-Tests bestätigen — alles funktioniert. Der Load Balancer schaltet auf Green um. Geht etwas schief? Ein Klick — und du bist zurück auf Blue.\n\nMerke: Blue-Green Deployment heißt — deployen ohne Angst, zurückrollen ohne Aufwand.",
+    "merksatz_de": "Blue-Green Deployment heißt — deployen ohne Angst, zurückrollen ohne Aufwand."
   },
   {
     "id": "observability",
@@ -811,7 +975,9 @@
     "path_position": 9,
     "requires": ["cloud-native"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Nutzer meldet: „Die Seite ist langsam.\" Du schaust auf die Server — CPU normal, Speicher normal, keine Fehler in den Logs. Trotzdem ist es langsam. Wo ist das Problem? Du hast keine Ahnung.\n\nObservability bedeutet: Du kannst von außen verstehen, was innen passiert. Nicht nur ob etwas kaputt ist — sondern warum. Auch bei Problemen, die du vorher nie gesehen hast.\n\nDenk an einen Arzt. Monitoring ist wie Fieber messen — du siehst, dass etwas nicht stimmt. Observability ist wie ein MRT — du siehst wo das Problem sitzt und warum.\n\nObservability basiert auf drei Säulen: Logs — was ist passiert? Metriken — wie viel und wie schnell? Traces — welchen Weg hat ein Request genommen? Zusammen ergeben sie ein vollständiges Bild. Tools wie Grafana, Prometheus und Jaeger machen das sichtbar.\n\nMerke: Monitoring sagt dir dass etwas brennt — Observability sagt dir wo und warum.",
+    "merksatz_de": "Monitoring sagt dir dass etwas brennt — Observability sagt dir wo und warum."
   },
   {
     "id": "slo-sli-sla",
@@ -822,7 +988,9 @@
     "path_position": 10,
     "requires": ["observability"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein System hat 99,9 Prozent Verfügbarkeit. Klingt gut. Aber dein Kunde erwartet 99,99 Prozent. Das steht im Vertrag. Der Unterschied? Acht Stunden Ausfall pro Jahr versus 52 Minuten. Plötzlich klingt 99,9 nicht mehr so gut.\n\nSLO, SLI und SLA bringen Ordnung in diese Zahlen. SLI — Service Level Indicator — misst die tatsächliche Leistung. SLO — Service Level Objective — definiert das interne Ziel. SLA — Service Level Agreement — ist der Vertrag mit dem Kunden.\n\nDenk an eine Pizzalieferung. SLI: Die Pizza kam nach 28 Minuten. SLO: Wir wollen unter 30 Minuten liefern. SLA: Wir garantieren dem Kunden unter 45 Minuten — sonst gibt es Geld zurück.\n\nIn der Praxis: Dein SLI misst die Antwortzeit des API-Endpunkts. Dein SLO sagt: 99 Prozent der Requests unter 200 Millisekunden. Dein SLA zum Kunden ist großzügiger — mit Puffer für unvorhergesehene Probleme.\n\nMerke: SLI misst, SLO strebt an, SLA verspricht — verwechsle sie nie.",
+    "merksatz_de": "SLI misst, SLO strebt an, SLA verspricht — verwechsle sie nie."
   },
   {
     "id": "gitops",
@@ -833,7 +1001,9 @@
     "path_position": 11,
     "requires": ["infrastructure-as-code", "ci-cd"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Jemand hat die Konfiguration in der Cloud geändert. Direkt in der Konsole. Ohne Ticket, ohne Review. Jetzt stimmt die Produktion nicht mehr mit dem überein, was im Code steht. Wer hat was geändert? Niemand weiß es.\n\nGitOps macht Git zur einzigen Quelle der Wahrheit — auch für Infrastruktur und Deployments. Keine manuellen Änderungen mehr. Alles geht durch Git: Pull Request, Review, Merge. Ein automatisierter Agent — ein Tool wie ArgoCD — synchronisiert den Cluster automatisch mit dem Git-Repository.\n\nStell dir eine Buchhaltung vor. Jede Transaktion wird gebucht. Nichts passiert am Buch vorbei. Wenn die Kasse nicht stimmt, schaust du ins Buch — dort steht die Wahrheit.\n\nTools wie ArgoCD oder Flux überwachen dein Git-Repository. Sobald sich etwas ändert, wird der gewünschte Zustand automatisch hergestellt. Driftet die Produktion ab, korrigiert der Agent sie zurück auf den Stand im Repository.\n\nMerke: GitOps heißt — was nicht in Git steht, existiert nicht.",
+    "merksatz_de": "GitOps heißt — was nicht in Git steht, existiert nicht."
   },
   {
     "id": "finops",
@@ -844,7 +1014,9 @@
     "path_position": 12,
     "requires": ["cloud-native"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ende des Monats kommt die Cloud-Rechnung. 40.000 Euro. Letzten Monat waren es 28.000. Niemand weiß, welches Team wie viel verbraucht hat. Die Entwickler sehen die Kosten nicht — und haben keinen Grund zu sparen.\n\nFinOps — Financial Operations — bringt Kostenbewusstsein in die Cloud. Nicht durch Sparen um jeden Preis, sondern durch Transparenz. Jedes Team sieht, was seine Services kosten, und entscheidet bewusst, wofür es Geld ausgibt.\n\nDenk an eine WG. Wenn einer die Stromrechnung zahlt, ist den anderen der Verbrauch egal. Wenn jeder seinen Anteil sieht, geht plötzlich das Licht aus, wenn keiner im Raum ist.\n\nIn der Praxis heißt das: Ressourcen werden mit Tags versehen — welches Team, welcher Service, welche Umgebung. Dashboards zeigen die Kosten in Echtzeit. Teams haben Cloud-Budgets und optimieren selbstständig — Reserved Instances, Spot-Instanzen, Rechte-Skalierung.\n\nMerke: FinOps bedeutet — wer Cloud nutzt, muss Cloud-Kosten verstehen.",
+    "merksatz_de": "FinOps bedeutet — wer Cloud nutzt, muss Cloud-Kosten verstehen."
   },
   {
     "id": "security-architecture-pfad",
@@ -855,7 +1027,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein System wird gehackt. Kundendaten landen im Netz. Die Frage vom Management: „Wie konnte das passieren?\" Deine ehrliche Antwort: „Wir haben uns um Security gekümmert — am Ende, kurz vor dem Go-Live. Es hat nicht gereicht.\"\n\nSecurity Architecture bedeutet: Sicherheit ist kein Feature, das du nachträglich einbaust. Sie ist eine Architektur-Entscheidung, die von Anfang an Teil deines Designs ist. Jede Schicht, jede Schnittstelle, jeder Datenfluss wird unter dem Sicherheitsaspekt betrachtet.\n\nVergleich das mit einem Flughafen. Sicherheitskontrollen werden nicht nachträglich in die Terminals geklebt. Jeder Gang, jede Schleuse, jeder Bereich ist von Anfang an um Sicherheit herum geplant.\n\nIn diesem Pfad schauen wir uns die Bausteine an: Threat Modeling, Least Privilege, Defense in Depth, Authentifizierung, OAuth, Zero Trust, Secrets Management, Security by Design, OWASP und Supply Chain Security.\n\nMerke: Sicherheit, die nicht in der Architektur steckt, steckt nirgends.",
+    "merksatz_de": "Sicherheit, die nicht in der Architektur steckt, steckt nirgends."
   },
   {
     "id": "threat-modeling",
@@ -866,7 +1040,9 @@
     "path_position": 1,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast eine Firewall, SSL-Zertifikate und regelmäßige Updates. Trotzdem wirst du angegriffen — über einen API-Endpunkt, an den niemand gedacht hat. Du hast dich geschützt — aber gegen die falschen Dinge.\n\nThreat Modeling ist der systematische Prozess, Bedrohungen zu finden, bevor Angreifer es tun. Du fragst: Was kann schiefgehen? Wer würde angreifen? Wo sind die Schwachstellen? Und du tust das bevor du Code schreibst.\n\nDenk an einen Einbrecher, der dein Haus besichtigt. Du gehst mit ihm durch jedes Zimmer und fragst: „Wie würdest du hier reinkommen?\" Unangenehm — aber effektiv.\n\nSTRIDE ist ein bewährtes Framework dafür: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege. Für jeden Datenfluss in deinem System prüfst du diese sechs Kategorien. Das Ergebnis ist eine priorisierte Liste von Risiken.\n\nMerke: Threat Modeling heißt — denke wie ein Angreifer, bevor einer kommt.",
+    "merksatz_de": "Threat Modeling heißt — denke wie ein Angreifer, bevor einer kommt."
   },
   {
     "id": "principle-of-least-privilege",
@@ -877,7 +1053,9 @@
     "path_position": 2,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Deployment-Skript hat Admin-Rechte auf der Datenbank. Warum? „Weil es so einfacher war.\" Eines Tages wird das Skript kompromittiert — und der Angreifer hat Zugriff auf alles. Nicht weil er schlau war, sondern weil du großzügig warst.\n\nDas Principle of Least Privilege sagt: Gib jedem Nutzer, jedem Service, jedem Prozess nur die Rechte, die er für seine Aufgabe braucht. Nicht mehr. Niemals mehr.\n\nDenk an Hotelschlüssel. Du bekommst eine Karte für dein Zimmer — nicht den Generalschlüssel. Der Reinigungsdienst hat Zugang zu allen Zimmern, aber nicht zum Tresor. Jeder bekommt genau das, was er braucht.\n\nKonkret: Dein API-Service bekommt nur Leserechte auf die Tabellen, die er braucht. Nicht Schreibrechte. Nicht auf alle Tabellen. Nicht Admin. Wird der Service kompromittiert, kann der Angreifer wenig Schaden anrichten.\n\nMerke: Least Privilege heißt — gib niemals mehr Rechte als nötig, auch wenn es bequemer wäre.",
+    "merksatz_de": "Least Privilege heißt — gib niemals mehr Rechte als nötig, auch wenn es bequemer wäre."
   },
   {
     "id": "defense-in-depth",
@@ -888,7 +1066,9 @@
     "path_position": 3,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine Firewall schützt das System. Dann findet jemand einen Weg daran vorbei — und dahinter gibt es nichts mehr. Kein zweites Schloss, keine Überwachung, keinen Alarm. Eine einzige Schwachstelle und alles ist offen.\n\nDefense in Depth bedeutet: Mehrere Sicherheitsschichten hintereinander. Wenn eine versagt, fängt die nächste. Kein einzelner Mechanismus ist perfekt — aber zusammen sind sie stark.\n\nEs ist wie bei einem Militär-Checkpoint. Erst die Straßensperre. Dann die Ausweiskontrolle. Dann die Fahrzeugdurchsuchung. Dann der gesicherte Bereich. Ein Eindringling muss jede Schicht überwinden — jede einzelne verlangsamt ihn und gibt dir Zeit zu reagieren.\n\nIn Software heißt das: Firewall am Rand. Authentifizierung am API-Gateway. Autorisierung im Service. Verschlüsselung der Daten. Überwachung aller Zugriffe. Input-Validierung in jeder Schicht. Fällt eine Maßnahme aus, greift die nächste.\n\nMerke: Defense in Depth heißt — vertraue nie einer einzigen Verteidigungslinie.",
+    "merksatz_de": "Defense in Depth heißt — vertraue nie einer einzigen Verteidigungslinie."
   },
   {
     "id": "authentifizierung-vs-autorisierung",
@@ -899,7 +1079,9 @@
     "path_position": 4,
     "requires": ["schnittstelle"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Nutzer meldet sich an und sieht plötzlich die Daten anderer Kunden. Dein System weiß wer er ist — aber nicht was er darf. Authentifizierung hat funktioniert. Autorisierung nicht.\n\nAuthentifizierung beantwortet die Frage: Wer bist du? Autorisierung beantwortet: Was darfst du? Zwei verschiedene Fragen — und beide müssen beantwortet werden. Immer in dieser Reihenfolge.\n\nDenk an einen Club. Der Türsteher prüft deinen Ausweis — das ist Authentifizierung. Drin bist du. Aber an die VIP-Lounge kommst du nur mit dem goldenen Bändchen — das ist Autorisierung. Ausweis allein reicht nicht.\n\nIn der Praxis: Login mit Passwort oder Token bestätigt deine Identität. Danach prüft das System bei jedem Request: Hat dieser Nutzer die Rolle, die Berechtigung, den Zugriff? Typische Fehler: Autorisierung nur an der UI prüfen, aber nicht im Backend. Oder nur beim Seitenaufruf, aber nicht beim API-Call.\n\nMerke: Authentifizierung heißt „Ich kenne dich\" — Autorisierung heißt „Ich erlaube dir das.\"",
+    "merksatz_de": "Authentifizierung heißt „Ich kenne dich\" — Autorisierung heißt „Ich erlaube dir das.\""
   },
   {
     "id": "oauth-oidc",
@@ -910,7 +1092,9 @@
     "path_position": 5,
     "requires": ["authentifizierung-vs-autorisierung"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du baust eine App und brauchst Login. Also speicherst du Passwörter selbst — gehasht natürlich. Dann brauchst du Passwort-Reset, Account-Sperrung, Zwei-Faktor. Plötzlich baust du ein halbes Identity-System. Das muss nicht sein.\n\nOAuth 2.0 delegiert die Autorisierung an einen spezialisierten Dienst. OIDC — OpenID Connect — baut darauf auf und fügt Authentifizierung hinzu. Zusammen erlauben sie: „Melde dich bei Google an und gib meiner App Zugriff auf deinen Namen.\"\n\nEs ist wie beim Ausweisen: OIDC sagt: „Das ist Max.\" OAuth sagt: „Max erlaubt Zugriff auf seinen Kalender.\" OIDC klärt die Identität — OAuth regelt die Berechtigung. Beides zusammen ergibt sicheren Zugriff.\n\nDer Ablauf: Deine App leitet den Nutzer zum Identity Provider. Der Nutzer meldet sich dort an. Deine App bekommt ein Token zurück — keinen Benutzernamen, kein Passwort. Das Token sagt: „Dieser Nutzer ist authentifiziert und hat diese Berechtigungen.\"\n\nMerke: OAuth und OIDC bedeuten — lass die Login-Arbeit den Spezialisten machen.",
+    "merksatz_de": "OAuth und OIDC bedeuten — lass die Login-Arbeit den Spezialisten machen."
   },
   {
     "id": "zero-trust",
@@ -921,7 +1105,9 @@
     "path_position": 6,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Service läuft im internen Netzwerk. Also braucht er keine Authentifizierung — er ist ja „hinter der Firewall.\" Dann kommt ein Angreifer ins Netzwerk und bewegt sich frei von Service zu Service. Willkommen im Albtraum.\n\nZero Trust sagt: Vertraue niemandem. Nicht dem Netzwerk, nicht dem Gerät, nicht dem Nutzer — auch nicht wenn sie intern sind. Jeder Zugriff wird geprüft. Jedes Mal. Ohne Ausnahme.\n\nKennst du Schach? Kein Feld ist sicher, nur weil es hinter deinen Figuren liegt. Jede Position muss verteidigt werden — egal wo sie steht. Zero Trust denkt genauso.\n\nIn der Praxis: Jeder Service authentifiziert eingehende Requests — auch interne. Mutual TLS verschlüsselt die Kommunikation zwischen Services. Zugriffsrechte werden für jeden Request geprüft, nicht einmal pro Session. Netzwerk-Segmentierung begrenzt die Reichweite eines Angriffs.\n\nMerke: Zero Trust heißt — „intern\" ist kein Sicherheitskonzept.",
+    "merksatz_de": "Zero Trust heißt — „intern\" ist kein Sicherheitskonzept."
   },
   {
     "id": "secrets-management",
@@ -932,7 +1118,9 @@
     "path_position": 7,
     "requires": ["zero-trust"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du findest ein Datenbank-Passwort im Git-Repository. Im Klartext. Im Code. Committed vor zwei Jahren. Jeder der Zugriff auf das Repo hat, hat Zugriff auf die Datenbank. Und Git vergisst nie.\n\nSecrets Management bedeutet: Passwörter, API-Keys, Zertifikate und Tokens werden sicher gespeichert, kontrolliert verteilt und regelmäßig rotiert. Niemals im Code. Niemals in Config-Dateien. Niemals hartcodiert in Umgebungsvariablen — sondern dynamisch zur Laufzeit injiziert.\n\nStell dir einen Tresor vor. Du legst den Schlüssel nicht unter die Fußmatte. Du legst ihn in einen Tresor — und nur wer die Kombination kennt, kommt ran. Und die Kombination wird regelmäßig geändert.\n\nTools wie HashiCorp Vault oder AWS Secrets Manager speichern Secrets zentral und verschlüsselt. Dein Service fragt zur Laufzeit das Secret ab — mit kurzlebigen Credentials. Automatische Rotation sorgt dafür, dass kompromittierte Secrets schnell wertlos werden.\n\nMerke: Secrets im Code sind tickende Zeitbomben — ein Secrets Manager entschärft sie.",
+    "merksatz_de": "Secrets im Code sind tickende Zeitbomben — ein Secrets Manager entschärft sie."
   },
   {
     "id": "security-by-design",
@@ -943,7 +1131,9 @@
     "path_position": 8,
     "requires": ["threat-modeling"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Das Feature ist fertig. Der Code funktioniert. Jetzt kommt der Penetration-Test — und findet zwölf Schwachstellen. SQL Injection, fehlende Validierung, offene Endpunkte. Alles muss nachgebessert werden. Das dauert länger als die ursprüngliche Entwicklung.\n\nSecurity by Design bedeutet: Sicherheit wird nicht am Ende geprüft, sondern von Anfang an mitgedacht. Bei jedem Feature, bei jedem Architekturentwurf, bei jeder Code-Review fragst du: Wie kann das missbraucht werden?\n\nDenk an einen Airbag. Er wird nicht nach dem Autobau reingestopft. Er wird von Anfang an eingeplant — die gesamte Karosserie ist um den Schutz herum konstruiert.\n\nKonkret heißt das: Input-Validierung ist Standard, nicht Ausnahme. Prepared Statements statt String-Concatenation. Principle of Least Privilege bei jedem neuen Service. Threat Modeling bei jedem neuen Feature. Sicherheit ist nicht die Aufgabe eines Security-Teams — sie ist die Aufgabe jedes Entwicklers.\n\nMerke: Security by Design heißt — Sicherheit ist kein Schritt am Ende, sondern eine Haltung von Anfang an.",
+    "merksatz_de": "Security by Design heißt — Sicherheit ist kein Schritt am Ende, sondern eine Haltung von Anfang an."
   },
   {
     "id": "owasp-top-10",
@@ -954,7 +1144,9 @@
     "path_position": 9,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine Webanwendung ist live. Ein Angreifer tippt ein einfaches SQL-Statement in das Suchfeld — und bekommt alle Kundendaten. Injection-Angriffe wie dieser sind seit über zwanzig Jahren bekannt. Seit 2021 auf Platz drei der OWASP Top 10 — hinter Broken Access Control auf Platz eins.\n\nDie OWASP Top 10 ist eine Liste der zehn kritischsten Sicherheitsrisiken für Webanwendungen. Zusammengestellt von der Open Web Application Security Project Community — basierend auf echten Daten von echten Angriffen.\n\nDenk an eine Hitliste der häufigsten Einbruchsmethoden. Wenn du weißt, wie die meisten Einbrecher reinkommen, kannst du genau dort dein Schloss verstärken.\n\nDie aktuelle Liste umfasst unter anderem: Broken Access Control — fehlende Zugriffskontrollen. Injection — eingeschleuster Code. Insecure Design — grundlegende Designfehler. Security Misconfiguration — falsch konfigurierte Systeme. Jeder Punkt hat konkrete Gegenmaßnahmen, die du heute umsetzen kannst.\n\nMerke: Die OWASP Top 10 sind die Mindestanforderung — wer sie ignoriert, lädt Angreifer ein.",
+    "merksatz_de": "Die OWASP Top 10 sind die Mindestanforderung — wer sie ignoriert, lädt Angreifer ein."
   },
   {
     "id": "supply-chain-security",
@@ -965,7 +1157,9 @@
     "path_position": 10,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du installierst eine npm-Bibliothek mit 500 Sternen auf GitHub. Drei Wochen später stellt sich heraus: Ein Maintainer wurde kompromittiert und hat Schadcode in ein Update geschmuggelt. Dein Build hat es automatisch gezogen. Dein System ist infiziert.\n\nSupply Chain Security schützt die gesamte Lieferkette deiner Software: Abhängigkeiten, Build-Prozesse, Container-Images, Deployment-Pipelines. Nicht nur dein Code muss sicher sein — alles was du verwendest auch.\n\nDenk an Lebensmittel. Du kontrollierst nicht nur dein Restaurant, sondern auch den Lieferanten, den Transport und die Lagerung. Wenn der Lieferant schummelt, hilft dir die sauberste Küche nicht.\n\nKonkret: Nutze Lock-Dateien und prüfe Hashes von Abhängigkeiten. Scanne Container-Images auf Schwachstellen. Signiere deine Build-Artefakte. Tools wie Dependabot, Snyk oder Sigstore automatisieren das. Und eine SBOM — eine Software-Stückliste — zeigt dir auf einen Blick, welche Komponenten in deinem System stecken.\n\nMerke: Supply Chain Security heißt — vertraue keiner Abhängigkeit blind, auch nicht der beliebtesten.",
+    "merksatz_de": "Supply Chain Security heißt — vertraue keiner Abhängigkeit blind, auch nicht der beliebtesten."
   },
   {
     "id": "daten-architektur",
@@ -976,7 +1170,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Drei Services, drei verschiedene Kundenadressen — und eine Beschwerde vom Kunden, der sein Paket an die falsche Adresse bekommt. Welche Datenbank hat die richtige Wahrheit?\n\nDaten sind das Fundament jeder Software. Aber ohne klare Architektur entstehen Silos, Inkonsistenzen und ein Wildwuchs, den niemand mehr überblickt.\n\nDaten-Architektur beschreibt, wie du Daten speicherst, bewegst, transformierst und schützt — über das gesamte System hinweg. Stell dir eine Stadt vor: Straßen, Wasserleitungen und Stromnetz müssen geplant werden, bevor die Häuser stehen.\n\nIn einem IoT-System für Gebäudeautomation brauchst du Entscheidungen: Werden Sensordaten relational oder als Zeitreihen gespeichert? Fließen Daten in Echtzeit oder per Batch? Wer darf welche Daten sehen und ändern?\n\nIn diesem Pfad lernst du die wichtigsten Konzepte — von ACID bis Data Mesh. Merke: Ohne Daten-Architektur baust du Häuser auf Sand.",
+    "merksatz_de": ""
   },
   {
     "id": "acid",
@@ -987,7 +1183,9 @@
     "path_position": 1,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du überweist Geld von Konto A nach Konto B. Mittendrin stürzt der Server ab. Ist das Geld jetzt weg?\n\nOhne Garantien für Datenbank-Transaktionen kann genau das passieren. Daten werden inkonsistent, und du merkst es vielleicht erst Wochen später.\n\nACID steht für Atomicity, Consistency, Isolation und Durability. Atomicity heißt: Alles oder nichts — eine Transaktion wird ganz ausgeführt oder gar nicht. Consistency stellt sicher, dass Regeln eingehalten werden. Isolation verhindert, dass sich parallele Transaktionen gegenseitig stören. Durability garantiert, dass bestätigte Daten auch nach einem Crash noch da sind. Wie ein Banktresor: Entweder die Tür ist komplett zu — oder komplett offen.\n\nBei einer Überweisung im Banking-System werden Abbuchung, Gutschrift und Protokollierung in einer Transaktion verarbeitet. Schlägt ein Schritt fehl, wird alles zurückgerollt.\n\nMerke: ACID ist das Versprechen deiner Datenbank: Was bestätigt ist, bleibt bestätigt.",
+    "merksatz_de": "ACID ist das Versprechen deiner Datenbank: Was bestätigt ist, bleibt bestätigt."
   },
   {
     "id": "base",
@@ -998,7 +1196,9 @@
     "path_position": 2,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Social-Media-Feed zeigt dir einen Post, den dein Kollege noch nicht sieht. Ist das ein Bug?\n\nNein — das ist ein bewusster Kompromiss. Nicht jede Anwendung braucht sofortige, perfekte Konsistenz. Manchmal ist Verfügbarkeit wichtiger.\n\nBASE steht für Basically Available, Soft State, Eventually Consistent. Das System ist grundsätzlich erreichbar, der Zustand kann sich im Hintergrund noch ändern, und irgendwann sind alle Knoten synchron. Kennst du ein schwarzes Brett? Nicht jeder liest gleichzeitig die neueste Nachricht, aber nach einer Weile weiß jeder Bescheid.\n\nEin Fitness-Tracker muss nicht in Echtzeit weltweit synchron sein. Wichtig ist, dass du jetzt dein Training tracken kannst — und beim nächsten Sync alle Daten korrekt zusammenfließen.\n\nMerke: BASE ist das Gegenstück zu ACID: Verfügbarkeit zuerst, Konsistenz kommt nach.",
+    "merksatz_de": "BASE ist das Gegenstück zu ACID: Verfügbarkeit zuerst, Konsistenz kommt nach."
   },
   {
     "id": "cap-theorem",
@@ -1009,7 +1209,9 @@
     "path_position": 3,
     "requires": ["acid", "base"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein verteiltes System soll immer erreichbar sein, immer konsistent — und natürlich auch Netzwerkausfälle überleben. Geht das?\n\nNein. Das CAP-Theorem sagt: Im Fehlerfall musst du wählen. Und genau das zu verstehen, ist entscheidend für jede verteilte Architektur.\n\nCAP steht für Consistency, Availability und Partition Tolerance. Bei einem Netzwerk-Split musst du dich entscheiden: Konsistenz oder Verfügbarkeit? Stell dir zwei Filialen vor, deren Telefonleitung ausfällt. Verkaufen beide weiter und riskieren Überverkäufe? Oder stoppt eine Filiale den Verkauf?\n\nEine Banküberweisung wählt Konsistenz — lieber kurz nicht erreichbar als falsche Kontostände. Ein DNS-System wählt Verfügbarkeit — lieber eine veraltete IP als gar keine Antwort.\n\nMerke: Das CAP-Theorem zwingt dich nicht zur perfekten Lösung, sondern zur ehrlichen Entscheidung.",
+    "merksatz_de": "Das CAP-Theorem zwingt dich nicht zur perfekten Lösung, sondern zur ehrlichen Entscheidung."
   },
   {
     "id": "event-sourcing",
@@ -1020,7 +1222,9 @@
     "path_position": 4,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Kunde beschwert sich: „Meine Bestellung wurde geändert!\" Du schaust in die Datenbank — aber da steht nur der aktuelle Stand. Was vorher war, weiß niemand.\n\nKlassische Datenbanken speichern nur den letzten Zustand. Die Geschichte, wie es dazu kam, geht verloren.\n\nEvent Sourcing speichert nicht den Zustand, sondern jedes Ereignis, das den Zustand verändert hat. Statt den Kontostand zu überschreiben, speicherst du jede Einzahlung und Abbuchung. Wie ein Kontoauszug: Du kannst jederzeit nachvollziehen, was passiert ist — und den Zustand zu jedem Zeitpunkt rekonstruieren.\n\nIn einem Bestellsystem werden Events wie „Bestellung angelegt\", „Artikel hinzugefügt\" und „Bezahlung bestätigt\" gespeichert. Für Audits, Debugging oder neue Auswertungen kannst du die gesamte Historie durchspielen.\n\nMerke: Event Sourcing gibt dir nicht nur den aktuellen Stand, sondern die ganze Geschichte.",
+    "merksatz_de": "Event Sourcing gibt dir nicht nur den aktuellen Stand, sondern die ganze Geschichte."
   },
   {
     "id": "cqrs",
@@ -1031,7 +1235,9 @@
     "path_position": 5,
     "requires": ["event-sourcing"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du optimierst deine Datenbank-Abfragen für schnelle Reports — und plötzlich werden Schreiboperationen langsam. Oder umgekehrt.\n\nDas Problem: Lesen und Schreiben haben völlig unterschiedliche Anforderungen. Ein Modell für beides ist oft ein Kompromiss, der keiner Seite gerecht wird.\n\nCQRS — Command Query Responsibility Segregation — trennt Lese- und Schreibmodell. Befehle ändern Daten über ein optimiertes Schreibmodell, Abfragen lesen aus einem separaten Lesemodell. Stell dir ein Restaurant vor: Die Küche nimmt Bestellungen entgegen, die Speisekarte zeigt das Angebot — zwei verschiedene Systeme für zwei verschiedene Aufgaben.\n\nIn einem Logistik-System schreibst du Sendungsaufträge in ein normalisiertes Modell — also sauber strukturiert ohne Redundanz. Für die Paketverfolgung baust du einen denormalisierten Leseindex — Daten bewusst doppelt gespeichert, damit Abfragen blitzschnell Ergebnisse liefern.\n\nMerke: CQRS heißt: Trenne, was unterschiedliche Anforderungen hat — Lesen und Schreiben verdienen eigene Modelle.",
+    "merksatz_de": "CQRS heißt: Trenne, was unterschiedliche Anforderungen hat — Lesen und Schreiben verdienen eigene Modelle."
   },
   {
     "id": "data-lake",
@@ -1042,7 +1248,9 @@
     "path_position": 6,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Unternehmen hat Daten in zwanzig verschiedenen Systemen. Für eine Analyse brauchst du Daten aus fünf davon — und jedes hat ein anderes Format.\n\nDatensilos machen übergreifende Auswertungen zum Albtraum. Du brauchst Wochen, nur um die Daten zusammenzuführen.\n\nEin Data Lake ist ein zentraler Speicher, in den du alle Rohdaten in ihrem Originalformat ablegst — strukturiert, semi-strukturiert oder unstrukturiert. Stell dir einen echten See vor: Alle Zuflüsse bringen Wasser hinein, und je nach Bedarf zapfst du an verschiedenen Stellen an.\n\nEin Unternehmen lädt Server-Logs, Kundendaten aus dem CRM, Sensordaten aus der Produktion und Social-Media-Feeds in einen Data Lake. Data Scientists können dann frei darauf zugreifen und neue Zusammenhänge entdecken.\n\nMerke: Ein Data Lake gibt dir Flexibilität — aber ohne Ordnung wird er schnell zum Data Swamp.",
+    "merksatz_de": "Ein Data Lake gibt dir Flexibilität — aber ohne Ordnung wird er schnell zum Data Swamp."
   },
   {
     "id": "lambda-architecture",
@@ -1053,7 +1261,9 @@
     "path_position": 7,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du brauchst Echtzeit-Dashboards und gleichzeitig korrekte historische Auswertungen. Zwei völlig verschiedene Anforderungen — ein System.\n\nBatch-Verarbeitung ist genau, aber langsam. Stream-Processing ist schnell, aber fehleranfällig. Wie bekommst du beides?\n\nDie Lambda Architecture kombiniert drei Schichten: Der Batch Layer verarbeitet alle historischen Daten und liefert exakte Ergebnisse. Der Speed Layer verarbeitet neue Daten in Echtzeit, mit möglichen Ungenauigkeiten. Der Serving Layer kombiniert beide Ergebnisse. Wie eine Nachrichtenagentur: Eilmeldungen kommen sofort, der gründlich recherchierte Artikel folgt später.\n\nEin Analyse-Dashboard zeigt über den Speed Layer Live-Klickzahlen. Der Batch Layer berechnet nachts die bereinigten, exakten Statistiken. Nutzer sehen immer aktuelle Zahlen, die sich über die Zeit selbst korrigieren.\n\nMerke: Lambda Architecture heißt: Schnell plus genau — durch zwei Wege zum selben Ziel.",
+    "merksatz_de": "Lambda Architecture heißt: Schnell plus genau — durch zwei Wege zum selben Ziel."
   },
   {
     "id": "kappa-architecture",
@@ -1064,7 +1274,9 @@
     "path_position": 8,
     "requires": ["lambda-architecture"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du wartest die Lambda Architecture und merkst: Du pflegst die gleiche Logik zweimal — einmal im Batch Layer, einmal im Speed Layer.\n\nDoppelte Codebasis, doppelte Bugs, doppelter Aufwand. Es muss doch einfacher gehen.\n\nDie Kappa Architecture verzichtet komplett auf den Batch Layer. Alles läuft über einen einzigen Stream-Processing-Pfad. Historische Daten werden einfach als Events erneut abgespielt. Stell dir einen Fluss vor, den du bei Bedarf von der Quelle nochmal ablaufen lassen kannst.\n\nMit Apache Kafka speicherst du alle Events dauerhaft. Brauchst du eine neue Auswertung, lässt du den Stream-Processor alle historischen Events erneut durchlaufen. Eine Codebasis, ein Verarbeitungspfad. Aber Achtung: Wenn du regelmäßig große Batch-Korrekturen brauchst, stößt Kappa an seine Grenzen.\n\nMerke: Kappa Architecture heißt: Wenn Stream-Processing reicht, brauchst du keinen zweiten Weg.",
+    "merksatz_de": "Kappa Architecture heißt: Wenn Stream-Processing reicht, brauchst du keinen zweiten Weg."
   },
   {
     "id": "stream-processing",
@@ -1075,7 +1287,9 @@
     "path_position": 9,
     "requires": ["event-sourcing"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Betrugserkennung-System prüft Transaktionen einmal pro Nacht. Am nächsten Morgen sind tausend Euro weg.\n\nBatch-Verarbeitung kommt zu spät. Wenn du auf verdächtige Muster erst Stunden später reagierst, ist der Schaden längst passiert.\n\nStream Processing verarbeitet Daten, während sie entstehen — Event für Event, in Echtzeit. Es ist wie ein Fließband: Jedes Teil wird sofort geprüft, nicht erst am Ende des Tages als ganzer Stapel.\n\nEin Zahlungsdienstleister analysiert jede Transaktion in dem Moment, in dem sie reinkommt. Muster wie „fünf Transaktionen in drei Ländern innerhalb einer Minute\" werden sofort erkannt. Tools wie Apache Kafka Streams oder Apache Flink machen das möglich.\n\nMerke: Stream Processing heißt: Reagiere auf Daten, wenn sie entstehen — nicht wenn es zu spät ist.",
+    "merksatz_de": "Stream Processing heißt: Reagiere auf Daten, wenn sie entstehen — nicht wenn es zu spät ist."
   },
   {
     "id": "data-mesh",
@@ -1086,7 +1300,9 @@
     "path_position": 10,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein zentrales Data Team ist der Flaschenhals. Zwanzig Fachabteilungen warten auf Auswertungen, aber das Team kommt nicht hinterher.\n\nZentralisierte Datenplattformen skalieren nicht mit der Organisation. Je mehr Teams Daten brauchen, desto länger die Warteschlange.\n\nData Mesh dreht das Prinzip um: Nicht ein zentrales Team verwaltet alle Daten, sondern jede Domäne ist für ihre eigenen Daten verantwortlich — als Produkt. Stell dir einen Marktplatz vor: Jeder Stand bietet seine Spezialitäten an, statt dass eine zentrale Küche alles für alle kocht.\n\nDas Bestell-Team stellt ein Datenprodukt „Bestellungen\" bereit, mit klarem Schema, SLAs und Dokumentation. Das Marketing-Team konsumiert es direkt, ohne Umweg über ein Data Team.\n\nMerke: Data Mesh heißt: Behandle Daten wie ein Produkt — dezentral, mit klarer Verantwortung.",
+    "merksatz_de": "Data Mesh heißt: Behandle Daten wie ein Produkt — dezentral, mit klarer Verantwortung."
   },
   {
     "id": "data-governance",
@@ -1097,7 +1313,9 @@
     "path_position": 11,
     "requires": ["data-mesh"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Ein Entwickler kopiert Produktionsdaten in die Testumgebung. Darin: echte Kundenadressen, Kreditkartennummern, Gesundheitsdaten.\n\nOhne klare Regeln passiert genau das. Und dann kommt die DSGVO-Prüfung.\n\nData Governance definiert, wer welche Daten wie nutzen, ändern und teilen darf. Es umfasst Richtlinien, Rollen und Prozesse rund um Datenqualität, Sicherheit und Compliance. Stell dir die Straßenverkehrsordnung vor: Nicht jeder darf überall fahren, es gibt Regeln, Schilder und Konsequenzen.\n\nIn einem Krankenhaus-System legt Data Governance fest: Patientendaten dürfen nur von behandelnden Ärzten eingesehen werden. Jeder Zugriff wird protokolliert. Testdaten werden anonymisiert. Ein Data Owner pro Domäne entscheidet über Zugriffsrechte. Fehlt diese Struktur, drohen DSGVO-Bußgelder in Millionenhöhe — oder schlimmer: Ein Datenleck wird öffentlich, und das Vertrauen der Patienten ist unwiederbringlich zerstört.\n\nMerke: Wer Daten nutzt, braucht Regeln — sonst regelt es der Gesetzgeber.",
+    "merksatz_de": "Wer Daten nutzt, braucht Regeln — sonst regelt es der Gesetzgeber."
   },
   {
     "id": "datenmigration",
@@ -1108,7 +1326,9 @@
     "path_position": 12,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst das alte Monolith-System ablösen. Aber darin stecken zehn Jahre Kundendaten, Bestellhistorie und Konfigurationen.\n\nDie neue Software ist fertig — aber die Daten umzuziehen, ist der eigentliche Alptraum. Schemata haben sich verändert, Formate sind inkompatibel, und Ausfallzeiten darfst du dir nicht leisten.\n\nDatenmigration ist der geplante Transfer von Daten zwischen Systemen, Formaten oder Speicherorten. Stell dir einen Umzug vor: Du packst alles ein, transportierst es und räumst es im neuen Zuhause richtig ein — ohne etwas zu verlieren.\n\nBei einer Migration von Oracle zu PostgreSQL erstellst du Mapping-Regeln für Datentypen, migrierst in Phasen, validierst nach jeder Phase und hältst einen Rollback-Plan bereit. Dual-Write-Strategien halten beide Systeme parallel synchron.\n\nMerke: Die beste Software nützt nichts, wenn die Daten auf dem Weg verloren gehen.",
+    "merksatz_de": "Die beste Software nützt nichts, wenn die Daten auf dem Weg verloren gehen."
   },
   {
     "id": "frontend-architektur",
@@ -1119,7 +1339,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du klickst auf einen Button — nichts passiert. Du klickst nochmal — plötzlich zwei Bestellungen. Das Frontend fühlt sich an wie ein Glücksspiel.\n\nFrontends sind heute eigenständige Anwendungen mit komplexer Logik. Aber oft fehlt eine durchdachte Architektur — es wird einfach drauflos gebaut.\n\nFrontend-Architektur beschreibt, wie du die Struktur, Kommunikation und Verantwortlichkeiten im Frontend organisierst. Vergleich das mit einer Küche: Ohne klare Ordnung findest du kein Gewürz, Töpfe stehen im Weg, und zwei Köche machen die gleiche Soße.\n\nEin großes E-Commerce-Frontend braucht Entscheidungen: Wie teile ich Komponenten auf? Wo liegt der State? Rendere ich auf dem Server oder im Browser? Wie arbeiten fünf Teams gleichzeitig am Frontend?\n\nIn diesem Pfad lernst du die Konzepte, die aus Frontend-Chaos eine wartbare Architektur machen.",
+    "merksatz_de": ""
   },
   {
     "id": "component-architecture",
@@ -1130,7 +1352,9 @@
     "path_position": 1,
     "requires": ["komponente"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du sollst „nur schnell den Button ändern\" — aber der Button-Code ist über zehn Dateien verteilt und mit drei Formularen verwoben.\n\nOhne klare Komponentengrenzen wird jede kleine Änderung zur archäologischen Ausgrabung. Niemand traut sich mehr, etwas anzufassen.\n\nComponent Architecture teilt das Frontend in eigenständige, wiederverwendbare Bausteine. Jede Komponente hat eine klare Aufgabe, eigenes Template, eigene Logik und eigene Styles. Stell dir LEGO-Steine vor: Jeder hat eine definierte Form und Funktion, und du baust daraus beliebige Strukturen.\n\nEine Produktkarte ist eine Komponente: Sie zeigt Bild, Titel und Preis. Sie weiß nichts über die Seite, auf der sie steht. Du kannst sie im Shop, in der Suche oder auf der Startseite verwenden — ohne Änderung.\n\nMerke: Gute Komponenten sind wie gute Werkzeuge: Sie tun eine Sache — und die richtig.",
+    "merksatz_de": "Gute Komponenten sind wie gute Werkzeuge: Sie tun eine Sache — und die richtig."
   },
   {
     "id": "state-management",
@@ -1141,7 +1365,9 @@
     "path_position": 2,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Der Warenkorb zeigt drei Artikel, das Icon oben sagt fünf, und nach dem Refresh ist er leer. Drei Wahrheiten in einer App.\n\nWenn Zustand überall verteilt ist — in Komponenten, URLs, LocalStorage und API-Caches — verlierst du den Überblick.\n\nState Management organisiert, wo Anwendungszustand gespeichert wird, wie er sich ändert und wer darauf zugreifen darf. Stell dir ein Whiteboard im Büro vor: Alle schauen auf dieselbe Quelle, statt eigene Zettel zu pflegen. Änderungen sind für alle sofort sichtbar.\n\nIn einer React-App lagert ein zentraler Store den Warenkorb. Jede Komponente liest von dort. Änderungen laufen über definierte Actions. Der Store benachrichtigt alle Subscriber. So zeigen Header, Sidebar und Checkout-Seite immer den gleichen Stand.\n\nMerke: Gutes State Management heißt: Eine Wahrheit, ein Weg sie zu ändern — überall konsistent.",
+    "merksatz_de": "Gutes State Management heißt: Eine Wahrheit, ein Weg sie zu ändern — überall konsistent."
   },
   {
     "id": "module-federation",
@@ -1152,7 +1378,9 @@
     "path_position": 3,
     "requires": ["modul"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Frontend-Monolith hat 800 Abhängigkeiten. Ein npm install dauert sechs Minuten. Jeder Merge erzeugt Konflikte.\n\nWenn alles in einem Bundle steckt, wird das Frontend zum Flaschenhals. Teams blockieren sich gegenseitig bei jedem Release.\n\nModule Federation erlaubt es, JavaScript-Module zur Laufzeit aus verschiedenen, unabhängig deployten Anwendungen zu laden. Kennst du eine Einkaufsstraße? Jeder Laden hat eigene Öffnungszeiten und eigenes Sortiment, aber du bewegst dich nahtlos zwischen ihnen.\n\nTeam A deployt den Produktkatalog als eigene App, Team B den Checkout. Module Federation verbindet beides im Browser: Team A aktualisiert den Katalog, ohne dass Team B etwas tun muss. Webpack 5 oder Vite machen das möglich.\n\nMerke: Module Federation heißt: Unabhängig entwickeln, unabhängig deployen — trotzdem eine Anwendung.",
+    "merksatz_de": "Module Federation heißt: Unabhängig entwickeln, unabhängig deployen — trotzdem eine Anwendung."
   },
   {
     "id": "micro-frontends",
@@ -1163,7 +1391,9 @@
     "path_position": 4,
     "requires": ["microservices"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Drei Teams arbeiten am selben Frontend. Team A wartet auf Team B, Team B hat einen Breaking Change, Team C will ein anderes Framework.\n\nEin monolithisches Frontend skaliert nicht mit der Organisation. Je mehr Teams, desto mehr Reibung.\n\nMicro Frontends übertragen die Microservice-Idee auf das Frontend: Jedes Team verantwortet einen eigenständigen Teil der Benutzeroberfläche — von der Entwicklung bis zum Deployment. Stell dir eine Zeitung vor: Jede Redaktion erstellt ihren Teil unabhängig, am Ende wird alles zur fertigen Ausgabe zusammengesetzt.\n\nBei einem großen Online-Händler baut Team Suche das Suchfrontend in Vue, Team Checkout den Bezahlprozess in React. Die Integration erfolgt per Web Components, iFrames oder Module Federation.\n\nMerke: Micro Frontends geben Teams Autonomie — aber du bezahlst mit Komplexität bei der Integration.",
+    "merksatz_de": "Micro Frontends geben Teams Autonomie — aber du bezahlst mit Komplexität bei der Integration."
   },
   {
     "id": "bff",
@@ -1174,7 +1404,9 @@
     "path_position": 5,
     "requires": ["api"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine mobile App braucht drei API-Calls für eine Seite, die das Web-Frontend in einem erledigt. Beide nutzen dieselbe API.\n\nEine generische API kann nicht jedem Frontend gerecht werden. Mobile braucht weniger Daten, Web braucht andere Aggregationen, und die Smartwatch hat ganz eigene Anforderungen.\n\nDas Backend for Frontend — kurz BFF — ist eine eigene Backend-Schicht pro Frontend-Typ. Es aggregiert, transformiert und optimiert Daten genau für seinen Client. Stell dir einen persönlichen Assistenten vor: Der kennt deine Bedürfnisse und bereitet alles so auf, wie du es brauchst.\n\nDie mobile App bekommt ein BFF, das drei Microservice-Aufrufe zu einer kompakten Antwort bündelt. Das Web-BFF liefert reichhaltigere Daten. Beide sprechen mit denselben Backend-Services, aber jedes BFF optimiert für seinen Client.\n\nMerke: Ein BFF heißt: Jedes Frontend verdient ein Backend, das seine Sprache spricht.",
+    "merksatz_de": "Ein BFF heißt: Jedes Frontend verdient ein Backend, das seine Sprache spricht."
   },
   {
     "id": "island-architecture",
@@ -1185,7 +1417,9 @@
     "path_position": 6,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine Marketing-Seite lädt zwei Megabyte JavaScript — für einen einzigen interaktiven Slider. Der Rest ist statischer Text.\n\nSingle Page Applications laden oft riesige Bundles, obwohl 90 Prozent der Seite gar kein JavaScript braucht.\n\nIsland Architecture rendert die Seite serverseitig als statisches HTML und hydriert nur die interaktiven Bereiche — die sogenannten Inseln. Stell dir ein Museum vor: Die Ausstellung besteht aus statischen Tafeln, aber an einzelnen Stationen gibt es interaktive Bildschirme — nur wo sie echten Mehrwert bieten.\n\nEine Produktseite besteht aus statischem HTML für Beschreibung, Bilder und Bewertungen. Nur der „In den Warenkorb\"-Button und der Bildkarussell sind interaktive Inseln, die JavaScript laden. Frameworks wie Astro machen dieses Muster zum Standard.\n\nMerke: Island Architecture heißt: Lade JavaScript nur dort, wo Interaktivität tatsächlich gebraucht wird.",
+    "merksatz_de": "Island Architecture heißt: Lade JavaScript nur dort, wo Interaktivität tatsächlich gebraucht wird."
   },
   {
     "id": "ssr-ssg-csr",
@@ -1196,7 +1430,9 @@
     "path_position": 7,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du öffnest eine Seite — drei Sekunden weißer Bildschirm. Google sieht nur ein leeres div-Tag. Dein SEO-Ranking sinkt.\n\nClient Side Rendering schickt ein leeres HTML-Gerüst an den Browser. Erst danach lädt JavaScript und baut die Seite zusammen. Schnell für Entwickler, langsam für Nutzer.\n\nEs gibt drei Rendering-Strategien. CSR rendert alles im Browser — schnelle Navigation, aber langsamer erster Seitenaufruf. SSR — Server Side Rendering — erzeugt HTML auf dem Server bei jedem Request, ideal für dynamische, SEO-relevante Inhalte. SSG — Static Site Generation — erzeugt HTML beim Build, perfekt für Inhalte, die sich selten ändern. Stell dir vor: CSR ist ein leeres Malbuch, SSR ein frisch gemaltes Bild, SSG ein gedrucktes Poster.\n\nEin Blog nutzt SSG, ein Dashboard CSR, eine Produktseite SSR. Die richtige Wahl hängt vom Anwendungsfall ab.\n\nMerke: Rendering-Strategie heißt: Wähle nicht nach Trend, sondern nach dem, was deine Nutzer brauchen.",
+    "merksatz_de": "Rendering-Strategie heißt: Wähle nicht nach Trend, sondern nach dem, was deine Nutzer brauchen."
   },
   {
     "id": "design-system",
@@ -1207,7 +1443,9 @@
     "path_position": 8,
     "requires": ["komponente"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Jedes Team hat einen eigenen Button — anderer Radius, andere Farbe, anderes Hover-Verhalten. Dein Produkt sieht aus wie ein Flickenteppich.\n\nOhne gemeinsame Standards baut jedes Team seine eigene Version von allem. Das kostet Zeit und verwirrt die Nutzer.\n\nEin Design System ist eine Sammlung wiederverwendbarer Komponenten, Richtlinien und Designprinzipien, die eine konsistente Benutzeroberfläche sicherstellen. Es ist wie ein Baukasten: Alle Teams bauen mit den gleichen Steinen — Form, Farbe und Größe sind definiert.\n\nEin Unternehmen erstellt eine Komponentenbibliothek mit Buttons, Formularen und Typografie. Jede Komponente hat dokumentierte Props, Accessibility-Standards und visuelle Varianten. Teams installieren die Library per npm und haben sofort ein konsistentes UI.\n\nMerke: Ein Design System ist keine Deko — es ist die gemeinsame Sprache zwischen Design und Entwicklung.",
+    "merksatz_de": "Ein Design System ist keine Deko — es ist die gemeinsame Sprache zwischen Design und Entwicklung."
   },
   {
     "id": "monorepo",
@@ -1218,7 +1456,9 @@
     "path_position": 9,
     "requires": ["modul"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst eine Utility-Funktion ändern, die in fünf Repositories genutzt wird. Fünf PRs, fünf Reviews, fünf Releases. Für eine Zeile Code.\n\nMulti-Repo-Setups erzeugen Koordinationsaufwand. Versionskonflikte zwischen Packages, aufwändiges Dependency-Management und fehlende Übersicht.\n\nEin Monorepo speichert mehrere Projekte in einem einzigen Repository. Alle Teams arbeiten in derselben Codebasis, teilen sich Build-Tools und können Änderungen atomar über mehrere Packages hinweg machen. Stell dir ein Großraumbüro vor: Alle sitzen zusammen, Absprachen gehen schnell, und jeder sieht, was die anderen tun.\n\nGoogle, Facebook und Microsoft nutzen Monorepos. Mit Tools wie Nx oder Turborepo baust du nur das, was sich geändert hat. Eine Änderung an der Shared Library wird sofort in allen abhängigen Projekten getestet.\n\nMerke: Monorepo heißt: Ein Repository, viele Projekte — Konsistenz durch Nähe statt Isolation.",
+    "merksatz_de": "Monorepo heißt: Ein Repository, viele Projekte — Konsistenz durch Nähe statt Isolation."
   },
   {
     "id": "team-architektur",
@@ -1229,7 +1469,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Drei Teams bauen an einem System — und keiner weiß, wo sein Bereich endet und der des anderen anfängt. Jedes Meeting wird zur Grenzverhandlung.\n\nSoftware-Architektur wird oft rein technisch gedacht. Aber die Teamstruktur bestimmt die Systemstruktur — ob du willst oder nicht.\n\nTeam-Architektur beschreibt, wie Teams geschnitten, organisiert und miteinander verbunden werden, damit sie effektiv Software liefern können. Stell dir eine Fußballmannschaft vor: Es reicht nicht, elf gute Spieler zu haben — Positionen, Laufwege und Zuständigkeiten müssen klar sein.\n\nWenn das Datenbank-Team, das API-Team und das Frontend-Team an einem Feature arbeiten, entstehen Abhängigkeiten und Wartezeiten. Ein cross-funktionales Team, das alle Schichten verantwortet, kann unabhängig liefern.\n\nIn diesem Pfad lernst du, wie Teamstrukturen Software-Architektur formen — von Conway's Law bis Developer Experience.",
+    "merksatz_de": ""
   },
   {
     "id": "conways-law",
@@ -1240,7 +1482,9 @@
     "path_position": 1,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Euer System hat drei Microservices, die über eine gemeinsame Datenbank kommunizieren. Überraschung: Im Unternehmen gibt es auch genau drei Teams — und alle teilen sich einen DBA.\n\nDie Systemstruktur spiegelt immer die Kommunikationsstruktur der Organisation wider. Immer.\n\nConway's Law besagt: Organisationen entwerfen Systeme, die ihre eigene Kommunikationsstruktur abbilden. Melvin Conway formulierte das 1967. Stell dir vor, vier Teams sollen einen Compiler bauen — du bekommst einen Vier-Pass-Compiler. Nicht weil es technisch sinnvoll ist, sondern weil jedes Team seinen Teil baut.\n\nEin Unternehmen mit getrennten Frontend- und Backend-Abteilungen produziert eine dicke API-Schicht dazwischen. Ein Unternehmen mit cross-funktionalen Teams baut integrierte, end-to-end-verantwortliche Services.\n\nMerke: Conway's Law ist kein Bug — es ist eine Naturgewalt. Nutze sie, statt gegen sie zu kämpfen.",
+    "merksatz_de": "Conway's Law ist kein Bug — es ist eine Naturgewalt. Nutze sie, statt gegen sie zu kämpfen."
   },
   {
     "id": "inverse-conway-maneuver",
@@ -1251,7 +1495,9 @@
     "path_position": 2,
     "requires": ["conways-law"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst eine Microservice-Architektur — aber deine Organisation ist in Schichten organisiert: Frontend-Team, Backend-Team, Datenbank-Team.\n\nConway's Law sagt: Die Teamstruktur bestimmt die Systemstruktur. Wenn du die Architektur ändern willst, musst du zuerst die Teams ändern.\n\nDas Inverse Conway Maneuver dreht die Kausalität bewusst um: Du gestaltest die Organisation so, dass die gewünschte Architektur natürlich entsteht. Stell dir vor, du willst eine andere Sprache sprechen — dann umgibst du dich mit Muttersprachlern, statt aus dem Lehrbuch zu lernen.\n\nBevor ein Unternehmen zu Microservices migriert, bildet es cross-funktionale Teams entlang fachlicher Domänen. Jedes Team bekommt Frontend, Backend und Datenbank-Kompetenz. Die Microservice-Grenzen folgen dann natürlich den Teamgrenzen.\n\nMerke: Willst du eine andere Architektur, baue zuerst die Organisation um, die sie hervorbringen soll.",
+    "merksatz_de": "Willst du eine andere Architektur, baue zuerst die Organisation um, die sie hervorbringen soll."
   },
   {
     "id": "team-topologies",
@@ -1262,7 +1508,9 @@
     "path_position": 3,
     "requires": ["conways-law"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Unternehmen hat 15 Teams, aber niemand kann erklären, warum die Teams so geschnitten sind wie sie sind.\n\nTeamstrukturen wachsen oft historisch — wer halt gerade da war. Das Ergebnis: unklare Verantwortlichkeiten und ständige Koordination.\n\nTeam Topologies ist ein Modell von Matthew Skelton und Manuel Pais mit vier Teamtypen. Stream-aligned Teams liefern Features. Platform Teams stellen Infrastruktur bereit. Enabling Teams helfen anderen Teams besser zu werden. Complicated-Subsystem Teams kapseln Spezialwissen. Stell dir ein Krankenhaus vor: Ärzte behandeln Patienten, die Apotheke liefert Medikamente, Fortbildung verbessert Fähigkeiten.\n\nEin Unternehmen ordnet jedem Produktbereich ein Stream-aligned Team zu. Ein Platform Team baut die Deployment-Pipeline. Ein Enabling Team hilft bei der Einführung von Observability.\n\nMerke: Team Topologies gibt dir ein Vokabular, um Teamstrukturen bewusst zu gestalten statt zufällig wachsen zu lassen.",
+    "merksatz_de": "Team Topologies gibt dir ein Vokabular, um Teamstrukturen bewusst zu gestalten statt zufällig wachsen zu lassen."
   },
   {
     "id": "platform-team",
@@ -1273,7 +1521,9 @@
     "path_position": 4,
     "requires": ["team-topologies"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Jedes deiner zehn Teams baut seine eigene CI/CD-Pipeline, eigene Logging-Lösung, eigenes Deployment-Skript. Zehnmal derselbe Aufwand.\n\nWenn jedes Team das Rad neu erfindet, geht wertvolle Zeit verloren, die in Produktfeatures fließen könnte.\n\nEin Platform Team baut und betreibt eine interne Plattform, die anderen Teams als Self-Service dient. Es reduziert den kognitiven Aufwand der Produktteams, damit diese sich auf Fachlogik konzentrieren können. Stell dir die Haustechnik in einem Bürogebäude vor: Strom, Wasser und Heizung funktionieren einfach — niemand muss sich selbst darum kümmern.\n\nDas Platform Team stellt eine interne Developer Platform bereit: Deployment per Knopfdruck, standardisiertes Monitoring, vorkonfigurierte Datenbanken. Produktteams konsumieren diese Services über ein Portal, ohne Tickets an ein Ops-Team schreiben zu müssen.\n\nMerke: Ein gutes Platform Team macht andere Teams schneller — nicht abhängiger.",
+    "merksatz_de": "Ein gutes Platform Team macht andere Teams schneller — nicht abhängiger."
   },
   {
     "id": "stream-aligned-team",
@@ -1284,7 +1534,9 @@
     "path_position": 5,
     "requires": ["team-topologies"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Für ein neues Feature brauchst du Abstimmung mit dem Frontend-Team, dem API-Team, dem Datenbank-Team und dem Ops-Team. Vier Meetings, bevor eine Zeile Code fließt.\n\nSchichtbasierte Teams erzeugen Abhängigkeiten. Jedes Feature durchläuft eine Kette von Übergaben.\n\nEin Stream-aligned Team ist entlang eines Wertstroms organisiert — es besitzt alle Fähigkeiten, um Features end-to-end zu liefern, von der Idee bis zur Produktion. Stell dir eine Pizzeria vor: Ein Team macht den Teig, belegt die Pizza, backt sie und serviert — alles aus einer Hand.\n\nEin Stream-aligned Team „Bestellprozess\" verantwortet die gesamte Bestellstrecke: Frontend, Backend, Datenbank und Betrieb. Es kann eigenständig Features releasen, ohne auf andere Teams warten zu müssen. Die meisten Teams in einer Organisation sollten Stream-aligned sein.\n\nMerke: Stream-aligned Teams liefern Wert direkt an den Kunden — ohne Umwege und Wartezeiten.",
+    "merksatz_de": "Stream-aligned Teams liefern Wert direkt an den Kunden — ohne Umwege und Wartezeiten."
   },
   {
     "id": "cognitive-load",
@@ -1295,7 +1547,9 @@
     "path_position": 6,
     "requires": ["team-topologies"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Team betreut acht Microservices, zwei Datenbanken, eine Message Queue und die CI/CD-Pipeline. Neue Teamkollegen brauchen sechs Monate Einarbeitung.\n\nWenn ein Team zu viel gleichzeitig im Kopf behalten muss, sinkt die Produktivität. Fehler passieren, weil die mentale Kapazität erschöpft ist.\n\nCognitive Load beschreibt die mentale Belastung, die ein Team bewältigen muss. Es gibt drei Arten: Intrinsic Load ist die unvermeidbare Fachkomplexität. Extraneous Load entsteht durch schlechte Tools oder Prozesse. Germane Load ist der produktive Lernaufwand. Vergleich das mit einem Jongleur: Mit drei Bällen geht es elegant — bei zehn fallen alle runter.\n\nWenn ein Team neben der Fachlogik auch Infrastruktur, Deployment und Monitoring verantwortet, steigt die Gesamtlast. Die Lösung: Ein Platform Team übernimmt den Extraneous Load.\n\nMerke: Reduziere Cognitive Load, und dein Team wird schneller — nicht durch Druck, sondern durch Klarheit.",
+    "merksatz_de": "Reduziere Cognitive Load, und dein Team wird schneller — nicht durch Druck, sondern durch Klarheit."
   },
   {
     "id": "developer-experience",
@@ -1306,7 +1560,9 @@
     "path_position": 7,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst einen kleinen Bugfix deployen. Erst Ticket erstellen, dann Branch, dann Pipeline warten, dann manueller Review, dann Staging, dann nochmal warten. Zwei Tage für eine Zeile Code.\n\nWenn Entwickler mehr Zeit mit Prozessen verbringen als mit Entwickeln, stimmt etwas nicht.\n\nDeveloper Experience — kurz DevEx — beschreibt, wie einfach, schnell und angenehm es für Entwickler ist, ihre Arbeit zu erledigen. Die drei Dimensionen: Feedback-Geschwindigkeit, kognitive Belastung und Flow State. Stell dir einen Handwerker vor: Gutes Werkzeug liegt griffbereit, das Material ist da, und niemand unterbricht ihn alle fünf Minuten.\n\nEin Unternehmen misst: Wie lange dauert es vom git push bis zur Produktion? Wie schnell laufen Tests? Wie oft werden Entwickler durch Kontextwechsel unterbrochen? Dann optimiert es Build-Zeiten, automatisiert Reviews und vereinfacht das Onboarding.\n\nMerke: Zufriedene Entwickler bauen bessere Software — mach es ihnen leicht.",
+    "merksatz_de": "Zufriedene Entwickler bauen bessere Software — mach es ihnen leicht."
   },
   {
     "id": "inner-source",
@@ -1317,7 +1573,9 @@
     "path_position": 8,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du brauchst eine Änderung in einer internen Library eines anderen Teams. Ticket geschrieben, drei Wochen gewartet, Priorität: niedrig.\n\nWenn Code nur vom „besitzenden\" Team geändert werden darf, entstehen Warteschlangen und Frust.\n\nInner Source wendet Open-Source-Praktiken innerhalb eines Unternehmens an. Jeder kann Code anderer Teams lesen, Änderungen vorschlagen und Pull Requests einreichen. Stell dir eine Firmenbibliothek vor: Jeder darf lesen, und wer einen Fehler im Buch findet, darf eine Korrektur vorschlagen — der Autor entscheidet, ob sie übernommen wird.\n\nTeam A braucht ein Feature in der Authentifizierungs-Library von Team B. Statt zu warten, forkt Team A das Repository, implementiert das Feature und stellt einen Pull Request. Team B reviewt und mergt. Beide profitieren.\n\nMerke: Inner Source heißt: Öffne deinen Code intern — und verwandle Warteschlangen in Zusammenarbeit.",
+    "merksatz_de": "Inner Source heißt: Öffne deinen Code intern — und verwandle Warteschlangen in Zusammenarbeit."
   },
   {
     "id": "engineering-levels",
@@ -1328,7 +1586,9 @@
     "path_position": 9,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Deine beste Entwicklerin fragt: „Was muss ich tun, um Senior zu werden?\" Du zuckst mit den Schultern.\n\nOhne klare Karrierepfade verlierst du Talente. Menschen wollen wissen, wo sie stehen und wohin sie wachsen können.\n\nEngineering Levels definieren Stufen der fachlichen Entwicklung — von Junior bis Staff oder Principal Engineer. Jede Stufe beschreibt erwartete Fähigkeiten, Verantwortung und Wirkungsgrad. Stell dir Gürtelfarben im Kampfsport vor: Jeder weiß, was für den nächsten Gürtel nötig ist — und kann gezielt daran arbeiten.\n\nEine typische Leiter: Junior löst klar definierte Aufgaben. Mid-Level arbeitet eigenständig an Features. Senior gestaltet technische Richtung eines Teams. Staff Engineer wirkt teamübergreifend auf die Architektur. Principal Engineer prägt die technische Strategie des Unternehmens.\n\nMerke: Engineering Levels machen Wachstum messbar — damit Karriere kein Zufall ist, sondern ein Weg.",
+    "merksatz_de": "Engineering Levels machen Wachstum messbar — damit Karriere kein Zufall ist, sondern ein Weg."
   },
   {
     "id": "legacy-modernisierung",
@@ -1339,7 +1599,9 @@
     "path_position": 0,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du sollst ein neues Feature bauen — aber der Code ist 15 Jahre alt, niemand versteht ihn vollständig, und der letzte Entwickler hat die Firma verlassen.\n\nLegacy-Systeme sind oft geschäftskritisch. Einfach abschalten geht nicht. Komplett neu bauen meistens auch nicht.\n\nLegacy-Modernisierung beschreibt Strategien, um bestehende Systeme schrittweise zu verbessern, zu ersetzen oder zu transformieren — ohne den laufenden Betrieb zu gefährden. Stell dir die Renovierung eines bewohnten Hauses vor: Du kannst nicht alles auf einmal einreißen, sondern arbeitest Raum für Raum.\n\nEin Unternehmen hat einen COBOL-Monolithen. Statt eines Big-Bang-Rewrites extrahiert es schrittweise Funktionalität in moderne Services. Die Strangler Fig Methode umschließt das alte System, bis nichts mehr davon übrig ist.\n\nIn diesem Pfad lernst du die Werkzeuge der Modernisierung — von Strangler Fig bis Evolutionary Architecture.",
+    "merksatz_de": ""
   },
   {
     "id": "big-ball-of-mud",
@@ -1350,7 +1612,9 @@
     "path_position": 1,
     "requires": ["kopplung"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du öffnest eine Klasse und sie hat dreitausend Zeilen. Sie importiert alles, wird von allem importiert, und der Kommentar sagt: „Bitte nicht anfassen.\"\n\nWillkommen im Big Ball of Mud — dem häufigsten Architekturmuster der Welt.\n\nEin Big Ball of Mud ist ein System ohne erkennbare Struktur. Alles hängt mit allem zusammen, Verantwortlichkeiten sind verteilt statt getrennt, und Änderungen haben unvorhersehbare Nebenwirkungen. Stell dir eine Schublade vor, in die jahrelang alles reingeworfen wurde — Schrauben, Batterien, Kabel, Bonbons. Alles drin, nichts findbar.\n\nEs entsteht schleichend: Zeitdruck, fehlende Reviews, keine Architektur-Entscheidungen. Jeder Quickfix macht es schlimmer. Irgendwann ist der Code so verwoben, dass selbst kleine Änderungen Tage dauern.\n\nMerke: Der Big Ball of Mud ist kein Schicksal — er ist das Ergebnis von fehlenden bewussten Architektur-Entscheidungen.",
+    "merksatz_de": "Der Big Ball of Mud ist kein Schicksal — er ist das Ergebnis von fehlenden bewussten Architektur-Entscheidungen."
   },
   {
     "id": "technische-schulden-legacy",
@@ -1361,7 +1625,9 @@
     "path_position": 2,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du nimmst eine Abkürzung: Hardcodierte Werte, Copy-Paste statt Refactoring, keine Tests. „Machen wir später richtig.\" Später kommt nie.\n\nJede Abkürzung ist ein Kredit auf die Zukunft. Und wie bei echten Schulden zahlst du Zinsen — in Form von langsamerer Entwicklung.\n\nTechnische Schulden sind der Mehraufwand, der entsteht, wenn du bewusst oder unbewusst suboptimale technische Entscheidungen triffst. Ward Cunningham prägte die Metapher: Wie ein Bankkredit ermöglichen sie kurzfristig Geschwindigkeit, kosten aber langfristig durch Zinsen. Stell dir einen Schreibtisch vor: Je mehr Zettel sich stapeln, desto länger suchst du — bis du nur noch suchst.\n\nEin Team shipped schneller, indem es auf Tests verzichtet. Sechs Monate später dauert jedes Feature doppelt so lang, weil Bugs nur durch manuelles Testen gefunden werden.\n\nMerke: Technische Schulden sind nicht böse — aber du musst sie bewusst aufnehmen und aktiv zurückzahlen.",
+    "merksatz_de": "Technische Schulden sind nicht böse — aber du musst sie bewusst aufnehmen und aktiv zurückzahlen."
   },
   {
     "id": "strangler-fig-legacy",
@@ -1372,7 +1638,9 @@
     "path_position": 3,
     "requires": ["monolith"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Dein Monolith hat 500.000 Zeilen Code. Der CTO sagt: „Wir bauen das komplett neu.\" Zwei Jahre später ist das neue System halb fertig und der Monolith hat neue Features bekommen.\n\nBig-Bang-Rewrites scheitern fast immer. Zu viel Risiko, zu viel Parallelarbeit, zu wenig Geduld.\n\nDie Strangler Fig Pattern — benannt nach der Würgefeige, die ihren Wirtsbaum langsam umschließt — ersetzt ein Legacy-System Stück für Stück. Du baust neue Funktionalität daneben, leitest Anfragen schrittweise um und schaltest alte Teile ab, wenn sie nicht mehr gebraucht werden.\n\nEin Unternehmen stellt einen Proxy vor den Monolithen. Neue Bestellungen gehen an den neuen Service, alte Abfragen noch an den Monolithen. Nach und nach wandern alle Funktionen. Der Monolith schrumpft, bis er abgeschaltet werden kann.\n\nMerke: Strangler Fig heißt: Ersetze das Alte nicht auf einen Schlag — sondern wachse drumherum.",
+    "merksatz_de": "Strangler Fig heißt: Ersetze das Alte nicht auf einen Schlag — sondern wachse drumherum."
   },
   {
     "id": "anti-corruption-layer-legacy",
@@ -1383,7 +1651,9 @@
     "path_position": 4,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du integrierst ein Legacy-System. Plötzlich tauchen überall kryptische Feldnamen auf: KUNNR, BELNR, VKORG. Dein neuer Code wird vom alten Modell infiziert.\n\nWenn du ein fremdes Datenmodell direkt übernimmst, verbreitet sich dessen Komplexität in deinem gesamten System.\n\nDer Anti-Corruption Layer — kurz ACL — ist eine Übersetzungsschicht zwischen deinem System und einem externen oder Legacy-System. Er schützt dein sauberes Domänenmodell vor der Verschmutzung durch fremde Konzepte. Stell dir einen Dolmetscher vor: Er übersetzt zwischen zwei Sprachen, sodass keiner die Sprache des anderen lernen muss.\n\nDein neuer Bestellservice spricht mit einem SAP-System. Der ACL übersetzt SAP-Feldnamen in dein Domänenmodell: KUNNR wird zu customerId, BELNR zu orderId. Dein Code bleibt sauber, egal wie chaotisch das Fremdsystem ist.\n\nMerke: Ein Anti-Corruption Layer heißt: Lass fremden Code niemals dein Modell diktieren.",
+    "merksatz_de": "Ein Anti-Corruption Layer heißt: Lass fremden Code niemals dein Modell diktieren."
   },
   {
     "id": "branch-by-abstraction",
@@ -1394,7 +1664,9 @@
     "path_position": 5,
     "requires": ["abstraktion"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst die Datenbank-Schicht austauschen. Aber hunderte Stellen im Code greifen direkt darauf zu. Ein Feature-Branch würde Wochen offen sein.\n\nLanglebige Branches erzeugen Merge-Hölle. Je länger der Branch, desto schmerzhafter die Integration.\n\nBranch by Abstraction ersetzt langlebige Code-Branches durch eine Abstraktion im Hauptbranch. Du führst ein Interface ein, implementierst die alte und die neue Variante dahinter und schaltest per Feature Toggle um. Stell dir einen Adapter vor: Du steckst den alten und den neuen Stecker in dieselbe Dose — und wechselst nahtlos.\n\nDein Team will von MySQL auf PostgreSQL migrieren. Ihr führt ein Repository-Interface ein. Die alte MySQL-Implementierung und die neue PostgreSQL-Implementierung existieren parallel. Ein Toggle entscheidet, welche aktiv ist. Alles bleibt auf dem Hauptbranch, deploybar, testbar.\n\nMerke: Branch by Abstraction heißt: Große Änderungen inkrementell liefern — ohne Branch, ohne Merge-Hölle.",
+    "merksatz_de": "Branch by Abstraction heißt: Große Änderungen inkrementell liefern — ohne Branch, ohne Merge-Hölle."
   },
   {
     "id": "expand-contract",
@@ -1405,7 +1677,9 @@
     "path_position": 6,
     "requires": ["api"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst ein API-Feld umbenennen. Aber zwanzig Clients nutzen den alten Namen. Du kannst nicht alle gleichzeitig umstellen.\n\nBreaking Changes sind der Albtraum jeder API-Evolution. Ändere etwas, und irgendwo bricht etwas anderes.\n\nExpand/Contract — auch Parallel Change genannt — ist ein dreistufiges Muster: Erst erweiterst du das System um die neue Variante, dann migrierst du alle Konsumenten, dann entfernst du die alte Variante. Stell dir eine Baustelle mit Umleitung vor: Erst baust du die neue Straße, dann leitest du den Verkehr um, dann reißt du die alte ab.\n\nDu fügst das neue Feld „customerName\" hinzu, während „name\" weiter existiert. Beide liefern denselben Wert. Die Clients migrieren nacheinander. Wenn der letzte Client umgestellt ist, entfernst du „name\". Kein einziger Breaking Change.\n\nMerke: Expand/Contract heißt: Ändere nie destruktiv — erweitere, migriere, entferne.",
+    "merksatz_de": "Expand/Contract heißt: Ändere nie destruktiv — erweitere, migriere, entferne."
   },
   {
     "id": "seam",
@@ -1416,7 +1690,9 @@
     "path_position": 7,
     "requires": [],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst einen Test für eine Klasse schreiben, aber sie erzeugt intern eine Datenbankverbindung. Ohne Datenbank kein Test. Ohne Test kein Refactoring.\n\nLegacy-Code ist oft so eng verwoben, dass du ihn nicht testen kannst, ohne ihn zu ändern — und du kannst ihn nicht ändern, ohne Tests. Ein Teufelskreis.\n\nEin Seam — der Begriff stammt von Michael Feathers — ist eine Stelle im Code, an der du das Verhalten ändern kannst, ohne den Code selbst zu editieren. Stell dir eine Naht in einem Kleidungsstück vor: Dort kannst du es auftrennen und umändern, ohne den ganzen Stoff zu zerschneiden.\n\nEine Methode ruft direkt new DatabaseConnection() auf. Du extrahierst den Aufruf in eine geschützte Methode. Im Test überschreibst du diese Methode mit einem Mock. Das ist ein Object Seam — du hast eine Stelle geschaffen, an der du eingreifen kannst.\n\nMerke: Ein Seam ist dein erster Hebel, um Legacy-Code testbar zu machen — ohne alles umzuschreiben.",
+    "merksatz_de": "Ein Seam ist dein erster Hebel, um Legacy-Code testbar zu machen — ohne alles umzuschreiben."
   },
   {
     "id": "modularisierung",
@@ -1427,7 +1703,9 @@
     "path_position": 8,
     "requires": ["kopplung", "kohaesion"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du änderst eine Zeile im Bestellmodul — und plötzlich schlägt ein Test im Reporting fehl. Alles hängt mit allem zusammen.\n\nEin System ohne Module ist wie eine Wohnung ohne Wände: Kein Raum hat eine klare Funktion, und jede Änderung betrifft alle.\n\nModularisierung bedeutet, ein System in abgegrenzte Einheiten mit klaren Verantwortlichkeiten, definierten Schnittstellen und möglichst wenig Abhängigkeiten aufzuteilen. Stell dir ein Regal mit beschrifteten Kisten vor: Jede Kiste enthält zusammengehörige Dinge, und du weißt genau, wo du suchen musst.\n\nIn einem Monolithen definierst du Module wie „Bestellung\", „Kunde\" und „Zahlung\". Jedes Modul hat eine öffentliche API und versteckt seine interne Implementierung. Module kommunizieren nur über definierte Schnittstellen. Tools wie ArchUnit oder jMolecules prüfen die Einhaltung der Grenzen automatisch.\n\nMerke: Modularisierung ist der erste Schritt aus dem Chaos — und du brauchst dafür keine Microservices.",
+    "merksatz_de": "Modularisierung ist der erste Schritt aus dem Chaos — und du brauchst dafür keine Microservices."
   },
   {
     "id": "datenbank-refactoring",
@@ -1438,7 +1716,9 @@
     "path_position": 9,
     "requires": ["datenmigration"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du willst eine Tabellenspalte umbenennen. Aber 30 gespeicherte Prozeduren, acht Services und drei Reports nutzen sie. Eine Änderung, dreißig Baustellen.\n\nDatenbank-Änderungen sind besonders heikel, weil die Datenbank oft der zentrale Integrationspunkt ist, den viele Systeme teilen.\n\nDatenbank-Refactoring bedeutet, das Datenbankschema zu verbessern, ohne die Semantik der Daten oder das Verhalten der Anwendungen zu verändern. Scott Ambler und Pramod Sadalage prägten den Begriff. Stell dir vor, du nummerierst Regale in einem Lager um — die Ware bleibt gleich, aber die Ordnung wird besser.\n\nDu willst eine Tabelle „users\" in „customers\" und „employees\" aufteilen. Erst erstellst du die neuen Tabellen, dann Views, die das alte Schema simulieren. Clients migrieren schrittweise. Erst wenn alle umgestellt sind, entfernst du die Views. Alles per Migrations-Skript und versioniert.\n\nMerke: Datenbank-Refactoring heißt: Ändere das Schema so, wie du Code refactorst — in kleinen, sicheren Schritten.",
+    "merksatz_de": "Datenbank-Refactoring heißt: Ändere das Schema so, wie du Code refactorst — in kleinen, sicheren Schritten."
   },
   {
     "id": "evolutionary-architecture",
@@ -1449,6 +1729,8 @@
     "path_position": 10,
     "requires": ["fitness-functions"],
     "youtube_de": "",
-    "youtube_en": ""
+    "youtube_en": "",
+    "script_de": "Du hast die perfekte Architektur entworfen — vor drei Jahren. Seitdem hat sich alles geändert: neue Anforderungen, neue Technologien, zehnmal mehr Nutzer.\n\nEine Architektur, die sich nicht weiterentwickeln kann, wird zur Fessel. Aber wie baust du Wandelbarkeit ein?\n\nEvolutionary Architecture — geprägt von Neal Ford, Rebecca Parsons und Patrick Kua — beschreibt eine Architektur, die gesteuerte, inkrementelle Veränderung über mehrere Dimensionen unterstützt. Der Schlüssel sind Fitness Functions: automatisierte Tests, die architektonische Eigenschaften prüfen. Stell dir einen Garten vor: Du planst nicht jede Pflanze für die Ewigkeit, sondern pflegst, beschneidest und pflanzt um — mit klaren Regeln, was gedeihen soll.\n\nEin Team definiert Fitness Functions: „Keine zyklischen Abhängigkeiten\", „Antwortzeit unter 200ms\", „Kein Service kennt die Datenbank eines anderen.\" Diese laufen in der CI/CD-Pipeline und schlagen Alarm, bevor die Architektur erodiert.\n\nMerke: Evolutionary Architecture heißt: Plane nicht für die Ewigkeit — plane für den Wandel.",
+    "merksatz_de": "Evolutionary Architecture heißt: Plane nicht für die Ewigkeit — plane für den Wandel."
   }
 ]

@@ -19,6 +19,10 @@ const sampleConcept = {
   requires: ['dienst-service', 'kopplung'],
   youtube_de: 'https://youtube.com/shorts/abc123',
   youtube_en: 'https://youtube.com/shorts/def456',
+  script_de: 'Erster Absatz.\n\nZweiter Absatz.\n\nMerke: Das ist der Merksatz.',
+  script_en: 'First paragraph.\n\nSecond paragraph.\n\nRemember: This is the takeaway.',
+  merksatz_de: 'Das ist der Merksatz.',
+  merksatz_en: 'This is the takeaway.',
 }
 
 const sampleConceptNoVideo = {
@@ -207,6 +211,30 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('data-concept-id="microservices"')
       expect(html).toContain('seen-button')
       expect(html).toContain('aria-pressed="false"')
+    })
+
+    it('includes script text as paragraphs', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('Erster Absatz.')
+      expect(html).toContain('Zweiter Absatz.')
+      expect(html).toContain('data-lang="de"')
+      expect(html).toContain('data-lang="en"')
+    })
+
+    it('includes merksatz in blockquote', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('border-accent-orange')
+      expect(html).toContain('Das ist der Merksatz.')
+      expect(html).toContain('This is the takeaway.')
+    })
+
+    it('shows single video with switch link', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('id="video-de"')
+      expect(html).toContain('id="video-en"')
+      expect(html).toContain('id="switch-video-lang"')
+      // EN video should be hidden by default
+      expect(html).toContain('id="video-en" data-lang="en" class="hidden"')
     })
 
     it('includes meta tags', () => {
