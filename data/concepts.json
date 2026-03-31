@@ -41,7 +41,7 @@
     "requires": [
       "abstraktion"
     ],
-    "youtube_de": "",
+    "youtube_de": "https://youtube.com/shorts/miKypwG3v7g",
     "youtube_en": "https://youtube.com/shorts/IloYZrIPMQE",
     "script_de": "Du hast hundert Dateien im Projekt. Jede kennt jede. Wenn du eine änderst, brechen drei andere. Das ist kein großes Projekt — das ist ein Projekt ohne Module.\n\nEin Modul ist eine Einheit, die zusammengehörige Funktionen bündelt — mit einer klaren Grenze nach außen. Denk an eine Schublade in der Küche: Besteck gehört zusammen. Gewürze gehören zusammen. Du suchst nicht das Salz zwischen den Gabeln.\n\nIn Software bedeutet das: Alles was zur Benutzer-Verwaltung gehört — Registrierung, Login, Passwort-Reset — lebt in einem Modul. Der Rest des Systems kennt nur die Schnittstelle, nicht die Details.\n\nEin gutes Modul hat zwei Eigenschaften: Es versteckt seine Interna. Und es hat einen klaren Grund zu existieren. Wenn du nicht in einem Satz sagen kannst, was ein Modul tut, ist es wahrscheinlich kein gutes Modul.\n\nMerke: Ein gutes Modul erkennst du daran, dass du es in einem Satz beschreiben kannst.",
     "merksatz_de": "Ein gutes Modul erkennst du daran, dass du es in einem Satz beschreiben kannst.",

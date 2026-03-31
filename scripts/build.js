@@ -255,18 +255,19 @@ export function generatePathPage(path, allConcepts, translations, stemConceptIds
     .filter(Boolean)
 
   const conceptListHtml = pathConcepts
-    .map(
-      (c) => `
-      <li class="p-3 bg-bg-card rounded-lg flex items-center gap-2">
-        <span class="text-accent-cyan text-sm" data-concept-seen="${escapeHtml(c.id)}">○</span>
-        <a href="/concept/${escapeHtml(c.id)}" class="text-accent-blue hover:underline font-medium" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</a>
+    .map((c) => {
+      const hasVideo = !!(c.youtube_de || c.youtube_en)
+      return `
+      <li class="p-3 bg-bg-card rounded-lg flex items-center gap-2${hasVideo ? '' : ' opacity-40'}">
+        ${hasVideo ? `<span class="text-accent-cyan text-sm" data-concept-seen="${escapeHtml(c.id)}">○</span>` : '<span class="text-text-muted text-sm">○</span>'}
+        ${hasVideo ? `<a href="/concept/${escapeHtml(c.id)}" class="text-accent-blue hover:underline font-medium" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</a>` : `<span class="text-text-muted font-medium" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span>`}
         ${
           c.requires && c.requires.length > 0
             ? `<span class="text-xs text-text-muted ml-2">\u2190 ${c.requires.map((r) => escapeHtml(r)).join(', ')}</span>`
             : ''
         }
       </li>`
-    )
+    })
     .join('\n')
 
   const body = `
@@ -295,10 +296,12 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
   const stemConcepts = allConcepts.filter((c) => c.path === 'stem')
 
   const stemHtml = stemConcepts
-    .map(
-      (c) =>
-        `<a href="/concept/${escapeHtml(c.id)}" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition flex items-center justify-center gap-2"><span class="text-accent-cyan text-xs" data-concept-seen="${escapeHtml(c.id)}">○</span> <span data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span></a>`
-    )
+    .map((c) => {
+      const hasVideo = !!(c.youtube_de || c.youtube_en)
+      return hasVideo
+        ? `<a href="/concept/${escapeHtml(c.id)}" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition flex items-center justify-center gap-2"><span class="text-accent-cyan text-xs" data-concept-seen="${escapeHtml(c.id)}">○</span> <span data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span></a>`
+        : `<span class="p-3 bg-bg-card rounded-lg text-center border border-transparent opacity-40 flex items-center justify-center gap-2"><span class="text-text-muted text-xs">○</span> <span data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span></span>`
+    })
     .join('\n')
 
   const pathCardsHtml = allPaths

@@ -307,6 +307,7 @@ describe('UC-7: Build script — HTML generation', () => {
           path: 'microservices',
           path_position: 1,
           requires: [],
+          youtube_de: 'https://youtube.com/shorts/abc123',
         },
         {
           id: 'dienst-service',
@@ -315,6 +316,7 @@ describe('UC-7: Build script — HTML generation', () => {
           path: 'microservices',
           path_position: 2,
           requires: [],
+          youtube_de: 'https://youtube.com/shorts/abc123',
         },
         {
           id: 'microservices',
@@ -323,6 +325,7 @@ describe('UC-7: Build script — HTML generation', () => {
           path: 'microservices',
           path_position: 3,
           requires: [],
+          youtube_de: 'https://youtube.com/shorts/abc123',
         },
       ]
       const html = generatePathPage(samplePath, concepts, translations)
@@ -345,6 +348,7 @@ describe('UC-7: Build script — HTML generation', () => {
           path: 'microservices',
           path_position: 1,
           requires: [],
+          youtube_de: 'https://youtube.com/shorts/abc123',
         },
         {
           id: 'dienst-service',
@@ -353,6 +357,7 @@ describe('UC-7: Build script — HTML generation', () => {
           path: 'microservices',
           path_position: 2,
           requires: [],
+          youtube_de: 'https://youtube.com/shorts/abc123',
         },
       ]
       const html = generatePathPage(samplePath, concepts, translations)
