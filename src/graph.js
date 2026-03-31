@@ -133,6 +133,7 @@ export async function initGraph() {
   const CENTER_GRAVITY = 0.002
 
   let simulating = false
+  let autoFit = true
   const velocities = new Map()
 
   function startSimulation() {
@@ -223,7 +224,7 @@ export async function initGraph() {
     })
 
     // Auto-fit viewport to graph while no node is grabbed
-    if (cy.nodes(':grabbed').length === 0) {
+    if (autoFit && cy.nodes(':grabbed').length === 0) {
       cy.fit(cy.elements(), 20)
     }
 
@@ -231,6 +232,7 @@ export async function initGraph() {
     if (totalMovement > 0.5 || cy.nodes(':grabbed').length > 0) {
       requestAnimationFrame(simulationLoop)
     } else {
+      autoFit = false
       stopSimulation()
     }
   }
@@ -239,7 +241,12 @@ export async function initGraph() {
   startSimulation()
 
   cy.on('grab', 'node', () => {
+    autoFit = false
     startSimulation()
+  })
+
+  cy.on('zoom pan', () => {
+    autoFit = false
   })
 
   cy.on('free', 'node', () => {
