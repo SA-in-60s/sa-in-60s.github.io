@@ -222,6 +222,11 @@ export async function initGraph() {
       velocities.set(n.id(), v)
     })
 
+    // Auto-fit viewport to graph while no node is grabbed
+    if (cy.nodes(':grabbed').length === 0) {
+      cy.fit(cy.elements(), 20)
+    }
+
     // Stop when settled (low movement) or keep going while dragging
     if (totalMovement > 0.5 || cy.nodes(':grabbed').length > 0) {
       requestAnimationFrame(simulationLoop)
