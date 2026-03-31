@@ -189,10 +189,11 @@ function updateProgressDisplays() {
 }
 
 const AI_CHATS = {
-  claude: 'https://claude.ai/new?q=',
-  chatgpt: 'https://chatgpt.com/?q=',
-  gemini: 'https://gemini.google.com/app?q=',
-  perplexity: 'https://www.perplexity.ai/?q=',
+  claude: (p) => `https://claude.ai/new?q=${encodeURIComponent(p)}`,
+  chatgpt: (p) => `https://chatgpt.com/?q=${encodeURIComponent(p)}`,
+  gemini: (p) =>
+    `https://gemini.google.com?prompt_text=${encodeURIComponent(p)}&prompt_action=prefill`,
+  perplexity: (p) => `https://www.perplexity.ai/?q=${encodeURIComponent(p)}`,
 }
 
 function initAiDeepDive() {
@@ -219,8 +220,8 @@ function initAiDeepDive() {
   btn.addEventListener('click', () => {
     const lang = document.documentElement.lang || 'de'
     const prompt = btn.dataset[`prompt${lang === 'de' ? 'De' : 'En'}`] || ''
-    const baseUrl = AI_CHATS[select.value] || AI_CHATS.claude
-    window.open(baseUrl + encodeURIComponent(prompt), '_blank')
+    const buildUrl = AI_CHATS[select.value] || AI_CHATS.claude
+    window.open(buildUrl(prompt), '_blank')
   })
 }
 
