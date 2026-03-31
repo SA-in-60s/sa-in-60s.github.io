@@ -152,9 +152,8 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('title="Test Video"')
     })
 
-    it('includes sandbox and referrerpolicy', () => {
+    it('includes referrerpolicy', () => {
       const html = youtubeEmbed('https://youtube.com/shorts/abc123')
-      expect(html).toContain('sandbox="allow-scripts allow-same-origin allow-presentation"')
       expect(html).toContain('referrerpolicy="no-referrer"')
     })
 

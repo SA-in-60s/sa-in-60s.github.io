@@ -30,7 +30,7 @@ export function youtubeEmbed(url, placeholder = 'Video in Produktion', title = '
     return `<div class="video-placeholder bg-bg-card rounded-lg flex items-center justify-center aspect-9/16 max-w-xs mx-auto text-text-muted" role="img" aria-label="Invalid video">Invalid video</div>`
   }
   const iframeTitle = escapeHtml(title || 'YouTube Video')
-  return `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}" loading="lazy" title="${iframeTitle}" sandbox="allow-scripts allow-same-origin allow-presentation" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="aspect-9/16 max-w-xs mx-auto rounded-lg w-full"></iframe>`
+  return `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}" loading="lazy" title="${iframeTitle}" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="aspect-9/16 max-w-xs mx-auto rounded-lg w-full"></iframe>`
 }
 
 // Asset paths — set by CLI after Vite build, defaults for tests/dev
