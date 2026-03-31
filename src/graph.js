@@ -95,11 +95,21 @@ export async function initGraph() {
         style: { opacity: 0.8 },
       },
     ],
-    layout: { name: 'random', padding: 30 },
+    layout: { name: 'preset' },
     minZoom: 0.3,
     maxZoom: 3,
     wheelSensitivity: 0.3,
   })
+
+  // Run initial COSE layout for good starting positions
+  cy.layout({
+    name: 'cose',
+    animate: false,
+    nodeRepulsion: () => 12000,
+    gravity: 0.4,
+    idealEdgeLength: () => 60,
+    padding: 30,
+  }).run()
 
   // Dynamic force simulation: spring physics on all edges
   const SPRING_LENGTH = 80
