@@ -36,52 +36,23 @@ function applyLanguage(lang) {
   const toggle = document.getElementById('lang-toggle')
   if (toggle) toggle.textContent = lang === 'de' ? 'EN' : 'DE'
 
-  // Show/hide language-specific content (video, script text, merksatz)
+  // Show/hide language-specific content (video, script text, merksatz, claude link)
   document.querySelectorAll('[data-lang]').forEach((el) => {
     if (el.dataset.lang === lang) {
       el.classList.remove('hidden')
-    } else {
-      el.classList.add('hidden')
-    }
-  })
-}
-
-function initVideoSwitch() {
-  const switchLink = document.getElementById('switch-video-lang')
-  if (!switchLink) return
-
-  switchLink.addEventListener('click', (e) => {
-    e.preventDefault()
-    const deVideo = document.getElementById('video-de')
-    const enVideo = document.getElementById('video-en')
-    if (!deVideo || !enVideo) return
-
-    const deVisible = !deVideo.classList.contains('hidden')
-    const hideVideo = (container) => {
-      container.classList.add('hidden')
-      const iframe = container.querySelector('iframe')
-      if (iframe) {
-        iframe.dataset.src = iframe.dataset.src || iframe.src
-        iframe.src = ''
-      }
-    }
-    const showVideo = (container) => {
-      container.classList.remove('hidden')
-      const iframe = container.querySelector('iframe')
+      // Restore iframe src when showing
+      const iframe = el.querySelector('iframe')
       if (iframe && iframe.dataset.src) {
         iframe.src = iframe.dataset.src
       }
-    }
-    if (deVisible) {
-      hideVideo(deVideo)
-      showVideo(enVideo)
-      switchLink.textContent =
-        document.documentElement.lang === 'de' ? 'Auf Deutsch ansehen' : 'Watch in German'
     } else {
-      hideVideo(enVideo)
-      showVideo(deVideo)
-      switchLink.textContent =
-        document.documentElement.lang === 'de' ? 'Watch in English' : 'Auf Deutsch ansehen'
+      el.classList.add('hidden')
+      // Clear iframe src to stop playback when hiding
+      const iframe = el.querySelector('iframe')
+      if (iframe && iframe.src) {
+        iframe.dataset.src = iframe.dataset.src || iframe.src
+        iframe.src = ''
+      }
     }
   })
 }
@@ -220,7 +191,6 @@ function updateProgressDisplays() {
 document.addEventListener('DOMContentLoaded', () => {
   initI18n()
   initProgress()
-  initVideoSwitch()
   if (document.getElementById('cy')) {
     import('./graph.js').then((m) => m.initGraph())
   }

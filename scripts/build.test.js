@@ -235,13 +235,10 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('This is the takeaway.')
     })
 
-    it('shows single video with switch link', () => {
+    it('shows both language videos controlled by data-lang', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
-      expect(html).toContain('id="video-de"')
-      expect(html).toContain('id="video-en"')
-      expect(html).toContain('id="switch-video-lang"')
-      // EN video should be hidden by default
-      expect(html).toContain('id="video-en" data-lang="en" class="hidden"')
+      expect(html).toContain('data-lang="de"')
+      expect(html).toContain('data-lang="en"')
     })
 
     it('includes meta tags', () => {
