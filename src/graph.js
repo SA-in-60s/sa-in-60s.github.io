@@ -22,6 +22,7 @@ export async function initGraph() {
         title_en: n.title_en,
         path: n.path,
         seen: progress.includes(n.id) ? 1 : 0,
+        degree: 0,
       },
     })),
     ...data.edges.map((e) => ({
@@ -43,10 +44,10 @@ export async function initGraph() {
           'text-margin-y': 4,
           'text-outline-width': 2,
           'text-outline-color': '#0f172a',
-          width: 20,
-          height: 20,
+          width: 22,
+          height: 22,
           'background-color': '#64748b',
-          opacity: 0.5,
+          opacity: 0.6,
           'text-opacity': 0,
         },
       },
@@ -59,8 +60,6 @@ export async function initGraph() {
         selector: 'node[path = "stem"]',
         style: {
           'background-color': '#22d3ee',
-          width: 30,
-          height: 30,
         },
       },
       {
@@ -74,13 +73,13 @@ export async function initGraph() {
       {
         selector: 'edge',
         style: {
-          width: 1,
-          'line-color': '#334155',
-          'target-arrow-color': '#334155',
+          width: 1.5,
+          'line-color': '#64748b',
+          'target-arrow-color': '#64748b',
           'target-arrow-shape': 'triangle',
           'curve-style': 'bezier',
-          'arrow-scale': 0.6,
-          opacity: 0.6,
+          'arrow-scale': 0.7,
+          opacity: 0.5,
         },
       },
       {
@@ -91,18 +90,67 @@ export async function initGraph() {
         selector: '.highlighted',
         style: { opacity: 1, 'text-opacity': 1 },
       },
+      {
+        selector: '.highlighted edge',
+        style: { opacity: 0.8 },
+      },
     ],
-    layout: {
-      name: 'cose',
-      animate: false,
-      nodeRepulsion: () => 12000,
-      gravity: 0.4,
-      idealEdgeLength: () => 60,
-      padding: 30,
-    },
+    layout: { name: 'preset' },
     minZoom: 0.3,
     maxZoom: 3,
     wheelSensitivity: 0.3,
+  })
+
+  // Run initial layout
+  cy.layout({
+    name: 'cose',
+    animate: false,
+    nodeRepulsion: () => 12000,
+    gravity: 0.4,
+    idealEdgeLength: () => 60,
+    padding: 30,
+  }).run()
+
+  // Dynamic force: when dragging a node, pull connected neighbors along
+  let dragTarget = null
+
+  cy.on('grab', 'node', (evt) => {
+    dragTarget = evt.target
+  })
+
+  cy.on('drag', 'node', (evt) => {
+    if (!dragTarget) return
+    const node = evt.target
+    const pos = node.position()
+    const neighbors = node.neighborhood('node')
+
+    neighbors.forEach((neighbor) => {
+      if (neighbor.grabbed()) return
+      const npos = neighbor.position()
+      const dx = pos.x - npos.x
+      const dy = pos.y - npos.y
+      const dist = Math.sqrt(dx * dx + dy * dy)
+      if (dist < 1) return
+      // Pull factor: closer neighbors follow more strongly
+      const pull = 0.08
+      neighbor.position({
+        x: npos.x + dx * pull,
+        y: npos.y + dy * pull,
+      })
+    })
+  })
+
+  cy.on('free', 'node', () => {
+    dragTarget = null
+  })
+
+  // Prevent tap-to-navigate when dragging
+  let wasDragged = false
+  cy.on('grab', 'node', () => {
+    wasDragged = false
+  })
+  cy.on('drag', 'node', () => {
+    wasDragged = true
   })
 
   // Show labels when zoomed in
@@ -113,12 +161,12 @@ export async function initGraph() {
       .selector('node')
       .style('text-opacity', showLabels ? 1 : 0)
       .update()
-    // Keep highlighted nodes visible
     cy.style().selector('.highlighted').style('text-opacity', 1).update()
   })
 
-  // Click → navigate
+  // Click → navigate (only if not dragging)
   cy.on('tap', 'node', (evt) => {
+    if (wasDragged) return
     window.location.href = `/concept/${evt.target.id()}`
   })
 
@@ -154,7 +202,6 @@ export async function initGraph() {
         cy.elements().removeClass('dimmed highlighted')
         return
       }
-      // BFS: find all transitive dependencies of selected path
       const pathNodes = cy.nodes().filter((n) => n.data('path') === pathId)
       const visible = new Set(pathNodes.map((n) => n.id()))
       const queue = [...pathNodes]
@@ -190,7 +237,6 @@ export async function initGraph() {
     cy.nodes().forEach((n) => {
       n.data('label', n.data(`title_${newLang}`) || n.data('title_de'))
     })
-    // Update filter options
     if (filter) {
       Array.from(filter.options).forEach((opt) => {
         if (opt.dataset[newLang]) opt.textContent = opt.dataset[newLang]
