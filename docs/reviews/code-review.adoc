@@ -1,0 +1,498 @@
+= SA-in-60s Code Review
+:author: Claude Code Review
+:date: 2026-03-31
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+
+== Executive Summary
+
+The SA-in-60s project is a static site generator for a software architecture learning platform featuring 132 concepts across 10 learning paths, with bilingual DE/EN support and progress tracking.
+The codebase is small, well-structured, and uses modern tooling (Vite 8, Tailwind CSS 4, Vitest 4).
+
+Overall the project is in a *solid early-stage* state, but there are *two critical data integrity bugs* and several architectural improvements that would pay off before the site grows further.
+
+*Critical findings:* 2 +
+*Major findings:* 5 +
+*Minor findings:* 8 +
+*Informational:* 5
+
+---
+
+== 1. Data Integrity
+
+=== CR-01: Path-to-Concept ID Mismatches [Critical]
+
+`paths.json` references concept IDs that do not exist in `concepts.json`, and vice versa.
+This means 9 concept pages are generated but unreachable from path pages, and 9 path entries link to non-existent concept pages.
+
+.Mismatched IDs
+[cols="1,1"]
+|===
+| paths.json references (missing in concepts.json) | concepts.json IDs (unreferenced by paths.json)
+
+| `retry-timeout`                | `retry-und-timeout`
+| `twelve-factor-app`            | `12-factor-app`
+| `least-privilege`              | `principle-of-least-privilege`
+| `authn-vs-authz`               | `authentifizierung-vs-autorisierung`
+| `daten-architektur-pfad`       | `daten-architektur`
+| `frontend-architektur-pfad`    | `frontend-architektur`
+| `bff-frontend`                 | `bff-backend-for-frontend`
+| `team-architektur-pfad`        | `team-architektur`
+| `legacy-modernisierung-pfad`   | `legacy-modernisierung`
+|===
+
+*Impact:* Path pages contain broken `<a>` links to 404 pages.
+Generated concept pages for the right-column IDs are orphaned (unreachable).
+
+*Fix:* Align the IDs in one direction -- either update `paths.json` to match `concepts.json` or vice versa.
+Then add a cross-validation check (see CR-05).
+
+=== CR-02: Translation Bug -- English Video Column Label [Critical]
+
+In `data/translations.json`, the key `concept_video_alt_lang` is set to:
+
+* DE: `"Englische Version"` (correct -- describes the English video when UI is German)
+* EN: `"German version"` (*wrong* -- this label is used for the *English* video column)
+
+In `scripts/build.js` line 90, the second video column (which embeds `youtube_en`) uses this key.
+When the user switches to English, the English video is labeled "German version".
+
+*Fix (translations.json):*
+[source,json]
+----
+"concept_video_alt_lang": "English version"
+----
+
+Alternatively, restructure to have two separate keys (`video_label_de`, `video_label_en`) instead of a single `concept_video_alt_lang` that conflates "the other language" with a fixed label.
+
+---
+
+== 2. Architecture & Separation of Concerns
+
+=== CR-03: Build Script Doubles as Library and CLI [Major]
+
+`scripts/build.js` exports four functions (`youtubeEmbed`, `generateConceptPage`, `generatePathPage`, `generateIndexPage`) for testing, but also contains a 40-line CLI block guarded by `if (process.argv[1] === __filename)`.
+This is a common Node.js pattern but has two problems:
+
+1. The CLI block uses `console.log` which violates the ESLint `no-console` rule (the lint config only allows `warn`/`error`).
+2. The file mixes pure HTML-generation logic with filesystem I/O and sitemap generation, violating single-responsibility.
+
+*Fix:* Extract the CLI into a separate `scripts/build-cli.js` that imports from `scripts/build.js`.
+Keep `build.js` as a pure library of HTML generators (no fs, no process).
+
+=== CR-04: No HTML Escaping -- XSS via Data [Major]
+
+All user-facing strings from `concepts.json`, `paths.json`, and `translations.json` are interpolated directly into HTML via template literals without escaping.
+
+[source,javascript]
+----
+// build.js line 81
+<h1 ... data-de="${concept.title_de}" data-en="${concept.title_en}">${concept.title_de}</h1>
+----
+
+If any title contains `"`, `<`, or `&`, the generated HTML will be broken or exploitable.
+Currently no titles contain these characters, but the code has no guard.
+
+*Fix:* Add an `escapeHtml` utility:
+[source,javascript]
+----
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+----
+
+Apply it to every interpolated value in `htmlTemplate`, `generateConceptPage`, `generatePathPage`, and `generateIndexPage`.
+
+=== CR-05: Validation Does Not Cross-Check Paths vs. Concepts [Major]
+
+`scripts/validate.js` validates concepts and paths independently.
+It does *not* check that:
+
+* Every concept ID referenced in `paths[].concepts` exists in `concepts.json`
+* Every concept's `path` field matches an actual path ID in `paths.json`
+* The `intro` and `stem` paths referenced by concept `path` fields are defined somewhere
+
+This is why CR-01 went undetected.
+
+*Fix:* Add a `validateCrossReferences(concepts, paths)` function:
+[source,javascript]
+----
+export function validateCrossReferences(concepts, paths) {
+  const errors = []
+  const conceptIds = new Set(concepts.map(c => c.id))
+  const pathIds = new Set(paths.map(p => p.id))
+
+  // Every concept referenced by a path must exist
+  for (const path of paths) {
+    for (const cid of path.concepts) {
+      if (!conceptIds.has(cid)) {
+        errors.push(`Path "${path.id}" references non-existent concept: ${cid}`)
+      }
+    }
+  }
+
+  // Every concept's path field must reference an existing path (or 'stem'/'intro')
+  const validPaths = new Set([...pathIds, 'stem', 'intro'])
+  for (const concept of concepts) {
+    if (!validPaths.has(concept.path)) {
+      errors.push(`Concept "${concept.id}" has unknown path: ${concept.path}`)
+    }
+  }
+
+  return { valid: errors.length === 0, errors }
+}
+----
+
+=== CR-06: `public/` Directory Is Git-Tracked Build Output [Major]
+
+The `public/` directory contains generated HTML files (index.html, concept/*.html, path/*.html, sitemap.xml) which are *build artifacts* produced by `scripts/build.js`.
+However, `.gitignore` only ignores `node_modules/`, `dist/`, `.vite/`, and `*.log`.
+
+This means generated files are committed to the repository, creating:
+
+* Merge conflicts on every rebuild
+* Repository bloat (132 concept pages + 10 path pages + index + sitemap)
+* Confusion about source of truth (is `public/` hand-authored or generated?)
+
+*Fix:* Add `public/` to `.gitignore` (or at minimum `public/concept/`, `public/path/`, `public/index.html`, `public/sitemap.xml`).
+Ensure the CI pipeline runs `npm run build` which generates these before `vite build`.
+
+=== CR-07: Vite Entry Point vs. Generated Pages Mismatch [Major]
+
+The root `index.html` (Vite's entry point) references `<script type="module" src="/src/main.js">` and has a plain `<div id="app"></div>`.
+But the generated `public/index.html` has a completely different structure with inline content and also loads `/src/main.js`.
+
+Vite serves from the project root, so during `vite dev`, the root `index.html` is used (empty page).
+During `vite build`, Vite processes root `index.html` into `dist/`, but the generated `public/` pages reference `/assets/main.css` and `/src/main.js` -- paths that only work if Vite copies `public/` into `dist/` and the CSS build produces `/assets/main.css`.
+
+This dual-index-html setup is fragile.
+The dev experience likely shows a blank page because the generated content is only in `public/`.
+
+*Fix:* Choose one strategy:
+
+1. Make `public/index.html` the canonical entry point and configure Vite's `root` or `publicDir` accordingly.
+2. Or generate all pages into a format Vite can process during build (multi-page app config).
+
+---
+
+== 3. Error Handling
+
+=== CR-08: Build Script Has No Error Handling [Minor]
+
+The CLI section of `build.js` (lines 209-254) has no try/catch.
+If `concepts.json` is malformed or missing, the script crashes with an unhelpful stack trace.
+
+*Fix:* Wrap in try/catch like `validate.js` does (lines 75-106).
+
+=== CR-09: `getProgress()` Silently Returns Empty on Corrupt JSON [Minor]
+
+In `src/main.js` line 101-106, if `localStorage` contains invalid JSON for `sa60s-progress`, `JSON.parse` throws and the catch returns `[]`.
+This silently discards the user's progress.
+
+*Fix:* Log a warning and optionally offer to reset:
+[source,javascript]
+----
+function getProgress() {
+  try {
+    const raw = localStorage.getItem('sa60s-progress')
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    return Array.isArray(parsed) ? parsed : []
+  } catch (_) {
+    console.warn('Progress data is corrupted, resetting.')
+    localStorage.removeItem('sa60s-progress')
+    return []
+  }
+}
+----
+
+=== CR-10: `updateProgressDisplays` Parses JSON in Data Attribute on Every Call [Minor]
+
+Line 120 calls `JSON.parse(el.dataset.progressConcepts || '[]')` for every element with `[data-progress-path]` on every progress update.
+While not a performance problem at current scale, this mixes data parsing with DOM updates.
+
+Note: `data-progress-path` and `data-progress-concepts` attributes are never generated by `build.js`, so `updateProgressDisplays` has no matching elements and is effectively dead code for path-level progress.
+
+*Fix:* Either generate the necessary data attributes in the build, or remove the dead code path.
+
+---
+
+== 4. Test Coverage
+
+=== CR-11: No Tests for `main.js` Client-Side Logic [Minor]
+
+`src/main.js` contains approximately 130 lines of client-side logic (i18n, progress tracking, DOM manipulation) with zero test coverage.
+The test files only cover `build.js` and `validate.js`.
+
+Key untested behaviors:
+
+* Language detection from `navigator.language`
+* Language persistence in `localStorage`
+* Progress toggle (mark/unmark seen)
+* Video reordering on language switch
+* `updateProgressDisplays` with various DOM states
+
+*Fix:* Add unit tests using jsdom (vitest supports it via `environment: 'jsdom'`).
+At minimum, test `getProgress`/`setProgress` and the language toggle logic.
+
+=== CR-12: Build Tests Do Not Assert HTML Validity [Minor]
+
+The build tests check for presence of specific strings (`toContain`) but never validate:
+
+* Well-formed HTML (matching tags)
+* Valid `lang` attribute changes
+* Correct `data-*` attribute structure
+* Absence of undefined/null interpolations
+
+*Fix:* Add a few structural assertions:
+[source,javascript]
+----
+it('generates valid HTML structure', () => {
+  const html = generateConceptPage(sampleConcept, [], [], translations)
+  expect(html).toContain('<!doctype html>')
+  expect(html).toContain('</html>')
+  expect(html).not.toContain('undefined')
+  expect(html).not.toContain('null')
+})
+----
+
+=== CR-13: No Integration Test for Cross-References [Minor]
+
+There is no test that loads the actual `concepts.json` and `paths.json` and verifies all cross-references are valid.
+The unit tests use synthetic data that cannot catch real-world mismatches like CR-01.
+
+*Fix:* Add an integration test:
+[source,javascript]
+----
+import concepts from '../data/concepts.json' with { type: 'json' }
+import paths from '../data/paths.json' with { type: 'json' }
+
+it('all path concept references exist in concepts.json', () => {
+  const conceptIds = new Set(concepts.map(c => c.id))
+  for (const path of paths) {
+    for (const cid of path.concepts) {
+      expect(conceptIds.has(cid), `Path "${path.id}" -> missing "${cid}"`).toBe(true)
+    }
+  }
+})
+----
+
+---
+
+== 5. Build Pipeline
+
+=== CR-14: Deploy Workflow Does Not Run `validate` [Minor]
+
+The `test.yml` (PR checks) runs `npm run validate`, but `deploy.yml` (push to main) does not.
+If a PR is merged via the GitHub UI without checks passing, invalid data could be deployed.
+
+*Fix:* Add `- run: npm run validate` to `deploy.yml` before the build step.
+
+=== CR-15: No Caching of Build Artifacts Between Jobs [Info]
+
+The deploy workflow has separate `build` and `deploy` jobs, with the build artifact uploaded via `actions/upload-pages-artifact`.
+This is correct and well-structured.
+
+=== CR-16: Sitemap Generated Inside Build Script [Info]
+
+Sitemap generation is embedded in the build script's CLI block (lines 241-253) rather than being a separate script.
+This works but reduces composability -- you cannot regenerate the sitemap without regenerating all pages.
+
+---
+
+== 6. HTML Output Quality
+
+=== CR-17: Missing `title` Attribute on YouTube Iframes [Minor]
+
+Generated iframes lack a `title` attribute, which is required for accessibility (WCAG 2.1, SC 4.1.2).
+
+[source,html]
+----
+<!-- Current -->
+<iframe src="https://www.youtube.com/embed/abc123" loading="lazy" ...></iframe>
+
+<!-- Should be -->
+<iframe src="https://www.youtube.com/embed/abc123" loading="lazy"
+  title="Microservices - YouTube" ...></iframe>
+----
+
+*Fix (build.js, youtubeEmbed function):*
+[source,javascript]
+----
+export function youtubeEmbed(url, placeholder = 'Video in Produktion', title = '') {
+  // ...
+  return `<iframe src="https://www.youtube.com/embed/${videoId}" loading="lazy"
+    title="${title || 'YouTube Video'}"
+    allow="..." allowfullscreen class="..."></iframe>`
+}
+----
+
+=== CR-18: Nav Lacks Semantic Landmarks and ARIA [Info]
+
+The `<nav>` element has no `aria-label`.
+With only one nav on the page this is acceptable, but adding `aria-label="Hauptnavigation"` improves screen reader experience.
+
+=== CR-19: `<button>` for "Seen" Has No Accessible State [Minor]
+
+The seen button (`<button class="seen-button" ...>`) toggles between states but does not use `aria-pressed` to communicate the toggle state to assistive technology.
+
+*Fix:*
+[source,javascript]
+----
+function updateSeenButton(btn, seen) {
+  btn.setAttribute('aria-pressed', seen.toString())
+  // ... existing class toggling
+}
+----
+
+And in the HTML template:
+[source,html]
+----
+<button class="seen-button" aria-pressed="false" ...>
+----
+
+=== CR-20: Inline Styles for Path Colors [Info]
+
+Path colors are applied via `style="border-left: 4px solid ${path.color}"` inline styles.
+This works but prevents Tailwind's purge from optimizing and makes the color system inconsistent (some colors in CSS custom properties, others inline).
+
+---
+
+== 7. CSS & Styling
+
+=== CR-21: Duplicate Color Value for Microservices and Frontend [Info]
+
+Both the `microservices` and `frontend` paths use `color: "#6495ED"`.
+In the CSS theme, `--color-path-microservices` and `--color-path-frontend` are also both `#6495ed`.
+This makes them visually indistinguishable.
+
+*Fix:* Assign a unique color to `frontend`, e.g., `#38bdf8` (sky blue) or `#818cf8` (indigo).
+
+=== CR-22: Path Color CSS Variables Are Defined but Never Used [Info]
+
+`src/styles/main.css` defines `--color-path-microservices`, `--color-path-ddd`, etc., but the actual path pages use inline `style` attributes with hex values from `paths.json`.
+These CSS variables are dead code.
+
+*Fix:* Either use the CSS variables in the build output or remove them from the theme.
+
+---
+
+== 8. Dependencies
+
+=== CR-23: No Runtime Dependencies -- Clean [Info]
+
+All dependencies are devDependencies: Vite, Tailwind, ESLint, Prettier, Vitest.
+There are zero runtime dependencies.
+This is ideal for a static site generator.
+
+=== CR-24: ESLint 10 Is Unusually Recent [Minor]
+
+The `package.json` specifies `eslint@^10.1.0`.
+As of March 2026, ESLint 10 is the current major version.
+The flat config is used correctly, but the config does not include a recommended rule set -- only two custom rules are defined.
+This means many common issues (e.g., `no-undef`, `no-unreachable`, `eqeqeq`) are not caught.
+
+*Fix:* Add `@eslint/js` recommended config:
+[source,javascript]
+----
+import js from '@eslint/js'
+
+export default [
+  js.configs.recommended,
+  {
+    languageOptions: { /* existing globals */ },
+    rules: {
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+    },
+  },
+  // test overrides...
+]
+----
+
+---
+
+== 9. Configuration
+
+=== CR-25: Vitest `globals: true` Without Matching ESLint Config [Minor]
+
+`vite.config.js` sets `test.globals: true`, making `describe`, `it`, `expect` etc. available without imports.
+But the test files in `scripts/` explicitly import from `vitest`:
+[source,javascript]
+----
+import { describe, it, expect } from 'vitest'
+----
+
+Meanwhile, the ESLint config adds these as globals for `**/*.test.js` files.
+This creates a situation where the globals are configured in three places (Vitest config, ESLint config, and explicit imports) -- redundant but not harmful.
+
+*Fix:* Pick one approach. Either:
+
+* Remove `globals: true` from Vitest and keep the explicit imports (cleaner, more explicit)
+* Or keep `globals: true` and remove the imports (fewer lines, but implicit)
+
+---
+
+== Summary Table
+
+[cols="1,2,1,1"]
+|===
+| ID | Finding | Severity | Category
+
+| CR-01 | Path-to-concept ID mismatches (9 broken links) | Critical | Data
+| CR-02 | EN translation for video column label is wrong | Critical | Data
+| CR-03 | Build script mixes library and CLI concerns | Major | Architecture
+| CR-04 | No HTML escaping for interpolated data | Major | Security
+| CR-05 | Validation does not cross-check paths vs. concepts | Major | Validation
+| CR-06 | Generated `public/` files are git-tracked | Major | Build
+| CR-07 | Dual index.html creates dev/prod mismatch | Major | Build
+| CR-08 | Build CLI has no error handling | Minor | Error Handling
+| CR-09 | Corrupt localStorage progress silently lost | Minor | Error Handling
+| CR-10 | Dead code in `updateProgressDisplays` | Minor | Code Quality
+| CR-11 | No tests for client-side logic in main.js | Minor | Testing
+| CR-12 | Build tests lack HTML validity assertions | Minor | Testing
+| CR-13 | No integration test for real data cross-refs | Minor | Testing
+| CR-14 | Deploy workflow skips validation step | Minor | CI/CD
+| CR-15 | Build artifact caching is correctly implemented | Info | CI/CD
+| CR-16 | Sitemap embedded in build script | Info | Architecture
+| CR-17 | YouTube iframes missing `title` attribute | Minor | Accessibility
+| CR-18 | Nav lacks `aria-label` | Info | Accessibility
+| CR-19 | Seen button missing `aria-pressed` | Minor | Accessibility
+| CR-20 | Inline styles for path colors | Info | CSS
+| CR-21 | Duplicate color for two paths | Info | CSS
+| CR-22 | CSS path color variables are dead code | Info | CSS
+| CR-23 | Zero runtime dependencies (good) | Info | Dependencies
+| CR-24 | ESLint config missing recommended rules | Minor | Config
+| CR-25 | Vitest globals configured redundantly | Minor | Config
+|===
+
+== Overall Assessment
+
+[cols="1,3"]
+|===
+| Aspect | Rating
+
+| *Code Quality*       | Good -- clean, readable, consistent formatting
+| *Architecture*       | Adequate for current size, but `public/` tracking and dual-HTML issue need resolution before scaling
+| *Data Integrity*     | *Needs immediate attention* -- 9 broken cross-references between data files
+| *Test Coverage*      | Moderate -- build functions well-tested, but client-side code and data integrity untested
+| *Build Pipeline*     | Functional, CI is solid, but validation gap in deploy workflow
+| *Accessibility*      | Below average -- missing iframe titles, ARIA states, landmark labels
+| *Security*           | Low risk (static site, no user input), but HTML injection via data is possible in principle
+| *Dependencies*       | Excellent -- minimal, modern, correctly scoped
+|===
+
+*Priority order for fixes:*
+
+1. Fix the 9 ID mismatches in `paths.json` / `concepts.json` (CR-01)
+2. Fix the EN translation for video column (CR-02)
+3. Add cross-reference validation (CR-05) and an integration test (CR-13)
+4. Add HTML escaping (CR-04)
+5. Add `public/` to `.gitignore` (CR-06)
+6. Resolve the dual `index.html` architecture (CR-07)
