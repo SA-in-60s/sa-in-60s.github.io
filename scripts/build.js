@@ -33,8 +33,20 @@ export function youtubeEmbed(url, placeholder = 'Video in Produktion', title = '
   return `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}" loading="lazy" title="${iframeTitle}" sandbox="allow-scripts allow-same-origin allow-presentation" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="aspect-9/16 max-w-xs mx-auto rounded-lg w-full"></iframe>`
 }
 
+// Asset paths — set by CLI after Vite build, defaults for tests/dev
+let assetPaths = {
+  css: '/assets/main.css',
+  js: '/src/main.js',
+}
+
+export function setAssetPaths(paths) {
+  assetPaths = paths
+}
+
 function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '' }) {
   const canonicalUrl = `${BASE_URL}${canonicalPath}`
+  const cssTag = `<link rel="stylesheet" href="${escapeHtml(assetPaths.css)}" />`
+  const jsTag = `<script type="module" src="${escapeHtml(assetPaths.js)}"></script>`
   return `<!doctype html>
 <html lang="${escapeHtml(lang)}">
 <head>
@@ -53,7 +65,7 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
   <meta property="og:locale" content="de_DE" />
   <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:site_name" content="Software Architektur in 60 Sekunden" />
-  <link rel="stylesheet" href="/assets/main.css" />
+  ${cssTag}
 </head>
 <body class="min-h-screen bg-bg text-text">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-accent-cyan focus:text-bg focus:px-4 focus:py-2 focus:rounded">Skip to main content</a>
@@ -67,7 +79,7 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
   <main id="main" class="max-w-5xl mx-auto px-4 pb-16">
     ${body}
   </main>
-  <script type="module" src="/src/main.js"></script>
+  ${jsTag}
 </body>
 </html>`
 }
@@ -275,11 +287,29 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
   })
 }
 
-// CLI entry point — generates static site into public/
+// CLI entry point — generates static site into dist/ (after Vite build)
 if (process.argv[1] === __filename) {
   try {
     const dataDir = resolve(__dirname, '..', 'data')
-    const publicDir = resolve(__dirname, '..', 'public')
+    const distDir = resolve(__dirname, '..', 'dist')
+
+    // Read Vite manifest to find hashed asset filenames
+    const manifestPath = resolve(distDir, '.vite', 'manifest.json')
+    try {
+      const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
+      const entry = manifest['index.html'] || manifest['src/main.js'] || {}
+      const cssFile = entry.css?.[0]
+      const jsFile = entry.file
+      setAssetPaths({
+        css: cssFile ? `/${cssFile}` : '/assets/main.css',
+        js: jsFile ? `/${jsFile}` : '/src/main.js',
+      })
+      console.warn(`Assets: CSS=${assetPaths.css}, JS=${assetPaths.js}`)
+    } catch (_) {
+      console.warn('No Vite manifest found, using default asset paths')
+    }
+
+    const publicDir = distDir
 
     const concepts = JSON.parse(readFileSync(resolve(dataDir, 'concepts.json'), 'utf-8'))
     const paths = JSON.parse(readFileSync(resolve(dataDir, 'paths.json'), 'utf-8'))
