@@ -137,7 +137,11 @@ function showBanner(nextConcept, manifest) {
   // We don't have titles in manifest, so just use the ID formatted nicely
   title = nextConcept.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
-  banner.textContent = template.replace('{next}', title)
+  const text = template
+    .replace('{next}', title)
+    .replace('{link}', '<a href="https://software-architektur.tv" target="_blank" rel="noopener" class="underline hover:text-text">')
+    .replace('{/link}', '</a>')
+  banner.innerHTML = text
   banner.classList.remove('hidden')
 }
 

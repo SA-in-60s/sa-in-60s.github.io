@@ -33,7 +33,7 @@
     "nav_home": "Start",
     "nav_graph": "Graph",
     "footer_text": "Ein Projekt von Ralf D. Müller",
-    "unlock_banner_done": "Alle Videos für heute freigeschaltet — morgen geht's weiter mit: {next}",
+    "unlock_banner_done": "Alle Videos für heute freigeschaltet — morgen geht's weiter mit: {next}. Lust auf mehr? Auf {link}software-architektur.tv{/link} gibt es ausführliche Episoden!",
     "unlock_choose_hint": "Du hast den Stamm abgeschlossen! Wähle einen Pfad:",
     "unlock_next_hint": "Pfad abgeschlossen! Wähle den nächsten:"
   },
@@ -71,7 +71,7 @@
     "nav_home": "Home",
     "nav_graph": "Graph",
     "footer_text": "A project by Ralf D. Müller",
-    "unlock_banner_done": "All videos unlocked for today — tomorrow continues with: {next}",
+    "unlock_banner_done": "All videos unlocked for today — tomorrow continues with: {next}. Want more? Check out {link}software-architektur.tv{/link} for in-depth episodes!",
     "unlock_choose_hint": "You've completed the stem! Choose a path:",
     "unlock_next_hint": "Path complete! Choose the next one:"
   }
