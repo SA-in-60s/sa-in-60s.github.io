@@ -725,7 +725,7 @@
     "requires": [
       "separation-of-concerns"
     ],
-    "youtube_de": "",
+    "youtube_de": "https://youtube.com/shorts/lmXbhTDU0Ug",
     "youtube_en": "",
     "script_de": "Jemand fragt: Warum habt ihr euch für Kafka entschieden? Und niemand kann es beantworten. Der Architekt von damals ist weg, die Doku veraltet, die Wiki-Seite ein Friedhof.\n\nArchitekturentscheidungen ohne Dokumentation sind wie mündliche Verträge — sie gelten nur, solange sich jemand erinnert. Und irgendwann erinnert sich niemand mehr.\n\nDie gute Nachricht: Du musst nicht bei null anfangen. Es gibt bewährte Werkzeuge und Methoden, die dir helfen, Architektur sichtbar, nachvollziehbar und messbar zu machen.\n\nIn diesem Pfad lernst du Schritt für Schritt: Wie du Qualitätsmerkmale konkret beschreibst. Wie du Entscheidungen mit ADRs festhältst. Wie du Trade-offs transparent machst. Wie C4-Modelle die richtige Sicht für die richtige Zielgruppe liefern. Und wie Fitness Functions deine Architektur automatisiert überwachen.\n\nMerke: Gute Architekturdokumentation beantwortet die Fragen, die morgen jemand haben wird — nicht die, die heute niemand stellt.",
     "merksatz_de": "Gute Architekturdokumentation beantwortet die Fragen, die morgen jemand haben wird — nicht die, die heute niemand stellt.",
@@ -742,7 +742,7 @@
     "requires": [
       "arc42-pfad"
     ],
-    "youtube_de": "",
+    "youtube_de": "https://youtube.com/shorts/FmaITidc88Q",
     "youtube_en": "",
     "script_de": "Ein neuer Entwickler startet im Team. Er fragt: Wie ist das System aufgebaut? Die Antwort: Schau in den Code. Drei Wochen später versteht er immer noch nicht, warum es drei Datenbanken gibt.\n\nCode zeigt dir das Was, aber nicht das Warum. Ohne Dokumentation geht das Wissen über Entscheidungen, Zusammenhänge und Randbedingungen verloren — spätestens wenn Leute das Team verlassen.\n\nArchitekturdokumentation beschreibt die wesentlichen Strukturen, Entscheidungen und Qualitätsanforderungen eines Systems. Denk an den Bauplan eines Hauses: Der Architekt dokumentiert nicht jeden Nagel, aber die tragenden Wände, die Statik und die Haustechnik.\n\nWichtig: Du dokumentierst nicht alles — nur das, was man aus dem Code nicht ablesen kann. Warum diese Datenbank? Warum diese Aufteilung? Welche Qualitätsziele? Welche Risiken? Gute Architekturdoku ist schlank, aktuell und beantwortet die richtigen Fragen.\n\nMerke: Architekturdokumentation ist kein Bürokratie-Overhead — sie ist das Gedächtnis deines Systems.",
     "merksatz_de": "Architekturdokumentation ist kein Bürokratie-Overhead — sie ist das Gedächtnis deines Systems.",
@@ -759,7 +759,7 @@
     "requires": [
       "architekturdokumentation"
     ],
-    "youtube_de": "",
+    "youtube_de": "https://youtube.com/shorts/TVrBEJw60no",
     "youtube_en": "",
     "script_de": "Du willst deine Architektur dokumentieren. Aber wo fängst du an? Was gehört rein? Wie viel ist zu viel? Du starrst auf ein leeres Dokument.\n\nOhne Struktur schreibt jeder was anderes. Einer beschreibt die Deployment-Infrastruktur, der andere die Klassendiagramme, der dritte gar nichts. Das Ergebnis ist ein Flickenteppich.\n\narc42 gibt dir ein bewährtes Template mit zwölf Kapiteln. Denk an ein Kochrezept: Du musst nicht alles kochen, aber die Struktur sagt dir, was es gibt — Vorspeise, Hauptgang, Dessert. Du wählst, was du brauchst.\n\nDie zwölf Kapitel: Einführung und Ziele, Randbedingungen, Kontextabgrenzung, Lösungsstrategie, Bausteinsicht, Laufzeitsicht, Verteilungssicht, Querschnittliche Konzepte, Architekturentscheidungen, Qualitätsanforderungen, Risiken und Glossar. Du füllst nur aus, was für dein System relevant ist.\n\nMerke: arc42 gibt dir die Struktur — du entscheidest den Inhalt. Lieber fünf gute Kapitel als zwölf leere.",
     "merksatz_de": "arc42 gibt dir die Struktur — du entscheidest den Inhalt. Lieber fünf gute Kapitel als zwölf leere.",
@@ -776,7 +776,7 @@
     "requires": [
       "arc42-pfad"
     ],
-    "youtube_de": "",
+    "youtube_de": "https://youtube.com/shorts/aAzPHaqmYl0",
     "youtube_en": "",
     "script_de": "Der Kunde sagt: Das System soll schnell sein. Aber was heißt schnell? Antwortzeit unter einer Sekunde? Oder unter hundert Millisekunden? Und bei wie vielen gleichzeitigen Nutzern?\n\nVage Qualitätsanforderungen führen zu falschen Architekturentscheidungen. Wenn du nicht weißt, was Performance konkret bedeutet, kannst du nicht dafür bauen.\n\nQualitätsmerkmale sind die nicht-funktionalen Eigenschaften deines Systems. Denk an ein Auto: Es fährt — das ist die Funktion. Aber wie schnell, wie sicher, wie sparsam — das sind die Qualitätsmerkmale. Und die bestimmen, welches Auto du kaufst.\n\nTypische Qualitätsmerkmale sind Performance, Sicherheit, Wartbarkeit, Zuverlässigkeit und Benutzbarkeit. Für dein System identifizierst du die drei bis fünf wichtigsten und machst sie konkret und messbar.\n\nMerke: Qualitätsmerkmale treiben deine Architektur — nicht die Features, sondern die Qualitätsanforderungen bestimmen die Struktur.",
     "merksatz_de": "Qualitätsmerkmale treiben deine Architektur — nicht die Features, sondern die Qualitätsanforderungen bestimmen die Struktur.",
