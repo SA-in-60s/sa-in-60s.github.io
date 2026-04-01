@@ -248,7 +248,13 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
   })
 }
 
-export function generatePathPage(path, allConcepts, translations, stemConceptIds = []) {
+export function generatePathPage(
+  path,
+  allConcepts,
+  translations,
+  stemConceptIds = [],
+  manifest = null
+) {
   const t = translations.de
   const pathConcepts = path.concepts
     .map((id) => allConcepts.find((c) => c.id === id))
@@ -260,7 +266,7 @@ export function generatePathPage(path, allConcepts, translations, stemConceptIds
       return `
       <li class="p-3 bg-bg-card rounded-lg flex items-center gap-2${hasVideo ? '' : ' opacity-40'}">
         ${hasVideo ? `<span class="text-accent-cyan text-sm" data-concept-seen="${escapeHtml(c.id)}">○</span>` : '<span class="text-text-muted text-sm">○</span>'}
-        ${hasVideo ? `<a href="/concept/${escapeHtml(c.id)}" class="text-accent-blue hover:underline font-medium" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</a>` : `<span class="text-text-muted font-medium" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span>`}
+        ${hasVideo ? `<a href="/concept/${escapeHtml(c.id)}" class="text-accent-blue hover:underline font-medium" data-unlock-id="${escapeHtml(c.id)}" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</a>` : `<span class="text-text-muted font-medium" data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span>`}
         ${
           c.requires && c.requires.length > 0
             ? `<span class="text-xs text-text-muted ml-2">\u2190 ${c.requires.map((r) => escapeHtml(r)).join(', ')}</span>`
@@ -277,9 +283,11 @@ export function generatePathPage(path, allConcepts, translations, stemConceptIds
       <p class="text-sm text-text-muted mt-1"><span data-progress-path="${escapeHtml(path.id)}" data-progress-concepts='${JSON.stringify(path.concepts)}' data-progress-total="${path.concepts.length}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${path.concepts.length}">0/${path.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
     </div>
     <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm" data-stem-ids='${JSON.stringify(stemConceptIds)}' data-stem-total="${stemConceptIds.length}" data-de="${escapeHtml(t.stem_incomplete_hint)}" data-en="${escapeHtml(translations.en.stem_incomplete_hint)}"></div>
+    <div id="unlock-banner" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-cyan text-accent-cyan text-sm" data-de="${escapeHtml(t.unlock_banner_done)}" data-en="${escapeHtml(translations.en.unlock_banner_done)}"></div>
     <ol class="grid md:grid-cols-2 gap-2">
       ${conceptListHtml}
-    </ol>`
+    </ol>
+    ${manifest ? `<script type="application/json" id="unlock-manifest">${JSON.stringify(manifest)}</script>` : ''}`
 
   return htmlTemplate({
     title: `${path.name_de} — Software Architektur in 60 Sekunden`,
@@ -289,17 +297,38 @@ export function generatePathPage(path, allConcepts, translations, stemConceptIds
   })
 }
 
+export function buildUnlockManifest(allConcepts, allPaths) {
+  const intro = allConcepts.find((c) => c.path === 'intro')
+  const stem = allConcepts
+    .filter((c) => c.path === 'stem')
+    .sort((a, b) => a.path_position - b.path_position)
+  const stemIds = intro ? [intro.id, ...stem.map((c) => c.id)] : stem.map((c) => c.id)
+  const paths = {}
+  const pathMeta = []
+  for (const p of allPaths) {
+    paths[p.id] = p.concepts
+    pathMeta.push({
+      id: p.id,
+      name_de: p.name_de,
+      name_en: p.name_en,
+      color: p.color,
+    })
+  }
+  return { stem: stemIds, paths, pathMeta }
+}
+
 export function generateIndexPage(allConcepts, allPaths, translations) {
   const t = translations.de
   const totalConcepts = allConcepts.length
   const introConcept = allConcepts.find((c) => c.path === 'intro')
   const stemConcepts = allConcepts.filter((c) => c.path === 'stem')
+  const manifest = buildUnlockManifest(allConcepts, allPaths)
 
   const stemHtml = stemConcepts
     .map((c) => {
       const hasVideo = !!(c.youtube_de || c.youtube_en)
       return hasVideo
-        ? `<a href="/concept/${escapeHtml(c.id)}" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition flex items-center justify-center gap-2"><span class="text-accent-cyan text-xs" data-concept-seen="${escapeHtml(c.id)}">○</span> <span data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span></a>`
+        ? `<a href="/concept/${escapeHtml(c.id)}" data-unlock-id="${escapeHtml(c.id)}" class="p-3 bg-bg-card rounded-lg text-center hover:border-accent-cyan border border-transparent transition flex items-center justify-center gap-2"><span class="text-accent-cyan text-xs" data-concept-seen="${escapeHtml(c.id)}">○</span> <span data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span></a>`
         : `<span class="p-3 bg-bg-card rounded-lg text-center border border-transparent opacity-40 flex items-center justify-center gap-2"><span class="text-text-muted text-xs">○</span> <span data-de="${escapeHtml(c.title_de)}" data-en="${escapeHtml(c.title_en)}">${escapeHtml(c.title_de)}</span></span>`
     })
     .join('\n')
@@ -325,7 +354,7 @@ ${
   introConcept
     ? `
     <section class="mb-12">
-      <a href="/concept/${escapeHtml(introConcept.id)}" class="block p-6 bg-bg-card rounded-lg border border-accent-cyan hover:bg-accent-cyan/10 transition text-center">
+      <a href="/concept/${escapeHtml(introConcept.id)}" data-unlock-id="${escapeHtml(introConcept.id)}" class="block p-6 bg-bg-card rounded-lg border border-accent-cyan hover:bg-accent-cyan/10 transition text-center">
         <span class="text-accent-cyan text-sm mr-2" data-concept-seen="${escapeHtml(introConcept.id)}">○</span>
         <span class="text-xl font-bold" data-de="${escapeHtml(introConcept.title_de)}" data-en="${escapeHtml(introConcept.title_en)}">${escapeHtml(introConcept.title_de)}</span>
         <p class="text-text-muted text-sm mt-1" data-de="Starte hier" data-en="Start here">Starte hier</p>
@@ -341,12 +370,21 @@ ${
       </div>
     </section>
 
+    <div id="unlock-banner" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-cyan text-accent-cyan text-sm text-center" data-de="${escapeHtml(t.unlock_banner_done)}" data-en="${escapeHtml(translations.en.unlock_banner_done)}"></div>
+
+    <div id="path-chooser" class="hidden mb-8 p-6 bg-bg-card rounded-lg border border-accent-cyan">
+      <p class="text-accent-cyan font-medium mb-4" data-de="${escapeHtml(t.unlock_choose_hint)}" data-en="${escapeHtml(translations.en.unlock_choose_hint)}">${escapeHtml(t.unlock_choose_hint)}</p>
+      <div id="path-chooser-grid" class="grid md:grid-cols-2 gap-3"></div>
+    </div>
+
     <section>
       <h2 class="text-2xl font-bold mb-4" data-de="${escapeHtml(t.paths_title)}" data-en="${escapeHtml(translations.en.paths_title)}">${escapeHtml(t.paths_title)}</h2>
       <div class="grid md:grid-cols-2 gap-4">
         ${pathCardsHtml}
       </div>
-    </section>`
+    </section>
+
+    <script type="application/json" id="unlock-manifest">${JSON.stringify(manifest)}</script>`
 
   return htmlTemplate({
     title: t.site_title,
@@ -453,8 +491,9 @@ if (process.argv[1] === __filename) {
     const pathDir = resolve(publicDir, 'path')
     mkdirSync(pathDir, { recursive: true })
     const stemIds = concepts.filter((c) => c.path === 'stem').map((c) => c.id)
+    const unlockManifest = buildUnlockManifest(concepts, paths)
     for (const path of paths) {
-      const html = generatePathPage(path, concepts, translations, stemIds)
+      const html = generatePathPage(path, concepts, translations, stemIds, unlockManifest)
       writeFileSync(resolve(pathDir, `${path.id}.html`), html)
     }
     console.warn(`Generated ${paths.length} path pages`)

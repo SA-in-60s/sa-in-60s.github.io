@@ -1,4 +1,5 @@
 import './styles/main.css'
+import { initUnlock } from './unlock.js'
 
 // UC-5: Language toggle
 function initI18n() {
@@ -226,6 +227,7 @@ function initAiDeepDive() {
 document.addEventListener('DOMContentLoaded', () => {
   initI18n()
   initProgress()
+  initUnlock()
   initAiDeepDive()
   if (document.getElementById('cy')) {
     import('./graph.js').then((m) => m.initGraph())
