@@ -222,5 +222,25 @@
       "datenbank-refactoring",
       "evolutionary-architecture"
     ]
+  },
+  {
+    "id": "docs-as-code",
+    "name_de": "Docs-as-Code",
+    "name_en": "Docs-as-Code",
+    "description_de": "Dokumentation wie Code behandeln — versioniert, automatisiert, testbar",
+    "description_en": "Treat documentation like code — versioned, automated, testable",
+    "color": "#8B5CF6",
+    "concepts": [
+      "docs-as-code-pfad",
+      "docs-as-code",
+      "asciidoc",
+      "diagrams-as-code",
+      "doctoolchain",
+      "living-documentation",
+      "static-site-generators",
+      "api-documentation",
+      "documentation-testing",
+      "readme-driven-development"
+    ]
   }
 ]

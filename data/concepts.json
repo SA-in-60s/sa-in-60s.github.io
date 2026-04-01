@@ -2265,5 +2265,115 @@
     "merksatz_de": "Self-Contained Systems sind Microservices für Teams, die unabhängig liefern wollen — ohne sich im Netz aus API-Abhängigkeiten zu verfangen.",
     "script_en": "Your team adopted microservices. Now you have 40 tiny services that all depend on each other. Every feature requires changes in five repositories. Was that really the solution?\n\nSelf-Contained Systems are a counterpoint to fine-grained microservices. Instead of many small services, you build fewer, larger systems — each with its own UI, its own database, and its own business logic. Think of departments in a company rather than individual clerks.\n\nA Self-Contained System covers an entire business area. The shopping cart is one system, product search is another, the customer account a third. Each can be deployed independently, each has everything it needs — from the user interface to the database.\n\nIntegration happens in the frontend: each SCS delivers its own pages or fragments. Links instead of API calls. This drastically reduces runtime coupling — if one system goes down, the others keep working.\n\nRemember: Self-Contained Systems are microservices for teams that want to ship independently — without getting tangled in a web of API dependencies.",
     "merksatz_en": "Self-Contained Systems are microservices for teams that want to ship independently — without getting tangled in a web of API dependencies."
+  },
+  {
+    "id": "docs-as-code-pfad",
+    "title_de": "Docs-as-Code Pfad",
+    "title_en": "Docs-as-Code Path",
+    "episode": "ep134",
+    "path": "docs-as-code",
+    "path_position": 0,
+    "requires": [
+      "separation-of-concerns"
+    ]
+  },
+  {
+    "id": "docs-as-code",
+    "title_de": "Docs-as-Code",
+    "title_en": "Docs-as-Code",
+    "episode": "ep135",
+    "path": "docs-as-code",
+    "path_position": 1,
+    "requires": [
+      "docs-as-code-pfad"
+    ]
+  },
+  {
+    "id": "asciidoc",
+    "title_de": "AsciiDoc",
+    "title_en": "AsciiDoc",
+    "episode": "ep136",
+    "path": "docs-as-code",
+    "path_position": 2,
+    "requires": [
+      "docs-as-code"
+    ]
+  },
+  {
+    "id": "diagrams-as-code",
+    "title_de": "Diagrams as Code",
+    "title_en": "Diagrams as Code",
+    "episode": "ep137",
+    "path": "docs-as-code",
+    "path_position": 3,
+    "requires": [
+      "docs-as-code"
+    ]
+  },
+  {
+    "id": "doctoolchain",
+    "title_de": "docToolchain",
+    "title_en": "docToolchain",
+    "episode": "ep138",
+    "path": "docs-as-code",
+    "path_position": 4,
+    "requires": [
+      "asciidoc"
+    ]
+  },
+  {
+    "id": "living-documentation",
+    "title_de": "Living Documentation",
+    "title_en": "Living Documentation",
+    "episode": "ep139",
+    "path": "docs-as-code",
+    "path_position": 5,
+    "requires": [
+      "docs-as-code"
+    ]
+  },
+  {
+    "id": "static-site-generators",
+    "title_de": "Static Site Generators",
+    "title_en": "Static Site Generators",
+    "episode": "ep140",
+    "path": "docs-as-code",
+    "path_position": 6,
+    "requires": [
+      "asciidoc"
+    ]
+  },
+  {
+    "id": "api-documentation",
+    "title_de": "API-Dokumentation",
+    "title_en": "API Documentation",
+    "episode": "ep141",
+    "path": "docs-as-code",
+    "path_position": 7,
+    "requires": [
+      "docs-as-code"
+    ]
+  },
+  {
+    "id": "documentation-testing",
+    "title_de": "Documentation Testing",
+    "title_en": "Documentation Testing",
+    "episode": "ep142",
+    "path": "docs-as-code",
+    "path_position": 8,
+    "requires": [
+      "living-documentation"
+    ]
+  },
+  {
+    "id": "readme-driven-development",
+    "title_de": "README-Driven Development",
+    "title_en": "README-Driven Development",
+    "episode": "ep143",
+    "path": "docs-as-code",
+    "path_position": 9,
+    "requires": [
+      "docs-as-code"
+    ]
   }
 ]
