@@ -347,7 +347,8 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
 
   const body = `
     <section class="text-center py-12">
-      <h1 class="text-4xl font-bold mb-2" data-de="${escapeHtml(t.site_title)}" data-en="${escapeHtml(translations.en.site_title)}">${escapeHtml(t.site_title)}</h1>
+      <img src="/logo_de.png" alt="${escapeHtml(t.site_title)}" data-lang="de" class="mx-auto max-w-xs mb-4">
+      <img src="/logo_en.png" alt="${escapeHtml(translations.en.site_title)}" data-lang="en" class="hidden mx-auto max-w-xs mb-4">
       <p class="text-text-muted text-lg" data-de="${escapeHtml(t.site_subtitle)}" data-en="${escapeHtml(translations.en.site_subtitle)}">${escapeHtml(t.site_subtitle)}</p>
       <p class="text-text-muted text-sm mt-2"><span id="total-progress" data-progress-total="${totalConcepts}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
     </section>
