@@ -56,6 +56,7 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#0f172a">
+  <link rel="icon" type="image/png" href="/favicon.png">
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
   <link rel="canonical" href="${escapeHtml(canonicalUrl)}" />
