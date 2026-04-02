@@ -2275,7 +2275,9 @@
     "path_position": 0,
     "requires": [
       "separation-of-concerns"
-    ]
+    ],
+    "youtube_de": "https://youtube.com/shorts/ZVIaN9kV8PY",
+    "youtube_en": "https://youtube.com/shorts/c4a5brodIng"
   },
   {
     "id": "docs-as-code",
@@ -2286,7 +2288,9 @@
     "path_position": 1,
     "requires": [
       "docs-as-code-pfad"
-    ]
+    ],
+    "youtube_de": "https://youtube.com/shorts/doIo3pXjf3c",
+    "youtube_en": "https://youtube.com/shorts/ifwT6BuNU_I"
   },
   {
     "id": "asciidoc",
@@ -2297,7 +2301,9 @@
     "path_position": 2,
     "requires": [
       "docs-as-code"
-    ]
+    ],
+    "youtube_de": "https://youtube.com/shorts/Zn3egvR3-04",
+    "youtube_en": "https://youtube.com/shorts/_jGES4HB2tg"
   },
   {
     "id": "diagrams-as-code",
@@ -2308,7 +2314,9 @@
     "path_position": 3,
     "requires": [
       "docs-as-code"
-    ]
+    ],
+    "youtube_de": "https://youtube.com/shorts/98w3kThYwKk",
+    "youtube_en": "https://youtube.com/shorts/j8uXBo-r6FU"
   },
   {
     "id": "doctoolchain",
@@ -2319,7 +2327,9 @@
     "path_position": 4,
     "requires": [
       "asciidoc"
-    ]
+    ],
+    "youtube_de": "https://youtube.com/shorts/25hIRBqP5j0",
+    "youtube_en": "https://youtube.com/shorts/hG_j0dfPN00"
   },
   {
     "id": "living-documentation",
@@ -2330,7 +2340,9 @@
     "path_position": 5,
     "requires": [
       "docs-as-code"
-    ]
+    ],
+    "youtube_en": "https://youtube.com/shorts/C4cp5jqjuJM",
+    "youtube_de": "https://youtube.com/shorts/2E7emxnNy00"
   },
   {
     "id": "static-site-generators",
@@ -2341,7 +2353,9 @@
     "path_position": 6,
     "requires": [
       "asciidoc"
-    ]
+    ],
+    "youtube_en": "https://youtube.com/shorts/zE5OFSRuGN8",
+    "youtube_de": "https://youtube.com/shorts/yuLkPCM2MYI"
   },
   {
     "id": "api-documentation",
@@ -2352,7 +2366,9 @@
     "path_position": 7,
     "requires": [
       "docs-as-code"
-    ]
+    ],
+    "youtube_de": "https://youtube.com/shorts/U0SMzDi-MvI",
+    "youtube_en": "https://youtube.com/shorts/CUKZXD_a1LQ"
   },
   {
     "id": "documentation-testing",
@@ -2363,7 +2379,9 @@
     "path_position": 8,
     "requires": [
       "living-documentation"
-    ]
+    ],
+    "youtube_de": "https://youtube.com/shorts/0VOyHYy3q9I",
+    "youtube_en": "https://youtube.com/shorts/VMtt_hAmV38"
   },
   {
     "id": "readme-driven-development",
@@ -2374,6 +2392,8 @@
     "path_position": 9,
     "requires": [
       "docs-as-code"
-    ]
+    ],
+    "youtube_en": "https://youtube.com/shorts/XiTW1Zi5A64",
+    "youtube_de": "https://youtube.com/shorts/xztU4Nw4l7Q"
   }
 ]
