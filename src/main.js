@@ -165,8 +165,11 @@ function updateProgressDisplays() {
   })
   const totalEl = document.getElementById('total-progress')
   if (totalEl) {
-    totalEl.textContent = `${progress.length}/${parseInt(totalEl.dataset.progressTotal, 10)}`
+    const totalCount = parseInt(totalEl.dataset.progressTotal, 10)
+    totalEl.textContent = `${progress.length}/${totalCount}`
     totalEl.setAttribute('aria-valuenow', progress.length.toString())
+    const bar = document.getElementById('total-progress-bar')
+    if (bar) bar.style.width = `${(progress.length / totalCount) * 100}%`
   }
   document.querySelectorAll('[data-concept-seen]').forEach((el) => {
     el.textContent = progress.includes(el.dataset.conceptSeen) ? '✓' : '○'

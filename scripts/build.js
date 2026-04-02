@@ -347,6 +347,14 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
       <a href="/path/${escapeHtml(p.id)}" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid ${escapeHtml(p.color)};">
         <h3 class="font-bold" data-de="${escapeHtml(p.name_de)}" data-en="${escapeHtml(p.name_en)}">${escapeHtml(p.name_de)}</h3>
         <p class="text-sm text-text-muted" data-de="${escapeHtml(p.description_de)}" data-en="${escapeHtml(p.description_en)}">${escapeHtml(p.description_de)}</p>
+        <p class="text-xs text-text-muted/60 mt-1">${p.concepts
+          .slice(1, 4)
+          .map((cid) => {
+            const cc = allConcepts.find((x) => x.id === cid)
+            return cc ? escapeHtml(cc.title_de) : ''
+          })
+          .filter(Boolean)
+          .join(' · ')}</p>
         <p class="text-xs text-text-muted mt-2"><span data-progress-path="${escapeHtml(p.id)}" data-progress-concepts='${JSON.stringify(p.concepts)}' data-progress-total="${p.concepts.length}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${p.concepts.length}">0/${p.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
       </a>`
     )
@@ -357,7 +365,11 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
       <img src="/logo_de.png" alt="${escapeHtml(t.site_title)}" data-lang="de" class="mx-auto max-w-xs mb-4">
       <img src="/logo_en.png" alt="${escapeHtml(translations.en.site_title)}" data-lang="en" class="hidden mx-auto max-w-xs mb-4">
       <p class="text-text-muted text-lg" data-de="${escapeHtml(t.site_subtitle)}" data-en="${escapeHtml(translations.en.site_subtitle)}">${escapeHtml(t.site_subtitle)}</p>
-      <p class="text-text-muted text-sm mt-2"><span id="total-progress" data-progress-total="${totalConcepts}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
+      <p class="text-text-muted text-sm mt-2 max-w-lg mx-auto" data-de="Lerne Software-Architektur in 60-Sekunden-Videos. Starte mit den Grundlagen, dann w&#xE4;hle deinen Lernpfad." data-en="Learn software architecture in 60-second videos. Start with the basics, then choose your learning path.">Lerne Software-Architektur in 60-Sekunden-Videos. Starte mit den Grundlagen, dann wähle deinen Lernpfad.</p>
+      <div class="mt-3 max-w-xs mx-auto">
+        <div class="h-2 bg-bg-card rounded-full overflow-hidden"><div id="total-progress-bar" class="h-full bg-accent-cyan transition-all" style="width: 0%"></div></div>
+        <p class="text-text-muted text-xs mt-1"><span id="total-progress" data-progress-total="${totalConcepts}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
+      </div>
     </section>
 ${
   introConcept
@@ -391,6 +403,18 @@ ${
       <div class="grid md:grid-cols-2 gap-4">
         ${pathCardsHtml}
       </div>
+    </section>
+
+    <section class="mt-12">
+      <details class="bg-bg-card rounded-lg border border-text-muted/20">
+        <summary class="p-4 cursor-pointer text-text-muted hover:text-text font-medium" data-de="Wie funktioniert's?" data-en="How does it work?">Wie funktioniert's?</summary>
+        <div class="px-4 pb-4 space-y-3 text-sm text-text-muted">
+          <p data-de="Jedes Konzept wird in einem 60-Sekunden-Video erkl&#xE4;rt. Starte mit dem Einf&#xFC;hrungsvideo, arbeite dann die 9 Grundlagen-Begriffe (Stamm) durch." data-en="Each concept is explained in a 60-second video. Start with the intro video, then work through the 9 foundational concepts (stem).">Jedes Konzept wird in einem 60-Sekunden-Video erklärt. Starte mit dem Einführungsvideo, arbeite dann die 9 Grundlagen-Begriffe (Stamm) durch.</p>
+          <p data-de="Danach w&#xE4;hlst du einen Lernpfad — z.B. Microservices, arc42 oder Docs-as-Code. Jeder Pfad baut aufeinander auf." data-en="Then choose a learning path — e.g. Microservices, arc42, or Docs-as-Code. Each path builds on the previous concepts.">Danach wählst du einen Lernpfad — z.B. Microservices, arc42 oder Docs-as-Code. Jeder Pfad baut aufeinander auf.</p>
+          <p data-de="Markiere Begriffe als &#x201E;Verstanden&#x201C;, um deinen Fortschritt zu tracken. Der Fortschritt wird lokal in deinem Browser gespeichert." data-en="Mark concepts as &quot;Got it&quot; to track your progress. Progress is stored locally in your browser.">Markiere Begriffe als „Verstanden", um deinen Fortschritt zu tracken. Der Fortschritt wird lokal in deinem Browser gespeichert.</p>
+          <p data-de="Im Abh&#xE4;ngigkeitsgraph siehst du, wie alle Begriffe zusammenh&#xE4;ngen." data-en="The dependency graph shows how all concepts are connected.">Im Abhängigkeitsgraph siehst du, wie alle Begriffe zusammenhängen.</p>
+        </div>
+      </details>
     </section>
 
     <script type="application/json" id="unlock-manifest">${JSON.stringify(manifest)}</script>`
@@ -447,6 +471,11 @@ export function generateGraphPage(
     </div>
     <div id="cy" class="rounded-lg border border-text-muted" data-graph-url="${escapeHtml(graphDataUrl)}"></div>
     <div id="graph-tooltip" class="hidden"></div>
+    <div class="flex flex-wrap gap-3 mt-3 text-xs text-text-muted">
+      <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full bg-accent-cyan inline-block"></span> <span data-de="Stamm" data-en="Stem">Stamm</span></span>
+      ${allPaths.map((p) => `<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block" style="background:${escapeHtml(p.color)}"></span> <span data-de="${escapeHtml(p.name_de)}" data-en="${escapeHtml(p.name_en)}">${escapeHtml(p.name_de)}</span></span>`).join('\n      ')}
+      <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full border-2 border-accent-cyan inline-block"></span> <span data-de="Gesehen" data-en="Seen">Gesehen</span></span>
+    </div>
     <noscript>
       <p class="text-center text-text-muted py-12" data-de="${escapeHtml(t.graph_noscript)}" data-en="${escapeHtml(tEn.graph_noscript)}">${escapeHtml(t.graph_noscript)}</p>
     </noscript>`
