@@ -128,20 +128,38 @@ function showBanner(nextConcept, manifest) {
   const lang = document.documentElement.lang || 'de'
   const template = banner.dataset[lang] || banner.dataset.de || ''
 
-  // Find concept title
-  let title = nextConcept
-  const allConcepts = [...manifest.stem]
-  for (const pathConcepts of Object.values(manifest.paths)) {
-    allConcepts.push(...pathConcepts)
-  }
-  // We don't have titles in manifest, so just use the ID formatted nicely
-  title = nextConcept.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+  const title = nextConcept.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
-  const text = template
-    .replace('{next}', title)
-    .replace('{link}', '<a href="https://software-architektur.tv" target="_blank" rel="noopener" class="underline hover:text-text">')
-    .replace('{/link}', '</a>')
-  banner.innerHTML = text
+  // Build banner with safe DOM manipulation (no innerHTML)
+  banner.textContent = ''
+  const parts = template.split(/\{next\}|\{link\}|\{\/link\}/)
+  const tokens = [...template.matchAll(/\{next\}|\{link\}|\{\/link\}/g)].map((m) => m[0])
+
+  for (let i = 0; i < parts.length; i++) {
+    if (parts[i]) banner.appendChild(document.createTextNode(parts[i]))
+    if (i < tokens.length) {
+      if (tokens[i] === '{next}') {
+        const strong = document.createElement('strong')
+        strong.textContent = title
+        banner.appendChild(strong)
+      } else if (tokens[i] === '{link}') {
+        const link = document.createElement('a')
+        link.href = 'https://software-architektur.tv'
+        link.target = '_blank'
+        link.rel = 'noopener'
+        link.className = 'underline hover:text-text'
+        // Find text between {link} and {/link}
+        const linkText = parts[i + 1] || ''
+        link.textContent = linkText
+        banner.appendChild(link)
+        i++ // skip the text between {link} and {/link}
+        // skip {/link} token
+        if (i < tokens.length && tokens[i] === '{/link}') {
+          // already consumed
+        }
+      }
+    }
+  }
   banner.classList.remove('hidden')
 }
 
@@ -162,14 +180,19 @@ function showPathChooser(availablePaths, state, manifest, onChosen) {
     hintEl.textContent = translations[lang] || translations.de
   }
 
-  grid.innerHTML = availablePaths
-    .map(
-      (p) =>
-        `<button data-choose-path="${p.id}" class="p-4 bg-bg rounded-lg hover:border-accent-cyan border border-text-muted transition text-left" style="border-left: 4px solid ${p.color};">
-        <span class="font-bold">${lang === 'de' ? p.name_de : p.name_en}</span>
-      </button>`
-    )
-    .join('')
+  grid.textContent = ''
+  for (const p of availablePaths) {
+    const btn = document.createElement('button')
+    btn.dataset.choosePath = p.id
+    btn.className =
+      'p-4 bg-bg rounded-lg hover:border-accent-cyan border border-text-muted transition text-left'
+    btn.style.borderLeft = `4px solid ${p.color.replace(/[^#0-9a-fA-F]/g, '')}`
+    const span = document.createElement('span')
+    span.className = 'font-bold'
+    span.textContent = lang === 'de' ? p.name_de : p.name_en
+    btn.appendChild(span)
+    grid.appendChild(btn)
+  }
 
   chooser.classList.remove('hidden')
 
