@@ -15,7 +15,9 @@
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "import:scripts": "node scripts/import-scripts.js",
-    "import:youtube": "node scripts/import-youtube-urls.js"
+    "import:youtube": "node scripts/import-youtube-urls.js",
+    "ebook": "node scripts/generate-ebook.js",
+    "ebook:en": "node scripts/generate-ebook.js --lang en"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "vitest": "^4.1.2"
   },
   "dependencies": {
-    "cytoscape": "^3.33.1"
+    "cytoscape": "^3.33.1",
+    "qrcode": "^1.5.4"
   }
 }

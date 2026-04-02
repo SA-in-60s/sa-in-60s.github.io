@@ -488,6 +488,88 @@ export function generateGraphPage(
   })
 }
 
+export function generateGoRedirect(concept) {
+  const deUrl = concept.youtube_de || ''
+  const enUrl = concept.youtube_en || deUrl
+  const fallback = `${BASE_URL}/concept/${concept.id}`
+  return `<!doctype html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHtml(concept.title_de)} — Video</title>
+<style>body{font-family:sans-serif;background:#0f172a;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center}</style>
+<script>
+(function(){
+  var lang=(localStorage.getItem('sa60s-lang')||(navigator.language||'').slice(0,2)==='de'?'de':'en');
+  var de=${JSON.stringify(deUrl)};
+  var en=${JSON.stringify(enUrl)};
+  var url=(lang==='de'?de:en)||de||en;
+  if(url)window.location.replace(url);
+})();
+</script></head>
+<body><p><a href="${escapeHtml(fallback)}" style="color:#22d3ee">${escapeHtml(concept.title_de)} — Video</a></p></body></html>`
+}
+
+export function generateAiRedirect(concept) {
+  const promptDe = `Ich habe gerade ein 60-Sekunden-Video über "${concept.title_de}" auf sa-in-60s.github.io gesehen.\n\nErkläre mir das Konzept tiefer:\n- Was sind typische Praxisbeispiele?\n- Welche Vor- und Nachteile gibt es?\n- Wie hängt es mit verwandten Konzepten zusammen?\n- Wann sollte man es einsetzen — und wann nicht?`
+  const promptEn = `I just watched a 60-second video about "${concept.title_en}" on sa-in-60s.github.io.\n\nExplain this concept in more depth:\n- What are typical real-world examples?\n- What are the pros and cons?\n- How does it relate to other concepts?\n- When should you use it — and when not?`
+  return `<!doctype html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHtml(concept.title_de)} — KI-Vertiefung</title>
+<style>body{font-family:sans-serif;background:#0f172a;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center;padding:1rem}
+a{display:block;padding:1rem 2rem;margin:0.5rem;border:2px solid #94a3b8;border-radius:0.5rem;color:#e2e8f0;text-decoration:none}a:hover{border-color:#22d3ee;color:#22d3ee}</style>
+<script>
+(function(){
+  var chats={claude:function(p){return'https://claude.ai/new?q='+encodeURIComponent(p)},chatgpt:function(p){return'https://chatgpt.com/?q='+encodeURIComponent(p)},perplexity:function(p){return'https://www.perplexity.ai/?q='+encodeURIComponent(p)}};
+  var lang=(localStorage.getItem('sa60s-lang')||(navigator.language||'').slice(0,2)==='de'?'de':'en');
+  var prompt=lang==='de'?${JSON.stringify(promptDe)}:${JSON.stringify(promptEn)};
+  var saved=localStorage.getItem('sa60s-ai-chat');
+  if(saved&&chats[saved])window.location.replace(chats[saved](prompt));
+})();
+</script></head>
+<body><div>
+<p style="margin-bottom:1rem">${escapeHtml(concept.title_de)} — KI-Vertiefung</p>
+<p style="font-size:0.875rem;color:#94a3b8;margin-bottom:1rem">Wähle deinen KI-Assistenten:</p>
+<a href="#" onclick="localStorage.setItem('sa60s-ai-chat','claude');location.reload()">Claude</a>
+<a href="#" onclick="localStorage.setItem('sa60s-ai-chat','chatgpt');location.reload()">ChatGPT</a>
+<a href="#" onclick="localStorage.setItem('sa60s-ai-chat','perplexity');location.reload()">Perplexity</a>
+</div></body></html>`
+}
+
+export function generateSetupPage() {
+  return `<!doctype html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KI-Assistent wählen — SA-in-60s</title>
+<style>body{font-family:sans-serif;background:#0f172a;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center;padding:1rem}
+.card{background:#1e293b;border-radius:1rem;padding:2rem;max-width:400px;width:100%}
+h1{font-size:1.5rem;margin-bottom:0.5rem}
+p{color:#94a3b8;font-size:0.875rem;margin-bottom:1.5rem}
+a{display:block;padding:1rem;margin:0.5rem 0;border:2px solid #94a3b8;border-radius:0.5rem;color:#e2e8f0;text-decoration:none;font-size:1.1rem}
+a:hover{border-color:#22d3ee;color:#22d3ee}
+.ok{display:none;color:#22d3ee;margin-top:1rem;font-weight:bold}
+</style></head>
+<body><div class="card">
+<h1>🤖 KI-Assistent wählen</h1>
+<p>Wähle deinen bevorzugten KI-Assistenten. Alle QR-Codes im Buch öffnen dann diesen Chat mit einem vorausgefüllten Prompt.</p>
+<a href="#" onclick="pick('claude')">Claude</a>
+<a href="#" onclick="pick('chatgpt')">ChatGPT</a>
+<a href="#" onclick="pick('perplexity')">Perplexity</a>
+<p class="ok" id="ok"></p>
+</div>
+<script>
+function pick(id){
+  var names={claude:'Claude',chatgpt:'ChatGPT',perplexity:'Perplexity'};
+  localStorage.setItem('sa60s-ai-chat',id);
+  document.getElementById('ok').style.display='block';
+  document.getElementById('ok').textContent='✓ Gespeichert! Alle 🤖-QR-Codes öffnen jetzt '+names[id]+'.';
+}
+(function(){
+  var saved=localStorage.getItem('sa60s-ai-chat');
+  if(saved){var names={claude:'Claude',chatgpt:'ChatGPT',perplexity:'Perplexity'};
+  document.getElementById('ok').style.display='block';
+  document.getElementById('ok').textContent='Aktuell: '+names[saved]+'. Tippe auf einen anderen, um zu wechseln.';}
+})();
+</script></body></html>`
+}
+
 // CLI entry point — generates static site into dist/ (after Vite build)
 if (process.argv[1] === __filename) {
   try {
@@ -559,6 +641,20 @@ if (process.argv[1] === __filename) {
     const graphHtml = generateGraphPage(concepts, paths, translations, `/data/${graphDataFile}`)
     writeFileSync(resolve(graphDir, 'index.html'), graphHtml)
     console.warn('Generated graph/index.html')
+
+    // Generate redirect pages (/go/{id}, /ai/{id}, /setup)
+    const goDir = resolve(publicDir, 'go')
+    const aiDir = resolve(publicDir, 'ai')
+    const setupDir = resolve(publicDir, 'setup')
+    mkdirSync(goDir, { recursive: true })
+    mkdirSync(aiDir, { recursive: true })
+    mkdirSync(setupDir, { recursive: true })
+    for (const concept of concepts) {
+      writeFileSync(resolve(goDir, `${concept.id}.html`), generateGoRedirect(concept))
+      writeFileSync(resolve(aiDir, `${concept.id}.html`), generateAiRedirect(concept))
+    }
+    writeFileSync(resolve(setupDir, 'index.html'), generateSetupPage())
+    console.warn(`Generated ${concepts.length * 2 + 1} redirect pages (/go/, /ai/, /setup)`)
 
     // Generate sitemap
     const urls = [
