@@ -217,7 +217,8 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
           </blockquote>`
               : ''
           }
-          <div class="hidden mt-4">
+          <div class="mt-4 seen-container" data-concept-id="${escapeHtml(concept.id)}">
+            <p class="seen-timer text-sm text-text-muted mb-2" data-de="Gib dem Konzept 60 Sekunden" data-en="Give this concept 60 seconds"></p>
             <button class="seen-button max-w-[50%] py-2 px-4 rounded-lg border-2 border-accent-cyan text-accent-cyan hover:bg-accent-cyan hover:text-bg transition text-center text-sm font-medium" data-concept-id="${escapeHtml(concept.id)}" aria-pressed="false" data-de="${escapeHtml(t.seen_button)}?" data-en="${escapeHtml(translations.en.seen_button)}?">${escapeHtml(t.seen_button)}?</button>
           </div>
           <div class="mt-4 flex items-center gap-2">
@@ -650,18 +651,29 @@ if (process.argv[1] === __filename) {
     mkdirSync(aiDir, { recursive: true })
     mkdirSync(setupDir, { recursive: true })
     for (const concept of concepts) {
-      writeFileSync(resolve(goDir, `${concept.id}.html`), generateGoRedirect(concept))
-      writeFileSync(resolve(aiDir, `${concept.id}.html`), generateAiRedirect(concept))
+      const token = concept.token || concept.id
+      writeFileSync(resolve(goDir, `${token}.html`), generateGoRedirect(concept))
+      writeFileSync(resolve(aiDir, `${token}.html`), generateAiRedirect(concept))
+      // Keep human-readable aliases for existing links
+      if (concept.token && concept.token !== concept.id) {
+        writeFileSync(resolve(goDir, `${concept.id}.html`), generateGoRedirect(concept))
+        writeFileSync(resolve(aiDir, `${concept.id}.html`), generateAiRedirect(concept))
+      }
     }
     writeFileSync(resolve(setupDir, 'index.html'), generateSetupPage())
-    console.warn(`Generated ${concepts.length * 2 + 1} redirect pages (/go/, /ai/, /setup)`)
+    const tokenCount = concepts.filter((c) => c.token).length
+    const aliasCount = tokenCount * 2
+    console.warn(
+      `Generated ${tokenCount * 2 + aliasCount + 1} redirect pages (/go/, /ai/, /setup)`
+    )
 
-    // Generate sitemap
+    // Generate sitemap (only stem concepts + paths + main pages)
+    const stemConcepts = concepts.filter((c) => c.path === 'stem')
     const urls = [
       BASE_URL,
       `${BASE_URL}/graph`,
       ...paths.map((p) => `${BASE_URL}/path/${p.id}`),
-      ...concepts.map((c) => `${BASE_URL}/concept/${c.id}`),
+      ...stemConcepts.map((c) => `${BASE_URL}/concept/${c.id}`),
     ]
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -670,10 +682,11 @@ ${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}
     writeFileSync(resolve(publicDir, 'sitemap.xml'), sitemap)
     console.warn(`Generated sitemap.xml (${urls.length} URLs)`)
 
-    // Generate robots.txt
+    // Generate robots.txt — only index stem concepts, block redirects
+    const stemPaths = stemConcepts.map((c) => `Allow: /concept/${c.id}`).join('\n')
     writeFileSync(
       resolve(publicDir, 'robots.txt'),
-      `User-agent: *\nAllow: /\n\nSitemap: ${BASE_URL}/sitemap.xml\n`
+      `User-agent: *\nDisallow: /go/\nDisallow: /ai/\nDisallow: /setup/\nDisallow: /concept/\n${stemPaths}\nAllow: /path/\nAllow: /graph\nAllow: /\n\nSitemap: ${BASE_URL}/sitemap.xml\n`
     )
     console.warn('Generated robots.txt')
   } catch (err) {

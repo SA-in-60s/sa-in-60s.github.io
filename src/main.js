@@ -80,16 +80,41 @@ function initProgress() {
   document.querySelectorAll('.seen-button').forEach((btn) => {
     const id = btn.dataset.conceptId
     const container = btn.parentElement
+    const timer = container.querySelector('.seen-timer')
     const isSeen = progress.includes(id)
     updateSeenButton(btn, isSeen)
 
-    // Show immediately if already seen, otherwise after 50s
     if (isSeen) {
-      container.classList.remove('hidden')
+      btn.disabled = false
+      if (timer) timer.style.display = 'none'
     } else {
-      setTimeout(() => {
-        container.classList.remove('hidden')
-      }, 50000)
+      btn.disabled = true
+      btn.classList.add('opacity-50', 'cursor-not-allowed')
+      if (timer) {
+        const lang = document.documentElement.lang || 'de'
+        let remaining = 60
+        const updateTimer = () => {
+          timer.textContent =
+            lang === 'de'
+              ? `Gib dem Konzept 60 Sekunden — noch ${remaining}s`
+              : `Give this concept 60 seconds — ${remaining}s left`
+        }
+        updateTimer()
+        const interval = setInterval(() => {
+          remaining--
+          if (remaining <= 0) {
+            clearInterval(interval)
+            timer.textContent =
+              lang === 'de'
+                ? '60 Sekunden geschafft — Konzept gelernt?'
+                : '60 seconds done — got the concept?'
+            btn.disabled = false
+            btn.classList.remove('opacity-50', 'cursor-not-allowed')
+          } else {
+            updateTimer()
+          }
+        }, 1000)
+      }
     }
 
     btn.addEventListener('click', () => {
