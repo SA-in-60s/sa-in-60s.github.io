@@ -11,8 +11,8 @@
     "merksatz_de": "",
     "script_en": "Your system works. Features ship on time. But when a thousand users hit it at once, everything falls apart. Or a developer quits — and nobody understands the code anymore.\n\nThese are not bugs. These are architecture decisions that were never consciously made.\n\nSoftware architecture is the set of decisions that are hard to change — and that determine the qualities of your system. Scalability, maintainability, security.\n\nThink of a house: you can repaint the walls in a day. But the load-bearing walls? The foundation? That is architecture.\n\nHere is the key point: good architecture does not start with technology. It starts with the question: what must this system deliver — and what happens if it does not?\n\nArchitecture is not a talent. Architecture is learnable. And that is exactly what we do here — one concept at a time, each in 60 seconds.",
     "merksatz_en": "",
-    "youtube_en": "https://youtube.com/shorts/ZTwjqu9FNoo",
-    "youtube_de": "https://youtube.com/shorts/Ub-OyBRyj0Q",
+    "youtube_en": "https://youtube.com/shorts/7VxMkVGfPw4",
+    "youtube_de": "https://youtube.com/shorts/r9cpfD2L7fM",
     "token": "fcbe4"
   },
   {
@@ -25,8 +25,8 @@
     "requires": [
       "was-ist-software-architektur"
     ],
-    "youtube_de": "https://youtube.com/shorts/o8X3Xmu69Hk",
-    "youtube_en": "https://youtube.com/shorts/HvBr4AwgWAo",
+    "youtube_de": "https://youtube.com/shorts/1PoZpPHzDUA",
+    "youtube_en": "https://youtube.com/shorts/HgPhg2LysLk",
     "script_de": "Du öffnest den Code und siehst: eine Funktion mit 500 Zeilen, die alles macht. Datenbank, Validierung, E-Mail-Versand, Logging — alles in einem Block. Wo fängst du an?\n\nDas Problem: Es fehlt Abstraktion.\n\nAbstraktion bedeutet, unwichtige Details zu verstecken und nur das Wesentliche sichtbar zu machen. Denk an ein Auto: Du drehst am Lenkrad — du musst nicht wissen, wie die Servopumpe funktioniert. Das Lenkrad ist die Abstraktion.\n\nIn Software heißt das: Statt die Datenbank-Logik in jeder Funktion zu wiederholen, versteckst du sie hinter einer Schnittstelle. Der Rest deines Codes sagt nur noch: Speichere diesen Kunden. Wie das passiert? Nicht sein Problem.\n\nGute Abstraktion hat eine Regel: Sie soll vereinfachen, nicht verschleiern. Wenn du drei Schichten durchklicken musst um zu verstehen was passiert, hast du zu viel abstrahiert.\n\nMerke: Abstraktion ist das Weglassen des Unwichtigen — nicht das Verstecken des Wichtigen.",
     "merksatz_de": "Abstraktion ist das Weglassen des Unwichtigen — nicht das Verstecken des Wichtigen.",
     "script_en": "You open the code and see: one function, 500 lines, doing everything. Database, validation, email, logging — all in one block. Where do you even start?\n\nThe problem: there is no abstraction.\n\nAbstraction means hiding unnecessary details and showing only what matters. Think of a car: you turn the steering wheel — you do not need to know how the power steering pump works. The steering wheel is the abstraction.\n\nIn software, this means: instead of repeating database logic in every function, you hide it behind an interface. The rest of your code just says: save this customer. How it happens? Not its problem.\n\nGood abstraction has one rule: it should simplify, not obscure. If you have to click through three layers to understand what is happening, you have abstracted too much.\n\nRemember: abstraction is removing what does not matter — not hiding what does.",
@@ -43,8 +43,8 @@
     "requires": [
       "abstraktion"
     ],
-    "youtube_de": "https://youtube.com/shorts/miKypwG3v7g",
-    "youtube_en": "https://youtube.com/shorts/IloYZrIPMQE",
+    "youtube_de": "https://youtube.com/shorts/cLWhXFN68YU",
+    "youtube_en": "https://youtube.com/shorts/qa2-Qymcx4o",
     "script_de": "Du hast hundert Dateien im Projekt. Jede kennt jede. Wenn du eine änderst, brechen drei andere. Das ist kein großes Projekt — das ist ein Projekt ohne Module.\n\nEin Modul ist eine Einheit, die zusammengehörige Funktionen bündelt — mit einer klaren Grenze nach außen. Denk an eine Schublade in der Küche: Besteck gehört zusammen. Gewürze gehören zusammen. Du suchst nicht das Salz zwischen den Gabeln.\n\nIn Software bedeutet das: Alles was zur Benutzer-Verwaltung gehört — Registrierung, Login, Passwort-Reset — lebt in einem Modul. Der Rest des Systems kennt nur die Schnittstelle, nicht die Details.\n\nEin gutes Modul hat zwei Eigenschaften: Es versteckt seine Interna. Und es hat einen klaren Grund zu existieren. Wenn du nicht in einem Satz sagen kannst, was ein Modul tut, ist es wahrscheinlich kein gutes Modul.\n\nMerke: Ein gutes Modul erkennst du daran, dass du es in einem Satz beschreiben kannst.",
     "merksatz_de": "Ein gutes Modul erkennst du daran, dass du es in einem Satz beschreiben kannst.",
     "script_en": "You have a hundred files in your project. Every file knows every other file. Change one, and three others break. This is not a large project — it is a project without modules.\n\nA module is a unit that bundles related functions — with a clear boundary to the outside. Think of a kitchen drawer: cutlery belongs together. Spices belong together. You do not search for salt between the forks.\n\nIn software, this means: everything related to user management — registration, login, password reset — lives in one module. The rest of the system knows only the interface, not the details.\n\nA good module has two properties: it hides its internals. And it has a clear reason to exist. If you cannot say in one sentence what a module does, it is probably not a good module.\n\nRemember: you know a module is good when you can describe it in one sentence.",
@@ -61,8 +61,8 @@
     "requires": [
       "modul"
     ],
-    "youtube_de": "https://youtube.com/shorts/B6dmneZJCuo",
-    "youtube_en": "https://youtube.com/shorts/-7HQO0LO4vE",
+    "youtube_de": "https://youtube.com/shorts/b01SAbShQr8",
+    "youtube_en": "https://youtube.com/shorts/LVGe2OZDOZw",
     "script_de": "Du hast Module. Du hast Struktur. Aber wie wird aus Modulen ein System, das du deployen, ersetzen und unabhängig weiterentwickeln kannst?\n\nDie Antwort: Komponenten.\n\nEine Komponente ist ein Modul, das du eigenständig deployen und ersetzen kannst. Der Unterschied zum Modul? Ein Modul strukturiert deinen Code. Eine Komponente kannst du unabhängig bauen, testen und ausliefern — als JAR, als Container, als Service.\n\nStell dir einen Computer vor: Die Grafikkarte ist eine Komponente. Du kannst sie austauschen, ohne das Mainboard zu ändern. Sie hat eine klare Schnittstelle — den PCIe-Slot.\n\nIn Software gilt dasselbe: Eine Zahlungs-Komponente kannst du von Stripe auf PayPal umstellen, ohne den Rest deines Systems anzufassen — wenn die Schnittstelle stimmt.\n\nMerke: Jede Komponente ist ein Modul. Aber nicht jedes Modul ist eine Komponente. Der Unterschied ist die Unabhängigkeit.",
     "merksatz_de": "Jede Komponente ist ein Modul. Aber nicht jedes Modul ist eine Komponente. Der Unterschied ist die Unabhängigkeit.",
     "script_en": "You have modules. You have structure. But how do modules become a system you can deploy, replace, and evolve independently?\n\nThe answer: components.\n\nA component is a module that you can deploy and replace independently. The difference from a module? A module structures your code. A component can be built, tested, and delivered independently — as a JAR, a container, a service.\n\nThink of a computer: the graphics card is a component. You can swap it out without changing the motherboard. It has a clear interface — the PCIe slot.\n\nIn software, the same applies: you can switch a payment component from Stripe to PayPal without touching the rest of your system — if the interface is right.\n\nRemember: every component is a module. But not every module is a component. The difference is independence.",
@@ -79,8 +79,8 @@
     "requires": [
       "komponente"
     ],
-    "youtube_de": "https://youtube.com/shorts/tUIrTk6jzco",
-    "youtube_en": "https://youtube.com/shorts/AheKled3agE",
+    "youtube_de": "https://youtube.com/shorts/5_vdgUiWOag",
+    "youtube_en": "https://youtube.com/shorts/vhAN9wK-Dd0",
     "script_de": "Zwei Teams arbeiten am selben System. Team A ändert die Datenbank-Struktur — und Team B steht still, weil ihr Code nicht mehr funktioniert. Das passiert, wenn es keine klaren Schnittstellen gibt.\n\nEine Schnittstelle ist ein Vertrag zwischen zwei Seiten: Ich liefere dir das — du lieferst mir jenes. Nicht mehr, nicht weniger. Wie ein Steckdosen-Standard: 230 Volt, Typ F. Jedes Gerät das sich daran hält, funktioniert.\n\nIn Software gibt es Schnittstellen überall: APIs, Funktionssignaturen, Event-Formate. Sie definieren was rein und raus geht — aber nicht wie es intern funktioniert.\n\nEine gute Schnittstelle ist stabil. Sie ändert sich selten. Und sie ist so schmal wie möglich — je weniger sie preisgibt, desto weniger kann brechen.\n\nDas ist der Kern: Schnittstellen entkoppeln. Sie erlauben dir, eine Seite zu ändern, ohne die andere zu zerstören.\n\nMerke: Die beste Schnittstelle ist die, die du nie ändern musst.",
     "merksatz_de": "Die beste Schnittstelle ist die, die du nie ändern musst.",
     "script_en": "Two teams work on the same system. Team A changes the database structure — and Team B is blocked because their code no longer works. This happens when there are no clear interfaces.\n\nAn interface is a contract between two sides: I deliver this — you deliver that. Nothing more, nothing less. Like a power outlet standard: 230 volts, Type F. Every device that follows the standard works.\n\nIn software, interfaces are everywhere: APIs, function signatures, event formats. They define what goes in and what comes out — but not how it works internally.\n\nA good interface is stable. It rarely changes. And it is as narrow as possible — the less it exposes, the less can break.\n\nThis is the core idea: interfaces decouple. They allow you to change one side without breaking the other.\n\nRemember: the best interface is one you never have to change.",
@@ -97,8 +97,8 @@
     "requires": [
       "komponente"
     ],
-    "youtube_de": "https://youtube.com/shorts/RSkXztfnZmA",
-    "youtube_en": "https://youtube.com/shorts/RGTzi8ROVmc",
+    "youtube_de": "https://youtube.com/shorts/GopmUgs8fFE",
+    "youtube_en": "https://youtube.com/shorts/9mBro6aFnOM",
     "script_de": "Du willst eine Library updaten. Aber sie hängt von einer anderen ab, die von einer dritten abhängt — und plötzlich bricht dein halbes System. Willkommen in der Dependency-Hölle.\n\nEine Abhängigkeit entsteht, wenn eine Komponente eine andere braucht um zu funktionieren. Das ist nicht schlimm — kein System existiert ohne Abhängigkeiten. Die Frage ist: Welche Abhängigkeiten hast du, und zeigen sie in die richtige Richtung?\n\nDenk an einen Baum: Die Blätter hängen von den Ästen ab. Die Äste vom Stamm. Nie umgekehrt. Wenn ein Blatt fällt, steht der Baum noch.\n\nIn Software willst du dasselbe: Stabile Teile sollten nicht von instabilen abhängen. Dein Kern sollte stehen bleiben, auch wenn sich die Details drum herum ändern.\n\nZwei Regeln für gesunde Abhängigkeiten: Erstens — wenige. Zweitens — in eine Richtung. Zirkuläre Abhängigkeiten sind das sicherste Zeichen für ein Architektur-Problem.\n\nMerke: Abhängigkeiten sind unvermeidbar. Aber ihre Richtung ist eine Entscheidung.",
     "merksatz_de": "Abhängigkeiten sind unvermeidbar. Aber ihre Richtung ist eine Entscheidung.",
     "script_en": "You want to update a library. But it depends on another, which depends on a third — and suddenly half your system breaks. Welcome to dependency hell.\n\nA dependency exists when one component needs another to function. That is not bad — no system exists without dependencies. The question is: which dependencies do you have, and do they point in the right direction?\n\nThink of a tree: the leaves depend on the branches. The branches on the trunk. Never the other way around. When a leaf falls, the tree still stands.\n\nIn software, you want the same: stable parts should not depend on unstable ones. Your core should stand firm, even when the details around it change.\n\nTwo rules for healthy dependencies: first — few. Second — in one direction. Circular dependencies are the surest sign of an architecture problem.\n\nRemember: dependencies are inevitable. But their direction is a decision.",
@@ -115,8 +115,8 @@
     "requires": [
       "abhaengigkeit"
     ],
-    "youtube_de": "https://youtube.com/shorts/faG2DJeyA1w",
-    "youtube_en": "https://youtube.com/shorts/7Rz-3bE4mYA",
+    "youtube_de": "https://youtube.com/shorts/aAnnrAeQSY4",
+    "youtube_en": "https://youtube.com/shorts/ImjIBAUIAAA",
     "script_de": "Du änderst den Namen einer Datenbank-Spalte — und musst 47 Dateien anpassen. Das ist kein Bug. Das ist hohe Kopplung.\n\nKopplung beschreibt, wie stark zwei Teile deines Systems voneinander abhängen. Hohe Kopplung bedeutet: Änderst du eins, musst du das andere mitändern. Niedrige Kopplung bedeutet: Jeder Teil kann sich unabhängig weiterentwickeln.\n\nStell dir Legosteine vor: Die sind schwach gekoppelt. Du kannst jeden Stein entfernen und ersetzen, ohne den Rest zu zerstören. Jetzt stell dir vor, alle Steine wären zusammengeklebt — das ist hohe Kopplung.\n\nIn Software gibt es verschiedene Arten: Daten-Kopplung, Kontroll-Kopplung, temporale Kopplung. Die schlimmste? Content Coupling — wenn eine Komponente direkt in die Interna einer anderen greift.\n\nDas Ziel ist nie null Kopplung — das wäre ein System das nichts tut. Das Ziel ist bewusste, kontrollierte Kopplung über klar definierte Schnittstellen.\n\nMerke: Kopplung ist der Preis der Zusammenarbeit. Halte ihn niedrig.",
     "merksatz_de": "Kopplung ist der Preis der Zusammenarbeit. Halte ihn niedrig.",
     "script_en": "You rename a database column — and have to update 47 files. That is not a bug. That is high coupling.\n\nCoupling describes how strongly two parts of your system depend on each other. High coupling means: change one, and you must change the other. Low coupling means: each part can evolve independently.\n\nThink of Lego bricks: they are loosely coupled. You can remove and replace any brick without destroying the rest. Now imagine all bricks were glued together — that is high coupling.\n\nIn software, there are different types: data coupling, control coupling, temporal coupling. The worst? Content coupling — when one component reaches directly into the internals of another.\n\nThe goal is never zero coupling — that would be a system that does nothing. The goal is conscious, controlled coupling through well-defined interfaces.\n\nRemember: coupling is the price of collaboration. Keep it low.",
@@ -133,8 +133,8 @@
     "requires": [
       "modul"
     ],
-    "youtube_de": "https://youtube.com/shorts/IbU7L3I97Cg",
-    "youtube_en": "https://youtube.com/shorts/ic_OPx2qFhg",
+    "youtube_de": "https://youtube.com/shorts/blr7TANXerk",
+    "youtube_en": "https://youtube.com/shorts/eovwPQxGFWY",
     "script_de": "Du öffnest eine Klasse und findest: Benutzer-Validierung, PDF-Export und E-Mail-Versand. In einer Klasse. Warum? Weil sie mal jemand dort hingeschrieben hat. Das ist niedrige Kohäsion.\n\nKohäsion beschreibt, wie gut die Teile innerhalb eines Moduls zusammenpassen. Hohe Kohäsion bedeutet: Alles in diesem Modul gehört zusammen und arbeitet auf ein gemeinsames Ziel hin. Niedrige Kohäsion bedeutet: Ein Modul ist eine Mülltonne für alles was keinen Platz hat.\n\nStell dir eine Werkzeugkiste vor: Eine Kiste mit Elektrikerwerkzeug — Messgerät, Abisolierzange, Sicherungen — hohe Kohäsion. Eine Kiste mit Schraubenzieher, Kochrezepten und Socken — niedrige Kohäsion.\n\nKohäsion und Kopplung sind Zwillinge: Hohe Kohäsion innerhalb der Module führt automatisch zu niedriger Kopplung zwischen den Modulen. Wenn alles am richtigen Platz ist, brauchen die Module weniger voneinander.\n\nMerke: Hohe Kohäsion heißt — jedes Ding an seinem Platz. Und nur dort.",
     "merksatz_de": "Hohe Kohäsion heißt — jedes Ding an seinem Platz. Und nur dort.",
     "script_en": "You open a class and find: user validation, PDF export, and email sending. In one class. Why? Because someone put it there once. That is low cohesion.\n\nCohesion describes how well the parts within a module fit together. High cohesion means: everything in this module belongs together and works toward a common goal. Low cohesion means: a module is a dumping ground for everything that has no place.\n\nThink of a toolbox: one with electrician tools — multimeter, wire strippers, fuses — high cohesion. One with screwdrivers, recipes, and socks — low cohesion.\n\nCohesion and coupling are twins: high cohesion within modules automatically leads to low coupling between modules. When everything is in the right place, modules need less from each other.\n\nRemember: high cohesion means — everything in its place. And only there.",
@@ -151,8 +151,8 @@
     "requires": [
       "modul"
     ],
-    "youtube_de": "https://youtube.com/shorts/QYF_zzUvHc8",
-    "youtube_en": "https://youtube.com/shorts/VEuL-G_HTuE",
+    "youtube_de": "https://youtube.com/shorts/nS-twKHzC9Y",
+    "youtube_en": "https://youtube.com/shorts/KsH3GHqpJrs",
     "script_de": "Du liest eine Funktion die gleichzeitig Geschäftslogik berechnet, HTML rendert und Daten in die Datenbank schreibt. Jede Änderung ist ein Risiko — weil du nie weißt, was du mitänderst. Das passiert, wenn Verantwortlichkeiten vermischt werden.\n\nSeparation of Concerns bedeutet: Jeder Teil deines Systems hat genau eine Verantwortung. Und nur eine.\n\nDenk an ein Restaurant: Der Koch kocht. Der Kellner serviert. Der Kassierer kassiert. Keiner macht den Job des anderen — und genau deshalb funktioniert es.\n\nIn Software kennst du das Prinzip aus der Drei-Schichten-Architektur: Präsentation, Geschäftslogik, Datenhaltung. Jede Schicht kümmert sich um ihren Bereich. Aber Separation of Concerns geht tiefer — es gilt für jede Ebene, jede Klasse, jede Funktion.\n\nDer Test ist einfach: Wenn du einen Teil deines Systems ändern musst und dabei einen anderen Teil verstehen musst der nichts damit zu tun hat — dann sind die Concerns nicht getrennt.\n\nMerke: Trennung der Verantwortlichkeiten ist das Fundament jeder guten Architektur.",
     "merksatz_de": "Trennung der Verantwortlichkeiten ist das Fundament jeder guten Architektur.",
     "script_en": "You read a function that simultaneously calculates business logic, renders HTML, and writes data to the database. Every change is a risk — because you never know what else you are affecting. This happens when responsibilities are mixed.\n\nSeparation of concerns means: every part of your system has exactly one responsibility. And only one.\n\nThink of a restaurant: the chef cooks. The waiter serves. The cashier handles payments. Nobody does the other's job — and that is exactly why it works.\n\nIn software, you know this principle from three-tier architecture: presentation, business logic, data storage. Each layer handles its own area. But separation of concerns goes deeper — it applies at every level, every class, every function.\n\nThe test is simple: if you have to change one part of your system and need to understand another part that has nothing to do with it — then the concerns are not separated.\n\nRemember: separation of concerns is the foundation of every good architecture.",
