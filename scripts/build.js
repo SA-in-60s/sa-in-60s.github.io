@@ -82,7 +82,7 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
     ${body}
   </main>
   <footer class="max-w-5xl mx-auto px-4 py-8 text-center text-text-muted text-sm border-t border-text-muted/20">
-    <p class="mb-2" data-de="Ein Projekt von Ralf D. M&#xFC;ller" data-en="A project by Ralf D. M&#xFC;ller">Ein Projekt von Ralf D. Müller</p>
+    <p class="mb-2"><span data-de="Ein Projekt von" data-en="A project by">Ein Projekt von</span> <a href="https://www.linkedin.com/in/intechnologies" target="_blank" rel="noopener" class="hover:text-accent-cyan">Ralf D. M&#xFC;ller</a></p>
     <div class="flex justify-center gap-4">
       <a href="https://software-architektur.tv" target="_blank" rel="noopener" class="hover:text-accent-cyan">software-architektur.tv</a>
       <a href="https://github.com/SA-in-60s" target="_blank" rel="noopener" class="hover:text-accent-cyan">GitHub</a>
