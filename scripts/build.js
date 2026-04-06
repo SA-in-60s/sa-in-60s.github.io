@@ -87,6 +87,7 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
       <a href="https://software-architektur.tv" target="_blank" rel="noopener" class="hover:text-accent-cyan">software-architektur.tv</a>
       <a href="https://github.com/SA-in-60s" target="_blank" rel="noopener" class="hover:text-accent-cyan">GitHub</a>
     </div>
+    <p class="mt-3"><a href="https://github.com/SA-in-60s/sa-in-60s.github.io/issues/new" target="_blank" rel="noopener" class="hover:text-accent-cyan" data-de="Fehler gefunden? Verbesserungsvorschlag?" data-en="Found a bug? Suggestion?">Fehler gefunden? Verbesserungsvorschlag?</a></p>
   </footer>
   ${jsTag}
 </body>

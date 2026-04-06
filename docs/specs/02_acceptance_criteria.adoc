@@ -430,6 +430,26 @@ Feature: Nächstes Video navigieren
     Und zeigt auf das nächste Konzept im Pfad
 ----
 
+== Feature: Feedback-Button
+
+[source,gherkin]
+----
+Feature: Feedback-Button
+  Als Lernender
+  möchte ich Fehler melden oder Verbesserungen vorschlagen
+  damit die Inhalte besser werden.
+
+  Szenario: Feedback-Link im Footer
+    Wenn ich eine beliebige Seite öffne
+    Dann sehe ich im Footer den Text "Fehler gefunden? Verbesserungsvorschlag?"
+    Und der Link führt zu GitHub Issues (neues Issue)
+
+  Szenario: Feedback-Link in englischer Sprache
+    Gegeben die aktive Sprache ist "en"
+    Dann zeigt der Footer "Found a bug? Suggestion?"
+    Und der Link führt zum selben GitHub Issues URL
+----
+
 == Feature: SEO & Crawling
 
 [source,gherkin]
