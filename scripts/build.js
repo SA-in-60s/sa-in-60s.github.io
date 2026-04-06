@@ -93,6 +93,76 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
 </html>`
 }
 
+function generateNextVideoButton(concept, allConcepts, allPaths) {
+  // For intro concept, link to first stem concept
+  if (concept.path === 'intro') {
+    const firstStem = allConcepts
+      .filter((c) => c.path === 'stem')
+      .sort((a, b) => a.path_position - b.path_position)[0]
+    if (firstStem) {
+      return `<div class="mt-6 flex justify-end">
+  <a href="/concept/${escapeHtml(firstStem.id)}" class="py-2 px-6 rounded-lg bg-accent-cyan text-bg font-medium hover:opacity-90 transition text-sm"
+     data-de="N\u00E4chstes Video: ${escapeHtml(firstStem.title_de)}" data-en="Next Video: ${escapeHtml(firstStem.title_en)}">
+    N\u00E4chstes Video: ${escapeHtml(firstStem.title_de)} \u2192
+  </a>
+</div>`
+    }
+    return ''
+  }
+
+  // Find the path this concept belongs to
+  const pathObj = allPaths.find((p) => p.id === concept.path)
+  // For stem concepts, find them from stem list
+  const isStem = concept.path === 'stem'
+  let conceptList
+  if (isStem) {
+    conceptList = allConcepts
+      .filter((c) => c.path === 'stem')
+      .sort((a, b) => a.path_position - b.path_position)
+      .map((c) => c.id)
+  } else if (pathObj) {
+    conceptList = pathObj.concepts
+  } else {
+    return ''
+  }
+
+  const currentIdx = conceptList.indexOf(concept.id)
+  if (currentIdx === -1) return ''
+
+  // If last in list, link back to path page (or index for stem)
+  if (currentIdx >= conceptList.length - 1) {
+    if (isStem) {
+      return `<div class="mt-6 flex justify-end">
+  <a href="/" class="py-2 px-6 rounded-lg bg-accent-cyan text-bg font-medium hover:opacity-90 transition text-sm"
+     data-de="Zur\u00FCck zum Start" data-en="Back to Home">
+    Zur\u00FCck zum Start \u2192
+  </a>
+</div>`
+    }
+    if (pathObj) {
+      return `<div class="mt-6 flex justify-end">
+  <a href="/path/${escapeHtml(pathObj.id)}" class="py-2 px-6 rounded-lg bg-accent-cyan text-bg font-medium hover:opacity-90 transition text-sm"
+     data-de="Zur\u00FCck zum Pfad: ${escapeHtml(pathObj.name_de)}" data-en="Back to path: ${escapeHtml(pathObj.name_en)}">
+    Zur\u00FCck zum Pfad: ${escapeHtml(pathObj.name_de)} \u2192
+  </a>
+</div>`
+    }
+    return ''
+  }
+
+  // Link to next concept
+  const nextId = conceptList[currentIdx + 1]
+  const nextConcept = allConcepts.find((c) => c.id === nextId)
+  if (!nextConcept) return ''
+
+  return `<div class="mt-6 flex justify-end">
+  <a href="/concept/${escapeHtml(nextConcept.id)}" class="py-2 px-6 rounded-lg bg-accent-cyan text-bg font-medium hover:opacity-90 transition text-sm"
+     data-de="N\u00E4chstes Video: ${escapeHtml(nextConcept.title_de)}" data-en="Next Video: ${escapeHtml(nextConcept.title_en)}">
+    N\u00E4chstes Video: ${escapeHtml(nextConcept.title_de)} \u2192
+  </a>
+</div>`
+}
+
 export function generateConceptPage(concept, allConcepts, allPaths, translations) {
   const t = translations.de
   const path = allPaths.find((p) => p.id === concept.path)
@@ -247,6 +317,7 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
         }
       </div>
 
+      ${generateNextVideoButton(concept, allConcepts, allPaths)}
     </article>`
 
   return htmlTemplate({
@@ -345,7 +416,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
   const pathCardsHtml = allPaths
     .map(
       (p) => `
-      <a href="/path/${escapeHtml(p.id)}" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid ${escapeHtml(p.color)};">
+      <a href="/path/${escapeHtml(p.id)}" data-path-id="${escapeHtml(p.id)}" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid ${escapeHtml(p.color)};">
         <h3 class="font-bold" data-de="${escapeHtml(p.name_de)}" data-en="${escapeHtml(p.name_en)}">${escapeHtml(p.name_de)}</h3>
         <p class="text-sm text-text-muted" data-de="${escapeHtml(p.description_de)}" data-en="${escapeHtml(p.description_en)}">${escapeHtml(p.description_de)}</p>
         <p class="text-xs text-text-muted/60 mt-1">${p.concepts
@@ -399,9 +470,14 @@ ${
       <div id="path-chooser-grid" class="grid md:grid-cols-2 gap-3"></div>
     </div>
 
+    <div id="chosen-paths" class="hidden mb-8">
+      <h2 class="text-2xl font-bold mb-4" data-de="Meine Lernpfade" data-en="My Learning Paths">Meine Lernpfade</h2>
+      <div id="chosen-paths-grid" class="grid md:grid-cols-2 gap-4"></div>
+    </div>
+
     <section>
       <h2 class="text-2xl font-bold mb-4" data-de="${escapeHtml(t.paths_title)}" data-en="${escapeHtml(translations.en.paths_title)}">${escapeHtml(t.paths_title)}</h2>
-      <div class="grid md:grid-cols-2 gap-4">
+      <div id="all-paths-grid" class="grid md:grid-cols-2 gap-4">
         ${pathCardsHtml}
       </div>
     </section>

@@ -435,6 +435,29 @@ Jedes Konzept hat einen deterministischen 5-Zeichen-Token (SHA-256 Hash aus ID +
 * (-) Ungedulige Nutzer fühlen sich eingeschränkt
 * (-) Ohne localStorage kein Gating (bewusste Entscheidung)
 
+=== ADR-005: Lokale Mitternacht für Tageswechsel
+
+*Status:* Akzeptiert
+
+*Kontext:* ADR-004 definiert "1 Konzept pro Tag", aber nicht wann ein neuer Tag beginnt. UTC-basierte Tageswechsel führen dazu, dass Nutzer in verschiedenen Zeitzonen den Wechsel zu unerwarteten Uhrzeiten erleben — z.B. um 2:00 Uhr nachts in MESZ oder um 19:00 Uhr in EST. Das widerspricht der Erwartung "morgen gibt es ein neues Video".
+
+*Entscheidung:* Der Tageswechsel erfolgt um lokale Mitternacht (00:00 Uhr) basierend auf der Zeitzone des Browsers (`new Date()` verwendet automatisch die lokale Zeitzone). Zusätzlich wird ein Countdown-Banner "Noch X Stunden bis zum nächsten Video" angezeigt, wenn alle Tages-Konzepte freigeschaltet sind.
+
+*Implementierung:*
+
+* Tagesdatum via `new Date().toLocaleDateString('sv')` (YYYY-MM-DD im lokalen Kalender)
+* Vergleich mit gespeichertem Datum in `sa60s-unlock` (localStorage)
+* Countdown berechnet Stunden bis nächste lokale Mitternacht: `new Date().setHours(24,0,0,0) - Date.now()`
+* Bei Seitenbesuch nach Mitternacht: neues Konzept wird freigeschaltet
+
+*Konsequenzen:*
+
+* (+) Intuitive Erwartung: "morgen" = nach dem Schlafen
+* (+) Kein Server nötig — Browser-API liefert lokale Zeit
+* (+) Countdown gibt klare Erwartung wann es weitergeht
+* (-) Zeitzonenwechsel (Reisen) kann unerwartete Effekte haben — akzeptabel
+* (-) Nutzer können durch Verstellen der Systemzeit tricksen — bewusst ignoriert (localStorage-Manipulation wäre einfacher)
+
 == Qualitätsanforderungen
 
 === Qualitätsbaum

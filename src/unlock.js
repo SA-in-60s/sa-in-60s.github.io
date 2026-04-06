@@ -49,8 +49,12 @@ function setUnlockState(state) {
   }
 }
 
+function localDateStr() {
+  return new Date().toLocaleDateString('sv-SE')
+}
+
 function computeUnlocked(state, manifest) {
-  const today = new Date().toISOString().slice(0, 10)
+  const today = localDateStr()
   const first = new Date(state.firstVisit + 'T00:00:00')
   const now = new Date(today + 'T00:00:00')
   const daysSince = Math.max(0, Math.floor((now - first) / 86400000))
@@ -160,6 +164,19 @@ function showBanner(nextConcept, manifest) {
       }
     }
   }
+  // Countdown to next video (local midnight)
+  const midnight = new Date()
+  midnight.setHours(24, 0, 0, 0)
+  const hoursLeft = Math.ceil((midnight - Date.now()) / 3600000)
+  const countdownText =
+    lang === 'de'
+      ? `Noch ${hoursLeft} Stunde${hoursLeft !== 1 ? 'n' : ''} bis zum nächsten Video`
+      : `${hoursLeft} hour${hoursLeft !== 1 ? 's' : ''} until next video`
+  const countdownSpan = document.createElement('span')
+  countdownSpan.className = 'block mt-1 text-xs opacity-70'
+  countdownSpan.textContent = countdownText
+  banner.appendChild(countdownSpan)
+
   banner.classList.remove('hidden')
 }
 
@@ -208,6 +225,26 @@ function showPathChooser(availablePaths, state, manifest, onChosen) {
   })
 }
 
+function applyChosenPaths(chosenPaths) {
+  const chosenSection = document.getElementById('chosen-paths')
+  const chosenGrid = document.getElementById('chosen-paths-grid')
+  const allGrid = document.getElementById('all-paths-grid')
+  if (!chosenSection || !chosenGrid || !allGrid || chosenPaths.length === 0) return
+
+  chosenGrid.textContent = ''
+  for (const pathId of chosenPaths) {
+    const card = allGrid.querySelector(`[data-path-id="${pathId}"]`)
+    if (card) {
+      const clone = card.cloneNode(true)
+      clone.style.borderLeft = `4px solid ${card.style.borderLeft.split('solid ')[1] || '#22d3ee'}`
+      clone.classList.add('border-l-4')
+      chosenGrid.appendChild(clone)
+      card.classList.add('opacity-50')
+    }
+  }
+  chosenSection.classList.remove('hidden')
+}
+
 export function initUnlock() {
   const manifestEl = document.getElementById('unlock-manifest')
   if (!manifestEl) return
@@ -225,7 +262,7 @@ export function initUnlock() {
   let state = getUnlockState()
   if (!state) {
     state = {
-      firstVisit: new Date().toISOString().slice(0, 10),
+      firstVisit: localDateStr(),
       chosenPaths: [],
       phase: 'stem',
     }
@@ -243,6 +280,8 @@ export function initUnlock() {
     if (result.needsChoice) {
       showPathChooser(result.availablePaths, state, manifest, applyState)
     }
+
+    applyChosenPaths(state.chosenPaths)
   }
 
   applyState()

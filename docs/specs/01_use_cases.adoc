@@ -342,6 +342,7 @@ start
 :Phase: STAMM;
 
 repeat
+  :Tageswechsel um **lokale Mitternacht** prüfen;
   :1 Konzept pro Tag freischalten;
   :Intro → Abstraktion → Modul → ... → Separation of Concerns;
 repeat while (Stamm komplett?) is (nein)
@@ -351,6 +352,7 @@ repeat while (Stamm komplett?) is (nein)
 :Lernender wählt Pfad;
 
 repeat
+  :Tageswechsel um **lokale Mitternacht** prüfen;
   :1 Konzept pro Tag freischalten;
   :Konzepte des gewählten Pfads sequenziell;
 repeat while (Pfad komplett?) is (nein)
@@ -362,8 +364,59 @@ stop
 @enduml
 ----
 
+=== Countdown-Anzeige
+
+Wenn alle Konzepte für heute freigeschaltet sind, wird ein Countdown-Banner angezeigt:
+
+* Text: "Noch X Stunden bis zum nächsten Video"
+* X berechnet sich aus der Differenz zur nächsten lokalen Mitternacht
+* Der Countdown aktualisiert sich stündlich
+* Bei Erreichen von Mitternacht wird das nächste Konzept beim nächsten Seitenbesuch freigeschaltet
+
 === Alternativpfade
 
 * *A1: Kein localStorage* — Unlock-System deaktiviert, alle Inhalte sofort zugänglich
 * *A2: Manipulierter localStorage* — Korrupte Daten werden erkannt und zurückgesetzt
-* *A3: Alle Tages-Konzepte bereits angesehen* — Banner: "Alle Videos für heute freigeschaltet — morgen geht es weiter mit: {Konzept}"
+* *A3: Alle Tages-Konzepte bereits angesehen* — Banner: "Noch X Stunden bis zum nächsten Video" mit Countdown bis lokale Mitternacht
+
+== UC-10: Nächstes Video navigieren
+
+*Akteur:* Lernender
+
+*Ziel:* Von einer Konzept-Seite direkt zum nächsten Konzept im Lernpfad navigieren
+
+*Vorbedingungen:* Konzept gehört zu einem Lernpfad, nächstes Konzept ist freigeschaltet
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:Lernender ist auf Konzept-Seite;
+:Pfad-Zugehörigkeit des Konzepts ermitteln;
+
+if (Letztes Konzept im Pfad?) then (ja)
+  :Button "Zurück zur Pfad-Übersicht" anzeigen;
+  :Klick navigiert zur Pfad-Seite;
+else (nein)
+  :Nächstes Konzept im Pfad ermitteln;
+  :Button "Nächstes Video: {Titel}" anzeigen;
+
+  if (Nächstes Konzept freigeschaltet?) then (ja)
+    :Klick navigiert zur nächsten Konzept-Seite;
+  else (nein)
+    :Button ausgegraut;
+    :Tooltip: "Wird morgen freigeschaltet";
+  endif
+endif
+
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: Konzept gehört zu mehreren Pfaden* — Der aktive Pfad (aus Navigation oder localStorage) bestimmt das nächste Konzept
+* *A2: Kein Pfad aktiv / Stamm-Konzept* — Nächstes Stamm-Konzept wird angezeigt
+* *A3: Unlock-System deaktiviert (kein localStorage)* — Button immer aktiv, da alle Konzepte zugänglich

@@ -299,10 +299,29 @@ Feature: Tägliche Freischaltung
     Dann ist das Intro-Konzept freigeschaltet
     Und alle anderen Konzepte sind gesperrt (ausgegraut)
 
-  Szenario: Tägliche Freischaltung
+  Szenario: Tägliche Freischaltung nach lokaler Mitternacht
     Gegeben heute ist Tag 3 seit meinem ersten Besuch
+    Und der Tageswechsel erfolgt um lokale Mitternacht (nicht UTC)
     Dann sind die ersten 3 Stamm-Konzepte freigeschaltet
     Und das 4. Konzept ist gesperrt
+
+  Szenario: Countdown bis zum nächsten Video
+    Gegeben alle für heute freigeschalteten Konzepte sind sichtbar
+    Und es sind noch 7 Stunden bis lokale Mitternacht
+    Dann sehe ich ein Banner "Noch 7 Stunden bis zum nächsten Video"
+    Und das Banner zeigt den Titel des nächsten Konzepts
+
+  Szenario: Countdown bei weniger als einer Stunde
+    Gegeben alle für heute freigeschalteten Konzepte sind sichtbar
+    Und es ist weniger als 1 Stunde bis lokale Mitternacht
+    Dann sehe ich "Noch weniger als 1 Stunde bis zum nächsten Video"
+
+  Szenario: Neues Konzept nach Mitternacht
+    Gegeben alle Konzepte für heute sind freigeschaltet
+    Und lokale Mitternacht ist überschritten
+    Wenn ich die Seite erneut besuche
+    Dann ist das nächste Konzept freigeschaltet
+    Und der Countdown wird aktualisiert
 
   Szenario: Stamm abgeschlossen — Pfad-Wahl
     Gegeben alle 10 Stamm-Konzepte sind freigeschaltet
@@ -325,14 +344,90 @@ Feature: Tägliche Freischaltung
     Dann ist der Link ausgegraut (opacity-40)
     Und nicht klickbar (pointer-events-none)
 
-  Szenario: Banner bei Tages-Limit
-    Gegeben alle für heute freigeschalteten Konzepte sind sichtbar
-    Dann sehe ich "Alle Videos für heute freigeschaltet — morgen geht es weiter mit: {Name}"
-
   Szenario: Kein localStorage — alles offen
     Gegeben localStorage ist nicht verfügbar
     Dann sind alle Konzepte sofort freigeschaltet
     Und kein Unlock-Banner wird angezeigt
+----
+
+== Feature: Lernpfad-Unterscheidung auf Startseite
+
+[source,gherkin]
+----
+Feature: Lernpfad-Unterscheidung auf Startseite
+  Als Lernender
+  möchte ich gewählte und nicht gewählte Lernpfade getrennt sehen
+  damit ich meinen Lernfortschritt auf einen Blick erkenne.
+
+  Szenario: Gewählte Pfade in eigenem Bereich
+    Gegeben ich habe den Microservices-Pfad und den DDD-Pfad gewählt
+    Wenn ich die Startseite öffne
+    Dann sehe ich einen Bereich "Meine Lernpfade"
+    Und dieser enthält "Microservices" und "DDD"
+    Und jeder Pfad zeigt seinen Fortschritt (z.B. "3/8")
+
+  Szenario: Reihenfolge der gewählten Pfade
+    Gegeben ich habe zuerst den DDD-Pfad und dann den Microservices-Pfad gewählt
+    Wenn ich die Startseite öffne
+    Dann steht "DDD" vor "Microservices" in "Meine Lernpfade"
+
+  Szenario: Nicht gewählte Pfade unterhalb
+    Gegeben ich habe den Microservices-Pfad gewählt
+    Wenn ich die Startseite öffne
+    Dann sehe ich unterhalb einen Bereich "Weitere Lernpfade"
+    Und dieser enthält alle nicht gewählten Pfade
+    Und die Pfade in "Weitere Lernpfade" zeigen keinen Fortschritt
+
+  Szenario: Kein Pfad gewählt — keine Trennung
+    Gegeben ich habe noch keinen Pfad gewählt
+    Wenn ich die Startseite öffne
+    Dann sehe ich alle Pfade in einer einzigen Liste
+    Und kein Bereich "Meine Lernpfade" wird angezeigt
+
+  Szenario: Kein localStorage — alle Pfade gleich
+    Gegeben localStorage ist nicht verfügbar
+    Dann werden alle Pfade gleichwertig angezeigt
+    Und kein Bereich "Meine Lernpfade" wird angezeigt
+----
+
+== Feature: Nächstes Video navigieren
+
+[source,gherkin]
+----
+Feature: Nächstes Video navigieren
+  Als Lernender
+  möchte ich von einer Konzept-Seite direkt zum nächsten Konzept navigieren
+  damit ich meinen Lernpfad ohne Umwege fortsetzen kann.
+
+  Szenario: Nächstes Video im Pfad
+    Gegeben ich bin auf der Konzept-Seite "api-gateway"
+    Und das nächste Konzept im Microservices-Pfad ist "circuit-breaker"
+    Und "circuit-breaker" ist freigeschaltet
+    Dann sehe ich einen Button "Nächstes Video: Circuit Breaker"
+    Wenn ich den Button klicke
+    Dann navigiere ich zur Seite /concept/circuit-breaker
+
+  Szenario: Nächstes Video zeigt Titel
+    Gegeben ich bin auf der Konzept-Seite "modul"
+    Und das nächste Stamm-Konzept ist "schnittstelle"
+    Dann zeigt der Button den Text "Nächstes Video: Schnittstelle"
+
+  Szenario: Letztes Konzept im Pfad — zur Pfad-Übersicht
+    Gegeben ich bin auf dem letzten Konzept des Microservices-Pfads
+    Dann sehe ich einen Button "Zurück zur Pfad-Übersicht"
+    Wenn ich den Button klicke
+    Dann navigiere ich zur Seite /path/microservices
+
+  Szenario: Nächstes Konzept noch gesperrt
+    Gegeben ich bin auf der Konzept-Seite "api-gateway"
+    Und das nächste Konzept "circuit-breaker" ist noch gesperrt
+    Dann ist der Button "Nächstes Video: Circuit Breaker" ausgegraut
+    Und der Tooltip zeigt "Wird morgen freigeschaltet"
+
+  Szenario: Unlock-System deaktiviert
+    Gegeben localStorage ist nicht verfügbar
+    Dann ist der "Nächstes Video" Button immer aktiv
+    Und zeigt auf das nächste Konzept im Pfad
 ----
 
 == Feature: SEO & Crawling
