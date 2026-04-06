@@ -169,8 +169,8 @@
     "requires": [
       "separation-of-concerns"
     ],
-    "youtube_de": "https://youtube.com/shorts/D6Y7_JkJb_4",
-    "youtube_en": "https://youtube.com/shorts/BZUSa9MPotA",
+    "youtube_de": "https://youtube.com/shorts/YHxXWS16n90",
+    "youtube_en": "https://youtube.com/shorts/qD7WBcgd_CY",
     "script_de": "Du hast einen Online-Shop gebaut. Alles läuft — bis das Team wächst und jede kleine Änderung am Warenkorb plötzlich die Zahlungsabwicklung zerschießt. Kommt dir bekannt vor?\n\nDas Problem: Monolithische Systeme werden mit der Zeit schwer änderbar. Und irgendwann stellt sich die Frage — gibt es einen besseren Weg?\n\nMicroservices sind einer der meistdiskutierten Architekturansätze der letzten Jahre. Die Idee klingt einfach: Statt einer großen Anwendung baust du viele kleine, unabhängige Dienste. Aber dahinter steckt ein ganzes Ökosystem aus Konzepten.\n\nDeshalb gibt es diesen Pfad. In den nächsten Episoden gehen wir Schritt für Schritt durch: Vom Monolith über APIs und Service-Kommunikation bis hin zu Patterns wie Circuit Breaker, Saga und Strangler Fig.\n\nMerke: Microservices lösen Organisationsprobleme — aber sie schaffen Betriebsprobleme. Kenn beides.",
     "merksatz_de": "Microservices lösen Organisationsprobleme — aber sie schaffen Betriebsprobleme. Kenn beides.",
     "script_en": "You built an online shop. Everything works — until the team grows and every small change to the shopping cart suddenly breaks the payment processing. Sound familiar?\n\nThe problem: monolithic systems become hard to change over time. And at some point, you ask yourself — is there a better way?\n\nMicroservices are one of the most discussed architectural approaches of recent years. The idea sounds simple: instead of one large application, you build many small, independent services. But behind that lies an entire ecosystem of concepts.\n\nThat is why this path exists. In the next episodes, we go step by step: from the monolith through APIs and service communication to patterns like Circuit Breaker, Saga, and Strangler Fig.\n\nRemember: microservices solve organizational problems — but they create operational problems. Know both.",
@@ -767,8 +767,8 @@
     "requires": [
       "separation-of-concerns"
     ],
-    "youtube_de": "https://youtube.com/shorts/lmXbhTDU0Ug",
-    "youtube_en": "https://youtube.com/shorts/k2SZqMWCvVM",
+    "youtube_de": "https://youtube.com/shorts/ZUXfd-qWjJ8",
+    "youtube_en": "https://youtube.com/shorts/5olxYMzqm5U",
     "script_de": "Jemand fragt: Warum habt ihr euch für Kafka entschieden? Und niemand kann es beantworten. Der Architekt von damals ist weg, die Doku veraltet, die Wiki-Seite ein Friedhof.\n\nArchitekturentscheidungen ohne Dokumentation sind wie mündliche Verträge — sie gelten nur, solange sich jemand erinnert. Und irgendwann erinnert sich niemand mehr.\n\nDie gute Nachricht: Du musst nicht bei null anfangen. Es gibt bewährte Werkzeuge und Methoden, die dir helfen, Architektur sichtbar, nachvollziehbar und messbar zu machen.\n\nIn diesem Pfad lernst du Schritt für Schritt: Wie du Qualitätsmerkmale konkret beschreibst. Wie du Entscheidungen mit ADRs festhältst. Wie du Trade-offs transparent machst. Wie C4-Modelle die richtige Sicht für die richtige Zielgruppe liefern. Und wie Fitness Functions deine Architektur automatisiert überwachen.\n\nMerke: Gute Architekturdokumentation beantwortet die Fragen, die morgen jemand haben wird — nicht die, die heute niemand stellt.",
     "merksatz_de": "Gute Architekturdokumentation beantwortet die Fragen, die morgen jemand haben wird — nicht die, die heute niemand stellt.",
     "script_en": "Someone asks: why did you choose Kafka? And nobody can answer. The architect from back then is gone, the documentation is outdated, the wiki page is a graveyard.\n\nArchitecture decisions without documentation are like verbal agreements — they only hold as long as someone remembers. And eventually, nobody remembers.\n\nThe good news: you do not have to start from scratch. There are proven tools and methods that help you make architecture visible, traceable, and measurable.\n\nIn this path, you learn step by step: how to describe quality attributes concretely. How to capture decisions with ADRs. How to make trade-offs transparent. How C4 models deliver the right view for the right audience. And how fitness functions monitor your architecture automatically.\n\nRemember: good architecture documentation answers the questions someone will have tomorrow — not the ones nobody asks today.",
@@ -785,8 +785,8 @@
     "requires": [
       "arc42-pfad"
     ],
-    "youtube_de": "https://youtube.com/shorts/FmaITidc88Q",
-    "youtube_en": "https://youtube.com/shorts/CH1EIVz-yEw",
+    "youtube_de": "https://youtube.com/shorts/hNbJqeBURGI",
+    "youtube_en": "https://youtube.com/shorts/M9BICjrTh5A",
     "script_de": "Ein neuer Entwickler startet im Team. Er fragt: Wie ist das System aufgebaut? Die Antwort: Schau in den Code. Drei Wochen später versteht er immer noch nicht, warum es drei Datenbanken gibt.\n\nCode zeigt dir das Was, aber nicht das Warum. Ohne Dokumentation geht das Wissen über Entscheidungen, Zusammenhänge und Randbedingungen verloren — spätestens wenn Leute das Team verlassen.\n\nArchitekturdokumentation beschreibt die wesentlichen Strukturen, Entscheidungen und Qualitätsanforderungen eines Systems. Denk an den Bauplan eines Hauses: Der Architekt dokumentiert nicht jeden Nagel, aber die tragenden Wände, die Statik und die Haustechnik.\n\nWichtig: Du dokumentierst nicht alles — nur das, was man aus dem Code nicht ablesen kann. Warum diese Datenbank? Warum diese Aufteilung? Welche Qualitätsziele? Welche Risiken? Gute Architekturdoku ist schlank, aktuell und beantwortet die richtigen Fragen.\n\nMerke: Architekturdokumentation ist kein Bürokratie-Overhead — sie ist das Gedächtnis deines Systems.",
     "merksatz_de": "Architekturdokumentation ist kein Bürokratie-Overhead — sie ist das Gedächtnis deines Systems.",
     "script_en": "A new developer joins the team. They ask: how is the system structured? The answer: look at the code. Three weeks later, they still do not understand why there are three databases.\n\nCode shows you the what, but not the why. Without documentation, the knowledge about decisions, connections, and constraints is lost — at the latest when people leave the team.\n\nArchitecture documentation describes the essential structures, decisions, and quality requirements of a system. Think of a building plan: the architect does not document every nail, but the load-bearing walls, the structural analysis, and the building services.\n\nImportant: you do not document everything — only what you cannot read from the code. Why this database? Why this decomposition? Which quality goals? Which risks? Good architecture documentation is lean, current, and answers the right questions.\n\nRemember: architecture documentation is not bureaucratic overhead — it is the memory of your system.",
@@ -803,8 +803,8 @@
     "requires": [
       "architekturdokumentation"
     ],
-    "youtube_de": "https://youtube.com/shorts/TVrBEJw60no",
-    "youtube_en": "https://youtube.com/shorts/tMv_PpN6DgY",
+    "youtube_de": "https://youtube.com/shorts/e3crZeRNh_A",
+    "youtube_en": "https://youtube.com/shorts/j9VkjIjHqvo",
     "script_de": "Du willst deine Architektur dokumentieren. Aber wo fängst du an? Was gehört rein? Wie viel ist zu viel? Du starrst auf ein leeres Dokument.\n\nOhne Struktur schreibt jeder was anderes. Einer beschreibt die Deployment-Infrastruktur, der andere die Klassendiagramme, der dritte gar nichts. Das Ergebnis ist ein Flickenteppich.\n\narc42 gibt dir ein bewährtes Template mit zwölf Kapiteln. Denk an ein Kochrezept: Du musst nicht alles kochen, aber die Struktur sagt dir, was es gibt — Vorspeise, Hauptgang, Dessert. Du wählst, was du brauchst.\n\nDie zwölf Kapitel: Einführung und Ziele, Randbedingungen, Kontextabgrenzung, Lösungsstrategie, Bausteinsicht, Laufzeitsicht, Verteilungssicht, Querschnittliche Konzepte, Architekturentscheidungen, Qualitätsanforderungen, Risiken und Glossar. Du füllst nur aus, was für dein System relevant ist.\n\nMerke: arc42 gibt dir die Struktur — du entscheidest den Inhalt. Lieber fünf gute Kapitel als zwölf leere.",
     "merksatz_de": "arc42 gibt dir die Struktur — du entscheidest den Inhalt. Lieber fünf gute Kapitel als zwölf leere.",
     "script_en": "You want to document your architecture. But where do you start? What belongs in it? How much is too much? You stare at an empty document.\n\nWithout structure, everyone writes something different. One describes the deployment infrastructure, another the class diagrams, a third writes nothing at all. The result is a patchwork.\n\narc42 gives you a proven template with twelve chapters. Think of a recipe: you do not have to cook everything, but the structure tells you what is available — appetizer, main course, dessert. You choose what you need.\n\nThe twelve chapters: introduction and goals, constraints, context and scope, solution strategy, building block view, runtime view, deployment view, cross-cutting concepts, architecture decisions, quality requirements, risks, and glossary. You only fill in what is relevant for your system.\n\nRemember: arc42 gives you the structure — you decide the content. Better five good chapters than twelve empty ones.",
@@ -821,8 +821,8 @@
     "requires": [
       "arc42-pfad"
     ],
-    "youtube_de": "https://youtube.com/shorts/aAzPHaqmYl0",
-    "youtube_en": "https://youtube.com/shorts/yqeDToDPICg",
+    "youtube_de": "https://youtube.com/shorts/_pR-zAnFqVc",
+    "youtube_en": "https://youtube.com/shorts/tER27HWKDyg",
     "script_de": "Der Kunde sagt: Das System soll schnell sein. Aber was heißt schnell? Antwortzeit unter einer Sekunde? Oder unter hundert Millisekunden? Und bei wie vielen gleichzeitigen Nutzern?\n\nVage Qualitätsanforderungen führen zu falschen Architekturentscheidungen. Wenn du nicht weißt, was Performance konkret bedeutet, kannst du nicht dafür bauen.\n\nQualitätsmerkmale sind die nicht-funktionalen Eigenschaften deines Systems. Denk an ein Auto: Es fährt — das ist die Funktion. Aber wie schnell, wie sicher, wie sparsam — das sind die Qualitätsmerkmale. Und die bestimmen, welches Auto du kaufst.\n\nTypische Qualitätsmerkmale sind Performance, Sicherheit, Wartbarkeit, Zuverlässigkeit und Benutzbarkeit. Für dein System identifizierst du die drei bis fünf wichtigsten und machst sie konkret und messbar.\n\nMerke: Qualitätsmerkmale treiben deine Architektur — nicht die Features, sondern die Qualitätsanforderungen bestimmen die Struktur.",
     "merksatz_de": "Qualitätsmerkmale treiben deine Architektur — nicht die Features, sondern die Qualitätsanforderungen bestimmen die Struktur.",
     "script_en": "The customer says: the system should be fast. But what does fast mean? Response time under one second? Or under one hundred milliseconds? And with how many concurrent users?\n\nVague quality requirements lead to wrong architectural decisions. If you do not know what performance concretely means, you cannot build for it.\n\nQuality attributes are the non-functional properties of your system. Think of a car: it drives — that is the function. But how fast, how safe, how fuel-efficient — those are the quality attributes. And they determine which car you buy.\n\nTypical quality attributes are performance, security, maintainability, reliability, and usability. For your system, you identify the three to five most important ones and make them concrete and measurable.\n\nRemember: quality attributes drive your architecture — not the features, but the quality requirements determine the structure.",
@@ -839,8 +839,8 @@
     "requires": [
       "qualitaetsmerkmale"
     ],
-    "youtube_de": "https://youtube.com/shorts/J7XHsK-7f2k",
-    "youtube_en": "https://youtube.com/shorts/y8UL_EgSrjU",
+    "youtube_de": "https://youtube.com/shorts/-bYmKDriFDo",
+    "youtube_en": "https://youtube.com/shorts/-LHHKV03veA",
     "script_de": "Das System soll performant sein. Gut — aber wie testest du das? Wann ist Performance gut genug? Und unter welchen Bedingungen?\n\nAbstrakte Qualitätsmerkmale wie Performance oder Sicherheit sind nutzlos, wenn du sie nicht konkret beschreibst. Ohne messbare Kriterien kann kein Entwickler darauf hin bauen und kein Tester sie prüfen.\n\nEin Qualitätsszenario beschreibt ein Qualitätsmerkmal als konkrete, testbare Situation. Denk an eine Führerscheinprüfung: Nicht Du musst gut fahren können, sondern Du musst in dreißig Sekunden einparken können in einer Lücke von fünf Metern.\n\nDas Format: Auslöser, Systemzustand, Reaktion, Metrik. Beispiel: Wenn tausend Nutzer gleichzeitig die Suche aufrufen und das System unter Normallast steht, dann antwortet die Suche in unter zweihundert Millisekunden bei 95 Prozent aller Anfragen. Jetzt kann jeder prüfen, ob das System liefert.\n\nMerke: Ein Qualitätsszenario macht aus gut genug eine messbare Aussage — und genau das braucht deine Architektur.",
     "merksatz_de": "Ein Qualitätsszenario macht aus gut genug eine messbare Aussage — und genau das braucht deine Architektur.",
     "script_en": "The system should be performant. Fine — but how do you test that? When is performance good enough? And under what conditions?\n\nAbstract quality attributes like performance or security are useless if you do not describe them concretely. Without measurable criteria, no developer can build toward them and no tester can verify them.\n\nA Quality Scenario describes a quality attribute as a concrete, testable situation. Think of a driving test: not you must be able to drive well, but you must parallel park within thirty seconds in a space of five meters.\n\nThe format: trigger, system state, response, metric. Example: when one thousand users simultaneously call the search and the system is under normal load, then the search responds in under two hundred milliseconds for 95 percent of all requests. Now everyone can verify whether the system delivers.\n\nRemember: a Quality Scenario turns good enough into a measurable statement — and that is exactly what your architecture needs.",
@@ -857,8 +857,8 @@
     "requires": [
       "arc42-pfad"
     ],
-    "youtube_de": "https://youtube.com/shorts/Nr-L90RZ6mc",
-    "youtube_en": "https://youtube.com/shorts/DUcZBm7ccWw",
+    "youtube_de": "https://youtube.com/shorts/MY4cJZexfwo",
+    "youtube_en": "https://youtube.com/shorts/6XnHtGFS6UU",
     "script_de": "Warum nutzen wir PostgreSQL statt MongoDB? Keiner weiß es mehr. Der Slack-Thread von 2019 ist gelöscht. Also diskutiert ihr die gleiche Entscheidung nochmal — zum dritten Mal.\n\nArchitekturentscheidungen ohne Dokumentation werden vergessen, hinterfragt und wiederholt. Teams drehen sich im Kreis, weil der Kontext verloren geht.\n\nEin Architecture Decision Record ist ein kurzes Dokument, das eine Entscheidung festhält: Problem, Kontext, Optionen, Entscheidung und Konsequenzen. Denk an ein Gerichtsurteil: Es enthält den Sachverhalt, die Abwägung und das Urteil. Jeder kann nachvollziehen, warum so entschieden wurde.\n\nKonkret: ADR-007 — Datenbank für Bestellungen. Status: Akzeptiert. Kontext: Hohe Schreiblast, relationale Daten. Optionen: PostgreSQL, MongoDB. Entscheidung: PostgreSQL wegen ACID und bewährtem Betrieb. Konsequenz: Höherer Aufwand bei horizontaler Skalierung. Eine Seite, und die Diskussion ist beendet.\n\nMerke: Ein ADR hält fest warum du dich entschieden hast — damit du morgen nicht rätst, was du heute wusstest.",
     "merksatz_de": "Ein ADR hält fest warum du dich entschieden hast — damit du morgen nicht rätst, was du heute wusstest.",
     "script_en": "Why are we using PostgreSQL instead of MongoDB? Nobody knows anymore. The Slack thread from 2019 is deleted. So you discuss the same decision again — for the third time.\n\nArchitecture decisions without documentation are forgotten, questioned, and repeated. Teams go in circles because the context is lost.\n\nAn Architecture Decision Record is a short document that captures a decision: problem, context, options, decision, and consequences. Think of a court ruling: it contains the facts, the deliberation, and the verdict. Everyone can understand why the decision was made.\n\nConcretely: ADR-007 — Database for Orders. Status: Accepted. Context: high write load, relational data. Options: PostgreSQL, MongoDB. Decision: PostgreSQL because of ACID and proven operations. Consequence: higher effort for horizontal scaling. One page, and the discussion is over.\n\nRemember: an ADR captures why you decided — so that tomorrow you do not guess what you knew today.",
@@ -875,8 +875,8 @@
     "requires": [
       "adr"
     ],
-    "youtube_de": "https://youtube.com/shorts/_Nm9MDsoTGc",
-    "youtube_en": "https://youtube.com/shorts/Qotzx2og6js",
+    "youtube_de": "https://youtube.com/shorts/sZqdu6Ewpf0",
+    "youtube_en": "https://youtube.com/shorts/KQblcDBe-EY",
     "script_de": "Du kannst das System superschnell machen — aber dann wird es teuer. Oder günstig — aber dann wird es langsam. Du kannst nicht beides haben. Willkommen in der Realität der Softwarearchitektur.\n\nEs gibt keine perfekte Architektur. Jede Entscheidung ist ein Kompromiss. Wer das ignoriert, wählt unbewusst — und bereut es später.\n\nEin Trade-off ist eine bewusste Abwägung zwischen konkurrierenden Zielen. Denk an ein Zelt: Leicht, stabil und günstig — wähle zwei. Du kannst nicht alle drei maximieren. Aber du kannst bewusst entscheiden, was dir am wichtigsten ist.\n\nMicroservices bringen Flexibilität, aber erhöhen die Betriebskomplexität. Caching verbessert Performance, aber riskiert veraltete Daten. Synchrone Kommunikation ist einfacher, aber fragiler. Gute Architekten machen Trade-offs explizit — sie dokumentieren sie in ADRs und kommunizieren sie ans Team.\n\nMerke: Architektur ist die Kunst der bewussten Kompromisse — nicht die Suche nach der perfekten Lösung.",
     "merksatz_de": "Architektur ist die Kunst der bewussten Kompromisse — nicht die Suche nach der perfekten Lösung.",
     "script_en": "You can make the system super fast — but then it gets expensive. Or cheap — but then it gets slow. You cannot have both. Welcome to the reality of software architecture.\n\nThere is no perfect architecture. Every decision is a compromise. Whoever ignores that chooses unconsciously — and regrets it later.\n\nA trade-off is a conscious deliberation between competing goals. Think of a tent: lightweight, sturdy, and cheap — pick two. You cannot maximize all three. But you can consciously decide what matters most to you.\n\nMicroservices bring flexibility but increase operational complexity. Caching improves performance but risks stale data. Synchronous communication is simpler but more fragile. Good architects make trade-offs explicit — they document them in ADRs and communicate them to the team.\n\nRemember: architecture is the art of conscious compromise — not the search for the perfect solution.",
@@ -893,8 +893,8 @@
     "requires": [
       "arc42-pfad"
     ],
-    "youtube_de": "https://youtube.com/shorts/ZyxEUQwNtak",
-    "youtube_en": "https://youtube.com/shorts/DB_wz73tIQI",
+    "youtube_de": "https://youtube.com/shorts/YmMhO-8o1Xs",
+    "youtube_en": "https://youtube.com/shorts/MdTgjWdiHbk",
     "script_de": "Der Workaround von vor zwei Jahren ist immer noch in Produktion. Jede Änderung dauert doppelt so lange, weil jeder um diesen Code herumarbeiten muss. Das sind technische Schulden — und sie haben Zinsen.\n\nTechnische Schulden entstehen, wenn du bewusst oder unbewusst Abkürzungen nimmst. Kurzfristig sparst du Zeit, langfristig zahlst du drauf — mit jeder Änderung, die länger dauert als nötig.\n\nTechnische Schulden sind wie ein Kredit: Du bekommst jetzt etwas schneller, aber du zahlst Zinsen. Ein Kredit ist nicht schlecht — solange du weißt, dass du einen hast und ihn zurückzahlen kannst.\n\nBewusste Schulden sind vertretbar: Wir nutzen einen einfachen Algorithmus und optimieren später. Unbewusste Schulden sind gefährlich: niemand hat gemerkt, dass die Architektur schleichend erodiert. Der Schlüssel ist Transparenz — macht eure Schulden sichtbar, bewertet die Zinsen und plant die Rückzahlung.\n\nMerke: Technische Schulden sind unvermeidbar — aber du musst sie kennen, messen und bewusst tilgen.",
     "merksatz_de": "Technische Schulden sind unvermeidbar — aber du musst sie kennen, messen und bewusst tilgen.",
     "script_en": "The workaround from two years ago is still in production. Every change takes twice as long because everyone has to work around that code. Those are technical debts — and they accrue interest.\n\nTechnical debt emerges when you consciously or unconsciously take shortcuts. In the short term, you save time; in the long term, you pay for it — with every change that takes longer than necessary.\n\nTechnical debt is like a loan: you get something faster now, but you pay interest. A loan is not bad — as long as you know you have one and can pay it back.\n\nConscious debt is justifiable: we use a simple algorithm and optimize later. Unconscious debt is dangerous: nobody noticed that the architecture is gradually eroding. The key is transparency — make your debts visible, assess the interest, and plan the repayment.\n\nRemember: technical debt is unavoidable — but you must know it, measure it, and consciously pay it down.",
@@ -911,8 +911,8 @@
     "requires": [
       "arc42"
     ],
-    "youtube_de": "https://youtube.com/shorts/TxWjAhG6RGU",
-    "youtube_en": "https://youtube.com/shorts/7e67hNGnZAM",
+    "youtube_de": "https://youtube.com/shorts/Sd5s2Ah3_Xc",
+    "youtube_en": "https://youtube.com/shorts/nABf3643AbI",
     "script_de": "Das System läuft seit drei Jahren. Keiner hat je geprüft, ob die Architektur noch zu den heutigen Anforderungen passt. Neue Features dauern ewig und niemand weiß warum.\n\nArchitekturen veralten. Anforderungen ändern sich, Teams wachsen, Technologien entwickeln sich weiter. Was vor drei Jahren passte, kann heute das Problem sein.\n\nEin Architektur-Review ist eine systematische Bewertung deiner Architektur. Denk an eine Hauptuntersuchung beim Auto: Du prüfst nicht nur ob es fährt, sondern ob Bremsen, Licht und Abgase den Anforderungen entsprechen.\n\nBewährte Methoden: Szenario-basierte Bewertungen prüfen, ob die Architektur die Qualitätsziele erfüllt. Risiko-basierte Reviews fokussieren auf die gefährlichsten Stellen. Peer-Reviews durch externe Architekten bringen einen frischen Blick. Wichtig: Ein Review ist keine Schuldzuweisung. Es ist eine Chance, Risiken früh zu erkennen und die Architektur bewusst weiterzuentwickeln.\n\nMerke: Architektur-Reviews finden Probleme, bevor sie teuer werden — regelmäßig prüfen statt überrascht werden.",
     "merksatz_de": "Architektur-Reviews finden Probleme, bevor sie teuer werden — regelmäßig prüfen statt überrascht werden.",
     "script_en": "The system has been running for three years. No one has ever checked whether the architecture still fits today's requirements. New features take forever and nobody knows why.\n\nArchitectures age. Requirements change, teams grow, technologies evolve. What fit three years ago can be the problem today.\n\nAn architecture review is a systematic evaluation of your architecture. Think of a vehicle inspection: you do not just check whether it drives, but whether brakes, lights, and emissions meet the requirements.\n\nProven methods: Scenario-based evaluations check whether the architecture meets quality goals. Risk-based reviews focus on the most dangerous areas. Peer reviews by external architects bring a fresh perspective. Important: A review is not about blame. It is an opportunity to identify risks early and evolve the architecture deliberately.\n\nRemember: Architecture reviews find problems before they get expensive — review regularly instead of being surprised.",
@@ -929,8 +929,8 @@
     "requires": [
       "architekturdokumentation"
     ],
-    "youtube_de": "https://youtube.com/shorts/-josKRUXsC0",
-    "youtube_en": "https://youtube.com/shorts/1JfaKpD6JwE",
+    "youtube_de": "https://youtube.com/shorts/sMAQktYKEtc",
+    "youtube_en": "https://youtube.com/shorts/gzLCo1zey1E",
     "script_de": "Du zeigst dem Management ein UML-Klassendiagramm. Die verstehen nichts. Du zeigst Entwicklern eine bunte Powerpoint-Wolke. Die verstehen auch nichts. Jede Zielgruppe braucht eine andere Sicht.\n\nEin einziges Diagramm kann nicht gleichzeitig den Gesamtüberblick und technische Details zeigen. Aber genau das versuchen die meisten Architekturdiagramme.\n\nDas C4-Modell löst das mit vier Zoom-Stufen. Denk an eine Landkarte: Du startest mit der Weltkarte, zoomst auf ein Land, dann eine Stadt, dann eine Straße. Jede Stufe zeigt genau den richtigen Detailgrad.\n\nDie vier Ebenen: Context zeigt dein System in seiner Umgebung — welche Nutzer und Fremdsysteme gibt es. Container zeigt die großen Bausteine — Webserver, Datenbank, API. Component zeigt die Teile innerhalb eines Containers. Die vierte Ebene wird in der Praxis selten gezeichnet — der Code selbst reicht meist aus. Dem Management zeigst du Context, den Entwicklern Component.\n\nMerke: Das C4-Modell gibt jeder Zielgruppe den richtigen Zoom — vom Helikopter bis zum Quellcode.",
     "merksatz_de": "Das C4-Modell gibt jeder Zielgruppe den richtigen Zoom — vom Helikopter bis zum Quellcode.",
     "script_en": "You show management a UML class diagram. They understand nothing. You show developers a colorful PowerPoint cloud. They understand nothing either. Every audience needs a different view.\n\nA single diagram cannot show the big picture and technical details at the same time. But that is exactly what most architecture diagrams try to do.\n\nThe C4 Model solves this with four zoom levels. Think of a map: you start with the world map, zoom into a country, then a city, then a street. Each level shows exactly the right amount of detail.\n\nThe four levels: Context shows your system in its environment — which users and external systems exist. Container shows the major building blocks — web server, database, API. Component shows the parts inside a container. The fourth level is rarely drawn in practice — the code itself is usually enough. You show Context to management, Component to developers.\n\nRemember: The C4 Model gives every audience the right zoom level — from helicopter view to source code.",
@@ -947,8 +947,8 @@
     "requires": [
       "qualitaetsmerkmale"
     ],
-    "youtube_de": "https://youtube.com/shorts/gVn2KXqvNwo",
-    "youtube_en": "https://youtube.com/shorts/Enx-uMafYT0",
+    "youtube_de": "https://youtube.com/shorts/6MDv_47bAE8",
+    "youtube_en": "https://youtube.com/shorts/GqpsDdm8Pno",
     "script_de": "Ihr habt entschieden: Keine zyklischen Abhängigkeiten. Drei Monate später schaut jemand in den Code — fünf Zyklen. Keiner hat es gemerkt, weil niemand geprüft hat.\n\nArchitekturregeln, die nur in Dokumenten stehen, werden mit der Zeit ignoriert. Jede manuelle Prüfung wird irgendwann vergessen. Du brauchst automatische Wächter.\n\nFitness Functions sind automatisierte Tests für deine Architektur. Denk an einen Fitness-Tracker: Er misst kontinuierlich ob du deine Ziele erreichst — Schritte, Puls, Schlaf. Ohne ihn merkst du erst beim Arzt, dass etwas nicht stimmt.\n\nKonkret: Ein ArchUnit-Test prüft, dass keine zyklischen Abhängigkeiten existieren. Ein Performance-Test prüft, dass die Antwortzeit unter zweihundert Millisekunden bleibt. Ein Dependency-Check prüft, dass keine verbotenen Bibliotheken eingebunden werden. Alles läuft in der CI-Pipeline — bei jedem Commit.\n\nMerke: Fitness Functions machen Architekturregeln automatisch prüfbar — was nicht getestet wird, erodiert.",
     "merksatz_de": "Fitness Functions machen Architekturregeln automatisch prüfbar — was nicht getestet wird, erodiert.",
     "script_en": "You decided: no cyclic dependencies. Three months later someone looks at the code — five cycles. Nobody noticed because nobody checked.\n\nArchitecture rules that only exist in documents get ignored over time. Every manual check is eventually forgotten. You need automated guards.\n\nFitness functions are automated tests for your architecture. Think of a fitness tracker: it continuously measures whether you reach your goals — steps, heart rate, sleep. Without it, you only find out something is wrong at the doctor's office.\n\nSpecifically: An ArchUnit test checks that no cyclic dependencies exist. A performance test checks that response time stays under two hundred milliseconds. A dependency check ensures that no forbidden libraries are included. Everything runs in the CI pipeline — on every commit.\n\nRemember: Fitness functions make architecture rules automatically testable — what is not tested will erode.",
@@ -2411,8 +2411,8 @@
     "requires": [
       "separation-of-concerns"
     ],
-    "youtube_de": "https://youtube.com/shorts/ZVIaN9kV8PY",
-    "youtube_en": "https://youtube.com/shorts/c4a5brodIng",
+    "youtube_de": "https://youtube.com/shorts/0mLRMFQwhF4",
+    "youtube_en": "https://youtube.com/shorts/3dCnrWvx9ms",
     "token": "9b375"
   },
   {
@@ -2425,8 +2425,8 @@
     "requires": [
       "docs-as-code-pfad"
     ],
-    "youtube_de": "https://youtube.com/shorts/doIo3pXjf3c",
-    "youtube_en": "https://youtube.com/shorts/ifwT6BuNU_I",
+    "youtube_de": "https://youtube.com/shorts/AceUR7q1EgE",
+    "youtube_en": "https://youtube.com/shorts/MOUfT-vbrgE",
     "token": "20979"
   },
   {
@@ -2439,8 +2439,8 @@
     "requires": [
       "docs-as-code"
     ],
-    "youtube_de": "https://youtube.com/shorts/Zn3egvR3-04",
-    "youtube_en": "https://youtube.com/shorts/_jGES4HB2tg",
+    "youtube_de": "https://youtube.com/shorts/pEK7wCEnebg",
+    "youtube_en": "https://youtube.com/shorts/PzFTiqNBpqM",
     "token": "3fcdc"
   },
   {
@@ -2453,8 +2453,8 @@
     "requires": [
       "docs-as-code"
     ],
-    "youtube_de": "https://youtube.com/shorts/98w3kThYwKk",
-    "youtube_en": "https://youtube.com/shorts/j8uXBo-r6FU",
+    "youtube_de": "https://youtube.com/shorts/whiyCt4FqIs",
+    "youtube_en": "https://youtube.com/shorts/BsTbVBd8my4",
     "token": "44e55"
   },
   {
@@ -2467,8 +2467,8 @@
     "requires": [
       "asciidoc"
     ],
-    "youtube_de": "https://youtube.com/shorts/25hIRBqP5j0",
-    "youtube_en": "https://youtube.com/shorts/hG_j0dfPN00",
+    "youtube_de": "https://youtube.com/shorts/btbND9ldJ8E",
+    "youtube_en": "https://youtube.com/shorts/iViY7DUS0nk",
     "token": "733cc"
   },
   {
@@ -2481,8 +2481,8 @@
     "requires": [
       "docs-as-code"
     ],
-    "youtube_en": "https://youtube.com/shorts/C4cp5jqjuJM",
-    "youtube_de": "https://youtube.com/shorts/2E7emxnNy00",
+    "youtube_en": "https://youtube.com/shorts/z6eGd_fisyQ",
+    "youtube_de": "https://youtube.com/shorts/BlHTC3IN4m8",
     "token": "aa534"
   },
   {
@@ -2495,8 +2495,8 @@
     "requires": [
       "asciidoc"
     ],
-    "youtube_en": "https://youtube.com/shorts/zE5OFSRuGN8",
-    "youtube_de": "https://youtube.com/shorts/yuLkPCM2MYI",
+    "youtube_en": "https://youtube.com/shorts/FtsGzdVSJiE",
+    "youtube_de": "https://youtube.com/shorts/Zbj6YdS39_4",
     "token": "3bb44"
   },
   {
@@ -2509,8 +2509,8 @@
     "requires": [
       "docs-as-code"
     ],
-    "youtube_de": "https://youtube.com/shorts/U0SMzDi-MvI",
-    "youtube_en": "https://youtube.com/shorts/CUKZXD_a1LQ",
+    "youtube_de": "https://youtube.com/shorts/yHsH1xoTHUA",
+    "youtube_en": "https://youtube.com/shorts/ZTrZpGONoDw",
     "token": "768ea"
   },
   {
@@ -2523,8 +2523,8 @@
     "requires": [
       "living-documentation"
     ],
-    "youtube_de": "https://youtube.com/shorts/0VOyHYy3q9I",
-    "youtube_en": "https://youtube.com/shorts/VMtt_hAmV38",
+    "youtube_de": "https://youtube.com/shorts/IiU4Ci0gf18",
+    "youtube_en": "https://youtube.com/shorts/t2TeRafNF0Q",
     "token": "21a2c"
   },
   {
@@ -2537,8 +2537,8 @@
     "requires": [
       "docs-as-code"
     ],
-    "youtube_en": "https://youtube.com/shorts/XiTW1Zi5A64",
-    "youtube_de": "https://youtube.com/shorts/xztU4Nw4l7Q",
+    "youtube_en": "https://youtube.com/shorts/Gt7fJPyX2kQ",
+    "youtube_de": "https://youtube.com/shorts/DnYj77wKoNQ",
     "token": "c3ae7"
   }
 ]
