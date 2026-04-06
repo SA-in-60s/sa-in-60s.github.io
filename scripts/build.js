@@ -268,6 +268,7 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
           <div data-lang="en" class="hidden">
             ${youtubeEmbed(concept.youtube_en, translations.en.concept_video_placeholder, youtubeEnTitle)}
           </div>
+          ${generateNextVideoButton(concept, allConcepts, allPaths)}
         </div>
         <div class="md:w-2/3">
           ${
@@ -318,7 +319,6 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
         }
       </div>
 
-      ${generateNextVideoButton(concept, allConcepts, allPaths)}
     </article>`
 
   return htmlTemplate({
