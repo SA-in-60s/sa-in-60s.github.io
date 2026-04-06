@@ -1,0 +1,369 @@
+= SA-in-60s Website — Use Cases
+:toc:
+:toc-title: Inhaltsverzeichnis
+:icons: font
+
+== Akteure
+
+Lernender:: Besucher der Website, möchte Software-Architektur lernen
+eBook-Leser:: Scannt QR-Codes aus dem gedruckten eBook
+Suchmaschine:: Crawler, der die Website indexiert
+
+== UC-1: Konzept-Video ansehen
+
+*Akteur:* Lernender
+
+*Ziel:* Ein 60-Sekunden-Video zu einem Architektur-Konzept ansehen
+
+*Vorbedingungen:* Konzept ist freigeschaltet (Unlock-System)
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:Lernender öffnet Konzept-Seite;
+if (YouTube-URL vorhanden?) then (ja)
+  :Sprachpräferenz prüfen (localStorage);
+  if (Sprache = EN?) then (ja)
+    :Englisches Video-Embed laden;
+  else (nein)
+    :Deutsches Video-Embed laden;
+  endif
+  :Video im Iframe abspielen;
+else (nein)
+  :Platzhalter "Video in Produktion" anzeigen;
+endif
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: Video-URL ungültig* — Platzhalter wird angezeigt statt Iframe
+* *A2: Sprache wechseln während Video läuft* — Laufendes Video wird gestoppt, anderes Embed geladen
+
+== UC-2: Lernfortschritt tracken
+
+*Akteur:* Lernender
+
+*Ziel:* Ein Konzept als "verstanden" markieren und den Fortschritt über alle Pfade hinweg verfolgen
+
+*Vorbedingungen:* localStorage verfügbar
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:Lernender öffnet Konzept-Seite;
+:60-Sekunden-Timer startet;
+:Text: "Gib dem Konzept 60 Sekunden — noch Xs";
+:Button "Verstanden?" ausgegraut anzeigen;
+
+while (Timer > 0?) is (ja)
+  :Timer herunterzählen;
+endwhile (nein)
+
+:Text: "60 Sekunden geschafft — Konzept gelernt?";
+:Button aktivieren;
+:Lernender klickt "Verstanden?";
+:Konzept-ID in localStorage speichern;
+:Fortschrittsanzeigen aktualisieren;
+note right
+  - Gesamtfortschritt (Leiste + Zähler)
+  - Pfad-Fortschritt
+  - Graph-Knoten (Rahmen)
+  - Konzeptliste (✓/○)
+end note
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: Konzept bereits als "verstanden" markiert* — Timer entfällt, Button sofort aktiv mit "Verstanden ✓", Klick entfernt Markierung (Toggle)
+* *A2: Private Browsing / kein localStorage* — Button deaktiviert, Tooltip: "Progress cannot be saved in private mode"
+* *A3: Korrupte Daten in localStorage* — Warnung loggen, Progress zurücksetzen auf `[]`
+
+== UC-3: Sprache wechseln
+
+*Akteur:* Lernender
+
+*Ziel:* Zwischen Deutsch und Englisch umschalten
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:Lernender klickt Sprach-Toggle;
+:Neue Sprache in localStorage speichern;
+:HTML lang-Attribut aktualisieren;
+
+fork
+  :Alle data-de/data-en Texte umschalten;
+fork again
+  :Video-Embeds tauschen (DE ↔ EN);
+  :Laufendes Video stoppen;
+fork again
+  :Button-Labels aktualisieren;
+end fork
+
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: Erster Besuch, kein localStorage* — Browser-Sprache erkennen (`navigator.language`), Deutsch als Fallback
+* *A2: Private Browsing* — Toggle funktioniert, Präferenz geht beim Schließen verloren
+
+== UC-4: Lernpfad erkunden
+
+*Akteur:* Lernender
+
+*Ziel:* Einen thematischen Lernpfad (z.B. Microservices, DDD) durcharbeiten
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:Lernender öffnet Startseite;
+:Pfad-Karten mit Fortschritt anzeigen;
+:Lernender wählt einen Pfad;
+:Pfad-Seite mit Konzept-Liste laden;
+
+if (Stamm vollständig?) then (ja)
+  :Alle Pfad-Konzepte anzeigen;
+else (nein)
+  :Hinweis: "Empfehlung: Zuerst den Stamm abschließen";
+  :Pfad-Konzepte trotzdem anzeigen;
+endif
+
+:Lernender klickt auf Konzept;
+
+if (Konzept freigeschaltet?) then (ja)
+  :Konzept-Seite öffnen;
+else (nein)
+  :Konzept ausgegraut (nicht klickbar);
+endif
+
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: Kein localStorage (Unlock deaktiviert)* — Alle Konzepte sofort zugänglich, kein Gating
+
+== UC-5: KI-Vertiefung starten
+
+*Akteur:* Lernender
+
+*Ziel:* Nach dem Video ein Konzept mit einem KI-Assistenten vertiefen
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:Lernender ist auf Konzept-Seite;
+:KI-Assistent aus Dropdown wählen;
+note right: Claude, ChatGPT, Perplexity
+:Auswahl in localStorage speichern;
+:Klick auf "🤖 Tiefer einsteigen";
+:Neuer Tab öffnet sich;
+:KI-Chat mit vorausgefülltem Prompt;
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: Keine KI-Präferenz gespeichert* — Claude als Default
+* *A2: Via QR-Code aus eBook (/ai/{token})* — Gespeicherte Präferenz nutzen; falls keine → Auswahl-Seite mit 3 Buttons
+
+== UC-6: QR-Code aus eBook scannen
+
+*Akteur:* eBook-Leser
+
+*Ziel:* Vom gedruckten Buch direkt zum Video oder zur KI-Vertiefung gelangen
+
+=== Ablauf (Video)
+
+[plantuml]
+----
+@startuml
+start
+:eBook-Leser scannt QR-Code;
+:Browser öffnet /go/{token};
+:Sprachpräferenz aus localStorage lesen;
+
+if (Präferenz vorhanden?) then (ja)
+  :Passende YouTube-URL auswählen;
+else (nein)
+  :Browser-Sprache erkennen;
+  if (Browser = DE?) then (ja)
+    :Deutsche YouTube-URL;
+  else (nein)
+    :Englische YouTube-URL;
+  endif
+endif
+
+if (YouTube-URL vorhanden?) then (ja)
+  :Redirect zu YouTube Short;
+else (nein)
+  :Fallback-Link zur Konzept-Seite;
+endif
+
+stop
+@enduml
+----
+
+=== Ablauf (KI-Vertiefung)
+
+[plantuml]
+----
+@startuml
+start
+:eBook-Leser scannt QR-Code;
+:Browser öffnet /ai/{token};
+:KI-Präferenz aus localStorage lesen;
+
+if (Präferenz gespeichert?) then (ja)
+  :Redirect zu KI-Chat mit Prompt;
+else (nein)
+  :Auswahl-Seite anzeigen;
+  :3 Buttons: Claude / ChatGPT / Perplexity;
+  :eBook-Leser wählt;
+  :Präferenz speichern + Seite neuladen;
+  :Redirect zu gewähltem KI-Chat;
+endif
+
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: Token ungültig / Seite nicht gefunden* — 404-Seite
+* *A2: URL manuell abgetippt (statt QR-Scan)* — Gleiches Verhalten
+
+== UC-7: KI-Assistent einrichten (Setup)
+
+*Akteur:* eBook-Leser
+
+*Ziel:* Bevorzugten KI-Assistenten einmalig konfigurieren, damit alle QR-Codes im Buch automatisch den richtigen Chat öffnen
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:eBook-Leser scannt Setup-QR-Code;
+:Browser öffnet /setup;
+
+if (Bereits konfiguriert?) then (ja)
+  :Aktuelle Auswahl anzeigen;
+  :Option zum Ändern;
+else (nein)
+  :3 Buttons: Claude / ChatGPT / Perplexity;
+endif
+
+:eBook-Leser wählt Assistenten;
+:Auswahl in localStorage speichern;
+:Bestätigung: "✓ Gespeichert! Alle 🤖-QR-Codes öffnen jetzt {Name}.";
+stop
+@enduml
+----
+
+== UC-8: Abhängigkeitsgraph erkunden
+
+*Akteur:* Lernender
+
+*Ziel:* Zusammenhänge zwischen Konzepten visuell verstehen
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:Lernender öffnet /graph;
+:Cytoscape.js Graph laden;
+:Force-directed Layout berechnen;
+:Knoten nach Pfad-Farbe einfärben;
+:Gelernte Konzepte mit Rahmen markieren;
+
+fork
+  :Zoom / Pan;
+fork again
+  :Pfad-Filter wählen;
+  :Ausgewählten Pfad + Voraussetzungen hervorheben;
+  :Rest abdunkeln;
+fork again
+  :Hover über Knoten;
+  :Tooltip: Titel + Pfad + Status;
+fork again
+  :Klick auf Knoten;
+  :Navigation zur Konzept-Seite;
+end fork
+
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: JavaScript deaktiviert* — Noscript-Hinweis: "Bitte aktiviere JavaScript für den interaktiven Graph"
+* *A2: Sehr kleine Bildschirme* — Graph zoombar, Touch-Gesten unterstützt
+
+== UC-9: Unlock-System (tägliche Freischaltung)
+
+*Akteur:* Lernender
+
+*Ziel:* Inhalte werden schrittweise freigeschaltet (1 Konzept/Tag) um nachhaltiges Lernen zu fördern
+
+=== Ablauf
+
+[plantuml]
+----
+@startuml
+start
+:Erster Besuch — Datum speichern;
+:Phase: STAMM;
+
+repeat
+  :1 Konzept pro Tag freischalten;
+  :Intro → Abstraktion → Modul → ... → Separation of Concerns;
+repeat while (Stamm komplett?) is (nein)
+
+:Phase: PFAD-WAHL;
+:Pfad-Chooser anzeigen;
+:Lernender wählt Pfad;
+
+repeat
+  :1 Konzept pro Tag freischalten;
+  :Konzepte des gewählten Pfads sequenziell;
+repeat while (Pfad komplett?) is (nein)
+
+:Phase: NÄCHSTEN PFAD WÄHLEN;
+:Zurück zur Pfad-Wahl;
+
+stop
+@enduml
+----
+
+=== Alternativpfade
+
+* *A1: Kein localStorage* — Unlock-System deaktiviert, alle Inhalte sofort zugänglich
+* *A2: Manipulierter localStorage* — Korrupte Daten werden erkannt und zurückgesetzt
+* *A3: Alle Tages-Konzepte bereits angesehen* — Banner: "Alle Videos für heute freigeschaltet — morgen geht es weiter mit: {Konzept}"

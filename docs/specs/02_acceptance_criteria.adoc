@@ -1,0 +1,369 @@
+= SA-in-60s Website — Akzeptanzkriterien
+:toc:
+:toc-title: Inhaltsverzeichnis
+
+== Feature: Konzept-Video ansehen
+
+[source,gherkin]
+----
+Feature: Konzept-Video ansehen
+  Als Lernender
+  möchte ich ein 60-Sekunden-Video zu einem Architektur-Konzept ansehen
+  damit ich den Begriff schnell verstehen kann.
+
+  Szenario: Video in der aktiven Sprache anzeigen
+    Gegeben die Spracheinstellung ist "de"
+    Und das Konzept "abstraktion" hat eine deutsche YouTube-URL
+    Wenn ich die Konzept-Seite "/concept/abstraktion" öffne
+    Dann wird das deutsche Video-Embed angezeigt
+    Und das englische Video-Embed ist versteckt
+
+  Szenario: Sprache wechseln stoppt laufendes Video
+    Gegeben ich bin auf der Konzept-Seite "abstraktion"
+    Und das deutsche Video spielt
+    Wenn ich die Sprache auf "en" umschalte
+    Dann wird das deutsche Video-Embed gestoppt
+    Und das englische Video-Embed geladen
+
+  Szenario: Kein Video vorhanden
+    Gegeben das Konzept "neues-konzept" hat keine YouTube-URL
+    Wenn ich die Konzept-Seite öffne
+    Dann wird ein Platzhalter "Video in Produktion" angezeigt
+    Und kein Iframe gerendert
+
+  Szenario: Ungültige Video-URL
+    Gegeben das Konzept hat eine URL die nicht dem Pattern /shorts/[id] entspricht
+    Wenn ich die Konzept-Seite öffne
+    Dann wird ein Platzhalter angezeigt
+    Und kein Iframe mit der ungültigen URL gerendert
+----
+
+== Feature: Lernfortschritt tracken
+
+[source,gherkin]
+----
+Feature: Lernfortschritt tracken
+  Als Lernender
+  möchte ich Konzepte als "verstanden" markieren können
+  damit ich meinen Lernfortschritt über alle Pfade sehe.
+
+  Szenario: 60-Sekunden-Timer vor Freischaltung
+    Gegeben ich öffne die Konzept-Seite "modul" zum ersten Mal
+    Dann sehe ich den Text "Gib dem Konzept 60 Sekunden — noch 60s"
+    Und der Button "Verstanden?" ist deaktiviert und halbtransparent
+    Wenn 60 Sekunden vergangen sind
+    Dann zeigt der Text "60 Sekunden geschafft — Konzept gelernt?"
+    Und der Button ist klickbar
+
+  Szenario: Konzept als verstanden markieren
+    Gegeben der 60-Sekunden-Timer ist abgelaufen
+    Wenn ich auf "Verstanden?" klicke
+    Dann ändert sich der Button zu "Verstanden ✓" mit cyan Hintergrund
+    Und "modul" wird in localStorage unter "sa60s-progress" gespeichert
+    Und der Gesamtfortschritt wird aktualisiert
+
+  Szenario: Markierung aufheben (Toggle)
+    Gegeben das Konzept "modul" ist als "verstanden" markiert
+    Wenn ich auf "Verstanden ✓" klicke
+    Dann ändert sich der Button zurück zu "Verstanden?"
+    Und "modul" wird aus localStorage entfernt
+    Und der Gesamtfortschritt wird aktualisiert
+
+  Szenario: Bereits gelerntes Konzept öffnen
+    Gegeben das Konzept "modul" ist als "verstanden" markiert
+    Wenn ich die Konzept-Seite "modul" öffne
+    Dann wird kein Timer angezeigt
+    Und der Button "Verstanden ✓" ist sofort aktiv
+
+  Szenario: Private Browsing — kein localStorage
+    Gegeben localStorage ist nicht verfügbar
+    Wenn ich die Konzept-Seite öffne
+    Dann ist der "Verstanden?" Button deaktiviert
+    Und der Tooltip zeigt "Progress cannot be saved in private mode"
+
+  Szenario: Korrupte Daten in localStorage
+    Gegeben sa60s-progress enthält ungültiges JSON
+    Wenn die Seite geladen wird
+    Dann wird eine Warnung geloggt
+    Und der Progress wird auf [] zurückgesetzt
+    Und die Seite funktioniert normal
+
+  Szenario: Fortschrittsanzeige auf Pfad-Seite
+    Gegeben ich habe 3 von 9 Stamm-Konzepten als verstanden markiert
+    Wenn ich die Startseite öffne
+    Dann zeigt der Stamm-Fortschritt "3/9"
+    Und die Fortschrittsleiste ist zu 33% gefüllt
+
+  Szenario: Fortschritt im Graph
+    Gegeben ich habe "abstraktion" als verstanden markiert
+    Wenn ich die Graph-Seite öffne
+    Dann hat der Knoten "abstraktion" einen cyan Rahmen
+    Und alle anderen Knoten haben keinen Rahmen
+----
+
+== Feature: Sprache wechseln
+
+[source,gherkin]
+----
+Feature: Sprache wechseln
+  Als Lernender
+  möchte ich zwischen Deutsch und Englisch umschalten
+  damit ich in meiner bevorzugten Sprache lernen kann.
+
+  Szenario: Sprache umschalten
+    Gegeben die aktive Sprache ist "de"
+    Wenn ich den Sprach-Toggle klicke
+    Dann wechselt die Sprache auf "en"
+    Und alle Texte mit data-en Attribut werden sichtbar
+    Und alle Texte mit data-de Attribut werden versteckt
+    Und "en" wird in localStorage unter "sa60s-lang" gespeichert
+
+  Szenario: Erster Besuch — Browser-Sprache erkennen
+    Gegeben kein Eintrag "sa60s-lang" in localStorage
+    Und die Browser-Sprache beginnt mit "de"
+    Wenn ich die Seite öffne
+    Dann ist die aktive Sprache "de"
+
+  Szenario: Erster Besuch — englischer Browser
+    Gegeben kein Eintrag "sa60s-lang" in localStorage
+    Und die Browser-Sprache beginnt nicht mit "de"
+    Wenn ich die Seite öffne
+    Dann ist die aktive Sprache "en"
+
+  Szenario: Sprache bleibt über Seitenwechsel erhalten
+    Gegeben ich habe die Sprache auf "en" gestellt
+    Wenn ich zur Startseite navigiere
+    Dann ist die Sprache weiterhin "en"
+----
+
+== Feature: KI-Vertiefung
+
+[source,gherkin]
+----
+Feature: KI-Vertiefung
+  Als Lernender
+  möchte ich ein Konzept mit einem KI-Assistenten vertiefen
+  damit ich über das 60-Sekunden-Video hinaus lernen kann.
+
+  Szenario: KI-Chat öffnen
+    Gegeben ich bin auf der Konzept-Seite "circuit-breaker"
+    Und der KI-Dropdown steht auf "Claude"
+    Wenn ich auf "🤖 Tiefer einsteigen" klicke
+    Dann öffnet sich ein neuer Tab
+    Und die URL beginnt mit "https://claude.ai/new?q="
+    Und der Query-Parameter enthält "Circuit Breaker"
+
+  Szenario: KI-Auswahl speichern
+    Gegeben ich wähle "chatgpt" im Dropdown
+    Wenn ich auf "🤖 Tiefer einsteigen" klicke
+    Dann wird "chatgpt" in localStorage unter "sa60s-ai-chat" gespeichert
+    Und der nächste Klick öffnet ChatGPT
+
+  Szenario: Prompt passt zur Sprache
+    Gegeben die aktive Sprache ist "de"
+    Wenn ich den KI-Chat öffne
+    Dann beginnt der Prompt mit "Ich habe gerade ein 60-Sekunden-Video"
+
+  Szenario: Englischer Prompt
+    Gegeben die aktive Sprache ist "en"
+    Wenn ich den KI-Chat öffne
+    Dann beginnt der Prompt mit "I just watched a 60-second video"
+----
+
+== Feature: QR-Code Redirects
+
+[source,gherkin]
+----
+Feature: QR-Code Redirects
+  Als eBook-Leser
+  möchte ich QR-Codes aus dem Buch scannen
+  damit ich direkt zum Video oder zur KI-Vertiefung komme.
+
+  Szenario: Video-QR-Code (deutsch)
+    Gegeben meine Sprachpräferenz ist "de"
+    Wenn ich /go/49d87 öffne
+    Dann werde ich zur deutschen YouTube-URL weitergeleitet
+
+  Szenario: Video-QR-Code (englisch)
+    Gegeben meine Sprachpräferenz ist "en"
+    Wenn ich /go/49d87 öffne
+    Dann werde ich zur englischen YouTube-URL weitergeleitet
+
+  Szenario: Video-QR-Code ohne Sprachpräferenz
+    Gegeben kein Eintrag "sa60s-lang" in localStorage
+    Und die Browser-Sprache ist "de"
+    Wenn ich /go/49d87 öffne
+    Dann werde ich zur deutschen YouTube-URL weitergeleitet
+
+  Szenario: Video-QR-Code ohne YouTube-URL
+    Gegeben das Konzept hat keine YouTube-URL
+    Wenn ich /go/{token} öffne
+    Dann wird ein Fallback-Link zur Konzept-Seite angezeigt
+
+  Szenario: KI-QR-Code mit gespeicherter Präferenz
+    Gegeben meine KI-Präferenz ist "perplexity"
+    Wenn ich /ai/49d87 öffne
+    Dann werde ich zu Perplexity mit vorausgefülltem Prompt weitergeleitet
+
+  Szenario: KI-QR-Code ohne Präferenz
+    Gegeben kein Eintrag "sa60s-ai-chat" in localStorage
+    Wenn ich /ai/49d87 öffne
+    Dann sehe ich 3 Buttons: Claude, ChatGPT, Perplexity
+    Wenn ich "Claude" wähle
+    Dann wird "claude" in localStorage gespeichert
+    Und die Seite leitet zu Claude weiter
+
+  Szenario: Token-URLs sind nicht erratbar
+    Gegeben die Token sind 5-stellige Hex-Hashes
+    Dann kann man aus einem Token nicht auf das Konzept schließen
+    Und /go/abstraktion funktioniert trotzdem als Alias
+
+  Szenario: URL manuell abtippen
+    Gegeben im eBook steht "sa-in-60s.github.io/go/49d87"
+    Wenn ich die URL manuell im Browser eintippe
+    Dann funktioniert der Redirect identisch zum QR-Scan
+----
+
+== Feature: KI-Setup
+
+[source,gherkin]
+----
+Feature: KI-Assistent einrichten
+  Als eBook-Leser
+  möchte ich einmalig meinen KI-Assistenten wählen
+  damit alle QR-Codes im Buch den richtigen Chat öffnen.
+
+  Szenario: Erstmalige Einrichtung
+    Gegeben ich öffne /setup zum ersten Mal
+    Dann sehe ich 3 Buttons: Claude, ChatGPT, Perplexity
+    Wenn ich "ChatGPT" wähle
+    Dann wird "chatgpt" in localStorage gespeichert
+    Und ich sehe "✓ Gespeichert! Alle 🤖-QR-Codes öffnen jetzt ChatGPT."
+
+  Szenario: Auswahl ändern
+    Gegeben ich habe "chatgpt" gespeichert
+    Wenn ich /setup öffne
+    Dann sehe ich die aktuelle Auswahl "ChatGPT"
+    Wenn ich "Claude" wähle
+    Dann wird die Auswahl auf "claude" geändert
+----
+
+== Feature: Abhängigkeitsgraph
+
+[source,gherkin]
+----
+Feature: Abhängigkeitsgraph
+  Als Lernender
+  möchte ich die Zusammenhänge zwischen Konzepten visuell sehen
+  damit ich verstehe wie die Themen zusammenhängen.
+
+  Szenario: Graph laden
+    Wenn ich /graph öffne
+    Dann wird ein interaktiver Graph mit allen Konzepten angezeigt
+    Und Knoten sind nach Lernpfad eingefärbt
+    Und Kanten zeigen Abhängigkeiten
+
+  Szenario: Pfad filtern
+    Gegeben der Graph ist geladen
+    Wenn ich den Filter auf "Microservices" setze
+    Dann werden Microservices-Konzepte und ihre Voraussetzungen hervorgehoben
+    Und alle anderen Konzepte sind abgedunkelt
+
+  Szenario: Knoten anklicken
+    Gegeben der Graph ist geladen
+    Wenn ich auf den Knoten "circuit-breaker" klicke
+    Dann navigiere ich zur Seite /concept/circuit-breaker
+
+  Szenario: Hover zeigt Tooltip
+    Gegeben der Graph ist geladen
+    Wenn ich über den Knoten "saga" hover
+    Dann sehe ich einen Tooltip mit Titel, Pfad und Lernstatus
+
+  Szenario: Kein JavaScript
+    Gegeben JavaScript ist deaktiviert
+    Wenn ich /graph öffne
+    Dann sehe ich den Hinweis "Bitte aktiviere JavaScript für den interaktiven Graph"
+----
+
+== Feature: Unlock-System
+
+[source,gherkin]
+----
+Feature: Tägliche Freischaltung
+  Als Lernender
+  möchte ich Inhalte schrittweise freigeschaltet bekommen
+  damit ich nachhaltig lernen kann ohne mich zu überfordern.
+
+  Szenario: Erster Besuch — Stamm beginnt
+    Gegeben ich besuche die Website zum ersten Mal
+    Dann ist das Intro-Konzept freigeschaltet
+    Und alle anderen Konzepte sind gesperrt (ausgegraut)
+
+  Szenario: Tägliche Freischaltung
+    Gegeben heute ist Tag 3 seit meinem ersten Besuch
+    Dann sind die ersten 3 Stamm-Konzepte freigeschaltet
+    Und das 4. Konzept ist gesperrt
+
+  Szenario: Stamm abgeschlossen — Pfad-Wahl
+    Gegeben alle 10 Stamm-Konzepte sind freigeschaltet
+    Wenn ich die Startseite öffne
+    Dann sehe ich den Pfad-Chooser
+    Und kann einen Lernpfad auswählen
+
+  Szenario: Pfad gewählt — sequenzielle Freischaltung
+    Gegeben ich habe den Microservices-Pfad gewählt
+    Und es ist Tag 2 seit der Pfad-Wahl
+    Dann sind die ersten 2 Microservices-Konzepte freigeschaltet
+
+  Szenario: Pfad abgeschlossen — nächsten wählen
+    Gegeben der Microservices-Pfad ist komplett freigeschaltet
+    Wenn ich die Startseite öffne
+    Dann kann ich den nächsten Pfad wählen
+
+  Szenario: Gesperrtes Konzept nicht klickbar
+    Gegeben das Konzept "api-gateway" ist noch gesperrt
+    Dann ist der Link ausgegraut (opacity-40)
+    Und nicht klickbar (pointer-events-none)
+
+  Szenario: Banner bei Tages-Limit
+    Gegeben alle für heute freigeschalteten Konzepte sind sichtbar
+    Dann sehe ich "Alle Videos für heute freigeschaltet — morgen geht es weiter mit: {Name}"
+
+  Szenario: Kein localStorage — alles offen
+    Gegeben localStorage ist nicht verfügbar
+    Dann sind alle Konzepte sofort freigeschaltet
+    Und kein Unlock-Banner wird angezeigt
+----
+
+== Feature: SEO & Crawling
+
+[source,gherkin]
+----
+Feature: SEO & Crawling
+  Als Suchmaschine
+  möchte ich relevante Seiten indexieren
+  damit Lernende die Website über Suche finden.
+
+  Szenario: robots.txt erlaubt nur Stamm-Konzepte
+    Wenn ich robots.txt abrufe
+    Dann ist /concept/ blockiert
+    Und /concept/abstraktion ist explizit erlaubt
+    Und /go/ ist blockiert
+    Und /ai/ ist blockiert
+    Und /setup/ ist blockiert
+    Und /path/ ist erlaubt
+    Und /graph ist erlaubt
+
+  Szenario: Sitemap enthält nur relevante URLs
+    Wenn ich sitemap.xml abrufe
+    Dann enthält sie die Startseite
+    Und die Graph-Seite
+    Und alle 10 Pfad-Seiten
+    Und die 8 Stamm-Konzept-Seiten
+    Und keine Redirect-Seiten (/go/, /ai/)
+
+  Szenario: JSON-LD Strukturierte Daten
+    Wenn ich eine Konzept-Seite öffne
+    Dann enthält der HTML-Head ein JSON-LD Script
+    Und es beschreibt ein VideoObject und LearningResource
+----

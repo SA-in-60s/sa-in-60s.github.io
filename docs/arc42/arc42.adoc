@@ -1,0 +1,517 @@
+= SA-in-60s — Architekturdokumentation (arc42)
+:toc: left
+:toc-title: Inhaltsverzeichnis
+:icons: font
+:sectnums:
+
+== Einführung und Ziele
+
+=== Aufgabenstellung
+
+SA-in-60s ist eine Lernplattform für Software-Architektur-Konzepte. Jedes Konzept wird in einem 60-Sekunden-YouTube-Short erklärt. Die Website ergänzt die Videos um Lernpfade, Fortschrittstracking und KI-gestützte Vertiefung.
+
+=== Qualitätsziele
+
+[cols="1,2,1"]
+|===
+| Priorität | Qualitätsziel | Maß
+
+| 1 | *Performance* — Seiten laden schnell, auch auf mobilen Geräten
+| Lighthouse Performance >90
+
+| 2 | *Accessibility* — Barrierefreier Zugang für alle Nutzer
+| Lighthouse Accessibility 100
+
+| 3 | *Offline-Fähigkeit* — Statische Seiten ohne Server-Abhängigkeit
+| Keine Laufzeit-Abhängigkeit außer YouTube-Embeds
+
+| 4 | *Datensparsamkeit* — Kein Tracking, keine Cookies, keine Server-Daten
+| Nur localStorage, kein Backend
+|===
+
+=== Stakeholder
+
+[cols="1,2"]
+|===
+| Stakeholder | Erwartung
+
+| *Lernende* | Schneller Zugang zu Konzepten, klarer Lernpfad, Fortschritt sichtbar
+| *eBook-Leser* | QR-Codes funktionieren zuverlässig, kurze URLs zum Abtippen
+| *Autor (rdmueller)* | Einfache Content-Pflege via JSON, automatisierte Builds
+| *Suchmaschinen* | Indexierbare Stamm-Konzepte, strukturierte Daten (JSON-LD)
+|===
+
+== Randbedingungen
+
+=== Technische Randbedingungen
+
+[cols="1,2"]
+|===
+| Randbedingung | Hintergrund
+
+| *GitHub Pages Hosting* | Kostenlos, automatisches Deployment, kein Backend möglich
+| *Kein Server-Side-Code* | Statische HTML-Seiten, alle Interaktivität via JavaScript
+| *YouTube als Video-Host* | Videos als Shorts (9:16), keine eigene Video-Infrastruktur
+| *Kein Nutzerkonto* | Fortschritt nur in localStorage, kein Login
+|===
+
+=== Organisatorische Randbedingungen
+
+[cols="1,2"]
+|===
+| Randbedingung | Hintergrund
+
+| *Bilingual (DE/EN)* | Zielgruppe im DACH-Raum und international
+| *Content aus JSON* | `concepts.json` und `paths.json` als Single Source of Truth
+| *CI/CD via GitHub Actions* | Lint, Test, Lighthouse, Deploy bei Push auf main
+|===
+
+== Kontextabgrenzung
+
+=== Fachlicher Kontext
+
+[plantuml]
+----
+@startuml
+!theme plain
+
+actor "Lernender" as user
+actor "eBook-Leser" as reader
+node "SA-in-60s\nWebsite" as web
+cloud "YouTube" as yt
+cloud "KI-Chat\n(Claude/ChatGPT/\nPerplexity)" as ai
+database "localStorage\n(Browser)" as ls
+node "GitHub Pages" as gh
+
+user --> web : Konzepte lernen,\nFortschritt tracken
+reader --> web : QR-Code scannen
+web --> yt : Video-Embed / Redirect
+web --> ai : Deep-Dive Redirect\n(vorausgefüllter Prompt)
+web --> ls : Fortschritt, Sprache,\nKI-Präferenz
+gh --> web : Hosting (statische Dateien)
+@enduml
+----
+
+=== Technischer Kontext
+
+[plantuml]
+----
+@startuml
+!theme plain
+
+node "Browser" {
+  component "Vite SPA" as spa
+  component "Cytoscape.js" as cy
+  database "localStorage" as ls
+}
+
+node "GitHub Pages (CDN)" {
+  artifact "index.html" as idx
+  artifact "concept/*.html" as concepts
+  artifact "path/*.html" as paths
+  artifact "graph/index.html" as graph
+  artifact "go/*.html" as go
+  artifact "ai/*.html" as airedirect
+  artifact "setup/index.html" as setup
+  artifact "data/concepts.json" as json
+  artifact "data/graph-data-{hash}.json" as graphdata
+}
+
+cloud "YouTube" as yt
+cloud "KI-Dienste" as ai
+
+spa --> ls : read/write
+spa --> yt : iframe embed
+spa --> ai : window.open()
+cy --> graphdata : fetch()
+go --> yt : redirect
+airedirect --> ai : redirect
+@enduml
+----
+
+== Lösungsstrategie
+
+[cols="1,2"]
+|===
+| Entscheidung | Begründung
+
+| *Static Site Generation* | Maximale Performance, kein Server nötig, GitHub Pages kompatibel
+| *Vite als Bundler* | Schneller Dev-Server, optimiertes Build, CSS/JS Hashing
+| *Tailwind CSS* | Utility-first, kein Custom-CSS-Overhead, konsistentes Design
+| *localStorage statt Backend* | Datensparsamkeit, kein Login nötig, DSGVO-konform
+| *Token-basierte QR-URLs* | Kurze, nicht erratbare URLs für gedruckte QR-Codes im eBook
+| *Whisper-basierte Untertitel* | Exakte Wort-Synchronisation statt proportionaler Verteilung
+|===
+
+== Bausteinsicht
+
+=== Ebene 1 — Gesamtsystem
+
+[plantuml]
+----
+@startuml
+!theme plain
+package "Build-Pipeline" {
+  [build.js] as build
+  [concepts.json] as data
+  [paths.json] as pathdata
+  [translations.json] as trans
+}
+
+package "Website (dist/)" {
+  [Startseite] as index
+  [Konzept-Seiten] as concept
+  [Pfad-Seiten] as path
+  [Graph-Seite] as graph
+  [Redirect-Seiten\n(/go/, /ai/, /setup)] as redirects
+}
+
+package "Runtime (Browser)" {
+  [main.js] as main
+  [Cytoscape.js] as cy
+}
+
+data --> build
+pathdata --> build
+trans --> build
+build --> index
+build --> concept
+build --> path
+build --> graph
+build --> redirects
+
+main --> index : interaktiv
+main --> concept : interaktiv
+main --> path : interaktiv
+cy --> graph : interaktiv
+@enduml
+----
+
+=== Ebene 2 — build.js Module
+
+[cols="1,2"]
+|===
+| Funktion | Verantwortung
+
+| `generateConceptPage()` | Konzept-Detail-Seite mit Video-Embed, Skript, Timer, KI-Button
+| `generatePathPage()` | Pfad-Übersicht mit Konzeptliste, Fortschritt, Unlock-Banner
+| `generateIndexPage()` | Startseite mit Pfad-Karten, Gesamtfortschritt, Pfad-Chooser
+| `generateGraphPage()` | Graph-Seite mit Cytoscape-Config, Pfad-Filter
+| `generateGoRedirect()` | Minimale Redirect-Seite: Sprache → YouTube-URL
+| `generateAiRedirect()` | Minimale Redirect-Seite: KI-Präferenz → Chat-URL mit Prompt
+| `generateSetupPage()` | KI-Assistent-Auswahl mit localStorage-Persistierung
+| `buildGraphData()` | Knoten + Kanten aus concepts.json für Cytoscape
+| `buildUnlockManifest()` | Freischaltungsreihenfolge berechnen
+|===
+
+=== Ebene 2 — main.js Module
+
+[cols="1,2"]
+|===
+| Funktion | Verantwortung
+
+| `initLanguage()` | Sprache aus localStorage/Browser erkennen, Toggle-Handler
+| `initProgress()` | Fortschritts-Buttons, Timer, localStorage-Sync
+| `initUnlock()` | Tägliche Freischaltung, Pfad-Chooser, Banner
+| `initAiChat()` | KI-Dropdown, Prompt-Generierung, Chat-Öffnung
+| `initGraph()` | Cytoscape-Layout, Pfad-Filter, Node-Click-Handler
+|===
+
+== Laufzeitsicht
+
+=== Konzept lernen (Happy Path)
+
+[plantuml]
+----
+@startuml
+actor Lernender as user
+participant "Konzept-Seite" as page
+participant "main.js" as js
+database "localStorage" as ls
+participant "YouTube" as yt
+
+user -> page : öffnet /concept/abstraktion
+page -> yt : Iframe lädt Video
+page -> js : initProgress()
+js -> ls : getProgress()
+ls --> js : ["modul", "komponente"]
+
+alt Konzept noch nicht gelernt
+  js -> page : Timer starten (60s)
+  js -> page : Button deaktiviert
+  ... 60 Sekunden ...
+  js -> page : Button aktivieren
+  user -> page : klickt "Verstanden?"
+  js -> ls : setProgress([..., "abstraktion"])
+  js -> page : Fortschritt aktualisieren
+else Konzept bereits gelernt
+  js -> page : Button sofort aktiv ("Verstanden ✓")
+end
+
+user -> page : klickt "🤖 Tiefer einsteigen"
+js -> ls : getItem("sa60s-ai-chat")
+ls --> js : "claude"
+js -> user : öffnet claude.ai/new?q=...
+@enduml
+----
+
+=== QR-Code scannen (eBook-Leser)
+
+[plantuml]
+----
+@startuml
+actor "eBook-Leser" as reader
+participant "/go/{token}" as go
+participant "/ai/{token}" as ai
+database "localStorage" as ls
+participant "YouTube" as yt
+participant "KI-Chat" as chat
+
+== Video-QR ==
+reader -> go : scannt QR-Code
+go -> ls : getItem("sa60s-lang")
+ls --> go : "de"
+go -> yt : redirect zu YouTube Short
+
+== KI-QR ==
+reader -> ai : scannt QR-Code
+ai -> ls : getItem("sa60s-ai-chat")
+
+alt Präferenz gespeichert
+  ls --> ai : "claude"
+  ai -> chat : redirect mit Prompt
+else Keine Präferenz
+  ai -> reader : Auswahl-Buttons anzeigen
+  reader -> ai : wählt "ChatGPT"
+  ai -> ls : setItem("sa60s-ai-chat", "chatgpt")
+  ai -> chat : redirect mit Prompt
+end
+@enduml
+----
+
+== Verteilungssicht
+
+[plantuml]
+----
+@startuml
+!theme plain
+
+node "GitHub Repository\n(sa-in-60s.github.io)" as repo {
+  artifact "data/concepts.json"
+  artifact "data/paths.json"
+  artifact "scripts/build.js"
+  artifact "src/main.js"
+}
+
+node "GitHub Actions CI" as ci {
+  component "npm run build" as build
+  component "Lighthouse" as lh
+  component "Vitest" as test
+}
+
+node "GitHub Pages CDN" as cdn {
+  artifact "dist/" as dist {
+    artifact "*.html (156 Seiten)"
+    artifact "assets/*.js, *.css"
+    artifact "data/graph-data-*.json"
+  }
+}
+
+node "Browser (Client)" as browser {
+  component "SPA Runtime"
+  database "localStorage"
+}
+
+repo --> ci : push to main
+ci --> cdn : deploy
+cdn --> browser : HTTPS
+@enduml
+----
+
+== Querschnittliche Konzepte
+
+=== Datenhaltung — localStorage
+
+Alle Nutzerdaten liegen ausschließlich im Browser. Kein Backend, keine Cookies, keine Analytics.
+
+[cols="1,1,2"]
+|===
+| Key | Typ | Inhalt
+
+| `sa60s-lang` | String | "de" oder "en"
+| `sa60s-progress` | JSON Array | Liste gelernter Konzept-IDs
+| `sa60s-ai-chat` | String | "claude", "chatgpt" oder "perplexity"
+| `sa60s-unlock` | JSON (base64) | Freischaltungszustand (Datum, Phase, Pfade)
+|===
+
+*Resilience:* Alle localStorage-Zugriffe sind in try-catch gewrappt. Bei fehlender Verfügbarkeit (Private Browsing) degradiert die Seite graceful — alle Inhalte sind zugänglich, nur Persistierung fehlt.
+
+=== Internationalisierung (i18n)
+
+Zwei Sprachen (DE/EN) über ein einfaches Attribut-System:
+
+* HTML-Elemente tragen `data-de` und `data-en` Attribute
+* `main.js` togglet Sichtbarkeit basierend auf aktiver Sprache
+* Kein i18n-Framework nötig — Build-Zeit-Generierung
+* Video-Embeds sind sprachspezifisch (separate YouTube-URLs)
+
+=== Security
+
+* *Content Security Policy* — Strikte CSP im HTML-Head: `default-src 'self'`, nur YouTube-Iframes erlaubt
+* *Keine Nutzerdaten auf Server* — DSGVO by Design
+* *HTML Escaping* — Alle dynamischen Inhalte via `escapeHtml()` in build.js
+* *URL-Validierung* — YouTube-URLs strikt gegen Pattern geprüft
+* *robots.txt* — Redirect-Seiten und Nicht-Stamm-Konzepte blockiert
+
+=== Token-System für QR-Codes
+
+Jedes Konzept hat einen deterministischen 5-Zeichen-Token (SHA-256 Hash aus ID + Salt). Tokens sind:
+
+* Nicht erratbar (kein Muster erkennbar)
+* Stabil (ändern sich nie, da deterministisch)
+* Kurz genug zum Abtippen aus dem Buch
+* Rückwärtskompatibel (ID-basierte URLs funktionieren weiterhin als Alias)
+
+== Architekturentscheidungen
+
+=== ADR-001: Statische Seiten statt SPA
+
+*Status:* Akzeptiert
+
+*Kontext:* Die Website muss auf GitHub Pages laufen (kein Server-Side-Rendering).
+
+*Entscheidung:* Build-Zeit-Generierung aller HTML-Seiten via `build.js`. Vite bundled CSS/JS, build.js generiert 156+ HTML-Seiten.
+
+*Konsequenzen:*
+
+* (+) Maximale Performance, CDN-freundlich
+* (+) SEO: Jede Seite hat eigene URL, Meta-Tags, JSON-LD
+* (-) Kein dynamisches Routing — jede neue Seite muss gebaut werden
+* (-) Content-Updates erfordern Rebuild + Deploy
+
+=== ADR-002: localStorage statt Backend
+
+*Status:* Akzeptiert
+
+*Kontext:* Fortschritt, Sprache und KI-Präferenz müssen persistiert werden. Ein Backend wäre Overkill und DSGVO-relevant.
+
+*Entscheidung:* Alle Nutzerdaten in localStorage.
+
+*Konsequenzen:*
+
+* (+) Kein Backend nötig, keine DSGVO-Probleme
+* (+) Sofortige Persistierung ohne Netzwerk
+* (-) Fortschritt geht beim Browserwechsel verloren
+* (-) Private Browsing: kein Fortschritt
+* (-) Kein geräteübergreifendes Sync
+
+=== ADR-003: Kryptische Token-URLs für eBook-QR-Codes
+
+*Status:* Akzeptiert
+
+*Kontext:* QR-Codes im gedruckten eBook zeigen auf `/go/{id}` und `/ai/{id}`. Wenn IDs menschenlesbar sind (`/go/abstraktion`), können Leser das Muster erkennen und direkt URLs raten.
+
+*Entscheidung:* 5-Zeichen SHA-256 Tokens (`/go/49d87`), menschenlesbare Aliases bleiben als Fallback.
+
+*Konsequenzen:*
+
+* (+) URLs nicht erratbar
+* (+) Kurz genug zum Abtippen
+* (+) Bestehende Links brechen nicht (Aliases)
+* (-) Leicht höhere Komplexität in der Build-Pipeline
+
+=== ADR-004: Unlock-System mit täglicher Freischaltung
+
+*Status:* Akzeptiert
+
+*Kontext:* 143 Konzepte auf einmal überfordern. Schrittweises Lernen ist effektiver.
+
+*Entscheidung:* 1 Konzept pro Tag freischalten. Erst Stamm (10 Tage), dann gewählter Pfad.
+
+*Konsequenzen:*
+
+* (+) Nachhaltiges Lernen, keine Überforderung
+* (+) Gamification-Effekt (täglicher Fortschritt)
+* (-) Ungedulige Nutzer fühlen sich eingeschränkt
+* (-) Ohne localStorage kein Gating (bewusste Entscheidung)
+
+== Qualitätsanforderungen
+
+=== Qualitätsbaum
+
+[plantuml]
+----
+@startmindmap
+* Qualität
+** Performance
+*** Lighthouse Score >90
+*** Erste Seite <2s laden
+*** Lazy-Loading für Videos
+** Accessibility
+*** Lighthouse Score 100
+*** ARIA-Labels auf allen interaktiven Elementen
+*** Keyboard-Navigation
+** Zuverlässigkeit
+*** Graceful Degradation ohne JavaScript
+*** Graceful Degradation ohne localStorage
+*** Keine Runtime-Fehler bei korrupten Daten
+** Datenschutz
+*** Keine Server-seitigen Nutzerdaten
+*** Keine Cookies
+*** Keine Analytics/Tracking
+** Wartbarkeit
+*** Content via JSON (kein Code ändern für neue Konzepte)
+*** CI/CD mit automatischen Tests
+*** Lighthouse-Gates im CI
+@endmindmap
+----
+
+=== Qualitätsszenarien
+
+[cols="1,2,1,1"]
+|===
+| ID | Szenario | Metrik | Ziel
+
+| QS-1 | Ein Lernender öffnet die Startseite auf einem Smartphone mit 3G
+| Lighthouse Performance | >90
+
+| QS-2 | Ein Screenreader-Nutzer navigiert durch die Konzept-Seite
+| Lighthouse Accessibility | 100
+
+| QS-3 | Der Autor fügt ein neues Konzept hinzu (JSON + Video-URL)
+| Aufwand | <5 Minuten
+
+| QS-4 | localStorage ist nicht verfügbar (Private Mode)
+| Fehlerfreiheit | 0 JavaScript-Fehler, alle Inhalte zugänglich
+
+| QS-5 | Ein eBook-Leser scannt einen QR-Code auf dem Smartphone
+| Redirect-Zeit | <1s bis YouTube/KI-Chat
+|===
+
+== Risiken und technische Schulden
+
+[cols="1,2,2"]
+|===
+| Risiko | Auswirkung | Maßnahme
+
+| *YouTube ändert Embed-API* | Video-Einbettung bricht | Fallback-Platzhalter, regelmäßig testen
+| *localStorage voll* | Fortschritt geht verloren | Datenvolumen minimal (~1KB), Fehlermeldung
+| *KI-Chat-URLs ändern sich* | Deep-Dive-Links brechen | Redirect-Seiten als Indirection, leicht anpassbar
+| *eBook gedruckt mit falschen QR-Codes* | Links funktionieren nicht | Token-URLs sind deterministisch und stabil
+| *Zu viele Konzepte für Graph* | Performance-Probleme | Cytoscape optimiert für 150+ Knoten, Pfad-Filter
+|===
+
+== Glossar
+
+[cols="1,2"]
+|===
+| Begriff | Bedeutung
+
+| *Konzept* | Ein Software-Architektur-Begriff mit Video, Skript und Merksatz
+| *Pfad / Lernpfad* | Thematische Gruppierung von Konzepten (z.B. Microservices, DDD)
+| *Stamm* | Die 9 Grundlagen-Konzepte die jeder zuerst lernen sollte
+| *Token* | 5-Zeichen Hex-Hash eines Konzept-IDs für QR-Code-URLs
+| *Merksatz* | Einprägsamer Satz der das Konzept auf den Punkt bringt
+| *Deep-Dive* | KI-gestützte Vertiefung über den 60-Sekunden-Inhalt hinaus
+| *Unlock* | Tägliche Freischaltung eines neuen Konzepts
+|===
