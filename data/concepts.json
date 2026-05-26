@@ -1489,7 +1489,7 @@
     "requires": [
       "authentifizierung-vs-autorisierung"
     ],
-    "youtube_de": "https://youtube.com/shorts/v-RiYD-IRNs",
+    "youtube_de": "https://youtube.com/shorts/2OvTyv-buAo",
     "youtube_en": "https://youtube.com/shorts/lxzsGvd6U_w",
     "script_de": "Du baust eine App und brauchst Login. Also speicherst du Passwörter selbst — gehasht natürlich. Dann brauchst du Passwort-Reset, Account-Sperrung, Zwei-Faktor. Plötzlich baust du ein halbes Identity-System. Das muss nicht sein.\n\nOAuth 2.0 delegiert die Autorisierung an einen spezialisierten Dienst. OIDC — OpenID Connect — baut darauf auf und fügt Authentifizierung hinzu. Zusammen erlauben sie: „Melde dich bei Google an und gib meiner App Zugriff auf deinen Namen.\"\n\nEs ist wie beim Ausweisen: OIDC sagt: „Das ist Max.\" OAuth sagt: „Max erlaubt Zugriff auf seinen Kalender.\" OIDC klärt die Identität — OAuth regelt die Berechtigung. Beides zusammen ergibt sicheren Zugriff.\n\nDer Ablauf: Deine App leitet den Nutzer zum Identity Provider. Der Nutzer meldet sich dort an. Deine App bekommt ein Token zurück — keinen Benutzernamen, kein Passwort. Das Token sagt: „Dieser Nutzer ist authentifiziert und hat diese Berechtigungen.\"\n\nMerke: OAuth und OIDC bedeuten — lass die Login-Arbeit den Spezialisten machen.",
     "merksatz_de": "OAuth und OIDC bedeuten — lass die Login-Arbeit den Spezialisten machen.",
@@ -1579,7 +1579,7 @@
     "requires": [
       "security-architecture-pfad"
     ],
-    "youtube_de": "https://youtube.com/shorts/6qWqaaqxpZg",
+    "youtube_de": "https://youtube.com/shorts/XPldIYmwLAA",
     "youtube_en": "https://youtube.com/shorts/ij6mC_FTx8g",
     "script_de": "Du installierst eine npm-Bibliothek mit 500 Sternen auf GitHub. Drei Wochen später stellt sich heraus: Ein Maintainer wurde kompromittiert und hat Schadcode in ein Update geschmuggelt. Dein Build hat es automatisch gezogen. Dein System ist infiziert.\n\nSupply Chain Security schützt die gesamte Lieferkette deiner Software: Abhängigkeiten, Build-Prozesse, Container-Images, Deployment-Pipelines. Nicht nur dein Code muss sicher sein — alles was du verwendest auch.\n\nDenk an Lebensmittel. Du kontrollierst nicht nur dein Restaurant, sondern auch den Lieferanten, den Transport und die Lagerung. Wenn der Lieferant schummelt, hilft dir die sauberste Küche nicht.\n\nKonkret: Nutze Lock-Dateien und prüfe Hashes von Abhängigkeiten. Scanne Container-Images auf Schwachstellen. Signiere deine Build-Artefakte. Tools wie Dependabot, Snyk oder Sigstore automatisieren das. Und eine SBOM — eine Software-Stückliste — zeigt dir auf einen Blick, welche Komponenten in deinem System stecken.\n\nMerke: Supply Chain Security heißt — vertraue keiner Abhängigkeit blind, auch nicht der beliebtesten.",
     "merksatz_de": "Supply Chain Security heißt — vertraue keiner Abhängigkeit blind, auch nicht der beliebtesten.",
