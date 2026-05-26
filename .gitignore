@@ -2,3 +2,11 @@ node_modules/
 dist/
 .vite/
 *.log
+
+# Stale build artifacts from when builds wrote to public/.
+# Current build (scripts/build.js) writes to dist/.
+/public/index.html
+/public/sitemap.xml
+/public/robots.txt
+/public/concept/
+/public/path/
