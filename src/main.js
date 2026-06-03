@@ -34,6 +34,11 @@ function applyLanguage(lang) {
   document.querySelectorAll(`[data-${lang}]`).forEach((el) => {
     el.textContent = el.getAttribute(`data-${lang}`)
   })
+
+  // Update aria-label attributes from data-aria-label-{lang}
+  document.querySelectorAll(`[data-aria-label-${lang}]`).forEach((el) => {
+    el.setAttribute('aria-label', el.getAttribute(`data-aria-label-${lang}`))
+  })
   const toggle = document.getElementById('lang-toggle')
   if (toggle) toggle.textContent = lang === 'de' ? 'EN' : 'DE'
 
