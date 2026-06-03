@@ -53,7 +53,7 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://sa-in-60s.goatcounter.com; frame-src https://www.youtube.com; connect-src 'self' https://sa-in-60s.goatcounter.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#0f172a">
   <link rel="icon" type="image/png" href="/favicon.png">
@@ -90,6 +90,7 @@ function htmlTemplate({ title, description, body, lang = 'de', canonicalPath = '
     <p class="mt-3"><a href="https://github.com/SA-in-60s/sa-in-60s.github.io/issues/new" target="_blank" rel="noopener" class="hover:text-accent-cyan" data-de="Fehler gefunden? Verbesserungsvorschlag?" data-en="Found a bug? Suggestion?">Fehler gefunden? Verbesserungsvorschlag?</a></p>
   </footer>
   ${jsTag}
+  <script data-goatcounter="https://sa-in-60s.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>`
 }

@@ -261,6 +261,18 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('frame-src https://www.youtube.com;')
     })
 
+    it('includes GoatCounter analytics snippet', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('data-goatcounter="https://sa-in-60s.goatcounter.com/count"')
+      expect(html).toContain('//gc.zgo.at/count.js')
+    })
+
+    it('CSP allows GoatCounter origins', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      expect(html).toContain('https://gc.zgo.at')
+      expect(html).toContain('https://sa-in-60s.goatcounter.com')
+    })
+
     it('includes canonical URL', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
       expect(html).toContain('rel="canonical"')
