@@ -741,9 +741,7 @@ if (process.argv[1] === __filename) {
     writeFileSync(resolve(setupDir, 'index.html'), generateSetupPage())
     const tokenCount = concepts.filter((c) => c.token).length
     const aliasCount = tokenCount * 2
-    console.warn(
-      `Generated ${tokenCount * 2 + aliasCount + 1} redirect pages (/go/, /ai/, /setup)`
-    )
+    console.warn(`Generated ${tokenCount * 2 + aliasCount + 1} redirect pages (/go/, /ai/, /setup)`)
 
     // Generate sitemap (only stem concepts + paths + main pages)
     const stemConcepts = concepts.filter((c) => c.path === 'stem')
