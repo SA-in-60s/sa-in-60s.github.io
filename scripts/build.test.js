@@ -264,7 +264,9 @@ describe('UC-7: Build script — HTML generation', () => {
     it('includes GoatCounter analytics snippet', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
       expect(html).toContain('data-goatcounter="https://sa-in-60s.goatcounter.com/count"')
-      expect(html).toContain('//gc.zgo.at/count.js')
+      expect(html).toContain('https://gc.zgo.at/count.js')
+      // Must use explicit https://, not scheme-relative // (CSP only allows https://gc.zgo.at)
+      expect(html).not.toMatch(/src="\/\/gc\.zgo\.at/)
     })
 
     it('CSP allows GoatCounter origins', () => {
@@ -399,12 +401,16 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('data-progress-total="3"')
     })
 
-    it('a11y: progressbar has aria-label (aria-progressbar-name)', () => {
+    it('a11y: progressbar has aria-label and i18n labels (aria-progressbar-name)', () => {
       const html = generatePathPage(samplePath, [], translations)
       // role="progressbar" without aria-label fails Lighthouse aria-progressbar-name
       const matches = html.match(/role="progressbar"[^>]*/g) || []
       expect(matches.length).toBeGreaterThan(0)
-      matches.forEach((m) => expect(m).toMatch(/aria-label="/))
+      matches.forEach((m) => {
+        expect(m).toMatch(/aria-label="/)
+        expect(m).toMatch(/data-aria-label-de="/)
+        expect(m).toMatch(/data-aria-label-en="/)
+      })
     })
   })
 
@@ -442,11 +448,15 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('data-progress-total=')
     })
 
-    it('a11y: all progressbars have aria-label (aria-progressbar-name)', () => {
+    it('a11y: all progressbars have aria-label and i18n labels (aria-progressbar-name)', () => {
       const html = generateIndexPage([], [samplePath], translations)
       const matches = html.match(/role="progressbar"[^>]*/g) || []
       expect(matches.length).toBeGreaterThan(0)
-      matches.forEach((m) => expect(m).toMatch(/aria-label="/))
+      matches.forEach((m) => {
+        expect(m).toMatch(/aria-label="/)
+        expect(m).toMatch(/data-aria-label-de="/)
+        expect(m).toMatch(/data-aria-label-en="/)
+      })
     })
   })
 
