@@ -307,13 +307,13 @@ export function generateConceptPage(concept, allConcepts, allPaths, translations
 
       <div class="grid md:grid-cols-2 gap-6 mb-8">
         <div>
-          <h3 class="text-sm font-semibold text-text-muted mb-1" data-de="${escapeHtml(t.concept_requires)}" data-en="${escapeHtml(translations.en.concept_requires)}">${escapeHtml(t.concept_requires)}</h3>
+          <h2 class="text-sm font-semibold text-text-muted mb-1" data-de="${escapeHtml(t.concept_requires)}" data-en="${escapeHtml(translations.en.concept_requires)}">${escapeHtml(t.concept_requires)}</h2>
           <p>${requiresHtml}</p>
         </div>
         ${
           leadsToHtml
             ? `<div>
-          <h3 class="text-sm font-semibold text-text-muted mb-1" data-de="${escapeHtml(t.concept_leads_to)}" data-en="${escapeHtml(translations.en.concept_leads_to)}">${escapeHtml(t.concept_leads_to)}</h3>
+          <h2 class="text-sm font-semibold text-text-muted mb-1" data-de="${escapeHtml(t.concept_leads_to)}" data-en="${escapeHtml(translations.en.concept_leads_to)}">${escapeHtml(t.concept_leads_to)}</h2>
           <p>${leadsToHtml}</p>
         </div>`
             : ''
@@ -362,7 +362,7 @@ export function generatePathPage(
     <div class="mb-8">
       <h1 class="text-3xl font-bold mb-2" style="border-left: 4px solid ${escapeHtml(path.color)}; padding-left: 0.75rem;" data-de="${escapeHtml(path.name_de)}" data-en="${escapeHtml(path.name_en)}">${escapeHtml(path.name_de)}</h1>
       <p class="text-text-muted" data-de="${escapeHtml(path.description_de)}" data-en="${escapeHtml(path.description_en)}">${escapeHtml(path.description_de)}</p>
-      <p class="text-sm text-text-muted mt-1"><span data-progress-path="${escapeHtml(path.id)}" data-progress-concepts='${JSON.stringify(path.concepts)}' data-progress-total="${path.concepts.length}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${path.concepts.length}">0/${path.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
+      <p class="text-sm text-text-muted mt-1"><span data-progress-path="${escapeHtml(path.id)}" data-progress-concepts='${JSON.stringify(path.concepts)}' data-progress-total="${path.concepts.length}" role="progressbar" aria-label="Fortschritt: ${escapeHtml(path.name_de)}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${path.concepts.length}">0/${path.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
     </div>
     <div id="stem-hint" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-orange text-accent-orange text-sm" data-stem-ids='${JSON.stringify(stemConceptIds)}' data-stem-total="${stemConceptIds.length}" data-de="${escapeHtml(t.stem_incomplete_hint)}" data-en="${escapeHtml(translations.en.stem_incomplete_hint)}"></div>
     <div id="unlock-banner" class="hidden mb-6 p-3 bg-bg-card rounded-lg border border-accent-cyan text-accent-cyan text-sm" data-de="${escapeHtml(t.unlock_banner_done)}" data-en="${escapeHtml(translations.en.unlock_banner_done)}"></div>
@@ -421,7 +421,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
       <a href="/path/${escapeHtml(p.id)}" data-path-id="${escapeHtml(p.id)}" class="p-4 bg-bg-card rounded-lg hover:border-accent-cyan border border-transparent transition" style="border-left: 4px solid ${escapeHtml(p.color)};">
         <h3 class="font-bold" data-de="${escapeHtml(p.name_de)}" data-en="${escapeHtml(p.name_en)}">${escapeHtml(p.name_de)}</h3>
         <p class="text-sm text-text-muted" data-de="${escapeHtml(p.description_de)}" data-en="${escapeHtml(p.description_en)}">${escapeHtml(p.description_de)}</p>
-        <p class="text-xs text-text-muted/60 mt-1">${p.concepts
+        <p class="text-xs text-text-muted mt-1">${p.concepts
           .slice(1, 4)
           .map((cid) => {
             const cc = allConcepts.find((x) => x.id === cid)
@@ -429,7 +429,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
           })
           .filter(Boolean)
           .join(' · ')}</p>
-        <p class="text-xs text-text-muted mt-2"><span data-progress-path="${escapeHtml(p.id)}" data-progress-concepts='${JSON.stringify(p.concepts)}' data-progress-total="${p.concepts.length}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${p.concepts.length}">0/${p.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
+        <p class="text-xs text-text-muted mt-2"><span data-progress-path="${escapeHtml(p.id)}" data-progress-concepts='${JSON.stringify(p.concepts)}' data-progress-total="${p.concepts.length}" role="progressbar" aria-label="Fortschritt: ${escapeHtml(p.name_de)}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${p.concepts.length}">0/${p.concepts.length}</span> <span data-de="${escapeHtml(t.path_concepts)}" data-en="${escapeHtml(translations.en.path_concepts)}">${escapeHtml(t.path_concepts)}</span></p>
       </a>`
     )
     .join('\n')
@@ -442,7 +442,7 @@ export function generateIndexPage(allConcepts, allPaths, translations) {
       <p class="text-text-muted text-sm mt-2 max-w-lg mx-auto" data-de="Lerne Software-Architektur in 60-Sekunden-Videos. Starte mit den Grundlagen, dann w&#xE4;hle deinen Lernpfad." data-en="Learn software architecture in 60-second videos. Start with the basics, then choose your learning path.">Lerne Software-Architektur in 60-Sekunden-Videos. Starte mit den Grundlagen, dann wähle deinen Lernpfad.</p>
       <div class="mt-3 max-w-xs mx-auto">
         <div class="h-2 bg-bg-card rounded-full overflow-hidden"><div id="total-progress-bar" class="h-full bg-accent-cyan transition-all" style="width: 0%"></div></div>
-        <p class="text-text-muted text-xs mt-1"><span id="total-progress" data-progress-total="${totalConcepts}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
+        <p class="text-text-muted text-xs mt-1"><span id="total-progress" data-progress-total="${totalConcepts}" role="progressbar" aria-label="Gesamtfortschritt" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${totalConcepts}">0/${totalConcepts}</span> <span data-de="gesehen" data-en="seen">gesehen</span></p>
       </div>
     </section>
 ${

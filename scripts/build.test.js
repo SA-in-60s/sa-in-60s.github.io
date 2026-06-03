@@ -273,6 +273,12 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('https://sa-in-60s.goatcounter.com')
     })
 
+    it('a11y: requires/leads-to labels use h2 not h3 (heading-order)', () => {
+      const html = generateConceptPage(sampleConcept, [], [], translations)
+      // Lighthouse heading-order: must not skip h1 -> h3. These labels follow h1 directly.
+      expect(html).toMatch(/<h2[^>]*data-de="Voraussetzungen"/)
+    })
+
     it('includes canonical URL', () => {
       const html = generateConceptPage(sampleConcept, [], [], translations)
       expect(html).toContain('rel="canonical"')
@@ -392,6 +398,14 @@ describe('UC-7: Build script — HTML generation', () => {
       expect(html).toContain('data-progress-path="microservices"')
       expect(html).toContain('data-progress-total="3"')
     })
+
+    it('a11y: progressbar has aria-label (aria-progressbar-name)', () => {
+      const html = generatePathPage(samplePath, [], translations)
+      // role="progressbar" without aria-label fails Lighthouse aria-progressbar-name
+      const matches = html.match(/role="progressbar"[^>]*/g) || []
+      expect(matches.length).toBeGreaterThan(0)
+      matches.forEach((m) => expect(m).toMatch(/aria-label="/))
+    })
   })
 
   describe('generateIndexPage()', () => {
@@ -426,6 +440,13 @@ describe('UC-7: Build script — HTML generation', () => {
       const html = generateIndexPage(concepts, [samplePath], translations)
       expect(html).toContain('id="total-progress"')
       expect(html).toContain('data-progress-total=')
+    })
+
+    it('a11y: all progressbars have aria-label (aria-progressbar-name)', () => {
+      const html = generateIndexPage([], [samplePath], translations)
+      const matches = html.match(/role="progressbar"[^>]*/g) || []
+      expect(matches.length).toBeGreaterThan(0)
+      matches.forEach((m) => expect(m).toMatch(/aria-label="/))
     })
   })
 
