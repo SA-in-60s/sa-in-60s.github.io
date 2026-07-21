@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const BASE_URL = 'https://sa-in-60s.github.io'
+const GOATCOUNTER_COUNT = 'https://sa-in-60s.goatcounter.com/count'
 
 export function escapeHtml(str) {
   return String(str)
@@ -585,6 +586,15 @@ export function generateGoRedirect(concept) {
 <body><p><a href="${escapeHtml(target)}" style="color:#22d3ee">${escapeHtml(concept.title_de)} — Video ansehen</a></p></body></html>`
 }
 
+// Zaehlpixel statt Zaehl-Skript: Die Seite springt fuer wiederkehrende Besucher
+// per JavaScript sofort zum gewaehlten KI-Assistenten. Ein asynchrones Skript
+// waere da oft zu spaet. Das Pixel laedt vor jedem JavaScript und funktioniert
+// auch ohne. Eigener Pfad /ai/{token}, damit QR-Scans getrennt vom organischen
+// Traffic sichtbar werden.
+function goatcounterPixel(path) {
+  return `<img src="${GOATCOUNTER_COUNT}?p=${encodeURIComponent(path)}" alt="" width="1" height="1" style="position:absolute;left:-9999px" referrerpolicy="no-referrer-when-downgrade">`
+}
+
 export function generateAiRedirect(concept) {
   const promptDe = `Ich habe gerade ein 60-Sekunden-Video über "${concept.title_de}" auf sa-in-60s.github.io gesehen.\n\nErkläre mir das Konzept tiefer:\n- Was sind typische Praxisbeispiele?\n- Welche Vor- und Nachteile gibt es?\n- Wie hängt es mit verwandten Konzepten zusammen?\n- Wann sollte man es einsetzen — und wann nicht?`
   const promptEn = `I just watched a 60-second video about "${concept.title_en}" on sa-in-60s.github.io.\n\nExplain this concept in more depth:\n- What are typical real-world examples?\n- What are the pros and cons?\n- How does it relate to other concepts?\n- When should you use it — and when not?`
@@ -602,7 +612,7 @@ a{display:block;padding:1rem 2rem;margin:0.5rem;border:2px solid #94a3b8;border-
   if(saved&&chats[saved])window.location.replace(chats[saved](prompt));
 })();
 </script></head>
-<body><div>
+<body>${goatcounterPixel(`/ai/${concept.token || concept.id}`)}<div>
 <p style="margin-bottom:1rem">${escapeHtml(concept.title_de)} — KI-Vertiefung</p>
 <p style="font-size:0.875rem;color:#94a3b8;margin-bottom:1rem">Wähle deinen KI-Assistenten:</p>
 <a href="#" onclick="localStorage.setItem('sa60s-ai-chat','claude');location.reload()">Claude</a>
