@@ -9,6 +9,7 @@ import {
   youtubeEmbed,
   escapeHtml,
   validateYoutubeUrl,
+  generateGoRedirect,
 } from './build.js'
 
 const sampleConcept = {
@@ -549,5 +550,24 @@ describe('UC-7: Build script — HTML generation', () => {
         color: '#6495ED',
       })
     })
+  })
+})
+
+describe('generateGoRedirect()', () => {
+  it('leitet auf die Konzeptseite, nicht direkt zu YouTube', () => {
+    const html = generateGoRedirect(sampleConcept)
+    expect(html).toContain('/concept/microservices')
+    expect(html).not.toContain('youtube.com')
+    expect(html).not.toContain('youtu.be')
+  })
+
+  it('funktioniert ohne JavaScript (statischer Meta-Refresh)', () => {
+    const html = generateGoRedirect(sampleConcept)
+    expect(html).toMatch(/<meta http-equiv="refresh"[^>]*\/concept\/microservices/)
+  })
+
+  it('bietet auch bei blockiertem Refresh einen sichtbaren Link an', () => {
+    const html = generateGoRedirect(sampleConcept)
+    expect(html).toMatch(/<a href="[^"]*\/concept\/microservices"/)
   })
 })
