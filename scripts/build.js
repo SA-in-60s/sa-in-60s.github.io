@@ -567,24 +567,22 @@ export function generateGraphPage(
   })
 }
 
+// Der QR-Code im Buch fuehrt hierher. Frueher sprang diese Seite per JavaScript
+// direkt zu YouTube. Das hatte zwei Nachteile: der Besucher verliess die Seite,
+// bevor GoatCounter zaehlen konnte, und das Video lief ausserhalb des eigenen
+// Kontexts. Jetzt geht es auf die Konzeptseite, die das Video ohnehin einbettet,
+// den zugehoerigen Text zeigt und das GoatCounter-Snippet traegt.
+// Statischer Meta-Refresh statt JavaScript, damit es auch ohne JS funktioniert.
 export function generateGoRedirect(concept) {
-  const deUrl = concept.youtube_de || ''
-  const enUrl = concept.youtube_en || deUrl
-  const fallback = `${BASE_URL}/concept/${concept.id}`
+  const target = `${BASE_URL}/concept/${concept.id}`
   return `<!doctype html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="refresh" content="0; url=${escapeHtml(target)}">
+<link rel="canonical" href="${escapeHtml(target)}">
 <title>${escapeHtml(concept.title_de)} — Video</title>
 <style>body{font-family:sans-serif;background:#0f172a;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center}</style>
-<script>
-(function(){
-  var lang=(localStorage.getItem('sa60s-lang')||(navigator.language||'').slice(0,2)==='de'?'de':'en');
-  var de=${JSON.stringify(deUrl)};
-  var en=${JSON.stringify(enUrl)};
-  var url=(lang==='de'?de:en)||de||en;
-  if(url)window.location.replace(url);
-})();
-</script></head>
-<body><p><a href="${escapeHtml(fallback)}" style="color:#22d3ee">${escapeHtml(concept.title_de)} — Video</a></p></body></html>`
+</head>
+<body><p><a href="${escapeHtml(target)}" style="color:#22d3ee">${escapeHtml(concept.title_de)} — Video ansehen</a></p></body></html>`
 }
 
 export function generateAiRedirect(concept) {
