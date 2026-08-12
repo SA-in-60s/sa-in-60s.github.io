@@ -10,6 +10,7 @@ import {
   escapeHtml,
   validateYoutubeUrl,
   generateGoRedirect,
+  generateAiRedirect,
 } from './build.js'
 
 const sampleConcept = {
@@ -569,5 +570,24 @@ describe('generateGoRedirect()', () => {
   it('bietet auch bei blockiertem Refresh einen sichtbaren Link an', () => {
     const html = generateGoRedirect(sampleConcept)
     expect(html).toMatch(/<a href="[^"]*\/concept\/microservices"/)
+  })
+})
+
+describe('generateAiRedirect()', () => {
+  it('zählt den QR-Scan über ein GoatCounter-Pixel', () => {
+    const html = generateAiRedirect(sampleConcept)
+    expect(html).toContain('goatcounter.com/count')
+  })
+
+  it('zählt unter einem eigenen Pfad, getrennt vom organischen Traffic', () => {
+    const html = generateAiRedirect(sampleConcept)
+    expect(html).toMatch(/count\?p=%2Fai%2Fmicroservices|count\?p=\/ai\/microservices/)
+  })
+
+  it('bietet weiterhin alle drei KI-Assistenten an', () => {
+    const html = generateAiRedirect(sampleConcept)
+    expect(html).toContain('claude.ai')
+    expect(html).toContain('chatgpt.com')
+    expect(html).toContain('perplexity.ai')
   })
 })
